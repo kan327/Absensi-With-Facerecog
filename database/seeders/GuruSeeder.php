@@ -17,6 +17,6 @@ class GuruSeeder extends Seeder
      */
     public function run()
     {
-
+        
     }
 }
