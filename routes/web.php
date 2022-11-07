@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\AttendanceDatamasterController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DataPersonController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
@@ -34,3 +36,16 @@ Route::controller(LoginController::class)->group(function(){
 
 // Add Guru
 Route::get('/absensi', [RegisterController::class, 'index'])->middleware("auth:user");
+
+// Tampilan data siswa dan form tambah siswa
+Route::controller(DataPersonController::class)->group(function(){
+    Route::get("/siswa", "index");
+    Route::get("/siswa_form", "form");
+});
+
+Route::controller(AttendanceDatamasterController::class)->group(function(){
+    Route::get("/absen_masuk", "absen_masuk");
+    Route::get("/absen_pulang", "absen_pulang");
+    Route::get("/cam_masuk", "absen_cam_masuk");
+    Route::get("/cam_pulang", "absen_cam_pulang");
+});

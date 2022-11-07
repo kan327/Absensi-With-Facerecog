@@ -60,9 +60,11 @@
         <div class="{{ ($title === "absensi") ? 'mt-10 font-semibold' : 'mt-10 text-unselect'}}"><span class="material-symbols-outlined -mb-3 mr-5">library_books</span>
             Absen
         </div></a>
-        <div class="{{ ($title === "data_siswa") ? 'mt-10 font-semibold' : 'mt-10 text-unselect' }}"><span class="material-symbols-outlined -mb-3 mr-5">assignment_ind</span>
-            Data Siswa
-        </div>
+        <a href="/siswa">
+            <div class="{{ ($title === "data_siswa") ? 'mt-10 font-semibold' : 'mt-10 text-unselect' }}"><span class="material-symbols-outlined -mb-3 mr-5">assignment_ind</span>
+                Data Siswa
+            </div>
+        </a>
         <div class="{{ ($title === "laporan") ? 'mt-10 font-semibold' : 'mt-10 text-unselect' }}"><span class="material-symbols-outlined -mb-3 mr-5">sms_failed</span>
             Laporan
         </div>
