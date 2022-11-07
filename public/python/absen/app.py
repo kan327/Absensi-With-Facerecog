@@ -54,7 +54,7 @@ def generate_dataset(nbr):
         if face_cropped(img) is not None:
             count_img += 1
             img_id += 1
-            face = cv2.resize(face_cropped(img), (1000, 700))
+            face = cv2.resize(face_cropped(img), (600, 700))
             face = cv2.cvtColor(face, cv2.COLOR_BGR2GRAY)
  
             file_name_path = "dataset/"+nbr+"."+ str(img_id) + ".jpg"
