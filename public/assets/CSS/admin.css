@@ -41,8 +41,8 @@
     box-shadow: 7px 7px 0px rgba(0, 0, 0, 0.25);
     background-color: white;
     border-radius: 10px;
-    width: 70vw;
-    height: fit-content;
+    width: 70%;
+    height: 70%;
 }
 
 .one {
@@ -51,15 +51,10 @@
     align-items: center;
     width: 50%;
     height: 100%;
-}
 
-.one img{
-    width: 85%;
-    height: fit-content;
 }
 
 .two {
-    margin-top: 3%;
     padding: 40px;
     width: 50%;
     height: 100%;
@@ -77,10 +72,9 @@
 
 .input1 {
     display:flex ;
-    margin-top: 24px;
-    padding: 6px;
-    border-radius: 5px;
-    align-items: center;
+    margin-top: 40px;
+    padding: 10px;
+    border-radius: 10px;
     width: 100%;
     height: fit-content;
     border: #b9b9b9 1px solid;
@@ -88,10 +82,9 @@
 
 .input2{
     display:flex ;
-    margin-top: 24px;
-    padding: 6px;
-    border-radius: 5px;
-    align-items: center;
+    margin-top: 40px;
+    padding: 10px;
+    border-radius: 10px;
     width: 100%;
     height: fit-content;
     border: #b9b9b9 1px solid;
@@ -99,10 +92,10 @@
 
 .input{
     padding-left: 10px;
-    font-size: 16px;
+    font-size: 20px;
     border: none;
     height: 30px;
-    width: 25vw;
+    width: 100%;
 }
 
 .input:focus{
@@ -110,33 +103,16 @@
 }
 
 button{
-    margin-top: 32px;
-    border-radius: 5px;
+    margin-top: 50px;
+    border-radius: 10px;
     width: 100%;
     height: 40px;
     font-size: 20px;
     color: white;
     background-color: #349DFD;
     border: none;
-    cursor: pointer;
 }
 
 button:hover{
     background-color: #428ae1;
-}
-
-.require{
-    color: red; 
-    font-weight: bold;
-}
-
-.alert{
-    padding: 3%;
-    margin-top: 3%;
-    margin-bottom: -2%;
-    border-radius: 5px;
-    background-color: #D21D26;
-    color: white;
-    font-weight: bold;
-
 }

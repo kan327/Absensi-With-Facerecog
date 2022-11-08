@@ -25,9 +25,20 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         DB::table('users')->insert([
+            "nip"=>678678676,
+            "name"=>"Fathir Akmal",
             "username"=>"Patir",
             "email"=>"patir@gmail.com",
             "no_hp"=> "82125662178",
+            "password"=>Hash::make('123456')
+        ]);
+
+        DB::table('users')->insert([
+            "nip"=>678678678,
+            "name"=>"Ridho Rizqi",
+            "username"=>"Ridho",
+            "email"=>"ridho@gmail.com",
+            "no_hp"=> "822342342",
             "password"=>Hash::make('123456')
         ]);
 

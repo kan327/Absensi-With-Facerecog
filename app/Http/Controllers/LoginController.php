@@ -56,11 +56,18 @@ class LoginController extends Controller
             "password.min" => "Password harus terdiri minimal dari 5 karakter!"
         ]);
 
+        // Menangkap data guru
+        $data = User::all();
+
         if(Auth::guard("admin")->attempt([
             "username" => $validasi['username'],
             "password" => $validasi['password']
         ])){
-            return view("adminDashboard");
+            return view("layouts.mainAdmin",[
+                "title" => "dashboard_admin",
+                "data" =>  $data,
+                "no" => 1
+            ]);
         }else{
             return redirect("/login_admin")->with("wrong", "Username atau password tidak cocok ! ");
         }

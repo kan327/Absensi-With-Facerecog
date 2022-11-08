@@ -23,6 +23,7 @@ body{
 .web-hover:hover ::-webkit-scrollbar-thumb{
     background-color: #1061FF;
 }
+/* cstkei.alert.js */
 @keyframes uper {
     0%{left: 150%}
     100%{left: 75%}

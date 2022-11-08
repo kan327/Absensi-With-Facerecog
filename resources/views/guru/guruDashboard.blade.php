@@ -43,7 +43,7 @@
                         <tr>
                             <td>NIP</td>
                             <td>:</td>
-                            <td class="break-words max-w-[150px]"> {{ auth()->guard("user")->user()->id }}</td>
+                            <td class="break-words max-w-[150px]"> {{ auth()->guard("user")->user()->nip }}</td>
                         </tr>
                         <tr>
                             <td>Nama</td>

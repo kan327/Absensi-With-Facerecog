@@ -71,11 +71,11 @@
     </div>
 
     @if ($title === "dashboard")
-        @include('homeSiswa')
+        @include('guru.guruDashboard')
     @endif
 
     @if ($title === "absensi")
-        @include('absensi')
+        @include('guru.absensi')
     @endif
 
     <!-- custom alert -->

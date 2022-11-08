@@ -1,10 +1,11 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AttendanceDatamasterController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DataPersonController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\GuruController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,9 +23,6 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-// Home
-Route::get('/', [DashboardController::class, 'index'])->middleware("auth:user");
-
 // Login
 Route::controller(LoginController::class)->group(function(){
     Route::get('/login', "index")->name('login')->middleware('guest:user');
@@ -34,8 +32,17 @@ Route::controller(LoginController::class)->group(function(){
     Route::post('/logout', "logout");
 });
 
-// Add Guru
-Route::get('/absensi', [RegisterController::class, 'index'])->middleware("auth:user");
+// Home
+Route::controller(DashboardController::class)->group(function(){
+    Route::get("/" , "index")->middleware("auth:user");
+    Route::get("/admin", "index_admin")->middleware("auth:admin");
+});
+
+// Guru 
+Route::get('/absensi', [GuruController::class, 'index'])->middleware("auth:user");
+
+// Admin
+Route::get("/admin/tambah_guru", [AdminController::class, "tambah_guru_view"]);
 
 // Tampilan data siswa dan form tambah siswa
 Route::controller(DataPersonController::class)->group(function(){

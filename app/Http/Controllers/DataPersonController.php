@@ -7,21 +7,21 @@ use Illuminate\Http\Request;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 
-$process = new Process(['python ../../../public/python/app.py']);
-$process->setTimeout(null);
-$process->run();
-
-if(!$process->isSuccessful())
-{
-    throw new ProcessFailedException($process);
-}
-
-echo $process->getOutput();
-
 class DataPersonController extends Controller
 {
+    // use Process;
     public function index()
     {
+        $process = new Process(['python ','../../../app/test.py']);
+        $process->start();
+
+        // if(!$process->isSuccessful())
+        // {
+        //     throw new ProcessFailedException($process);
+        // }
+
+        $data =  $process->getOutput();
+        dd($data);
         return view("templates.mastersiswa");
     }
 

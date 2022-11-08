@@ -12,4 +12,11 @@ class DashboardController extends Controller
             "title"=>"dashboard"
         ]);
     }
+
+    public function index_admin()
+    {
+        return view('layouts.mainAdmin', [
+            "title"=>"dashboard"
+        ]);
+    }
 }
