@@ -4,7 +4,7 @@
     <!-- <div class="mx-auto w-[1102px] flex"> use this when u want responsive design -->
     <!-- left content -->
     <div class="w-[65%]">
-        <h1 class="text-3xl text-blue font-bold mt-32 mb-5 font-[Montserrat]">Welcome, Admin!</h1>
+        <h1 class="text-3xl text-blue font-bold mt-32 mb-5 font-[Montserrat]">Welcome, {{ auth()->guard("admin")->user()->username }}!</h1>
         <!-- box -->
         <div class="flex justify-between ">
             <!-- box 1 -->
@@ -14,7 +14,7 @@
                 </div>
                 <div class="mt-3 ml-5 w-fit cursor-pointer">
                     <h1 class="w-fit font-medium font-[Montserrat] select-none">Total Kelas</h1>
-                    <int class="w-fit font-bold text-2xl">24</int>
+                    <int class="w-fit font-bold text-2xl">{{ count($kelas) }}</int>
                 </div>
                 <img class="absolute bottom-0 right-0 max-w-[35%] -mr-1 " src="{{ asset('assets/img/yellow-blue.png') }}" alt="">
             </div>
@@ -36,7 +36,7 @@
                 </div>
                 <div class="mt-3 ml-5 w-fit cursor-pointer">
                     <h1 class="w-fit font-medium font-[Montserrat]">Total Mapel</h1>
-                    <int class="w-fit font-bold text-2xl">24</int>
+                    <int class="w-fit font-bold text-2xl">{{ count($mapel) }}</int>
                 </div>
                 <img class="absolute bottom-0 right-0 max-w-[35%] -mr-1" src="{{ asset('assets/img/yellow-blue.png')}}" alt="">
             </div>
@@ -65,7 +65,7 @@
                             @foreach ($data as $datas)
                                 <tr
                                 class="border-tet-x text-tet-x border-t-0 border-l-0 border-r-0 border-[1px] text-sm border-solid hover:text-blue hover:border-blue cursor-pointer">
-                                    <th>{{ $no++ }}</th>
+                                    <th>{{ $no_guru++ }}</th>
                                     <th class="break-words max-w-[100px]">{{ $datas->name }}</th>
                                     <th class="break-words max-w-[100px]">{{ $datas->nip }}</th>
                                     <th class="break-words max-w-[100px]">0{{ $datas->no_hp }}</th>
@@ -117,12 +117,18 @@
         <!-- mapel -->
         <div class="mt-[11.5rem] border-blueside text-blueside border-2 border-solid w-[90%] p-4 rounded">
             <h3 class="text-lg font-semibold">Mata Pelajaran</h3>
-            <input type="text" class="border-blueside border-2 border-solid w-[68%] rounded"
-                placeholder="Tambah Mapel">
-            <button class="bg-blueside text-white py-0.5 px-3 rounded w-fit font-semibold"
-                onclick="keiAlert('Data Gagal Ditambahkan', 'cancel', 'bg-red-600')">
-                simpan</button>
-            <div class="border-blueside text-blueside border-2 border-solid rounded-lg mt-5 h-60 overflow-y-auto p-2">
+            <form action="/admin/tambah_mapel" method="POST">
+                @csrf
+                <input type="text" name="pelajaran" class="border-blueside border-2 border-solid w-[68%] rounded"
+                placeholder="Tambah Mapel" value="{{ old('pelajaran') }}">
+                <button type="submit" class="bg-blueside text-white py-0.5 px-3 rounded w-fit font-semibold"
+                    >
+                    Simpan</button>
+                @error('pelajaran')
+                    <small>{{ $message }}</small>
+                @enderror
+            </form>
+            <div class="border-blueside text-blueside border-2 border-solid rounded-lg mt-5 h-60 overflow-y-auto p-2 pt-0">
                 <table class="w-full text-center">
                     <thead class="table-fixed top-0 sticky z-10 bg-white">
                         <tr class="border-blueside border-t-0 border-l-0 border-r-0 border-[1px] border-solid">
@@ -132,52 +138,50 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr
+                        @foreach ($mapel as $mapels)
+                            <tr
                             class="border-tet-x text-tet-x border-t-0 border-l-0 border-r-0 border-[1px] text-sm border-solid hover:text-blue hover:border-blue cursor-pointer">
-                            <td>1</td>
-                            <td>PBO</td>
-                            <td>Symbols</td>
-                        </tr>
-                        <tr
-                            class="border-tet-x text-tet-x border-t-0 border-l-0 border-r-0 border-[1px] text-sm border-solid hover:text-blue hover:border-blue cursor-pointer">
-                            <td>1</td>
-                            <td>PBO</td>
-                            <td>Symbols</td>
-                        </tr>
+                                <td>{{ $no_mapel++ }}</td>
+                                <td>{{ $mapels->pelajaran }}</td>
+                                <td>Symbols</td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
         </div>
         <!-- kelas -->
         <div class="mt-5 border-blueside text-blueside border-2 border-solid w-[90%] p-4 rounded">
-            <h3 class="text-lg font-semibold">kelas</h3>
-            <input type="text" class="border-blueside border-2 border-solid w-[68%] rounded"
-                placeholder="Tambah Mapel">
-            <button class="bg-blueside text-white py-0.5 px-3 rounded w-fit font-semibold"
-                onclick="keiAlert('Data Gagal Ditambahkan', 'cancel', 'bg-red-600')">
-                simpan</button>
-            <div class="border-blueside text-blueside border-2 border-solid rounded-lg mt-5 h-60 overflow-y-auto p-2">
+            <h3 class="text-lg font-semibold">Kelas</h3>
+            <form action="/admin/tambah_kelas" method="POST">
+                @csrf
+                <input type="text" name="kelas" class="border-blueside border-2 border-solid w-[68%] rounded"
+                placeholder="Tambah Kelas" value="{{ old('kelas') }}">
+                <button type="submit" class="bg-blueside text-white py-0.5 px-3 rounded w-fit font-semibold"
+                    >
+                    Simpan</button>
+                @error('kelas')
+                    <br><small>{{ $message }}</small>
+                @enderror
+            </form>
+            <div class="border-blueside text-blueside border-2 border-solid rounded-lg mt-5 h-60 overflow-y-auto p-2 pt-0">
                 <table class="w-full text-center">
-                    <thead class="table-fixed top-0 sticky z-10 bg-white">
+                    <thead class="table-fixed top-0 pt-3 sticky z-10 bg-white">
                         <tr class="border-blueside border-t-0 border-l-0 border-r-0 border-[1px] border-solid">
                             <th>No</th>
-                            <th>kelas</th>
+                            <th>Kelas</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr
+                        @foreach ($kelas as $kelass)
+                            <tr
                             class="border-tet-x text-tet-x border-t-0 border-l-0 border-r-0 border-[1px] text-sm border-solid hover:text-blue hover:border-blue cursor-pointer">
-                            <td>1</td>
-                            <td>X MM 1</td>
-                            <td>Symbols</td>
-                        </tr>
-                        <tr
-                            class="border-tet-x text-tet-x border-t-0 border-l-0 border-r-0 border-[1px] text-sm border-solid hover:text-blue hover:border-blue cursor-pointer">
-                            <td>1</td>
-                            <td>X MM 1</td>
-                            <td>Symbols</td>
-                        </tr>
+                                <td>{{ $no_kelas++ }}</td>
+                                <td>{{ $kelass->kelas }}</td>
+                                <td>Symbols</td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -188,3 +192,5 @@
     <img class="absolute -bottom-5 left-0 max-w-[8%] -mr-1" src="{{ asset('assets/img/l-blue.png') }}" alt="">
     <img class="absolute -bottom-5 right-0 max-w-[8%] -mr-1" src="{{ asset('assets/img/r-blue.png') }}" alt="">
 </div>
+
+{{-- onclick="keiAlert('Data Gagal Ditambahkan', 'cancel', 'bg-red-600')" --}}

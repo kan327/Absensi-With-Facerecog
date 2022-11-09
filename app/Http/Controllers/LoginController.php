@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\kelas;
+use App\Models\mapel;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Symfony\Component\Process\Process;
@@ -25,7 +27,7 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $validasi = $request->validate([
-            "email"=>"required",
+            "email"=>"required|email",
             "password"=>"required"
         ],[
             "email.required"=>"Email wajib di isi!",
@@ -37,9 +39,7 @@ class LoginController extends Controller
             "password" => $validasi['password'],
         ])){
             
-            return view("layouts.main",[
-                "title" => "dashboard"
-            ]);
+            return redirect("/");
         }else{
             return redirect('/login')->with("wrong", "Email atau password tidak cocok!");
         }
@@ -56,18 +56,11 @@ class LoginController extends Controller
             "password.min" => "Password harus terdiri minimal dari 5 karakter!"
         ]);
 
-        // Menangkap data guru
-        $data = User::all();
-
         if(Auth::guard("admin")->attempt([
             "username" => $validasi['username'],
             "password" => $validasi['password']
         ])){
-            return view("layouts.mainAdmin",[
-                "title" => "dashboard_admin",
-                "data" =>  $data,
-                "no" => 1
-            ]);
+            return redirect("/admin");
         }else{
             return redirect("/login_admin")->with("wrong", "Username atau password tidak cocok ! ");
         }
@@ -77,10 +70,10 @@ class LoginController extends Controller
     {
         if(Auth::guard("user")->check()){
             Auth::guard("user")->logout();
-            return redirect("/login");
+            return redirect("/login")->with("success", "Anda Berhasil Logout");
         }elseif (Auth::guard("admin")->check()){
             Auth::guard("admin")->logout();
-            return redirect("/login_admin");
+            return redirect("/login_admin")->with("success", "Anda Berhasil Logout");
         }
         
     }

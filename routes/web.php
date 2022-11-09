@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Route;
 
 // Login
 Route::controller(LoginController::class)->group(function(){
-    Route::get('/login', "index")->name('login')->middleware('guest:user');
+    Route::get('/login', "index")->middleware("isGuru");
     Route::get('/login_admin', "index_admin")->name("login_admin")->middleware("guest:user");
     Route::post('/login', "login");
     Route::post('/login_admin', "login_admin");
@@ -34,15 +34,20 @@ Route::controller(LoginController::class)->group(function(){
 
 // Home
 Route::controller(DashboardController::class)->group(function(){
-    Route::get("/" , "index")->middleware("auth:user");
-    Route::get("/admin", "index_admin")->middleware("auth:admin");
+    Route::get("/" , "index")->middleware("isLoginGuru");
+    Route::get("/admin", "index_admin");
 });
 
 // Guru 
 Route::get('/absensi', [GuruController::class, 'index'])->middleware("auth:user");
 
 // Admin
-Route::get("/admin/tambah_guru", [AdminController::class, "tambah_guru_view"]);
+Route::controller(AdminController::class)->group(function(){
+    Route::get("/admin/tambah_guru", "tambah_guru_view");
+    Route::post("/admin/tambah_guru", "tambah_guru");
+    Route::post("/admin/tambah_kelas", "tambah_kelas");
+    Route::post("/admin/tambah_mapel", "tambah_mapel");
+});
 
 // Tampilan data siswa dan form tambah siswa
 Route::controller(DataPersonController::class)->group(function(){

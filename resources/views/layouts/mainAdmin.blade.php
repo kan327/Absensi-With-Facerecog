@@ -43,7 +43,7 @@
 
 <body class="text-tet h-[100vh] overflow-y-auto">
     <!-- navbar top -->
-    <div class="px-16 py-4 shadow-nav flex justify-between w-full bg-white z-10 fixed top-0">
+    <div class="px-16 py-4 shadow-nav flex justify-between w-full bg-white z-20 fixed top-0">
         <h1 class="text-xl font-bold text-blue-dark">
             StarBhak</h1>
         <div class="flex">
@@ -67,11 +67,28 @@
             @include('admin.tambahGuru')
         @endif
 
-    <!-- custom alert -->
-    <script src="{{ asset('assets/JS/cstkei.alert.js') }}"></script>
 
-    <!-- Tailwind -->
-    <script src="https://cdn.tailwindcss.com"></script>
+        
+        <!-- custom alert -->
+        <script src="{{ asset('assets/JS/cstkei.alert.js') }}"></script>
+        
+        <!-- Tailwind -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        
+        {{-- Alert --}}
+        {{-- @if (Session::has('success'))
+            <script>keiAlert('Anda Berhasil Login')</script>
+        @endif --}}
+        @if (Session::has('success'))
+            <script>keiAlert('{{ Session::get("success") }}', 'done', 'bg-green-400')</script>
+            
+        @endif
+        @if (Session::has('success'))
+            <script>keiAlert('{{ Session::get("success") }}', 'done', 'bg-green-400')</script>
+        @endif
+        @if (Session::has('success'))
+            <script>keiAlert('{{ Session::get("success") }}', 'done', 'bg-green-400')</script>
+        @endif
 
 </body>
 
