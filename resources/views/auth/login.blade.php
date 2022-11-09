@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin</title>
+    <title>Login Page</title>
     <link rel="stylesheet" href="{{ asset('assets/CSS/login.css') }}">
 
     <!-- roboto -->
@@ -45,6 +45,12 @@
                         @if (Session::has("wrong"))
                             <div class="alert">
                                 {{ Session::get("wrong") }}
+                            </div>
+                        @endif
+
+                        @if (Session::has("success"))
+                            <div class="success">
+                                {{ Session::get("success") }}
                             </div>
                         @endif
                     </div>

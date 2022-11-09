@@ -24,8 +24,9 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
+        // menambah data guru
         DB::table('users')->insert([
-            "nip"=>678678676,
+            "nip"=>'678678676',
             "name"=>"Fathir Akmal",
             "username"=>"Patir",
             "email"=>"patir@gmail.com",
@@ -34,7 +35,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('users')->insert([
-            "nip"=>678678678,
+            "nip"=>'678678678',
             "name"=>"Ridho Rizqi",
             "username"=>"Ridho",
             "email"=>"ridho@gmail.com",
@@ -42,9 +43,32 @@ class DatabaseSeeder extends Seeder
             "password"=>Hash::make('123456')
         ]);
 
+        // menambah data admin
         DB::table('admins')->insert([
             "username"=>"admin",
             "password"=>Hash::make('123456')
+        ]);
+
+        // menambah matpel
+        DB::table('mapels')->insert([
+            "pelajaran"=>"PBO"
+        ]);
+        DB::table('mapels')->insert([
+            "pelajaran"=>"PWD"
+        ]);
+        DB::table('mapels')->insert([
+            "pelajaran"=>"Basis Data"
+        ]);
+
+        // menambah kelas
+        DB::table('kelas')->insert([
+            "kelas"=>"XI PPLG 1"
+        ]);
+        DB::table('kelas')->insert([
+            "kelas"=>"XI PPLG 2"
+        ]);
+        DB::table('kelas')->insert([
+            "kelas"=>"XI PPLG 3"
         ]);
     }
 }

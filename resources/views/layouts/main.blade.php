@@ -84,5 +84,10 @@
     <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
 
+    {{-- Alert --}}
+    {{-- @if ($status === "success")
+        <script>keiAlert('Anda Berhasil Login')</script>
+    @endif --}}
+
 </body>
 </html>
