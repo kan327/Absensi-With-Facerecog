@@ -76,18 +76,8 @@
         <script src="https://cdn.tailwindcss.com"></script>
         
         {{-- Alert --}}
-        {{-- @if (Session::has('success'))
-            <script>keiAlert('Anda Berhasil Login')</script>
-        @endif --}}
         @if (Session::has('success'))
-            <script>keiAlert('{{ Session::get("success") }}', 'done', 'bg-green-400')</script>
-            
-        @endif
-        @if (Session::has('success'))
-            <script>keiAlert('{{ Session::get("success") }}', 'done', 'bg-green-400')</script>
-        @endif
-        @if (Session::has('success'))
-            <script>keiAlert('{{ Session::get("success") }}', 'done', 'bg-green-400')</script>
+            <script>keiAlert('{{ Session::get("success") }}', 'done', 'bg-green-500')</script>
         @endif
 
 </body>

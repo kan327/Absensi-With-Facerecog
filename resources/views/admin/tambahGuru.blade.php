@@ -1,6 +1,6 @@
 <!-- Content Tambah Guru -->
 
-<div class="absolute flex justify-center h-[87%] items-center top-20 w-full ">
+<div class="absolute flex justify-center h-[87%] items-center top-12 w-full">
 
     <!-- card -->
     <div class="flex h-[90%] w-[90%] bg-white">
@@ -36,7 +36,7 @@
                     </p>
                     <input type="text" name="name" class="font-bold p-2 outline-none w-11/12 h-9 rounded-md border-solid border-[1px] border-[#1061FF]" value="{{ old('name') }}"><br>
                     @error('name')
-                        <small>{{ $message }}</small>
+                        <small class="text-red-500 font-bold">{{ $message }}</small>
                     @enderror
 
                     <p class="mt-6 text-[#1061FF] font-[quicksands] text-lg font-semibold">
@@ -44,7 +44,7 @@
                     </p>
                     <input type="email" name="email" class="font-bold p-2 outline-none w-11/12 h-9 rounded-md border-solid border-[1px] border-[#1061FF]"  value="{{ old('email') }}"><br>
                     @error('email')
-                        <small>{{ $message }}</small>
+                        <small class="text-red-500 font-bold">{{ $message }}</small>
                     @enderror
                 </div>
 
@@ -56,7 +56,7 @@
                     </p>
                     <input type="number" name="nip" class="font-bold p-2 outline-none w-11/12 h-9 rounded-md border-solid border-[1px] border-[#1061FF]"  value="{{ old('nip') }}"><br>
                     @error('nip')
-                        <small>{{ $message }}</small>
+                        <small class="text-red-500 font-bold">{{ $message }}</small>
                     @enderror
 
                     <p class="mt-6 text-[#1061FF] font-[quicksands] text-lg font-semibold">
@@ -64,7 +64,7 @@
                     </p>
                     <input type="number" name="no_hp" class="font-bold p-2 outline-none w-11/12 h-9 rounded-md border-solid border-[1px] border-[#1061FF]"  value="{{ old('no_hp') }}"><br>
                     @error('no_hp')
-                        <small>{{ $message }}</small>
+                        <small class="text-red-500 font-bold">{{ $message }}</small>
                     @enderror
                 </div>
             </div>
@@ -84,7 +84,7 @@
                     </p>
                     <input type="text" name="username" class="font-bold p-2 outline-none w-11/12 h-9 rounded-md border-solid border-[1px] border-[#1061FF]"  value="{{ old('username') }}"><br>
                     @error('username')
-                        <small>{{ $message }}</small>
+                        <small class="text-red-500 font-bold">{{ $message }}</small>
                     @enderror
                 </div>
 
@@ -96,7 +96,7 @@
                     </p>
                     <input type="password" name="password" class="font-bold p-2 outline-none w-11/12 h-9 rounded-md border-solid border-[1px] border-[#1061FF]"  value="{{ old('password') }}"><br>
                     @error('password')
-                        <small>{{ $message }}</small>
+                        <small class="text-red-500 font-bold">{{ $message }}</small>
                     @enderror
 
                 </div>

@@ -19,6 +19,8 @@ class isGuru
     {
         if(Auth::guard("user")->check()){
             return redirect("/");
+        }else if(Auth::guard("admin")->check()){
+            return redirect("/admin");
         }
         return $next($request);
     }

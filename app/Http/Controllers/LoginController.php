@@ -27,11 +27,13 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $validasi = $request->validate([
-            "email"=>"required|email",
-            "password"=>"required"
+            "email"=>"required|email:dns",
+            "password"=>"required|min:5"
         ],[
             "email.required"=>"Email wajib di isi!",
-            "password.required"=>"Password wajib di isi!"
+            "email.email"=>"Email harus valid!",
+            "password.required"=>"Password wajib di isi!",
+            "password.min"=>"Password minimal terdiri dari 5 karakter!"
         ]);
         
         if(Auth::guard("user")->attempt([
@@ -39,7 +41,7 @@ class LoginController extends Controller
             "password" => $validasi['password'],
         ])){
             
-            return redirect("/");
+            return redirect("/")->with("success", 'Anda berhasil login');
         }else{
             return redirect('/login')->with("wrong", "Email atau password tidak cocok!");
         }
@@ -60,7 +62,7 @@ class LoginController extends Controller
             "username" => $validasi['username'],
             "password" => $validasi['password']
         ])){
-            return redirect("/admin");
+            return redirect("/admin")->with('success', "Anda Berhasil Login");
         }else{
             return redirect("/login_admin")->with("wrong", "Username atau password tidak cocok ! ");
         }

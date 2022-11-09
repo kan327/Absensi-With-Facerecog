@@ -21,7 +21,7 @@
             <!-- box 2 -->
             <div class="w-[31%] pl-4 pt-4 pb-4 bg-blue rounded-xl text-white relative">
                 <div class="flex justify-between ">
-                    <p>01</p><span class="material-symbols-outlined pr-4">more_vert</span>
+                    <p>02</p><span class="material-symbols-outlined pr-4">more_vert</span>
                 </div>
                 <div class="mt-3 ml-5 w-fit cursor-pointer">
                     <h1 class="w-fit font-medium font-[Montserrat]">Total Guru</h1>
@@ -32,7 +32,7 @@
             <!-- box 3 -->
             <div class="w-[31%] pl-4 pt-4 pb-4 bg-blue rounded-xl text-white relative">
                 <div class="flex justify-between ">
-                    <p>01</p><span class="material-symbols-outlined pr-4">more_vert</span>
+                    <p>03</p><span class="material-symbols-outlined pr-4">more_vert</span>
                 </div>
                 <div class="mt-3 ml-5 w-fit cursor-pointer">
                     <h1 class="w-fit font-medium font-[Montserrat]">Total Mapel</h1>
@@ -44,7 +44,7 @@
         <!-- table -->
         <div class="relative">
             <div class="flex justify-end w-full my-5">
-                <a href="/admin/tambah_guru" class="bg-blue text-white py-2 px-4 rounded-xl  w-fit font-semibold">+ buat</a>
+                <a href="/admin/tambah_guru" class="bg-blue hover:bg-blue-300 text-white py-2 px-4 rounded-xl  w-fit font-semibold">+ buat</a>
             </div>
             <div class="border-blue border-[1px] border-solid rounded-xl">
                 <h1 class="text-blue font-extrabold w-fit mx-auto my-1">Akun Guru</h1>
@@ -121,7 +121,7 @@
                 @csrf
                 <input type="text" name="pelajaran" class="border-blueside border-2 border-solid w-[68%] rounded"
                 placeholder="Tambah Mapel" value="{{ old('pelajaran') }}">
-                <button type="submit" class="bg-blueside text-white py-0.5 px-3 rounded w-fit font-semibold"
+                <button type="submit" class="bg-[#93A2DA] text-white py-0.5 px-3 rounded w-fit font-semibold"
                     >
                     Simpan</button>
                 @error('pelajaran')
@@ -157,7 +157,7 @@
                 @csrf
                 <input type="text" name="kelas" class="border-blueside border-2 border-solid w-[68%] rounded"
                 placeholder="Tambah Kelas" value="{{ old('kelas') }}">
-                <button type="submit" class="bg-blueside text-white py-0.5 px-3 rounded w-fit font-semibold"
+                <button type="submit" class="bg-[#93A2DA] text-white py-0.5 px-3 rounded w-fit font-semibold"
                     >
                     Simpan</button>
                 @error('kelas')

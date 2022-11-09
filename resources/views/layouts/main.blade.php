@@ -56,7 +56,7 @@
         <div class="{{ ($title === "dashboard") ? 'font-semibold': 'text-unselect' }}"><span class="material-symbols-outlined -mb-3 mr-5">home</span>
             Dashboard
         </div></a>
-        <a href="/absensi/">
+        <a href="/absensi">
         <div class="{{ ($title === "absensi") ? 'mt-10 font-semibold' : 'mt-10 text-unselect'}}"><span class="material-symbols-outlined -mb-3 mr-5">library_books</span>
             Absen
         </div></a>
@@ -85,9 +85,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
 
     {{-- Alert --}}
-    {{-- @if ($status === "success")
-        <script>keiAlert('Anda Berhasil Login')</script>
-    @endif --}}
+    @if (Session::has('success'))
+        <script>keiAlert('{{ Session::get("success") }}', 'done', 'bg-green-500')</script>
+    @endif
 
 </body>
 </html>

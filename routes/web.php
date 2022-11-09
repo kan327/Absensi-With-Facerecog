@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\Route;
 // Login
 Route::controller(LoginController::class)->group(function(){
     Route::get('/login', "index")->middleware("isGuru");
-    Route::get('/login_admin', "index_admin")->name("login_admin")->middleware("guest:user");
+    Route::get('/login_admin', "index_admin")->middleware("isGuru");
     Route::post('/login', "login");
     Route::post('/login_admin', "login_admin");
     Route::post('/logout', "logout");
@@ -35,7 +35,7 @@ Route::controller(LoginController::class)->group(function(){
 // Home
 Route::controller(DashboardController::class)->group(function(){
     Route::get("/" , "index")->middleware("isLoginGuru");
-    Route::get("/admin", "index_admin");
+    Route::get("/admin", "index_admin")->middleware("isLoginGuru");
 });
 
 // Guru 
