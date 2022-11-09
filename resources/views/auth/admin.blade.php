@@ -12,6 +12,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 </head>
 
 <body>
@@ -43,13 +44,20 @@
                         <h2>Login Admin</h2>
 
                         @if (Session::has("wrong"))
-                            <div class="alert">
-                                {{ Session::get("wrong") }}
-                            </div>
+                        <div class="alert">
+                            <p>{{ Session::get("wrong") }}</p>
+                            <p class="material-symbols-outlined">
+                                close
+                            </p>
+                        </div>
                         @endif
+
                         @if (Session::has("success"))
-                            <div class="success">
-                                {{ Session::get("success") }}
+                            <div class="succes">
+                                <p>{{ Session::get("success") }}</p>
+                                <p class="material-symbols-outlined">
+                                    done
+                                </p>
                             </div>
                         @endif
                     </div>
@@ -91,7 +99,6 @@
 
         </div>
     </div>
-
 </body>
 
 {{-- <!-- Tailwind -->

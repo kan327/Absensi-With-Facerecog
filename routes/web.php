@@ -35,11 +35,11 @@ Route::controller(LoginController::class)->group(function(){
 // Home
 Route::controller(DashboardController::class)->group(function(){
     Route::get("/" , "index")->middleware("isLoginGuru");
-    Route::get("/admin", "index_admin")->middleware("isLoginGuru");
+    Route::get("/admin", "index_admin")->name('admin')->middleware("isLoginGuru");
 });
 
 // Guru 
-Route::get('/absensi', [GuruController::class, 'index'])->middleware("auth:user");
+Route::get('/absensi', [GuruController::class, 'index'])->middleware('isLoginGuru');
 
 // Admin
 Route::controller(AdminController::class)->group(function(){

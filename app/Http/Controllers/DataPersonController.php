@@ -12,17 +12,19 @@ class DataPersonController extends Controller
     // use Process;
     public function index()
     {
-        $process = new Process(['python ','../../../app/test.py']);
-        $process->start();
+        $process = new Process(['python ../../../app/test.py']);
+        $process->run();
 
-        // if(!$process->isSuccessful())
-        // {
-        //     throw new ProcessFailedException($process);
-        // }
+        if(!$process->isSuccessful())
+        {
+            throw new ProcessFailedException($process);
+        }
 
-        $data =  $process->getOutput();
-        dd($data);
-        return view("templates.mastersiswa");
+        $data = $process->getOutput();
+        // dd($data);
+        return view("templates.mastersiswa", [
+            "data" => $data
+        ]);
     }
 
     public function form()

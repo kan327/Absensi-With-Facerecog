@@ -94,13 +94,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for item in data %}
+                    {{ $data }}
                         <tr class="text-center border-tet-x border-t-0 border-l-0 border-r-0 border-[1px] border-solid hover:font-bold cursor-pointer">
                             <td class="p-3">no</td>
-                            <td class="p-3">{{item[1]}}</td>
-                            <td class="p-3">{{item[2]}}</td>
-                            <td class="p-3">{{item[3]}}</td>
-                            <td class="p-3">{{item[4]}}</td>
+                            <td class="p-3"></td>
+                            <td class="p-3"></td>
+                            <td class="p-3"></td>
+                            <td class="p-3"></td>
                             <td class="p-3">
                                 <a href="">
                                     <span class="material-symbols-outlined -mb-3 mr-5">edit</span>
@@ -110,7 +110,7 @@
                                 </a>
                             </td>
                         </tr>
-                    {% endfor %}
+                    {{-- {% endfor %} --}}
                 </tbody>
             </table>
         </div>

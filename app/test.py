@@ -1,1 +1,1 @@
-print("HELLO WORLD")
+print("INI SYMFONY KE PYTHON")

@@ -40,7 +40,6 @@ class LoginController extends Controller
             "email" => $validasi['email'],
             "password" => $validasi['password'],
         ])){
-            
             return redirect("/")->with("success", 'Anda berhasil login');
         }else{
             return redirect('/login')->with("wrong", "Email atau password tidak cocok!");
@@ -62,7 +61,10 @@ class LoginController extends Controller
             "username" => $validasi['username'],
             "password" => $validasi['password']
         ])){
-            return redirect("/admin")->with('success', "Anda Berhasil Login");
+            
+            // $request->session()->regenerate();
+            return redirect()->intended("admin")->with('success', "Anda Berhasil Login");
+            
         }else{
             return redirect("/login_admin")->with("wrong", "Username atau password tidak cocok ! ");
         }
@@ -71,10 +73,21 @@ class LoginController extends Controller
     public function logout()
     {
         if(Auth::guard("user")->check()){
+            
             Auth::guard("user")->logout();
+
+            
+
             return redirect("/login")->with("success", "Anda Berhasil Logout");
+            
         }elseif (Auth::guard("admin")->check()){
+
             Auth::guard("admin")->logout();
+
+            // request()->session()->invalidate();
+ 
+            // request()->session()->regenerateToken();
+
             return redirect("/login_admin")->with("success", "Anda Berhasil Logout");
         }
         

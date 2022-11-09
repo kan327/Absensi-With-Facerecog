@@ -17,7 +17,7 @@ class isLoginGuru
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::guard('user')->check()){
+        if(Auth::guard('user')->check() || Auth::guard("admin")->check()){
             return $next($request);
         }
         return redirect("/login");
