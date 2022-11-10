@@ -5,8 +5,9 @@ from PIL import Image
 import numpy as np
 import os
 import time
+import pyttsx3
 from datetime import date, datetime
- 
+  
 app = Flask(__name__)
  
 cnt = 0
@@ -19,10 +20,17 @@ mydb = mysql.connector.connect(
     passwd="",
     database="db_absensi"
 )
-mycursor = mydb.cursor()
-mycursor2 = mydb.cursor()
- 
- 
+
+mycursor = mydb.cursor() 
+
+speech = pyttsx3.init("sapi5")
+rate = speech.getProperty("rate")
+volume = speech.getProperty("volume")
+voices = speech.getProperty("voices")
+speech.setProperty("rate", 170)
+speech.setProperty("volume", 1)
+speech.setProperty("voice", voices[1].id)
+
 # Proses pengambilan wajah
 def generate_dataset(nbr):
     face_classifier = cv2.CascadeClassifier("resources/haarcascade_frontalface_default.xml")
@@ -30,8 +38,6 @@ def generate_dataset(nbr):
     def face_cropped(img):
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         faces = face_classifier.detectMultiScale(gray, 1.3, 5)
-        # scaling factor=1.3
-        # Minimum neighbor = 5
  
         if faces is ():
             return None
@@ -54,7 +60,7 @@ def generate_dataset(nbr):
         if face_cropped(img) is not None:
             count_img += 1
             img_id += 1
-            face = cv2.resize(face_cropped(img), (1000, 700))
+            face = cv2.resize(face_cropped(img), (800, 500))
             face = cv2.cvtColor(face, cv2.COLOR_BGR2GRAY)
  
             file_name_path = "dataset/"+nbr+"."+ str(img_id) + ".jpg"
@@ -123,7 +129,6 @@ def face_recognition():  # generate frame by frame from camera
                 cnt += 1
  
                 n = (100 / 30) * cnt
-                # w_filled = (n / 100) * w
                 w_filled = (cnt / 30) * w
  
                 cv2.putText(img, str(int(n))+' %', (x + 20, y + h + 28), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (153, 255, 255), 2, cv2.LINE_AA)
@@ -147,8 +152,9 @@ def face_recognition():  # generate frame by frame from camera
                     mydb.commit()
  
                     cv2.putText(img, pname + ' | ' + pkelas, (x - 10, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (153, 255, 255), 2, cv2.LINE_AA)
-                    time.sleep(10)
-                    # #######
+                    time.sleep(7)
+                    # speech.say(pname + "successfully processed")
+                    # speech.runAndWait()
 
                     justscanned = True
                     pause_cnt = 0
@@ -215,7 +221,6 @@ def face_recognition2():  # generate frame by frame from camera
                 cnt += 1
  
                 n = (100 / 30) * cnt
-                # w_filled = (n / 100) * w
                 w_filled = (cnt / 30) * w
  
                 cv2.putText(img, str(int(n))+' %', (x + 20, y + h + 28), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (153, 255, 255), 2, cv2.LINE_AA)
@@ -240,7 +245,8 @@ def face_recognition2():  # generate frame by frame from camera
  
                     cv2.putText(img, pname + ' | ' + pkelas, (x - 10, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (153, 255, 255), 2, cv2.LINE_AA)
                     time.sleep(7)
-                    # #######
+                    # speech.say(pname + "successfully processed")
+                    # speech.runAndWait()
 
                     justscanned = True
                     pause_cnt = 0
@@ -311,14 +317,11 @@ def master():
     data = mycursor.fetchall()
 
     return render_template('mastersiswa.html', data=data)
-    ##############################
- 
 @app.route('/datasiswa/tambah')
 def addprsn():
     mycursor.execute("SELECT ifnull(max(id_master) + 1 , 1001) FROM data_person")
     row = mycursor.fetchone()
     nbr = row[0]
-    # print(int(nbr))
  
     return render_template('form.html', newnbr=int(nbr))
  
@@ -333,8 +336,7 @@ def addprsn_submit():
     mycursor.execute("""INSERT INTO `data_person` (`id_master`, `nama`, `kelas`, `gender`, `nisn`) VALUES ('{}', '{}', '{}', '{}', '{}')""".format(prsnbr, nama, kelas, gender, nisn))
     mydb.commit()
  
-    # return redirect(url_for('home'))
-    return redirect(url_for('vfdataset_page', prs=prsnbr, name=nama))
+    return redirect(url_for('vfdataset_page', prs=prsnbr))
  
 @app.route('/vfdataset_page/<prs>')
 def vfdataset_page(prs):
@@ -368,7 +370,8 @@ def fr_page():
  
     return render_template('absencam.html', data=data)
 
-@app.route('/absensiswa/pulang')
+
+@app.route('/absensiswa/absenpulang/pulang')
 def fr_page2():
     """Video streaming home page."""
     mycursor.execute("SELECT a.attendance_id, a.attendance_person, b.nama, b.kelas, b.nisn, a.attendance_in "
@@ -382,21 +385,23 @@ def fr_page2():
  
 @app.route('/countTodayScan')
 def countTodayScan():
-    mydb = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        passwd="",
-        database="db_absensi"
-    )
     mycursor = mydb.cursor()
  
-    mycursor.execute("SELECT count(*) "
+    mycursor.execute("SELECT COUNT(*) "
                      " FROM attendance_datamaster "
                      " WHERE attendance_date = curdate() ")
     row = mycursor.fetchone()
     rowcount = row[0]
  
     return jsonify({'rowcount': rowcount})
+
+@app.route('/totalmaster')
+def ajaxe():
+    mycursor.execute("SELECT * FROM data_person")
+    
+    data = mycursor.fetchall()
+ 
+    return jsonify(response = data)
  
 @app.route('/loadData', methods = ['GET', 'POST'])
 def loadData():
@@ -424,20 +429,3 @@ def dashboard():
 
 if __name__ == "__main__":
     app.run(debug=True)
-
-# def countTotalAttendance():
-#     mydb = mysql.connector.connect(
-#         host="localhost",
-#         user="root",
-#         passwd="",
-#         database="db_absensi"
-#     )
-#     mycursor = mydb.cursor()
- 
-#     mycursor.execute("select count(*) "
-#                      "  from attendance_datamaster "
-#                      " where attendance_date = curdate() ")
-#     row = mycursor.fetchone()
-#     rowcount = row[0]
- 
-#     return jsonify({'rowcount': rowcount})
