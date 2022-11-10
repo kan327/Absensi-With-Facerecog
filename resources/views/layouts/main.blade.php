@@ -31,7 +31,7 @@
     </script>
     <!-- font material ++ -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"/> <link rel="preconnect" href="https://fonts.googleapis.com"> <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;1,500&display=swap"rel="stylesheet">
-    <title>@if($title === "dashboard") Dashboard @endif @if($title === "absensi") Absensi @endif</title>
+    <title>@if($title === "dashboard") Dashboard @endif @if($title === "absensi") Absensi @endif @if($title === "data_siswa") Data Murid | Starbhak Absensi @endif @if($title === "form_siswa") Forum Siswa | Starbhak Absensi @endif</title>
 </head>
 <body class="text-tet">
 
@@ -76,6 +76,14 @@
 
     @if ($title === "absensi")
         @include('guru.absensi')
+    @endif
+
+    @if ($title === "data_siswa")
+        @include('templates.mastersiswa')
+    @endif
+
+    @if ($title === "form_siswa")
+        @include('templates.form')
     @endif
 
     <!-- custom alert -->

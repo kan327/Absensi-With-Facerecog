@@ -21,15 +21,19 @@ class DataPersonController extends Controller
         }
 
         $data = $process->getOutput();
-        // dd($data);
-        return view("templates.mastersiswa", [
-            "data" => $data
+        // dd(json_decode($data, true));
+        $datas = json_decode($data, true);
+        return view("layouts.main", [
+            "title" => "data_siswa",
+            "data" => $datas['kelas'],
         ]);
     }
 
     public function form()
     {
-        return view("templates.form");
+        return view("layouts.main", [
+            "title" => "form_siswa",
+        ]);
     }
 
     public function create()

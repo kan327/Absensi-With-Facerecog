@@ -52,7 +52,7 @@ Route::controller(AdminController::class)->group(function(){
 // Tampilan data siswa dan form tambah siswa
 Route::controller(DataPersonController::class)->group(function(){
     Route::get("/siswa", "index");
-    Route::get("/siswa_form", "form");
+    Route::get("/siswa/tambah", "form");
 });
 
 Route::controller(AttendanceDatamasterController::class)->group(function(){
