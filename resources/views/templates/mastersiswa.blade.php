@@ -19,22 +19,24 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <a href="#">{{ $data }}</a>
-                        <tr class="text-center border-tet-x border-t-0 border-l-0 border-r-0 border-[1px] border-solid hover:font-bold cursor-pointer">
-                            <td class="p-3">no</td>
-                            <td class="p-3"></td>
-                            <td class="p-3"></td>
-                            <td class="p-3"></td>
-                            <td class="p-3"></td>
-                            <td class="p-3">
-                                <a href="">
-                                    <span class="material-symbols-outlined -mb-3 mr-5">edit</span>
-                                </a> 
-                                <a href="">
-                                    <span class="material-symbols-outlined -mb-3 mr-5">folder</span>
-                                </a>
-                            </td>
-                        </tr>
+                    <a href="#"></a>
+                    @foreach ($data as $datas)
+                    <tr class="text-center border-tet-x border-t-0 border-l-0 border-r-0 border-[1px] border-solid hover:font-bold cursor-pointer">
+                        <td class="p-3">{{ $datas[0] }}</td>
+                        <td class="p-3">{{ $datas[1] }}</td>
+                        <td class="p-3">{{ $datas[2] }}</td>
+                        <td class="p-3">{{ $datas[3] }}</td>
+                        <td class="p-3">{{ $datas[4] }}</td>
+                        <td class="p-3">
+                            <a href="">
+                                <span class="material-symbols-outlined -mb-3 mr-5">edit</span>
+                            </a> 
+                            <a href="">
+                                <span class="material-symbols-outlined -mb-3 mr-5">folder</span>
+                            </a>
+                        </td>
+                    </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>

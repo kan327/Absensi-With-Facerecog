@@ -20,118 +20,86 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="text-center border-tet-x border-t-0 border-l-0 border-r-0 border-[1px] border-solid hover:font-bold cursor-pointer">
-                        <td class="p-3">1</td>
-                        <td class="p-3">27/10/2022</td>
-                        <td class="p-3">XI PPLG 1</td>
-                        <td class="p-3">PBO</td>
-                        <td class="p-3">07.00</td>
-                        <td class="p-3">12.40</td>
-                        <td class="p-3"><span class="material-symbols-outlined -mb-3 mr-5">edit</span> <span class="material-symbols-outlined -mb-3 mr-5">folder</span></td>
-                    </tr>
-                    <tr class="text-center border-tet-x border-t-0 border-l-0 border-r-0 border-[1px] border-solid hover:font-bold cursor-pointer">
-                        <td class="p-3">1</td>
-                        <td class="p-3">27/10/2022</td>
-                        <td class="p-3">XI PPLG 1</td>
-                        <td class="p-3">PBO</td>
-                        <td class="p-3">07.00</td>
-                        <td class="p-3">12.40</td>
-                        <td class="p-3"><span class="material-symbols-outlined -mb-3 mr-5">edit</span> <span class="material-symbols-outlined -mb-3 mr-5">folder</span></td>
-                    </tr>
-                    <tr class="text-center border-tet-x border-t-0 border-l-0 border-r-0 border-[1px] border-solid hover:font-bold cursor-pointer">
-                        <td class="p-3">1</td>
-                        <td class="p-3">27/10/2022</td>
-                        <td class="p-3">XI PPLG 1</td>
-                        <td class="p-3">PBO</td>
-                        <td class="p-3">07.00</td>
-                        <td class="p-3">12.40</td>
-                        <td class="p-3"><span class="material-symbols-outlined -mb-3 mr-5">edit</span> <span class="material-symbols-outlined -mb-3 mr-5">folder</span></td>
-                    </tr>
-                    <tr class="text-center border-tet-x border-t-0 border-l-0 border-r-0 border-[1px] border-solid hover:font-bold cursor-pointer">
-                        <td class="p-3">1</td>
-                        <td class="p-3">27/10/2022</td>
-                        <td class="p-3">XI PPLG 1</td>
-                        <td class="p-3">PBO</td>
-                        <td class="p-3">07.00</td>
-                        <td class="p-3">12.40</td>
-                        <td class="p-3"><span class="material-symbols-outlined -mb-3 mr-5">edit</span> <span class="material-symbols-outlined -mb-3 mr-5">folder</span></td>
-                    </tr>
-                    <tr class="text-center border-tet-x border-t-0 border-l-0 border-r-0 border-[1px] border-solid hover:font-bold cursor-pointer">
-                        <td class="p-3">1</td>
-                        <td class="p-3">27/10/2022</td>
-                        <td class="p-3">XI PPLG 1</td>
-                        <td class="p-3">PBO</td>
-                        <td class="p-3">07.00</td>
-                        <td class="p-3">12.40</td>
-                        <td class="p-3"><span class="material-symbols-outlined -mb-3 mr-5">edit</span> <span class="material-symbols-outlined -mb-3 mr-5">folder</span></td>
-                    </tr>
-                    <tr class="text-center border-tet-x border-t-0 border-l-0 border-r-0 border-[1px] border-solid hover:font-bold cursor-pointer">
-                        <td class="p-3">1</td>
-                        <td class="p-3">27/10/2022</td>
-                        <td class="p-3">XI PPLG 1</td>
-                        <td class="p-3">PBO</td>
-                        <td class="p-3">07.00</td>
-                        <td class="p-3">12.40</td>
-                        <td class="p-3"><span class="material-symbols-outlined -mb-3 mr-5">edit</span> <span class="material-symbols-outlined -mb-3 mr-5">folder</span></td>
-                    </tr>
-                    <tr class="text-center border-tet-x border-t-0 border-l-0 border-r-0 border-[1px] border-solid hover:font-bold cursor-pointer">
-                        <td class="p-3">1</td>
-                        <td class="p-3">27/10/2022</td>
-                        <td class="p-3">XI PPLG 1</td>
-                        <td class="p-3">PBO</td>
-                        <td class="p-3">07.00</td>
-                        <td class="p-3">12.40</td>
-                        <td class="p-3"><span class="material-symbols-outlined -mb-3 mr-5">edit</span> <span class="material-symbols-outlined -mb-3 mr-5">folder</span></td>
-                    </tr>
-                    <tr class="text-center border-tet-x border-t-0 border-l-0 border-r-0 border-[1px] border-solid hover:font-bold cursor-pointer">
-                        <td class="p-3">1</td>
-                        <td class="p-3">27/10/2022</td>
-                        <td class="p-3">XI PPLG 1</td>
-                        <td class="p-3">PBO</td>
-                        <td class="p-3">07.00</td>
-                        <td class="p-3">12.40</td>
-                        <td class="p-3"><span class="material-symbols-outlined -mb-3 mr-5">edit</span> <span class="material-symbols-outlined -mb-3 mr-5">folder</span></td>
-                    </tr>
-                    <tr class="text-center border-tet-x border-t-0 border-l-0 border-r-0 border-[1px] border-solid hover:font-bold cursor-pointer">
-                        <td class="p-3">1</td>
-                        <td class="p-3">27/10/2022</td>
-                        <td class="p-3">XI PPLG 1</td>
-                        <td class="p-3">PBO</td>
-                        <td class="p-3">07.00</td>
-                        <td class="p-3">12.40</td>
-                        <td class="p-3"><span class="material-symbols-outlined -mb-3 mr-5">edit</span> <span class="material-symbols-outlined -mb-3 mr-5">folder</span></td>
-                    </tr>
-                    <tr class="text-center border-tet-x border-t-0 border-l-0 border-r-0 border-[1px] border-solid hover:font-bold cursor-pointer">
-                        <td class="p-3">1</td>
-                        <td class="p-3">27/10/2022</td>
-                        <td class="p-3">XI PPLG 1</td>
-                        <td class="p-3">PBO</td>
-                        <td class="p-3">07.00</td>
-                        <td class="p-3">12.40</td>
-                        <td class="p-3"><span class="material-symbols-outlined -mb-3 mr-5">edit</span> <span class="material-symbols-outlined -mb-3 mr-5">folder</span></td>
-                    </tr>
-                    <tr class="text-center border-tet-x border-t-0 border-l-0 border-r-0 border-[1px] border-solid hover:font-bold cursor-pointer">
-                        <td class="p-3">1</td>
-                        <td class="p-3">27/10/2022</td>
-                        <td class="p-3">XI PPLG 1</td>
-                        <td class="p-3">PBO</td>
-                        <td class="p-3">07.00</td>
-                        <td class="p-3">12.40</td>
-                        <td class="p-3"><span class="material-symbols-outlined -mb-3 mr-5">edit</span> <span class="material-symbols-outlined -mb-3 mr-5">folder</span></td>
-                    </tr>
-                    <tr class="text-center border-tet-x border-t-0 border-l-0 border-r-0 border-[1px] border-solid hover:font-bold cursor-pointer">
-                        <td class="p-3">1</td>
-                        <td class="p-3">27/10/2022</td>
-                        <td class="p-3">XI PPLG 1</td>
-                        <td class="p-3">PBO</td>
-                        <td class="p-3">07.00</td>
-                        <td class="p-3">12.40</td>
-                        <td class="p-3"><span class="material-symbols-outlined -mb-3 mr-5">edit</span> <span class="material-symbols-outlined -mb-3 mr-5">folder</span></td>
-                    </tr>
+                        <tr class="text-center border-tet-x border-t-0 border-l-0 border-r-0 border-[1px] border-solid hover:font-bold cursor-pointer">
+                            <td class="p-3"><a href="/absensi/siswa/XI PPLG 1/PBO">1</a></td>
+                            
+                            <td class="p-3"><a href="/absensi/siswa_masuk/XI PPLG 1/PBO">27/10/2022</a></td>
+                            <td class="p-3"><a href="/absensi/siswa_masuk/XI PPLG 1/PBO">XI PPLG 1</a></td>
+                            <td class="p-3"><a href="/absensi/siswa_masuk/XI PPLG 1/PBO">PBO</a></td>
+                            <td class="p-3"><a href="/absensi/siswa_masuk/XI PPLG 1/PBO">07.00</a></td>
+                            <td class="p-3"><a href="/absensi/siswa_masuk/XI PPLG 1/PBO">12.40</a></td>
+                            <td class="p-3"><span class="material-symbols-outlined -mb-3 mr-5">edit</span> <span class="material-symbols-outlined -mb-3 mr-5">folder</span></td>
+                        </tr>
                 </tbody>
             </table>
         </div>
     </div>
+
+    {{-- jquery --}}
+    <script src="{{ asset('assets/JS/jquery.js') }}"></script>
+
+    {{-- <script>
+        $(document).ready(function () {
+            let lastcnt = 0;
+            let cnt;
+            chkNewScan();
+
+            function chkNewScan() {
+                countTodayScan();
+                setTimeout(chkNewScan, 1000);
+            }
+
+            function countTodayScan() {
+                $.ajax({
+                    url: '/countTodayScan',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (data) {
+                        cnt = data.rowcount;
+                        if (cnt > lastcnt) {
+                            reloadTable();
+                        }
+                        lastcnt = cnt;
+                    },
+                    error: function (result) {
+                        console.log('no result!')
+                    }
+                })
+            }
+
+            function reloadTable() {
+                $.ajax({
+                    url: '/loadData',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (response) {
+                        var tr = $("#totalabsen");
+                        tr.empty();
+                        $.each(response, function (index, item) {
+                            inc = 1
+                            if (item.length > 0) {
+                                for (let i = 0; i < item.length; i++) {
+                                    tr.append('<tr class="text-center border-tet-x border-t-0 border-l-0 border-r-0 border-[1px] border-solid hover:font-bold cursor-pointer p-3">' +
+                                        '<td class="p-3">' + inc + '</td>' +
+                                        '<td class="p-3">' + item[i][2] + '</td>' +
+                                        '<td class="p-3">' + item[i][3] + '</td>' +
+                                        '<td class="p-3">' + item[i][4] + '</td>' +
+                                        '<td class="p-3">' + item[i][5] + '</td>' +                                    
+                                        '<td class="p-3">' + item[i][6] + '</td>' +
+                                    '</tr>');
+                                    inc++
+
+                                }
+                            }
+                        });
+                    },
+                    error: function (result) {
+                        console.log('no result!')
+                    }
+                });
+            }
+        });
+    </script> --}}
 
 <!-- Tailwind -->
 <script src="https://cdn.tailwindcss.com"></script>

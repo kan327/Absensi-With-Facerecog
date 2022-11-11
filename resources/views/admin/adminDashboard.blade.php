@@ -61,10 +61,9 @@
                                 <th>Username</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="table_guru">
                             @foreach ($data as $datas)
-                                <tr
-                                class="border-tet-x text-tet-x border-t-0 border-l-0 border-r-0 border-[1px] text-sm border-solid hover:text-blue hover:border-blue cursor-pointer">
+                                <tr class="border-tet-x text-tet-x border-t-0 border-l-0 border-r-0 border-[1px] text-sm border-solid hover:text-blue hover:border-blue cursor-pointer">
                                     <th>{{ $no_guru++ }}</th>
                                     <th class="break-words max-w-[100px]">{{ $datas->name }}</th>
                                     <th class="break-words max-w-[100px]">{{ $datas->nip }}</th>
@@ -73,8 +72,6 @@
                                     <th class="break-words max-w-[100px]">{{ $datas->username }}</th>
                                 </tr>
                             @endforeach
-
-                            
                         </tbody>
                     </table>
                     <img class="absolute bottom-0 right-0 max-w-[25%]" style="z-index: -99;"
@@ -192,5 +189,8 @@
     <img class="absolute -bottom-5 left-0 max-w-[8%] -mr-1" src="{{ asset('assets/img/l-blue.png') }}" alt="">
     <img class="absolute -bottom-5 right-0 max-w-[8%] -mr-1" src="{{ asset('assets/img/r-blue.png') }}" alt="">
 </div>
+
+<script src="{{ asset('assets/JS/main.js') }}"></script>
+
 
 {{-- onclick="keiAlert('Data Gagal Ditambahkan', 'cancel', 'bg-red-600')" --}}

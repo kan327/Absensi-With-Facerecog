@@ -12,7 +12,8 @@ class DataPersonController extends Controller
     // use Process;
     public function index()
     {
-        $process = new Process(['python ../../../app/test.py']);
+        $process = new Process(['python ../../../app/tampilDataMasuk.py']);
+        // $process->setTimeout(0);
         $process->run();
 
         if(!$process->isSuccessful())
@@ -25,7 +26,7 @@ class DataPersonController extends Controller
         $datas = json_decode($data, true);
         return view("layouts.main", [
             "title" => "data_siswa",
-            "data" => $datas['kelas'],
+            "data" => $datas,
         ]);
     }
 

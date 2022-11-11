@@ -18,7 +18,7 @@ return new class extends Migration
             $table->date("attendance_date")->index();
             $table->string("attendance_person", 70);
             $table->timestamp("attendance_in")->useCurrent();
-            $table->timestamp("attendance_out")->nullable();
+            $table->string("attendance_out", 70)->default("-");
         });
     }
 

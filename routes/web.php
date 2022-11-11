@@ -40,6 +40,8 @@ Route::controller(DashboardController::class)->group(function(){
 
 // Guru 
 Route::get('/absensi', [GuruController::class, 'index'])->middleware('isLoginGuru');
+Route::get("/absensi/siswa_masuk/{kelas}/{mapel}", [GuruController::class, "absen_siswa"]);
+Route::get("/absensi/siswa_keluar/{kelas}/{mapel}", [GuruController::class, "absen_keluar_siswa"]);
 
 // Admin
 Route::controller(AdminController::class)->group(function(){
@@ -53,6 +55,7 @@ Route::controller(AdminController::class)->group(function(){
 Route::controller(DataPersonController::class)->group(function(){
     Route::get("/siswa", "index");
     Route::get("/siswa/tambah", "form");
+    Route::post("/siswa/tambah", "tambah_siswa");
 });
 
 Route::controller(AttendanceDatamasterController::class)->group(function(){

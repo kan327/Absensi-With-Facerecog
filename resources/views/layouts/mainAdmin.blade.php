@@ -71,9 +71,15 @@
         
         <!-- custom alert -->
         <script src="{{ asset('assets/JS/cstkei.alert.js') }}"></script>
+
+        {{-- jquery --}}
+        <script src="{{ asset('assets/JS/jquery.js') }}"></script>
         
         <!-- Tailwind -->
         <script src="https://cdn.tailwindcss.com"></script>
+
+        {{-- Main JS --}}
+        <script src="{{ asset('assets/JS/main.js') }}"></script>
         
         {{-- Alert --}}
         @if (Session::has('success'))
