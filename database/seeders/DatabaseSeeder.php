@@ -73,39 +73,42 @@ class DatabaseSeeder extends Seeder
 
         // data absen masuk
         DB::table('attendance_datamaster')->insert([
-            "attendance_date"=> "2022-11-11",
+            "attendance_date"=> "2022-11-12",
             "attendance_person"=> "Ucup",
-            "attendance_in"=> "2022-11-11 10:03:08",
+            "attendance_in"=> "2022-11-12 10:03:08",
+            "attendance_out"=>"2022-11-12 15:03:08"
         ]);
         DB::table('attendance_datamaster')->insert([
-            "attendance_date"=> "2022-11-11",
+            "attendance_date"=> "2022-11-12",
             "attendance_person"=> "Tutung",
-            "attendance_in"=> "2022-11-11 10:03:08",
+            "attendance_in"=> "2022-11-12 10:03:08",
+            "attendance_out"=>"2022-11-12 15:03:08"
         ]);
         DB::table('attendance_datamaster')->insert([
-            "attendance_date"=> "2022-11-11",
+            "attendance_date"=> "2022-11-12",
             "attendance_person"=> "Ujang",
-            "attendance_in"=> "2022-11-11 10:04:08",
+            "attendance_in"=> "2022-11-12 10:04:08",
+            "attendance_out"=>"2022-11-12 15:03:08"
         ]);
         DB::table('data_person')->insert([
             "id_master"=> "1",
             "nama"=> "Ucup",
             "kelas"=> "X PPLG 1",
-            "nisn"=> 9875435,
+            "tanggal_lahir"=> "2022-11-12",
             "gender"=> "Laki - laki"
         ]);
         DB::table('data_person')->insert([
             "id_master"=> "2",
             "nama"=> "Tutung",
             "kelas"=> "X PPLG 1",
-            "nisn"=> 89098098,
+            "tanggal_lahir"=> "2022-10-15",
             "gender"=> "Laki - laki"
         ]);
         DB::table('data_person')->insert([
             "id_master"=> "3",
             "nama"=> "Ujang",
             "kelas"=> "X PPLG 1",
-            "nisn"=> 89098098,
+            "tanggal_lahir"=> "2006-05-22",
             "gender"=> "Laki - laki"
         ]);
     }

@@ -10,8 +10,8 @@
 
 <body>
         <!-- style css -->
-        <link rel="stylesheet" href="../static/assets/CSS/output.css">
-        <link rel="stylesheet" href="../static/assets/CSS/suport.css">
+        <link rel="stylesheet" href="{{ asset('assets/CSS/output.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/CSS/suport.css') }}">
         <script src="https://cdn.tailwindcss.com"></script>
         <!-- config -->
         <script>
@@ -46,7 +46,7 @@
                 StarBhak</h1>
             <div class="flex">
                 <p class="py-1 mr-2 font-semibold">
-                    User |</p>
+                    {{ auth()->guard('user')->user()->username }} |</p>
                 <button onclick="keiAlert('test')" class="bg-blue-dark text-white px-2 py-1 rounded ">
                     Log Out</button>
             </div>
@@ -59,12 +59,12 @@
                     Dashboard
                 </div>
             </a>
-            <a href="/absensiswa">
+            <a href="/absensi">
                 <div class="font-semibold mt-10"><span class="material-symbols-outlined -mb-3 mr-5">library_books</span>
                     Absen
                 </div>
             </a>
-            <a href="/datasiswa">
+            <a href="/data_siswa">
                 <div class="mt-10 text-unselect"><span class="material-symbols-outlined -mb-3 mr-5">assignment_ind</span>
                     Data Siswa
                 </div>
@@ -77,12 +77,12 @@
         <div class="absolute left-72 w-3/4 py-5 px-16">
             <h1 class="text-3xl text-blue font-bold mt-32 font-[Montserrat]">Face Recognition</h1>
             <div class="w-fit ml-5 mt-10">
-                <a href="/absensiswa">
+                <a href="/absensi/siswa_masuk/XI%20PPLG%201/PBO">
                     <div class="w-fit inline-block font-extrabold border-stroke rounded-tl-md px-3 py-0.5 mr-0 border-2 rounded-t-none border-solid">
                         <p>Masuk</p>
                     </div>
                 </a>
-                <a href="/absensiswa/absenpulang">
+                <a href="/absensi/siswa_keluar/{{ $kelas }}/{{ $mapel }}">
                     <div class="w-fit font-extrabold inline-block float-right border-stroke px-3 py-0.5 rounded-tr-md ml-0 border-2 rounded-t-none border-solid bg-blue text-white">
                         <p>Pulang</p>
                     </div>
@@ -91,7 +91,7 @@
 
             <div class="w-full border-stroke p-5 px-7 border-2 rounded-md border-solid flex justify-between relative">
                 <div class="w-fit flex">
-                    <img src="../static/img/Checklist_Flatline 2.png" class="rounded-lg w-[25%]" alt="Your cam here:3">
+                    <img src="{{ asset('assets/img/Checklist_Flatline 2.png') }}" class="rounded-lg w-[25%]" alt="Your cam here:3">
                     <div class="mt-[5%]">
                         <h1 class="text-3xl text-blue font-bold font-[Montserrat]">Face Recognition</h1>
                         <p>Silahkan Absen Wajah anda</p>
@@ -100,9 +100,18 @@
                 <!-- side -->
                 <div class="w-2/5">
                     <div class="items-center flex flex-col mt-[9%]">
-                        <h1 class="text-blue text-3xl font-extrabold" id="J">99:99 AM</h1>
-                        <p class="text-xs" id="t">Monday,02 November 2022</p>
-                        <a href="/absensiswa/pulang">
+                        <h1 class="text-blue text-3xl font-extrabold" id="jam">
+                            <span id="hour">00</span>:
+                            <span id="minutes">00</span>:
+                            <span id="seconds">00</span>
+                        </h1>
+                        <p class="text-xs" id="tgl">
+                            <span id="dayname">Day</span>,
+                            <span id="daynum">00</span>
+                            <span id="month">Month</span>
+                            <span id="year">Year</span>
+                        </p>
+                        <a href="/absensi/siswa_pulang/cam_pulang">
                             <button class="bg-blue text-white py-2 px-4 mt-1 rounded-xl w-fit mx-auto font-semibold">Pindai Wajah</button>
                         </a>
                     </div>
@@ -123,83 +132,65 @@
                         <tr class="">
                             <th class="p-3">NO</th>
                             <th class="p-3">NAMA</th>
-                            <th class="p-3">NISN</th>
+                            <th class="p-3">TANGGAL LAHIR</th>
                             <th class="p-3">MASUK</th>
                             <th class="p-3">PULANG</th>
                             <th class="p-3">ACTION</th>
                         </tr>
                     </thead>
                     <tbody id="totalabsen">
-                        
+                        @foreach ($datas as $data)
+                            <tr class="text-center border-tet-x border-t-0 border-l-0 border-r-0 border-[1px] border-solid hover:font-bold cursor-pointer p-3">
+                                <td class="p-3">{{ $no++ }}</td>
+                                <td class="p-3">{{ $data[1] }}</td>
+                                <td class="p-3">{{ $data[2] }}</td>
+                                <td class="p-3">{{ $data[3] }}</td>
+                                <td class="p-3">{{ $data[4] }}</td>
+                                <td class="p-3"></td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
         </div>
     <!-- custom alert -->
-    <script src="../static/assets/JS/cstkei.alert.js"></script>
+    <script src="{{ asset('assets/JS/cstkei.alert.js') }}"></script>
     <!-- python select method -->
-    <script type="text/javascript">
-        $(document).ready(function () {
-            let lastcnt = 0;
-            let cnt;
-            chkNewScan();
-
-            function chkNewScan() {
-                countTodayScan();
-                setTimeout(chkNewScan, 1000);
-            }
-
-            function countTodayScan() {
-                $.ajax({
-                    url: '/countTodayScan',
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function (data) {
-                        cnt = data.rowcount;
-                        if (cnt > lastcnt) {
-                            reloadTable();
-                        }
-                        lastcnt = cnt;
-                    },
-                    error: function (result) {
-                        console.log('no result!')
-                    }
-                })
-            }
-
-            function reloadTable() {
-                $.ajax({
-                    url: '/loadData',
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function (response) {
-                        var tr = $("#totalabsen");
-                        tr.empty();
-                        $.each(response, function (index, item) {
-                            inc = 1
-                            if (item.length > 0) {
-                                for (let i = 0; i < item.length; i++) {
-                                    tr.append('<tr class="text-center border-tet-x border-t-0 border-l-0 border-r-0 border-[1px] border-solid hover:font-bold cursor-pointer p-3">' +
-                                        '<td class="p-3">' + inc + '</td>' +
-                                        '<td class="p-3">' + item[i][2] + '</td>' +
-                                        '<td class="p-3">' + item[i][3] + '</td>' +
-                                        '<td class="p-3">' + item[i][4] + '</td>' +
-                                        '<td class="p-3">' + item[i][5] + '</td>' +                                    
-                                        '<td class="p-3">' + item[i][6] + '</td>' +
-                                        '<td> <input type="checkbox" name="chekpulang" id="" value="'+item[i][1]+'" style="width: 50px; height: 50px;"></td> '+
-                                    '</tr>');
-                                    inc++
-
-                                }
-                            }
-                        });
-                    },
-                    error: function (result) {
-                        console.log('no result!')
-                    }
-                });
-            }
-        });
-    </script>
+    <script>
+        function updateClock() {
+            var now = new Date();
+            var dname = now.getDay(),
+                mo = now.getMonth(),
+                dnum = now.getDate(),
+                yr = now.getFullYear(),
+                hou = now.getHours(),
+                min = now.getMinutes(),
+                sec = now.getSeconds();
+        
+                if(hou == 0) {
+                    hou = 24;
+                }
+                if(hou > 24) {
+                    hou = hou - 24;
+                }
+                
+                Number.prototype.pad = function(digits) {
+                    for(var n = this.toString(); n.length < digits; n = 0 + n);
+                    return n;
+                }
+                
+                var months = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+                var week = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jum'at", "Sabtu"];
+                var ids = ["dayname", "month", "daynum", "year", "hour", "minutes", "seconds"];
+                var values = [week[dname], months[mo], dnum.pad(2), yr.pad(2), hou.pad(2), min.pad(2), sec.pad(2)];
+                for(var i = 0; i < ids.length; i++)
+                document.getElementById(ids[i]).firstChild.nodeValue = values[i];
+        }
+        
+        function initClock() {
+            updateClock();
+            window.setInterval("updateClock()", 1);
+        }
+    </script> 
 </body>
 
 </html>

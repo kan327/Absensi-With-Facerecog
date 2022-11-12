@@ -11,6 +11,16 @@ use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
+
+    public function read_mapel()
+    {
+        $data = mapel::all();
+        return view("admin.component.table_mapel", [
+            "data"=>$data,
+            "no"=>1
+        ]);
+    }
+
     public function tambah_guru_view()
     {
         return view("layouts.mainAdmin", [
@@ -81,7 +91,7 @@ class AdminController extends Controller
         ]);
 
         mapel::insert([
-            "pelajaran" => $validasi['pelajaran']
+            "pelajaran"=> $validasi['pelajaran']
         ]);
 
         return redirect("/admin")->with("success", "Mapel Baru Berhasil Dibuat");

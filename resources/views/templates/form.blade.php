@@ -18,7 +18,7 @@
                     <option value="Laki Laki">Laki-Laki</option>
                     <option value="Perempuan">Perempuan</option>
                 </select>
-                <input type="number" placeholder="NISN" class="text-center border-2 border-blue-dark border-opacity-40 rounded-md mx-auto w-3/4 mt-3 h-8" required name="nisn">
+                <input type="number" placeholder="Tanggal Lahir" class="text-center border-2 border-blue-dark border-opacity-40 rounded-md mx-auto w-3/4 mt-3 h-8" name="tanggal_lahir">
                 <p id="err-2" class="font-['Quicksand'] font-semibold mx-auto text-red-600"></p>
     
                 <input type="submit" id="btn-1" class="text-center bg-gray-400 text-base text-white rounded-md mx-auto w-3/4 mt-3 h-8" value="Pindai Wajah">

@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Absen | Starbhak Absensi</title>
     <!-- style css -->
-    <link rel="stylesheet" href="../static/assets/CSS/output.css">
-    <link rel="stylesheet" href="../static/assets/CSS/suport.css">
+    <link rel="stylesheet" href="{{ asset('assets/CSS/output.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/CSS/suport.css') }}">
     <script src="https://cdn.tailwindcss.com"></script>
     {{-- <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script> --}}
     <!-- config -->
@@ -77,7 +77,7 @@
         <div class="absolute left-72 w-3/4 py-5 px-16">
             <h1 class="text-3xl text-blue font-bold mt-32 font-[Montserrat]">Face Recognition</h1>
             <div class="w-fit ml-5 mt-10">
-                <a href="/absensiswa">
+                <a href="/absensi/siswa_masuk/XI%20PPLG%201/PBO">
                     <div class="w-fit font-extrabold inline-block border-stroke px-3 py-0.5 rounded-tr-none ml-0 border-2 rounded-t-md border-solid bg-blue text-white">
                         <p>Masuk</p>
                     </div>
@@ -91,7 +91,7 @@
 
             <div class="w-full border-stroke p-5 px-7 border-2 rounded-md border-solid flex justify-between relative">
                 <div class="w-fit flex">
-                    <img src="../static/img/Checklist_Flatline 2.png" class="rounded-lg w-[25%]" alt="Your cam here:3">
+                    <img src="{{ asset('assets/img/Checklist_Flatline 2.png') }}" class="rounded-lg w-[25%]" alt="Your cam here:3">
                     <div class="mt-[5%]">
                         <h1 class="text-3xl text-blue font-bold font-[Montserrat]">Face Recognition</h1>
                         <p>Silahkan Absen Wajah anda</p>
@@ -111,7 +111,7 @@
                             <span id="month">Month</span>
                             <span id="year">Year</span>
                         </p>
-                        <a href="/absensiswa/masuk">
+                        <a href="/absensi/siswa_masuk/cam_masuk">
                             <button class="bg-blue text-white py-2 px-4 mt-1 rounded-xl w-fit mx-auto font-semibold">Pindai Wajah</button>
                         </a>
                     </div>

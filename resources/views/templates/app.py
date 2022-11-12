@@ -136,7 +136,7 @@ def face_recognition():  # generate frame by frame from camera
                 cv2.rectangle(img, (x, y + h + 40), (x + w, y + h + 50), color, 2)
                 cv2.rectangle(img, (x, y + h + 40), (x + int(w_filled), y + h + 50), (153, 255, 255), cv2.FILLED)
  
-                mycursor.execute("SELECT a.img_person, b.nama, b.kelas, b.nisn "
+                mycursor.execute("SELECT a.img_person, b.nama, b.kelas, b.tanggal_lahir "
                                  " FROM images a "
                                  " LEFT JOIN data_person b ON a.img_person = b.id_master "
                                  " WHERE img_id = " + str(id))
@@ -228,7 +228,7 @@ def face_recognition2():  # generate frame by frame from camera
                 cv2.rectangle(img, (x, y + h + 40), (x + w, y + h + 50), color, 2)
                 cv2.rectangle(img, (x, y + h + 40), (x + int(w_filled), y + h + 50), (153, 255, 255), cv2.FILLED)
  
-                mycursor.execute("SELECT a.img_person, b.nama, b.kelas, b.nisn "
+                mycursor.execute("SELECT a.img_person, b.nama, b.kelas, b.tanggal_lahir "
                                  " FROM images a "
                                  " LEFT JOIN data_person b ON a.img_person = b.id_master "
                                  " WHERE img_id = " + str(id))
@@ -291,7 +291,7 @@ def face_recognition2():  # generate frame by frame from camera
  
 @app.route('/absensiswa')
 def home():
-    mycursor.execute("SELECT a.attendance_id, a.attendance_person, b.nama, b.kelas, b.nisn, date_format(a.attendance_in, '%H:%i:%s') "
+    mycursor.execute("SELECT a.attendance_id, a.attendance_person, b.nama, b.kelas, b.tanggal_lahir, date_format(a.attendance_in, '%H:%i:%s') "
                      " FROM attendance_datamaster a "
                      " LEFT JOIN data_person b ON a.attendance_person = b.id_master "
                      " WHERE a.attendance_date = curdate() "
@@ -302,7 +302,7 @@ def home():
 
 @app.route('/absensiswa/absenpulang')
 def pulang():
-    mycursor.execute("SELECT a.attendance_id, a.attendance_person, b.nama, b.kelas, b.nisn, date_format(a.attendance_in, '%H:%i:%s') "
+    mycursor.execute("SELECT a.attendance_id, a.attendance_person, b.nama, b.kelas, b.tanggal_lahir, date_format(a.attendance_in, '%H:%i:%s') "
                      " FROM attendance_datamaster a "
                      " LEFT JOIN data_person b ON a.attendance_person = b.id_master "
                      " WHERE a.attendance_date = curdate() "
@@ -313,7 +313,7 @@ def pulang():
 
 @app.route('/datasiswa')
 def master():
-    mycursor.execute("SELECT id_master, nama, kelas, nisn, gender, added_on FROM data_person")
+    mycursor.execute("SELECT id_master, nama, kelas, tanggal_lahir, gender, added_on FROM data_person")
     data = mycursor.fetchall()
 
     return render_template('mastersiswa.html', data=data)
@@ -331,9 +331,9 @@ def addprsn_submit():
     nama = request.form.get('nama')
     kelas = request.form.get('kelas')
     gender = request.form.get('jkelamin')
-    nisn = request.form.get('nisn')
+    tanggal_lahir = request.form.get('tanggal_lahir')
  
-    mycursor.execute("""INSERT INTO `data_person` (`id_master`, `nama`, `kelas`, `gender`, `nisn`) VALUES ('{}', '{}', '{}', '{}', '{}')""".format(prsnbr, nama, kelas, gender, nisn))
+    mycursor.execute("""INSERT INTO `data_person` (`id_master`, `nama`, `kelas`, `gender`, `tanggal_lahir`) VALUES ('{}', '{}', '{}', '{}', '{}')""".format(prsnbr, nama, kelas, gender, tanggal_lahir))
     mydb.commit()
  
     return redirect(url_for('vfdataset_page', prs=prsnbr))
@@ -361,7 +361,7 @@ def video_feed2():
 @app.route('/absensiswa/masuk')
 def fr_page():
     """Video streaming home page."""
-    mycursor.execute("SELECT a.attendance_id, a.attendance_person, b.nama, b.kelas, b.nisn, a.attendance_in "
+    mycursor.execute("SELECT a.attendance_id, a.attendance_person, b.nama, b.kelas, b.tanggal_lahir, a.attendance_in "
                      " FROM attendance_datamaster a "
                      " LEFT JOIN data_person b ON a.attendance_person = b.id_master "
                      " WHERE a.attendance_date = curdate() "
@@ -374,7 +374,7 @@ def fr_page():
 @app.route('/absensiswa/absenpulang/pulang')
 def fr_page2():
     """Video streaming home page."""
-    mycursor.execute("SELECT a.attendance_id, a.attendance_person, b.nama, b.kelas, b.nisn, a.attendance_in "
+    mycursor.execute("SELECT a.attendance_id, a.attendance_person, b.nama, b.kelas, b.tanggal_lahir, a.attendance_in "
                      " FROM attendance_datamaster a "
                      " LEFT JOIN data_person b ON a.attendance_person = b.id_master "
                      " WHERE a.attendance_date = curdate() "
@@ -413,7 +413,7 @@ def loadData():
     )
     mycursor = mydb.cursor()
  
-    mycursor.execute("SELECT a.attendance_id, a.attendance_person, b.nama, b.kelas, b.nisn, date_format(a.attendance_in, '%H:%i:%s'), date_format(a.attendance_out, '%H:%i:%s') "
+    mycursor.execute("SELECT a.attendance_id, a.attendance_person, b.nama, b.kelas, b.tanggal_lahir, date_format(a.attendance_in, '%H:%i:%s'), date_format(a.attendance_out, '%H:%i:%s') "
                      " FROM attendance_datamaster a "
                      " LEFT JOIN data_person b ON a.attendance_person = b.id_master "
                      " WHERE a.attendance_date = curdate() "

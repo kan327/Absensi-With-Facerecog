@@ -41,10 +41,12 @@ Route::controller(DashboardController::class)->group(function(){
 // Guru 
 Route::get('/absensi', [GuruController::class, 'index'])->middleware('isLoginGuru');
 Route::get("/absensi/siswa_masuk/{kelas}/{mapel}", [GuruController::class, "absen_siswa"]);
+Route::get("/absensi/siswa_masuk/cam_masuk", [GuruController::class, "cam_masuk"]);
 Route::get("/absensi/siswa_keluar/{kelas}/{mapel}", [GuruController::class, "absen_keluar_siswa"]);
 
 // Admin
 Route::controller(AdminController::class)->group(function(){
+    Route::get("/admin/read_mapel", "read_mapel");
     Route::get("/admin/tambah_guru", "tambah_guru_view");
     Route::post("/admin/tambah_guru", "tambah_guru");
     Route::post("/admin/tambah_kelas", "tambah_kelas");

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -39,7 +38,9 @@ class GuruController extends Controller
 
     public function absen_keluar_siswa($kelas, $mapel)
     {
-        $process = new Process(['python ../../../app/absen_masuk.py']);
+        // require "C:\laragon\www\Absensi-With-Facerecog\app\cam_absen_masuk.py";
+
+        $process = new Process(['python ../../../app/absen_pulang.py']);
         // $process->setTimeout(0);
         $process->run();
 
@@ -55,8 +56,27 @@ class GuruController extends Controller
             "kelas" => $kelas,
             "no"=>1,
             "mapel" => $mapel,
-            "data"=> $datas
+            "datas"=> $datas
         ]);
+    }
+
+    public function cam_masuk()
+    {
+        $process = new Process(['python ../../../app/cam_absen_masuk.py']);
+        // $process->setTimeout(0);
+        $process->run();
+        // $camera = video_feed();
+
+        if(!$process->isSuccessful())
+        {
+            throw new ProcessFailedException($process);
+        }
+
+        // dd( $process->getOutput());
+
+        // $datas = json_decode($data, true);
+
+        return view("guru.absencam");
     }
 
     public function read()

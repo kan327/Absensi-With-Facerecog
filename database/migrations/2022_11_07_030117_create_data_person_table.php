@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string("id_master", 7)->primary();
             $table->string("nama", 70);
             $table->string("kelas", 30);
-            $table->bigInteger("nisn");
+            $table->string("tanggal_lahir");
             $table->string("gender", 20);
             $table->timestamp("added_on")->useCurrent();
         });
