@@ -8,20 +8,18 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\GuruController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+// Home
+Route::get("/", [GuruController::class , "index"]);
+Route::get("/profile", [GuruController::class , "profile"]);
+Route::get("/absensi", [GuruController::class , "absensi"]);
+Route::get("/data_kelas", [GuruController::class , "data_kelas"]);
+Route::post("/mapel", [GuruController::class , "insert_mapel"]);
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+// Route::get("/admin", [AdminController::class , "index_admin"]);
+Route::get("/admin", [AdminController::class , "index_admin"])->name('admin')->middleware("isLoginGuru");
+
+Route::controller(DashboardController::class)->group(function(){
+});
 
 // Login
 Route::controller(LoginController::class)->group(function(){
@@ -32,37 +30,33 @@ Route::controller(LoginController::class)->group(function(){
     Route::post('/logout', "logout");
 });
 
-// Home
-Route::controller(DashboardController::class)->group(function(){
-    Route::get("/" , "index")->middleware("isLoginGuru");
-    Route::get("/admin", "index_admin")->name('admin')->middleware("isLoginGuru");
-});
 
-// Guru 
-Route::get('/absensi', [GuruController::class, 'index'])->middleware('isLoginGuru');
-Route::get("/absensi/siswa_masuk/{kelas}/{mapel}", [GuruController::class, "absen_siswa"]);
-Route::get("/absensi/siswa_masuk/cam_masuk", [GuruController::class, "cam_masuk"]);
-Route::get("/absensi/siswa_keluar/{kelas}/{mapel}", [GuruController::class, "absen_keluar_siswa"]);
+// // Guru 
+// Route::get('/test', [DataPersonController::class, 'test']);
+// Route::get('/absensi', [GuruController::class, 'index'])->middleware('isLoginGuru');
+// Route::get("/absensi/siswa_masuk/{kelas}/{mapel}", [GuruController::class, "absen_siswa"]);
+// Route::get("/absensi/siswa_masuk/cam_masuk", [GuruController::class, "cam_masuk"]);
+// Route::get("/absensi/siswa_keluar/{kelas}/{mapel}", [GuruController::class, "absen_keluar_siswa"]);
 
-// Admin
-Route::controller(AdminController::class)->group(function(){
-    Route::get("/admin/read_mapel", "read_mapel");
-    Route::get("/admin/tambah_guru", "tambah_guru_view");
-    Route::post("/admin/tambah_guru", "tambah_guru");
-    Route::post("/admin/tambah_kelas", "tambah_kelas");
-    Route::post("/admin/tambah_mapel", "tambah_mapel");
-});
+// // Admin
+// Route::controller(AdminController::class)->group(function(){
+//     Route::get("/admin/read_mapel", "read_mapel");
+//     Route::get("/admin/tambah_guru", "tambah_guru_view");
+//     Route::post("/admin/tambah_guru", "tambah_guru");
+//     Route::post("/admin/tambah_kelas", "tambah_kelas");
+//     Route::post("/admin/tambah_mapel", "tambah_mapel");
+// });
 
-// Tampilan data siswa dan form tambah siswa
-Route::controller(DataPersonController::class)->group(function(){
-    Route::get("/siswa", "index");
-    Route::get("/siswa/tambah", "form");
-    Route::post("/siswa/tambah", "tambah_siswa");
-});
+// // Tampilan data siswa dan form tambah siswa
+// Route::controller(DataPersonController::class)->group(function(){
+//     Route::get("/siswa", "index");
+//     Route::get("/siswa/tambah", "form");
+//     Route::post("/siswa/tambah", "tambah_siswa");
+// });
 
-Route::controller(AttendanceDatamasterController::class)->group(function(){
-    Route::get("/absen_masuk", "absen_masuk");
-    Route::get("/absen_pulang", "absen_pulang");
-    Route::get("/cam_masuk", "absen_cam_masuk");
-    Route::get("/cam_pulang", "absen_cam_pulang");
-});
+// Route::controller(AttendanceDatamasterController::class)->group(function(){
+//     Route::get("/absen_masuk", "absen_masuk");
+//     Route::get("/absen_pulang", "absen_pulang");
+//     Route::get("/cam_masuk", "absen_cam_masuk");
+//     Route::get("/cam_pulang", "absen_cam_pulang");
+// });

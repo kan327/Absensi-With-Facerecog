@@ -30,6 +30,24 @@ class DataPersonController extends Controller
         ]);
     }
 
+    public function test()
+    {
+        // $process = new Process(['python ../../../app/test.py']);
+        // // $process->setTimeout(0);
+        // $process->run();
+
+        // if(!$process->isSuccessful())
+        // {
+        //     throw new ProcessFailedException($process);
+        // }
+
+        // $data = $process->getOutput();
+        // $datas = json_decode($data, true);
+        // dd($datas);
+
+        return view("test");
+    }
+
     public function form()
     {
         return view("layouts.main", [

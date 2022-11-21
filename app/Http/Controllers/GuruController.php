@@ -9,9 +9,35 @@ class GuruController extends Controller
 {
     public function index()
     {
-        return view('layouts.main', [
-            "title"=>"absensi", 
+        return view("guru.dashboard_guru", [
+            "title" => "dashboard_guru",
         ]);
+    }
+
+    public function profile()
+    {
+        return view("guru.profile", [
+            "title" => "profile_guru",
+        ]);
+    }
+
+    public function absensi()
+    {
+        return view("guru.absensi", [
+            "title" => "absensi",
+        ]);
+    }
+
+    public function data_kelas()
+    {
+        return view("guru.data_kelas", [
+            "title" => "data_kelas",
+        ]);
+    }
+
+    public function insert_mapel(Request $request)
+    {
+        return "It's a Response From Ajax LOL";
     }
 
     public function absen_siswa($kelas, $mapel)
@@ -63,7 +89,7 @@ class GuruController extends Controller
     public function cam_masuk()
     {
         $process = new Process(['python ../../../app/cam_absen_masuk.py']);
-        // $process->setTimeout(0);
+        $process->setTimeout(3600);
         $process->run();
         // $camera = video_feed();
 
@@ -72,7 +98,7 @@ class GuruController extends Controller
             throw new ProcessFailedException($process);
         }
 
-        // dd( $process->getOutput());
+        dd( $process->getOutput());
 
         // $datas = json_decode($data, true);
 
