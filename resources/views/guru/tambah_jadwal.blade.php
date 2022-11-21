@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+          
+    {{-- tailwind --}}
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    {{-- link css --}}
+    <link rel="stylesheet" href="{{ asset('assets/CSS/output.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/CSS/suport.css') }}">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'blue-dark': '#1061FF',
+                        'blue': '#349DFD',
+                        'tet': '#001458',
+                        'unselect': '#BAC5E7',
+                        'stroke': '#81B7E9',
+                    },
+                    boxShadow: {
+                        nav: '2px 2px 50px 1px rgba(179, 185, 191, 0.1);',
+                        side: ' 0px 5px 10px rgba(0, 0, 0, 0.05);',
+                        card: '-8px -8px 12px rgba(255, 255, 255, 0.25), 8px 8px 10px rgba(0, 0, 0, 0.25);'
+                    }
+                },
+            }
+        }
+    </script>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;1,500&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="text-tet">
+    <!-- navbar top -->
+    @include('partials.navbar')
+
+    <!-- Sidebar left -->
+    @include('partials.sidebar')
+
+    <!-- content -->
+    <div class="absolute flex justify-center items-center bg-gray-100 top-16 left-60 h-[90%] w-[82%]">
+
+        <!-- card -->
+        <div id="card" class="w-2/3 h-4/5 rounded-xl shadow-card p-7 bg-white">
+
+            <!-- judul -->
+            <div class="flex items-center w-full h-[10%] border-b-[1px] border-b-black">
+                <h1 class="capitalize font-[montserrat] text-xl text-blue-dark-10 font-bold">
+                    tambah jadwal mata pelajaran
+                </h1>
+            </div>
+
+            <!-- content card -->
+            <div class=" w-full h-3/4 ">
+
+                <!-- sub judul -->
+                <div class="flex items-center pl-5  h-1/5 w-full">
+                    <p class="capitalize font-[montserrat] text-[#001458]">Hai {{ auth()->guard("user")->user()->username }} ! , mau mengajar apa hari ini?</p>
+                </div>
+
+                <!-- inputan 1 -->
+                <div class="pl-5 w-full h-2/5 ">
+                    <div class="flex w-full">
+                        <div class="w-1/2">
+                            <label class="font-semibold font-[montserrat] text-xl text-black" for="">Mata
+                                Pelajaran</label><br>
+                                <details class="custom-select rounded-lg mt-2" style="width: 80%;">
+                                    <summary class="radios" style="padding: 10px 10px; text-align: left;  border: #999bba solid 2px;">
+                                        @foreach ($mapels as $mapel)
+                                            <input type="radio" name="Mapel" id="{{ $mapel->pelajaran }}" title="{{ $mapel->pelajaran }}" checked>
+                                        @endforeach
+                                    </summary>
+                                    <ul class="list">
+                                        @foreach ($mapels as $mapel)
+                                            <li>
+                                                <label for="{{  $mapel->pelajaran }}">
+                                                    {{  $mapel->pelajaran }}
+                                                    <span></span>
+                                                </label>
+                                            </li>
+                                        @endforeach
+                                        {{-- <li>
+                                            <label for="PBO">PBO</label>
+                                        </li>
+                                        <li>
+                                            <label for="PWL">PWL</label>
+                                        </li> --}}
+                                    </ul>
+                                </details>
+                        </div>
+                        <div class="w-1/2">
+                            <label class="font-semibold font-[montserrat] text-xl text-black" for="">Kelas</label><br>
+                            <details class="custom-select rounded-lg mt-2" style="width: 80%;">
+                                <summary class="radios" style="padding: 10px 10px; text-align: left;  border: #999bba solid 2px;">
+                                    <input type="radio" name="kelas" id="XIPPLG1" title="XI PPLG 1" checked>
+                                    <input type="radio" name="kelas" id="XIPPLG2" title="XI PPLG 2">
+                                    <input type="radio" name="kelas" id="XPPLG1" title="X PPLG 1">
+                                </summary>
+                                <ul class="list">
+                                    <li>
+                                        <label for="XIPPLG1">
+                                            XI PPLG 1
+                                            <span></span>
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <label for="XIPPLG2">XI PPLG 2</label>
+                                    </li>
+                                    <li>
+                                        <label for="XPPLG1">X PPLG 1</label>
+                                    </li>
+                                </ul>
+                            </details>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <!-- inputan 2 -->
+                <div class="flex w-[93%] h-2/5 ">
+                    <div class=" w-1/3">
+                        <div class="flex justify-center w-full">
+                        <p class="font-[montserrat] font-semibold text-lg ">Mulai Absen</p></div>
+                        <div class="flex justify-center h-full w-full">
+                            <input class="rounded-lg w-[80%] h-1/3 border-[1px] " style="padding: 10px 10px; text-align: left;  border: #999bba solid 2px;" type="time"></div>
+                    </div>
+
+                    <div class=" w-1/3">
+                        <div class="flex justify-center w-full">
+                        <p class="font-[montserrat] font-semibold text-lg ">Batas Absen</p></div>
+                        <div class="flex justify-center h-full w-full">
+                        <input class="rounded-lg w-[80%] h-1/3" style="padding: 10px 10px; text-align: left;  border: #999bba solid 2px;" type="time" type="time"></div>
+                    </div>
+
+                    <div class=" w-1/3">
+                        <div class="flex justify-center w-full">
+                        <p class="font-[montserrat] font-semibold text-lg ">Selesai</p></div>
+                        <div class="flex justify-center h-full w-full">
+                            <input class="rounded-lg w-[80%] h-1/3" style="padding: 10px 10px; text-align: left;  border: #999bba solid 2px;" type="time"></div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- button -->
+            <div class="w-full h-[12%] flex justify-end border-t-black border-t-[1px] pt-3">
+                <button class=" w-[20%] hover:scale-110 text-[#0d245a] font-bold rounded mr-5 ">Cancel</button>
+                <button class=" w-[20%] hover:scale-110 text-white font-bold bg-[#002c9d] rounded ">Add</button>
+            </div>
+
+        </div>
+
+
+    </div>
+</body>
+
+</html>
+
+
+<!-- npx tailwindcss -i ./src/input.css -o ./public/assets/css/output.css --watch -->

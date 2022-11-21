@@ -8,15 +8,38 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\GuruController;
 use Illuminate\Support\Facades\Route;
 
-// Home
-Route::get("/", [GuruController::class , "index"]);
-Route::get("/profile", [GuruController::class , "profile"]);
-Route::get("/absensi", [GuruController::class , "absensi"]);
-Route::get("/data_kelas", [GuruController::class , "data_kelas"]);
-Route::post("/mapel", [GuruController::class , "insert_mapel"]);
+// Guru Route
+Route::controller(GuruController::class)->group(function(){
 
-// Route::get("/admin", [AdminController::class , "index_admin"]);
-Route::get("/admin", [AdminController::class , "index_admin"])->name('admin')->middleware("isLoginGuru");
+    Route::get("/",  "index");
+    Route::get("/profile",  "profile");
+    Route::get("/absensi",  "absensi");
+    Route::get("/absensi/tambah_jadwal", "tambah_jadwal");
+    Route::get("/data_kelas",  "data_kelas");
+    Route::get("/absen_siswa/{tanggal}/{kelas}/{mapel}",  "absen_siswa");
+    Route::get("/absen_siswa/{tanggal}/{kelas}/{mapel}/cam_masuk",  "cam_masuk");
+    
+});
+
+// Admin Route
+Route::controller(AdminController::class)->group(function(){
+
+    Route::get("/admin",  "index_admin")->name('admin')->middleware("isLoginGuru");
+    Route::get("/admin/box",  "box");
+    Route::get("/admin/table_mapel",  "table_mapel");
+    Route::post("/admin/mapel",  "insert_mapel");
+    Route::get("/admin/table_kelas",  "table_kelas");
+    Route::post("/admin/kelas",  "insert_kelas");
+    Route::get("/admin/guru",  "guru");
+    Route::post("/admin/tambah_guru",  "tambah_guru");
+    
+    // delete
+    Route::get("/admin/mapel/{id}", "delete_mapel");
+    Route::get("/admin/kelas/{id}", "delete_kelas");
+    Route::get("/admin/guru/{id}", "update_guru");
+    Route::post("/admin/guru/{id}", "edit_guru");
+
+});
 
 Route::controller(DashboardController::class)->group(function(){
 });

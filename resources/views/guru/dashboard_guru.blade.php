@@ -170,6 +170,10 @@
     <!-- custom alert -->
     <script src="{{ asset('assets/JS/cstkei.alert.js') }}"></script>
 
+    @if (Session::has("success"))
+        <script>keiAlert("{{ session()->get('success') }}", 'done', 'bg-[#22c55e]')</script>
+    @endif
+
     {{-- tailwind --}}
     <script src="https://cdn.tailwindcss.com"></script>
 </body>

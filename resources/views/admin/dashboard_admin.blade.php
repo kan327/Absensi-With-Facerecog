@@ -7,7 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Dashboard</title>
+      
+    {{-- tailwind --}}
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
     <!-- style css -->
+
     <link rel="stylesheet" href="{{ asset('assets/CSS/output.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/CSS/suport.css') }}">
     <!-- config -->
@@ -53,46 +59,13 @@
         <div class="w-[65%]">
             <h1 class="text-3xl text-blue font-bold mt-32 mb-5 font-[Montserrat]">Welcome, {{ auth()->guard('admin')->user()->username }}!</h1>
             <!-- box -->
-            <div class="flex justify-between ">
-                <!-- box 1 -->
-                <div class="w-[31%] pl-4 pt-4 pb-4 bg-blue rounded-xl text-white relative">
-                    <div class="flex justify-between ">
-                        <p>01</p><span class="material-symbols-outlined pr-4">more_vert</span>
-                    </div>
-                    <div class="mt-3 ml-5 w-fit">
-                        <h1 class="w-fit font-medium font-[Montserrat] select-none">Total Kelas</h1>
-                        <int class="w-fit font-bold text-2xl">24</int>
-                    </div>
-                    <img class="absolute bottom-0 right-0 max-w-[35%] -mr-1 " src="{{ asset('assets/img/yellow-blue.png') }}" alt="">
-                </div>
-                <!-- box 2 -->
-                <div class="w-[31%] pl-4 pt-4 pb-4 bg-blue rounded-xl text-white relative">
-                    <div class="flex justify-between ">
-                        <p>01</p><span class="material-symbols-outlined pr-4">more_vert</span>
-                    </div>
-                    <div class="mt-3 ml-5 w-fit">
-                        <h1 class="w-fit font-medium font-[Montserrat]">Total Guru</h1>
-                        <int class="w-fit font-bold text-2xl">24</int>
-                    </div>
-                    <img class="absolute bottom-0 right-0 max-w-[35%] -mr-1" src="{{ asset('assets/img/yellow-blue.png') }}" alt="">
-                </div>
-                <!-- box 3 -->
-                <div class="w-[31%] pl-4 pt-4 pb-4 bg-blue rounded-xl text-white relative">
-                    <div class="flex justify-between ">
-                        <p>01</p><span class="material-symbols-outlined pr-4">more_vert</span>
-                    </div>
-                    <div class="mt-3 ml-5 w-fit">
-                        <h1 class="w-fit font-medium font-[Montserrat]">Total Mapel</h1>
-                        <int class="w-fit font-bold text-2xl">24</int>
-                    </div>
-                    <img class="absolute bottom-0 right-0 max-w-[35%] -mr-1" src="{{ asset('assets/img/yellow-blue.png') }}" alt="">
-                </div>
+            <div class="flex justify-between" id="box">
+                
             </div>
             <!-- table -->
             <div class="relative">
                 <div class="flex justify-end w-full my-5">
-                    <button class="bg-blue text-white py-2 px-4 rounded-xl  w-fit font-semibold"
-                        onclick="keiAlert('Data Berhasil Disimpan')">+ buat</button>
+                    <button class="bg-[#5BB1FF] hover:bg-blue text-white py-2 px-4 rounded-xl  w-fit font-semibold" onclick="location.href='admin/guru'">+ Tambah</button>
                 </div>
                 <div class="border-blue border-[1px] border-solid rounded-xl">
                     <h1 class="text-blue font-extrabold w-fit mx-auto my-1">Akun Guru</h1>
@@ -108,6 +81,7 @@
                                     <th>Email</th>
                                     <th>Username</th>
                                     <th>Password</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -121,6 +95,10 @@
                                         <th class="break-words max-w-[100px]">{{ $guru['email'] }}</th>
                                         <th class="break-words max-w-[100px]">{{ $guru['username'] }}</th>
                                         <th class="break-words max-w-[100px]">*********</th>
+                                        <th class="break-words max-w-[100px]">
+                                            <a href="admin/guru/{{ $guru->id }}"><span class="material-symbols-outlined">edit</span></a>
+                                            <a href="admin/guru/{{ $guru->id }}"><span class="material-symbols-outlined text-red-600">delete</span></a>
+                                        </th>
                                     </tr>
                                 @endforeach
                                 
@@ -167,7 +145,12 @@
             <div class="mt-[11.5rem] border-blueside text-blueside border-2 border-solid w-[90%] p-4 rounded">
                 <h3 class="text-lg font-semibold">Mata Pelajaran</h3>
                 <input type="text" class="border-blueside border-2 border-solid w-[68%] rounded"
-                    placeholder="Tambah Mapel" id="pelajaran">
+                    placeholder="Tambah Mapel" name="pelajaran" id="pelajaran">
+
+                @error('pelajaran')
+                    <small class="font-bold text-red-500">{{ $message }}</small>
+                @enderror
+
                 <button class="bg-blueside text-white py-0.5 px-3 rounded w-fit font-semibold" onclick="mapel_simpan()">
                     simpan</button>
                 <div class="border-blueside text-blueside border-2 border-solid rounded-lg mt-5 h-60 overflow-y-auto p-2">
@@ -179,18 +162,8 @@
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            @foreach ($mapels as $mapel)
-
-                            <tr
-                                class="border-tet-x text-tet-x border-t-0 border-l-0 border-r-0 border-[1px] text-sm border-solid hover:text-blue hover:border-blue cursor-pointer">
-                                <td>{{ $no_mapel++ }}</td>
-                                <td>{{ $mapel['pelajaran'] }}</td>
-                                <td>Symbols</td>
-                            </tr>
-                            
-                            @endforeach
-                            
+                        <tbody id="table_mapel">
+                            {{-- table mapel --}}
                         </tbody>
                     </table>
                 </div>
@@ -199,8 +172,13 @@
             <div class="mt-5 border-blueside text-blueside border-2 border-solid w-[90%] p-4 rounded">
                 <h3 class="text-lg font-semibold">Kelas</h3>
                 <input type="text" class="border-blueside border-2 border-solid w-[68%] rounded"
-                    placeholder="Tambah Kelas">
-                <button type="submit" class="bg-blueside text-white py-0.5 px-3 rounded w-fit font-semibold">
+                    placeholder="Tambah Kelas" name="kelas" id="kelas">
+
+                    @error('kelas')
+                        <small class="font-bold text-red-500">{{ $message }}</small>
+                    @enderror
+
+                <button type="submit" class="bg-blueside text-white py-0.5 px-3 rounded w-fit font-semibold" onclick="kelas_simpan()">
                     simpan</button>
                 <div class="border-blueside text-blueside border-2 border-solid rounded-lg mt-5 h-60 overflow-y-auto p-2">
                     <table class="w-full text-center">
@@ -211,17 +189,8 @@
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            @foreach ($kelas as $kels)
-                            
-                            <tr
-                                class="border-tet-x text-tet-x border-t-0 border-l-0 border-r-0 border-[1px] text-sm border-solid hover:text-blue hover:border-blue cursor-pointer">
-                                <td>{{ $no_kelas++ }}</td>
-                                <td>{{ $kels['kelas'] }}</td>
-                                <td>Symbols</td>
-                            </tr>
-                            
-                            @endforeach
+                        <tbody id="table_kelas">
+                            {{-- table Kelas --}}
                     
                         </tbody>
                     </table>
@@ -237,31 +206,14 @@
     <!-- custom alert -->
     <script src="{{ asset('assets/JS/cstkei.alert.js') }}"></script>
 
+        @if (Session::has("success"))
+            <script>keiAlert("{{ session()->get('success') }}", 'done', 'bg-[#22c55e]')</script>
+        @endif
+        
     <script src="{{ asset('assets/JS/jquery.js') }}"></script>
 
-    <script>
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')
-            }
-        })
-
-        function mapel_simpan(){
-            $.ajax({
-            url:"/mapel",
-            type:"POST",
-            data:{
-                pelajaran : $("#pelajaran").val()
-            },
-            success:function(ress){
-                console.log(ress)
-            }
-        })
-        }
-    </script>
-    
-    {{-- tailwind --}}
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="{{ asset('assets/JS/admin.js') }}"></script>
+  
 </body>
 
 </html>

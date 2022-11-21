@@ -12,8 +12,8 @@
     <link rel="stylesheet" href="{{ asset('assets/CSS/suport.css') }}">
     <!-- font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
     <!-- config -->
     <script>
         tailwind.config = {
@@ -65,7 +65,7 @@
                     <h1 class="font-bold text-xl font-[Montserrat]">Kelola Jadwal</h1>
                     <p class="text-[#5B5A5A] font-[quicksand] font-semibold ">Kelola semua jadwal anda dan tambahkan jadwal.</p>
                 </div>
-                <button class="#1991FF px-4 font-[quicksand] py-2 float-right bg-[#1991FF] rounded-xl text-white font-bold">+ Tambahkan Jadwal</button>
+                <button class="#1991FF px-4 font-[quicksand] py-2 float-right bg-[#1991FF] rounded-xl text-white font-bold" onclick="location.href='/absensi/tambah_jadwal'">+ Tambahkan Jadwal</button>
             </div>
             <!-- table -->
             <div class="mt-20 h-[50vh] w-full overflow-auto">
@@ -85,7 +85,7 @@
                     <!-- body -->
                     <tbody class="text-center text-base font-bold text-n-tet-x cursor-pointer select-none">
                         <tr class="hover:bg-[#E8F4FF] hover:font-bold rounded-full in-hover-to"
-                            onclick="location.href = 'detailabsensi.html'">
+                            onclick="location.href = '/absen_siswa/2022-11-21/XI PPLG 1/PBO'">
                             <!-- please delete or reuse this onclick -->
                             <td class="p-3 font-semibold " style="border-top-left-radius: 12px; border-bottom-left-radius: 12px;">1
                             </td>
