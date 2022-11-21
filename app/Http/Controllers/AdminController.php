@@ -12,6 +12,29 @@ use Illuminate\Support\Facades\Hash;
 class AdminController extends Controller
 {
 
+    public function index_admin()
+    {
+        // mengambil data guru
+        $guru = User::all();
+
+        // mengambil data mapel
+        $mapel = mapel::all();
+        
+        // mengambil data kelas
+        $kelas = kelas::all();
+
+        // dump($guru);
+        return view('admin.dashboard_admin', [
+            "title" => "dashboard_admin",
+            "gurus" =>  $guru,
+            "mapels" => $mapel,
+            "kelas" => $kelas,
+            "no_guru" => 1,
+            "no_mapel" => 1,
+            "no_kelas" => 1
+        ]);
+    }
+
     public function read_mapel()
     {
         $data = mapel::all();

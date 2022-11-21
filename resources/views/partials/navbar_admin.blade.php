@@ -5,7 +5,7 @@
         StarBhak</h1>
     <div class="flex">
         <p class="py-1 mr-2 font-semibold">
-            {{ auth()->guard('user')->user()->username }} |</p>
+            {{ auth()->guard('admin')->user()->username }} |</p>
         <form action="/logout" method="POST">
             @csrf
             <button type="submit" class="bg-blue-dark-10 text-white px-2 py-1 rounded ">

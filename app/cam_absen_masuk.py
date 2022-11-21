@@ -4,6 +4,7 @@ import cv2
 from PIL import Image
 import numpy as np
 import os
+import json
 import time
 import pyttsx3
 from datetime import date, datetime
@@ -137,4 +138,5 @@ def video_feed():
     # Video streaming route. Put this in the src attribute of an img tag
     return Response(face_recognition(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
-# print(face_recognition()) 
+# print(json.dumps(video_feed()))
+video_feed()

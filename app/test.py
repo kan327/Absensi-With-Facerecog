@@ -1,10 +1,9 @@
 import json
-
+from flask import Flask
+app = Flask(__name__)
+@app.route('/test')
 def test():
-    a = {
-        "nama" : "Ridho",
-        "kelas" : "X PPLG 1"
-    }
-    return a
+    return "Hallo"
 
-print(json.dumps(test()))
+a = test()
+print(json.dumps(a))

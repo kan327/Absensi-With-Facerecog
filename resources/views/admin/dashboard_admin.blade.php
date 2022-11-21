@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<!-- wait for figma -->
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Dashboard</title>
     <!-- style css -->
     <link rel="stylesheet" href="{{ asset('assets/CSS/output.css') }}">
@@ -44,22 +44,14 @@
 
 <body class="text-tet h-[100vh] overflow-y-auto">
     <!-- navbar top -->
-    <div class="px-16 py-4 shadow-nav flex justify-between w-full bg-white z-10 fixed top-0">
-        <h1 class="text-xl font-bold text-blue-dark">
-            StarBhak</h1>
-        <div class="flex">
-            <p class="py-1 mr-2 font-semibold">
-                {{ auth()->guard("admin")->user()->username }} |</p>
-            <button class="bg-blue-dark text-white px-2 py-1 rounded ">
-                Log Out</button>
-        </div>
-    </div>
+    @include('partials.navbar_admin')
+
     <!-- content -->
     <div class="mx-auto w-[81%] flex justify-between">
         <!-- <div class="mx-auto w-[1102px] flex"> use this when u want responsive design -->
         <!-- left content -->
         <div class="w-[65%]">
-            <h1 class="text-3xl text-blue font-bold mt-32 mb-5 font-[Montserrat]">Welcome, Admin!</h1>
+            <h1 class="text-3xl text-blue font-bold mt-32 mb-5 font-[Montserrat]">Welcome, {{ auth()->guard('admin')->user()->username }}!</h1>
             <!-- box -->
             <div class="flex justify-between ">
                 <!-- box 1 -->
@@ -93,7 +85,7 @@
                         <h1 class="w-fit font-medium font-[Montserrat]">Total Mapel</h1>
                         <int class="w-fit font-bold text-2xl">24</int>
                     </div>
-                    <img class="absolute bottom-0 right-0 max-w-[35%] -mr-1" src="assets/img/yellow-blue.png" alt="">
+                    <img class="absolute bottom-0 right-0 max-w-[35%] -mr-1" src="{{ asset('assets/img/yellow-blue.png') }}" alt="">
                 </div>
             </div>
             <!-- table -->
@@ -119,27 +111,19 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr
-                                    class="border-tet-x text-tet-x border-t-0 border-l-0 border-r-0 border-[1px] text-sm border-solid hover:text-blue hover:border-blue cursor-pointer">
-                                    <th>1</th>
-                                    <th class="break-words max-w-[100px]">Fathir Akmal B</th>
-                                    <th class="break-words max-w-[100px]">0843244235</th>
-                                    <th class="break-words max-w-[100px]">0864-8547-4324</th>
-                                    <th class="break-words max-w-[100px]">user@gmail.com</th>
-                                    <th class="break-words max-w-[100px]">Tirekamal</th>
-                                    <th class="break-words max-w-[100px]">123456789012</th>
-                                </tr>
-
-                                <tr
-                                    class="border-tet-x text-tet-x border-t-0 border-l-0 border-r-0 border-[1px] text-sm border-solid hover:text-blue hover:border-blue cursor-pointer">
-                                    <th>1</th>
-                                    <th class="break-words max-w-[100px]">Fathir Akmal B</th>
-                                    <th class="break-words max-w-[100px]">0843244235</th>
-                                    <th class="break-words max-w-[100px]">0864-8547-4324</th>
-                                    <th class="break-words max-w-[100px]">user@gmail.com</th>
-                                    <th class="break-words max-w-[100px]">Tirekamal</th>
-                                    <th class="break-words max-w-[100px]">123456789012</th>
-                                </tr>
+                                @foreach ($gurus as $guru)
+                                    <tr
+                                        class="border-tet-x text-tet-x border-t-0 border-l-0 border-r-0 border-[1px] text-sm border-solid hover:text-blue hover:border-blue cursor-pointer">
+                                        <th>{{ $no_guru++ }}</th>
+                                        <th class="break-words max-w-[100px]">{{ $guru['name'] }}</th>
+                                        <th class="break-words max-w-[100px]">{{ $guru['nip'] }}</th>
+                                        <th class="break-words max-w-[100px]">0{{ $guru['no_hp'] }}</th>
+                                        <th class="break-words max-w-[100px]">{{ $guru['email'] }}</th>
+                                        <th class="break-words max-w-[100px]">{{ $guru['username'] }}</th>
+                                        <th class="break-words max-w-[100px]">*********</th>
+                                    </tr>
+                                @endforeach
+                                
                             </tbody>
                         </table>
                         <img class="absolute bottom-0 right-0 max-w-[25%]" style="z-index: -99;"
@@ -183,43 +167,62 @@
             <div class="mt-[11.5rem] border-blueside text-blueside border-2 border-solid w-[90%] p-4 rounded">
                 <h3 class="text-lg font-semibold">Mata Pelajaran</h3>
                 <input type="text" class="border-blueside border-2 border-solid w-[68%] rounded"
-                    placeholder="Tambah Mapel" name="mapel" id="mapel">
-                <button class="bg-blueside text-white py-0.5 px-3 rounded w-fit font-semibold" onclick="tambah_mapel()">
-                    simpan</button>
-                <div class="border-blueside text-blueside border-2 border-solid rounded-lg mt-5 h-60 overflow-y-auto p-2" id="table_mapel">
-                    {{-- Table Mapel --}}
-                </div>
-            </div>
-            <!-- kelas -->
-            <div class="mt-5 border-blueside text-blueside border-2 border-solid w-[90%] p-4 rounded">
-                <h3 class="text-lg font-semibold">kelas</h3>
-                <input type="text" class="border-blueside border-2 border-solid w-[68%] rounded"
-                    placeholder="Tambah Mapel">
-                <button class="bg-blueside text-white py-0.5 px-3 rounded w-fit font-semibold"
-                    onclick="keiAlert('Data Gagal Ditambahkan', 'cancel', 'bg-red-600')">
+                    placeholder="Tambah Mapel" id="pelajaran">
+                <button class="bg-blueside text-white py-0.5 px-3 rounded w-fit font-semibold" onclick="mapel_simpan()">
                     simpan</button>
                 <div class="border-blueside text-blueside border-2 border-solid rounded-lg mt-5 h-60 overflow-y-auto p-2">
                     <table class="w-full text-center">
                         <thead class="table-fixed top-0 sticky z-10 bg-white">
                             <tr class="border-blueside border-t-0 border-l-0 border-r-0 border-[1px] border-solid">
                                 <th>No</th>
-                                <th>kelas</th>
+                                <th>Mapel</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach ($mapels as $mapel)
+
                             <tr
                                 class="border-tet-x text-tet-x border-t-0 border-l-0 border-r-0 border-[1px] text-sm border-solid hover:text-blue hover:border-blue cursor-pointer">
-                                <td>1</td>
-                                <td>X MM 1</td>
+                                <td>{{ $no_mapel++ }}</td>
+                                <td>{{ $mapel['pelajaran'] }}</td>
                                 <td>Symbols</td>
                             </tr>
+                            
+                            @endforeach
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- kelas -->
+            <div class="mt-5 border-blueside text-blueside border-2 border-solid w-[90%] p-4 rounded">
+                <h3 class="text-lg font-semibold">Kelas</h3>
+                <input type="text" class="border-blueside border-2 border-solid w-[68%] rounded"
+                    placeholder="Tambah Kelas">
+                <button type="submit" class="bg-blueside text-white py-0.5 px-3 rounded w-fit font-semibold">
+                    simpan</button>
+                <div class="border-blueside text-blueside border-2 border-solid rounded-lg mt-5 h-60 overflow-y-auto p-2">
+                    <table class="w-full text-center">
+                        <thead class="table-fixed top-0 sticky z-10 bg-white">
+                            <tr class="border-blueside border-t-0 border-l-0 border-r-0 border-[1px] border-solid">
+                                <th>No</th>
+                                <th>Kelas</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($kelas as $kels)
+                            
                             <tr
                                 class="border-tet-x text-tet-x border-t-0 border-l-0 border-r-0 border-[1px] text-sm border-solid hover:text-blue hover:border-blue cursor-pointer">
-                                <td>1</td>
-                                <td>X MM 1</td>
+                                <td>{{ $no_kelas++ }}</td>
+                                <td>{{ $kels['kelas'] }}</td>
                                 <td>Symbols</td>
                             </tr>
+                            
+                            @endforeach
+                    
                         </tbody>
                     </table>
                 </div>
@@ -230,24 +233,35 @@
         <img class="absolute -bottom-5 left-0 max-w-[8%] -mr-1" src="{{ asset('assets/img/l-blue.png') }}" alt="">
         <img class="absolute -bottom-5 right-0 max-w-[8%] -mr-1" src="{{ asset('assets/img/r-blue.png') }}" alt="">
     </div>
+
     <!-- custom alert -->
     <script src="{{ asset('assets/JS/cstkei.alert.js') }}"></script>
-    {{-- Jquery --}}
-    {{-- <script src="{{ asset('assets/JS/jquery.js') }}"></script> --}}
-    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
-    
+
+    <script src="{{ asset('assets/JS/jquery.js') }}"></script>
+
     <script>
-        $(document).ready(function(){
-            read_mapel();
-        });
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')
+            }
+        })
 
-        function read_mapel(){
-            $.get("{{ url('admin/read_mapel') }}",{},function(data, status){
-                $("#table_mapel").html(data)
-            });
+        function mapel_simpan(){
+            $.ajax({
+            url:"/mapel",
+            type:"POST",
+            data:{
+                pelajaran : $("#pelajaran").val()
+            },
+            success:function(ress){
+                console.log(ress)
+            }
+        })
         }
-
     </script>
+    
+    {{-- tailwind --}}
+    <script src="https://cdn.tailwindcss.com"></script>
 </body>
 
 </html>

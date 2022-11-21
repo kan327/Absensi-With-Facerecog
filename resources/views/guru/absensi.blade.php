@@ -1,106 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- done Figma -->
 
-{{-- Content Absensi --}}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <!-- style css -->
+    <link rel="stylesheet" href="{{ asset('assets/CSS/output.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/CSS/suport.css') }}">
+    <!-- font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
+    <!-- config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'blue-dark-10': '#1061FF',
+                        'blue-purple-3F': '#3F80FF',
+                        'blue-normal-19': '#1991FF',
+                        'blue-light-34': '#349DFD',
+                        'tet': '#393939',
+                        'un-tet': '#8C8C8C',
+                        'un-x-tet': '#939393',
+                    },
+                    boxShadow: {
+                        nav: '2px 2px 50px 1px rgba(179, 185, 191, 0.1);',
+                        side: ' 0px 5px 10px rgba(0, 0, 0, 0.05);',
+                        stable: ' 0px 3px 4px rgba(0, 0, 0, 0.25);',
+                        box: ' 0px 4px 4px rgba(0, 0, 0, 0.25)',
+                    }
+                },
+            }
+        }
+    </script>
+    <!-- font material ++ -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;1,500&display=swap"
+        rel="stylesheet">
+</head>
 
-<div class="absolute left-72 w-3/4">
-        <h1 class="text-3xl text-blue font-bold mt-32 font-[Montserrat]">Riwayat Mata Pelajaran</h1>
-        <button class="bg-blue text-white py-2 px-4 rounded-xl mt-5 w-fit mx-auto font-semibold" onclick="keiAlert('Data Berhasil Disimpan')">+ Buat</button>
+<body class="text-tet">
+    <!-- navbar top -->
+    @include('partials.navbar')
 
-        <!-- table -->
-        <div class="h-96 overflow-auto mt-5">
-            <table class="w-full font-[Montserrat]">
-                <thead class="text-blue-table bg-white font-extrabold text-xl shadow-stable top-0 sticky z-10">
-                    <tr class="">
-                        <th class="p-3">NO</th>
-                        <th class="p-3">HARI</th>
-                        <th class="p-3">KELAS</th>
-                        <th class="p-3">MAPEL</th>
-                        <th class="p-3">MULAI</th>
-                        <th class="p-3">PULANG</th>
-                        <th class="p-3">ACTION</th>
-                    </tr>
-                </thead>
-                <tbody>
-                        <tr class="text-center border-tet-x border-t-0 border-l-0 border-r-0 border-[1px] border-solid hover:font-bold cursor-pointer">
-                            <td class="p-3"><a href="/absensi/siswa/XI PPLG 1/PBO">1</a></td>
-                            
-                            <td class="p-3"><a href="/absensi/siswa_masuk/XI PPLG 1/PBO">27/10/2022</a></td>
-                            <td class="p-3"><a href="/absensi/siswa_masuk/XI PPLG 1/PBO">XI PPLG 1</a></td>
-                            <td class="p-3"><a href="/absensi/siswa_masuk/XI PPLG 1/PBO">PBO</a></td>
-                            <td class="p-3"><a href="/absensi/siswa_masuk/XI PPLG 1/PBO">07.00</a></td>
-                            <td class="p-3"><a href="/absensi/siswa_masuk/XI PPLG 1/PBO">12.40</a></td>
-                            <td class="p-3"><span class="material-symbols-outlined -mb-3 mr-5">edit</span> <span class="material-symbols-outlined -mb-3 mr-5">folder</span></td>
+    <!-- Sidebar left -->
+    @include('partials.sidebar')
+
+    <!-- content -->
+    <div class="absolute left-72 w-3/4">
+        <!-- card -->
+        <div
+            class="shadow-box mt-32 p-8 w-5/6 mx-auto rounded-2xl border-solid border-[0.1px] border-opacity-5 border-black">
+            <!-- top table -->
+            <div>
+                <div class="w-fit float-left">
+                    <h1 class="font-bold text-xl font-[Montserrat]">Kelola Jadwal</h1>
+                    <p class="text-[#5B5A5A] font-[quicksand] font-semibold ">Kelola semua jadwal anda dan tambahkan jadwal.</p>
+                </div>
+                <button class="#1991FF px-4 font-[quicksand] py-2 float-right bg-[#1991FF] rounded-xl text-white font-bold">+ Tambahkan Jadwal</button>
+            </div>
+            <!-- table -->
+            <div class="mt-20 h-[50vh] w-full overflow-auto">
+                <table class="w-full font-[quicksand]" cellpadding="2">
+                    <!-- header table -->
+                    <thead class="font-extrabold bg-white top-0 sticky z-10">
+                        <tr class="text-sm text-un-tet">
+                            <th class="p-3">No</th>
+                            <th class="p-3">Tanggal</th>
+                            <th class="p-3">Kelas</th>
+                            <th class="p-3">Matapel</th>
+                            <th class="p-3 text-blue-light-34">Mulai</th>
+                            <th class="p-3">Selesai</th>
+                            <th class="p-3">Aksi</th>
                         </tr>
-                </tbody>
-            </table>
+                    </thead>
+                    <!-- body -->
+                    <tbody class="text-center text-base font-bold text-n-tet-x cursor-pointer select-none">
+                        <tr class="hover:bg-[#E8F4FF] hover:font-bold rounded-full in-hover-to"
+                            onclick="location.href = 'detailabsensi.html'">
+                            <!-- please delete or reuse this onclick -->
+                            <td class="p-3 font-semibold " style="border-top-left-radius: 12px; border-bottom-left-radius: 12px;">1
+                            </td>
+                            <td class="p-3 font-semibold">27/10/2022</td>
+                            <td class="p-3 font-semibold">XI PPLG 1</td>
+                            <td class="p-3 font-semibold">PBO</td>
+                            <td class="p-3 font-semibold">12.40</td>
+                            <td class="p-3 font-semibold">12.40</td>
+                            <td class="text-n-blue"
+                                style="border-top-right-radius: 12px; border-bottom-right-radius: 12px;"><span
+                                    class="material-symbols-outlined">edit</span><span
+                                    class="material-symbols-outlined this-one">delete</span><span
+                                    class="material-symbols-outlined">file_download</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
+    <!-- custom alert -->
+    <script src="{{ asset('assets/JS/cstkei.alert.js') }}"></script>
 
-    {{-- jquery --}}
-    <script src="{{ asset('assets/JS/jquery.js') }}"></script>
+    {{-- tailwind --}}
+    <script src="https://cdn.tailwindcss.com"></script>
+</body>
 
-    {{-- <script>
-        $(document).ready(function () {
-            let lastcnt = 0;
-            let cnt;
-            chkNewScan();
+</html>
 
-            function chkNewScan() {
-                countTodayScan();
-                setTimeout(chkNewScan, 1000);
-            }
-
-            function countTodayScan() {
-                $.ajax({
-                    url: '/countTodayScan',
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function (data) {
-                        cnt = data.rowcount;
-                        if (cnt > lastcnt) {
-                            reloadTable();
-                        }
-                        lastcnt = cnt;
-                    },
-                    error: function (result) {
-                        console.log('no result!')
-                    }
-                })
-            }
-
-            function reloadTable() {
-                $.ajax({
-                    url: '/loadData',
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function (response) {
-                        var tr = $("#totalabsen");
-                        tr.empty();
-                        $.each(response, function (index, item) {
-                            inc = 1
-                            if (item.length > 0) {
-                                for (let i = 0; i < item.length; i++) {
-                                    tr.append('<tr class="text-center border-tet-x border-t-0 border-l-0 border-r-0 border-[1px] border-solid hover:font-bold cursor-pointer p-3">' +
-                                        '<td class="p-3">' + inc + '</td>' +
-                                        '<td class="p-3">' + item[i][2] + '</td>' +
-                                        '<td class="p-3">' + item[i][3] + '</td>' +
-                                        '<td class="p-3">' + item[i][4] + '</td>' +
-                                        '<td class="p-3">' + item[i][5] + '</td>' +                                    
-                                        '<td class="p-3">' + item[i][6] + '</td>' +
-                                    '</tr>');
-                                    inc++
-
-                                }
-                            }
-                        });
-                    },
-                    error: function (result) {
-                        console.log('no result!')
-                    }
-                });
-            }
-        });
-    </script> --}}
-
-<!-- Tailwind -->
-<script src="https://cdn.tailwindcss.com"></script>
-    <!-- npx tailwindcss -i ./src/input.css -o ./public/assets/css/output.css --watch -->
+<!-- npx tailwindcss -i ./src/input.css -o ./public/assets/css/output.css --watch -->

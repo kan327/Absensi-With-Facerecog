@@ -56,7 +56,7 @@
                             <div class="succes">
                                 <p>{{ Session::get("success") }}</p>
                                 <p class="material-symbols-outlined">
-                                    done
+                                    check_circle
                                 </p>
                             </div>
                         @endif
