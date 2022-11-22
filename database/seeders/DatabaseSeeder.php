@@ -111,5 +111,17 @@ class DatabaseSeeder extends Seeder
             "tanggal_lahir"=> "2006-05-22",
             "gender"=> "Laki - laki"
         ]);
+        DB::table('siswas')->insert([
+            "nama_siswa" => "Ridho Rizqi",
+            "kelas_id" => 1,
+            "tempat_lahir" => "Cimanggis",
+            "tgl_lahir" => "2022/06/22"
+        ]);
+        DB::table('siswas')->insert([
+            "nama_siswa" => "Andhyka",
+            "kelas_id" => 1,
+            "tempat_lahir" => "Depok",
+            "tgl_lahir" => "2022/06/22"
+        ]);
     }
 }

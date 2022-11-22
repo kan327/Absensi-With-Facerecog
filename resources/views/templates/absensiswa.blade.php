@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Absen | Starbhak Absensi</title>
     <!-- style css -->
-    <link rel="stylesheet" href="../static/assets/CSS/output.css">
-    <link rel="stylesheet" href="../static/assets/CSS/suport.css">
+    <link rel="stylesheet" href="{{ asset('assets/CSS/output.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/CSS/suport.css') }}">
     <script src="https://cdn.tailwindcss.com"></script>
     {{-- <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script> --}}
     <!-- config -->
@@ -37,6 +37,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"/> <link rel="preconnect" href="https://fonts.googleapis.com"> <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;1,500&display=swap"rel="stylesheet">
 </head>
 <body class="text-tet" onload="initClock()">
+
         <!-- navbar top -->
         <div class="px-16 py-4 shadow-nav flex justify-between w-full bg-white z-10 fixed top-0">
             <h1 class="text-xl font-bold text-blue-dark">
@@ -56,7 +57,7 @@
                     Dashboard
                 </div>
             </a>
-            <a href="/absensiswa">
+            <a href="/absensi">
                 <div class="font-semibold mt-10"><span class="material-symbols-outlined -mb-3 mr-5">library_books</span>
                     Absen
                 </div>
@@ -79,7 +80,7 @@
                         <p>Masuk</p>
                     </div>
                 </a>
-                <a href="/absensiswa/absenpulang">
+                <a href="/absensi/{{ $mapels }}/{{ $kelas }}/pulang">
                     <div class="w-fit inline-block font-extrabold float-right border-stroke rounded-tl-none px-3 py-0.5 mr-0 border-2 rounded-t-md border-solid">
                         <p>Pulang</p>
                     </div>
@@ -88,7 +89,7 @@
 
             <div class="w-full border-stroke p-5 px-7 border-2 rounded-md border-solid flex justify-between relative">
                 <div class="w-fit flex">
-                    <img src="../static/img/Checklist_Flatline 2.png" class="rounded-lg w-[25%]" alt="Your cam here:3">
+                    <img src="img/Checklist_Flatline 2.png" class="rounded-lg w-[25%]" alt="Your cam here:3">
                     <div class="mt-[5%]">
                         <h1 class="text-3xl text-blue font-bold font-[Montserrat]">Face Recognition</h1>
                         <p>Silahkan Absen Wajah anda</p>
@@ -140,7 +141,7 @@
                 </table>
         </div>
     <!-- custom alert -->
-    <script src="../static/assets/JS/cstkei.alert.js"></script>
+    <script src="assets/JS/cstkei.alert.js"></script>
     <!-- python select method -->
     <script type="text/javascript">
         $(document).ready(function () {

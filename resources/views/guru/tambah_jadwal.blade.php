@@ -70,100 +70,116 @@
                     <p class="capitalize font-[montserrat] text-[#001458]">Hai {{ auth()->guard("user")->user()->username }} ! , mau mengajar apa hari ini?</p>
                 </div>
 
-                <!-- inputan 1 -->
-                <div class="pl-5 w-full h-2/5 ">
-                    <div class="flex w-full">
-                        <div class="w-1/2">
-                            <label class="font-semibold font-[montserrat] text-xl text-black" for="">Mata
-                                Pelajaran</label><br>
+                <form action="/absensi/tambah_jadwal" method="POST">
+                    @csrf
+                    <!-- inputan 1 -->
+                    <div class="pl-5 w-full h-2/5 ">
+                        <div class="flex w-full">
+                            <div class="w-1/2">
+                                <label for="" class="font-semibold font-[montserrat] text-xl text-black" for="">Mata
+                                    Pelajaran</label><br>
+                                    <details class="custom-select rounded-lg mt-2" style="width: 80%;">
+                                        <summary class="radios" style="padding: 10px 10px; text-align: left;  border: #999bba solid 2px;">
+                                            
+                                            @foreach ($mapels as $mapel)
+                                                <input type="radio" name="mapel" title="{{ $mapel->pelajaran }}" id="{{ $mapel->pelajaran }}" value="{{ $mapel->id }}" checked>
+                                            @endforeach
+
+                                        </summary>
+                                        <ul class="list">
+
+                                            @foreach ($mapels as $mapel)
+                                                <li>
+                                                    <label for="{{  $mapel->pelajaran }}">
+                                                        {{  $mapel->pelajaran }}
+                                                        <span></span>
+                                                    </label>
+                                                </li>
+                                            @endforeach
+
+                                        </ul>
+                                    </details>
+                            </div>
+                            <div class="w-1/2">
+                                <label class="font-semibold font-[montserrat] text-xl text-black" for="">Kelas</label><br>
                                 <details class="custom-select rounded-lg mt-2" style="width: 80%;">
                                     <summary class="radios" style="padding: 10px 10px; text-align: left;  border: #999bba solid 2px;">
-                                        @foreach ($mapels as $mapel)
-                                            <input type="radio" name="Mapel" id="{{ $mapel->pelajaran }}" title="{{ $mapel->pelajaran }}" checked>
+
+                                        @foreach ($kelas as $kels)
+                                            <input type="radio" name="kelas" value="{{ $kels->id }}" id="{{ $kels->kelas }}" title="{{ $kels->kelas }}" checked>
                                         @endforeach
+
                                     </summary>
                                     <ul class="list">
-                                        @foreach ($mapels as $mapel)
+                                        
+                                        @foreach ($kelas as $kels)
                                             <li>
-                                                <label for="{{  $mapel->pelajaran }}">
-                                                    {{  $mapel->pelajaran }}
+                                                <label for="{{ $kels->kelas }}">
+                                                    {{ $kels->kelas }}
                                                     <span></span>
                                                 </label>
                                             </li>
                                         @endforeach
-                                        {{-- <li>
-                                            <label for="PBO">PBO</label>
-                                        </li>
-                                        <li>
-                                            <label for="PWL">PWL</label>
-                                        </li> --}}
+
                                     </ul>
                                 </details>
+                            </div>
                         </div>
-                        <div class="w-1/2">
-                            <label class="font-semibold font-[montserrat] text-xl text-black" for="">Kelas</label><br>
-                            <details class="custom-select rounded-lg mt-2" style="width: 80%;">
-                                <summary class="radios" style="padding: 10px 10px; text-align: left;  border: #999bba solid 2px;">
-                                    <input type="radio" name="kelas" id="XIPPLG1" title="XI PPLG 1" checked>
-                                    <input type="radio" name="kelas" id="XIPPLG2" title="XI PPLG 2">
-                                    <input type="radio" name="kelas" id="XPPLG1" title="X PPLG 1">
-                                </summary>
-                                <ul class="list">
-                                    <li>
-                                        <label for="XIPPLG1">
-                                            XI PPLG 1
-                                            <span></span>
-                                        </label>
-                                    </li>
-                                    <li>
-                                        <label for="XIPPLG2">XI PPLG 2</label>
-                                    </li>
-                                    <li>
-                                        <label for="XPPLG1">X PPLG 1</label>
-                                    </li>
-                                </ul>
-                            </details>
-                        </div>
+
+
                     </div>
 
+                    <!-- inputan 2 -->
+                    <div class="flex w-[93%] h-2/5 ">
+                        <div class=" w-1/3">
+                            <div class="flex justify-center w-full">
+                            <p class="font-[montserrat] font-semibold text-lg ">Mulai Absen</p></div>
+                            <div class="flex justify-center h-full w-full">
+                                <input class="rounded-lg w-[80%] h-1/3 border-[1px] " style="padding: 10px 10px; text-align: left;  border: #999bba solid 2px;" type="time" name="mulai"></div>
+                        </div>
+
+                        <div class=" w-1/3">
+                            <div class="flex justify-center w-full">
+                            <p class="font-[montserrat] font-semibold text-lg ">Batas Hadir</p></div>
+                            <div class="flex justify-center h-full w-full">
+                            <input class="rounded-lg w-[80%] h-1/3" style="padding: 10px 10px; text-align: left;  border: #999bba solid 2px;" type="time" name="batas_hadir"></div>
+                        </div>
+
+                        <div class=" w-1/3">
+                            <div class="flex justify-center w-full">
+                            <p class="font-[montserrat] font-semibold text-lg ">Selesai</p></div>
+                            <div class="flex justify-center h-full w-full">
+                                <input class="rounded-lg w-[80%] h-1/3" style="padding: 10px 10px; text-align: left;  border: #999bba solid 2px;" type="time" name="selesai"></div>
+                        </div>
+                    </div>
 
                 </div>
-
-                <!-- inputan 2 -->
-                <div class="flex w-[93%] h-2/5 ">
-                    <div class=" w-1/3">
-                        <div class="flex justify-center w-full">
-                        <p class="font-[montserrat] font-semibold text-lg ">Mulai Absen</p></div>
-                        <div class="flex justify-center h-full w-full">
-                            <input class="rounded-lg w-[80%] h-1/3 border-[1px] " style="padding: 10px 10px; text-align: left;  border: #999bba solid 2px;" type="time"></div>
-                    </div>
-
-                    <div class=" w-1/3">
-                        <div class="flex justify-center w-full">
-                        <p class="font-[montserrat] font-semibold text-lg ">Batas Absen</p></div>
-                        <div class="flex justify-center h-full w-full">
-                        <input class="rounded-lg w-[80%] h-1/3" style="padding: 10px 10px; text-align: left;  border: #999bba solid 2px;" type="time" type="time"></div>
-                    </div>
-
-                    <div class=" w-1/3">
-                        <div class="flex justify-center w-full">
-                        <p class="font-[montserrat] font-semibold text-lg ">Selesai</p></div>
-                        <div class="flex justify-center h-full w-full">
-                            <input class="rounded-lg w-[80%] h-1/3" style="padding: 10px 10px; text-align: left;  border: #999bba solid 2px;" type="time"></div>
-                    </div>
-                </div>
-
-            </div>
-            <!-- button -->
-            <div class="w-full h-[12%] flex justify-end border-t-black border-t-[1px] pt-3">
-                <button class=" w-[20%] hover:scale-110 text-[#0d245a] font-bold rounded mr-5 ">Cancel</button>
-                <button class=" w-[20%] hover:scale-110 text-white font-bold bg-[#002c9d] rounded ">Add</button>
-            </div>
-
+                <!-- button -->
+                <div class="w-full h-[12%] flex justify-end border-t-black border-t-[1px] pt-3">
+                    <button onclick="location.href= '/absensi'" class=" w-[20%] hover:scale-110 text-[#0d245a] font-bold rounded mr-5 ">Cancel</button>
+                    <button type="submit" class=" w-[20%] hover:scale-110 text-white font-bold bg-[#002c9d] rounded ">Add</button>
+                </div> 
+                 
+            </form>
         </div>
 
 
     </div>
+
+    <script>
+        function simpan(){
+            var kelas = document.getElementsByName("kelas");
+            var kelas = document.getElementsByName("kelas");
+            for(i=0; i<kelas.length; i++){
+                if(kelas[i].checked) {
+                    var valueAkhir = kelas[i].value
+                    console.log(kelas[i].value)
+                }else{
+                    
+                }
+            }
+        }
+    </script>
 </body>
 
 </html>

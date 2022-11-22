@@ -84,22 +84,25 @@
                     </thead>
                     <!-- body -->
                     <tbody class="text-center text-base font-bold text-n-tet-x cursor-pointer select-none">
-                        <tr class="hover:bg-[#E8F4FF] hover:font-bold rounded-full in-hover-to"
-                            onclick="location.href = '/absen_siswa/2022-11-21/XI PPLG 1/PBO'">
-                            <!-- please delete or reuse this onclick -->
-                            <td class="p-3 font-semibold " style="border-top-left-radius: 12px; border-bottom-left-radius: 12px;">1
-                            </td>
-                            <td class="p-3 font-semibold">27/10/2022</td>
-                            <td class="p-3 font-semibold">XI PPLG 1</td>
-                            <td class="p-3 font-semibold">PBO</td>
-                            <td class="p-3 font-semibold">12.40</td>
-                            <td class="p-3 font-semibold">12.40</td>
-                            <td class="text-n-blue"
-                                style="border-top-right-radius: 12px; border-bottom-right-radius: 12px;"><span
-                                    class="material-symbols-outlined">edit</span><span
-                                    class="material-symbols-outlined this-one">delete</span><span
-                                    class="material-symbols-outlined">file_download</span></td>
-                        </tr>
+                        
+                        @foreach ($jadwal_absens as $jadwal_absen)
+                            <tr class="hover:bg-[#E8F4FF] hover:font-bold rounded-full in-hover-to">
+                                <!-- please delete or reuse this onclick -->
+                                <td class="p-3 font-semibold " style="border-top-left-radius: 12px; border-bottom-left-radius: 12px;">{{ $no_jadwal++ }}
+                                </td>
+                                <td onclick="location.href = '/absen_siswa/{{ $jadwal_absen->tanggal }}/{{ $jadwal_absen->kelas_id }}/{{ $jadwal_absen->mapel_id }}'" class="p-3 font-semibold">{{ $jadwal_absen->tanggal }}</td>
+                                <td onclick="location.href = '/absen_siswa/{{ $jadwal_absen->tanggal }}/{{ $jadwal_absen->kelas_id }}/{{ $jadwal_absen->mapel_id }}'" class="p-3 font-semibold">{{ $jadwal_absen->kelas->kelas }}</td>
+                                <td onclick="location.href = '/absen_siswa/{{ $jadwal_absen->tanggal }}/{{ $jadwal_absen->kelas_id }}/{{ $jadwal_absen->mapel_id }}'" class="p-3 font-semibold">{{ $jadwal_absen->mapel->pelajaran }}</td>
+                                <td onclick="location.href = '/absen_siswa/{{ $jadwal_absen->tanggal }}/{{ $jadwal_absen->kelas_id }}/{{ $jadwal_absen->mapel_id }}'" class="p-3 font-semibold">{{ $jadwal_absen->mulai }}</td>
+                                <td onclick="location.href = '/absen_siswa/{{ $jadwal_absen->tanggal }}/{{ $jadwal_absen->kelas_id }}/{{ $jadwal_absen->mapel_id }}'" class="p-3 font-semibold">{{ $jadwal_absen->selesai }}</td>
+                                <td class="text-n-blue"
+                                    style="border-top-right-radius: 12px; border-bottom-right-radius: 12px;"><span
+                                        class="material-symbols-outlined">edit</span><span
+                                        class="material-symbols-outlined this-one">delete</span><span
+                                        class="material-symbols-outlined">file_download</span></td>
+                            </tr>
+                        @endforeach
+
                     </tbody>
                 </table>
             </div>

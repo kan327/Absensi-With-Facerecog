@@ -10,4 +10,9 @@ class kelas extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
+
+    public function siswas()
+    {
+        return $this->hasMany(Siswa::class);
+    }
 }

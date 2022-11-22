@@ -11,10 +11,11 @@ use Illuminate\Support\Facades\Route;
 // Guru Route
 Route::controller(GuruController::class)->group(function(){
 
-    Route::get("/",  "index");
+    Route::get("/",  "index")->name('/')->middleware("isLoginGuru");
     Route::get("/profile",  "profile");
     Route::get("/absensi",  "absensi");
     Route::get("/absensi/tambah_jadwal", "tambah_jadwal");
+    Route::post("/absensi/tambah_jadwal", "insert_jadwal");
     Route::get("/data_kelas",  "data_kelas");
     Route::get("/absen_siswa/{tanggal}/{kelas}/{mapel}",  "absen_siswa");
     Route::get("/absen_siswa/{tanggal}/{kelas}/{mapel}/cam_masuk",  "cam_masuk");
