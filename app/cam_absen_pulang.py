@@ -3,7 +3,6 @@ import mysql.connector
 import cv2
 from PIL import Image
 import numpy as np
-import os
 import json
 import time
 import pyttsx3
@@ -128,4 +127,8 @@ def video_feed2():
     # Video streaming route. Put this in the src attribute of an img tag
     return Response(face_recognition2(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
-video_feed2()
+# jsonhasil = json.dumps([
+#     video_feed2()
+# ])
+
+print(face_recognition2())
