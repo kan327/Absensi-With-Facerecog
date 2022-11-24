@@ -382,7 +382,7 @@
                     mulai: mulais[i],
                     check: checks[i]
                 })
-            }
+            } 
             // console.log(all)
             kirim_request(all)
             function kirim_request(allData) {
