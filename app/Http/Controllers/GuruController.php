@@ -173,8 +173,8 @@ class GuruController extends Controller
         // }
 
         // $data = $process->getOutput();
-        // // dd($data);
         // $datas = json_decode($data, true);
+        // dd($datas);
         
         // $data_jadwal = DB::select("SELECT * FROM jadwal_absens WHERE kelas_id = $kelas AND mapel_id = $mapel AND tanggal = curdate()");
 
@@ -206,7 +206,7 @@ class GuruController extends Controller
 
     public function manual_absen_masuk(Request $request, $tanggal, $kelas, $mapel)
     {
-        $result = "Data GAgal Ditambahkan";
+        $result = "Data Gagal di update";
 
         // echo 'loop for';
         for($i = 0; $i < count($request->datas); $i++){
@@ -218,12 +218,12 @@ class GuruController extends Controller
                 "masuk" => $request->datas[$i]['mulai'],
                 "keterangan" => $request->datas[$i]['check']
             ]);
-            $result = "Data Absen berhasil di update";
+            $result = "Data berhasil di update ";
             // $absen_siswa->save();
 
             
         }
-        return "Absen berhasil di perbaharui";
+        return $result;
         
     }
 

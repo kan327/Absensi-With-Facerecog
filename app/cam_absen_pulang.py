@@ -1,14 +1,15 @@
-from flask import Flask, render_template, request, redirect, url_for, Response, jsonify
+# from flask import Flask, render_template, request, redirect, url_for, Response, jsonify
 import mysql.connector
 import cv2
 from PIL import Image
 import numpy as np
-import json
+# import json
 import time
+import simplejson as json
 import pyttsx3
 from datetime import date, datetime
 
-app = Flask(__name__)
+# app = Flask(__name__)
 
 cnt = 0
 pause_cnt = 0
@@ -18,7 +19,7 @@ mydb = mysql.connector.connect(
     host="localhost",
     user="root",
     passwd="",
-    database="db_absensi"
+    database="db_absensi2"
 )
 
 mycursor = mydb.cursor()
@@ -101,7 +102,7 @@ def face_recognition2():  # generate frame by frame from camera
         coords = draw_boundary2(img, faceCascade, 1.1, 10, (255, 255, 0), "Face", clf)
         return img
  
-    faceCascade = cv2.CascadeClassifier("resources/haarcascade_frontalface_default.xml")
+    faceCascade = cv2.CascadeClassifier("xml/haarcascade_frontalface_default.xml")
     clf = cv2.face.LBPHFaceRecognizer_create()
     clf.read("classifier.xml")
  
@@ -123,12 +124,6 @@ def face_recognition2():  # generate frame by frame from camera
         if key == 27:
             break
 
-def video_feed2():
-    # Video streaming route. Put this in the src attribute of an img tag
-    return Response(face_recognition2(), mimetype='multipart/x-mixed-replace; boundary=frame')
+func = {"function1":face_recognition2()}
 
-# jsonhasil = json.dumps([
-#     video_feed2()
-# ])
-
-print(face_recognition2())
+print(json.dumps(func, iterable_as_array=True))
