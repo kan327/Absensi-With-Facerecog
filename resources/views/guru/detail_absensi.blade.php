@@ -173,7 +173,7 @@
                         <button
                             class="px-4 py-1 border-2 border-solid border-blue-normal-19 text-blue-dark-10 rounded-lg font-bold">Tutup
                             Absen</button>
-                        <button class="bg-[#1061FF] px-4 py-2 rounded-lg text-white font-bold">Pulangkan</button>
+                        <button class="bg-[#1061FF] px-4 py-2 rounded-lg text-white font-bold" onclick="pulang()" id="pulangkan">Pulangkan</button>
                     </div>
                     <li class="text-[#808080] text-sm my-1">*Tutup absen akan membuat seluruh siswa yang belum
                         memiliki keterangan sebagai belum hadir</li>

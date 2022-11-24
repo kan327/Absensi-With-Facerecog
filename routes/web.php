@@ -27,6 +27,7 @@ Route::controller(GuruController::class)->group(function(){
     // Route::post("/manual_absen",  "manual_absen_masuk");
     Route::get("/absen_siswa/{tanggal}/{kelas}/{mapel}/box_ket", "box_absen_keterangan");
     Route::get("/absen_siswa/{tanggal}/{kelas}/{mapel}/table_absen", "table_absen");
+    Route::post("/absen_siswa/{tanggal}/{kelas}/{mapel}/manual_pulang", "manual_absen_pulang");
     
 });
 

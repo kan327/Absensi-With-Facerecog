@@ -179,7 +179,8 @@ class GuruController extends Controller
         // $data_jadwal = DB::select("SELECT * FROM jadwal_absens WHERE kelas_id = $kelas AND mapel_id = $mapel AND tanggal = curdate()");
 
         $data_jadwal = JadwalAbsen::all()->where("kelas_id", $kelas)->where("mapel_id", $mapel)->where("tanggal", $tanggal);
-        // dd($data_jadwal);
+
+
         $data_siswa = Siswa::all()->where("kelas_id", $kelas);
 
         $data_absensi = AbsenSiswa::all()->where("kelas_id", $kelas)->where("tanggal", $tanggal);
@@ -227,6 +228,23 @@ class GuruController extends Controller
         
     }
 
+    public function manual_absen_pulang(Request $request, $tanggal, $kelas, $mapel)
+    {
+        $result = "";
+
+        for($i = 0; $i < count($request->datas); $i++){
+            $absen_siswa = DB::table("absen_siswas")->where("id", $request->datas[$i]['id_siswa']);
+            $result = "ok";
+
+            $absen_siswa->update([
+                "pulang" => $request->datas[$i]['data_pulang']
+            ]);
+
+            $result = "Siswa berhasil di pulangkan";
+        }
+        return $result;
+    }
+
     // component
     public function box_absen_keterangan($tanggal, $kelas, $mapel)
     {
@@ -250,8 +268,18 @@ class GuruController extends Controller
     {
         $data_absensi = AbsenSiswa::all()->where("kelas_id", $kelas)->where("tanggal", $tanggal);
 
+        $data_jadwal = JadwalAbsen::all()->where("kelas_id", $kelas)->where("mapel_id", $mapel)->where("tanggal", $tanggal);
+
+        foreach($data_jadwal as $data_jadwa){
+            $data_selesai = $data_jadwa->selesai;
+            $data_masuk = $data_jadwa->mulai;
+            // dd($data_jadwa->selesai);
+        }
+
         return view("guru.component.table_absen",[
             "data_absensi"=>$data_absensi,
+            "data_selesai"=>$data_selesai,
+            "data_mulai"=>$data_masuk,
             "i"=>1,
             "no"=>1,
             "tanggals"=>$tanggal,
