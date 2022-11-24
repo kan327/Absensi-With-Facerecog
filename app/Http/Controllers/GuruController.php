@@ -39,13 +39,18 @@ class GuruController extends Controller
         ]);
     }
 
-    public function data_siswa()
+    public function data_siswa($id)
     {
-        $data = Siswa::all();
+        $data = Siswa::all()->where("kelas_id", $id);
+        // $kelas = Siswa::all("kelas_id")->where("kelas_id",$id);
+
+        // dd($kelas);
+
         return view("guru.data_siswa", [
             "title" => "data_siswa",
             "data_siswas"=>$data,
-            'no_siswa'=>1
+            'no_siswa'=>1,
+            // "data_kelas"=>$kelas
         ]);
     }
     public function tambah_murid()
@@ -149,6 +154,7 @@ class GuruController extends Controller
     public function hapus_jadwal($id)
     {
         $jadwal = JadwalAbsen::find($id);
+        // dd($jadwal);
         $jadwal->delete();
 
         return redirect("/absensi")->with("success", "Jadwal berhasil di hapus");

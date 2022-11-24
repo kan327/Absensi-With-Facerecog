@@ -58,7 +58,7 @@
             class="shadow-box mt-32 p-8 w-5/6 mx-auto rounded-2xl border-solid border-[0.1px] border-opacity-5 border-black"> 
             <div>
                 <div class="w-fit float-left">
-                    <h1 class="text-[#3F80FF] font-bold font-[Montserrat] text-2xl">Daftar Siswa | XI PPLG 1</h1>
+                    <h1 class="text-[#3F80FF] font-bold font-[Montserrat] text-2xl">Daftar Siswa | {{ auth()->guard('user')->user()->kelas->kelas }}</h1>
                     <p>Lihat dan Periksa kembali murid anda</p>
                 </div>
                 <a href='/data_siswa/tambah_murid' class="px-4 py-2 float-right bg-blue-normal-19 rounded-xl text-white font-bold">+Tambahkan Murid</a>
@@ -81,7 +81,7 @@
                                 <td class="p-3" style="border-top-left-radius: 12px; border-bottom-left-radius: 12px;">{{ $no_siswa++ }}</td>
                                 <td class="p-3">{{ $data_siswas->nama_siswa }}</td>
                                 <td class="p-3">{{ $data_siswas->jenis_kelamin }}</td>
-                                <td class="p-3" style="border-top-right-radius: 12px; border-bottom-right-radius: 12px;">{{ $data_siswas->kelas_id }}</td>
+                                <td class="p-3" style="border-top-right-radius: 12px; border-bottom-right-radius: 12px;">{{ $data_siswas->kelas->kelas }}</td>
                             </tr>
                         </tbody>
                         @endforeach
