@@ -19,8 +19,11 @@ Route::controller(GuruController::class)->group(function(){
     Route::post("/absensi/tambah_jadwal", "insert_jadwal");
     Route::get("/data_kelas",  "data_kelas");
     Route::get("/absen_siswa/{tanggal}/{kelas}/{mapel}",  "absen_siswa");
+    Route::post("/absen_siswa/{tanggal}/{kelas}/{mapel}",  "manual_absen_masuk");
     Route::get("/absen_siswa/{tanggal}/{kelas}/{mapel}/cam_masuk",  "cam_masuk");
-    Route::post("/manual_absen",  "manual_absen_masuk");
+    // Route::post("/manual_absen",  "manual_absen_masuk");
+    Route::get("/absen_siswa/{tanggal}/{kelas}/{mapel}/box_ket", "box_absen_keterangan");
+    Route::get("/absen_siswa/{tanggal}/{kelas}/{mapel}/table_absen", "table_absen");
     
 });
 

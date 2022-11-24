@@ -135,21 +135,23 @@
                             <div class="flex justify-center w-full">
                             <p class="font-[montserrat] font-semibold text-lg ">Mulai Absen</p></div>
                             <div class="flex justify-center h-full w-full">
-                                <input class="rounded-lg w-[80%] h-1/3 border-[1px] " style="padding: 10px 10px; text-align: left;  border: #999bba solid 2px;" type="time" name="mulai"></div>
+                                <input class="rounded-lg w-[80%] h-1/3 border-[1px] " required style="padding: 10px 10px; text-align: left;  border: #999bba solid 2px;" type="time" name="mulai" value="{{ old('mulai') }}" >
+                            </div>
+                            
                         </div>
 
                         <div class=" w-1/3">
                             <div class="flex justify-center w-full">
                             <p class="font-[montserrat] font-semibold text-lg ">Batas Hadir</p></div>
                             <div class="flex justify-center h-full w-full">
-                            <input class="rounded-lg w-[80%] h-1/3" style="padding: 10px 10px; text-align: left;  border: #999bba solid 2px;" type="time" name="batas_hadir"></div>
+                            <input class="rounded-lg w-[80%] h-1/3" required style="padding: 10px 10px; text-align: left;  border: #999bba solid 2px;" type="time" name="batas_hadir" value="{{ old('batas_hadir') }}" ></div>
                         </div>
 
                         <div class=" w-1/3">
                             <div class="flex justify-center w-full">
                             <p class="font-[montserrat] font-semibold text-lg ">Selesai</p></div>
                             <div class="flex justify-center h-full w-full">
-                                <input class="rounded-lg w-[80%] h-1/3" style="padding: 10px 10px; text-align: left;  border: #999bba solid 2px;" type="time" name="selesai"></div>
+                                <input class="rounded-lg w-[80%] h-1/3" required style="padding: 10px 10px; text-align: left;  border: #999bba solid 2px;" type="time"  value="{{ old('selesai') }}"  name="selesai"></div>
                         </div>
                     </div>
 

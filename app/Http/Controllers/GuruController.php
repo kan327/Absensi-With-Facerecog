@@ -61,6 +61,7 @@ class GuruController extends Controller
     // menambahkan data ke jadwal database
     public function insert_jadwal(Request $request)
     {
+        // validasi
         $validasi = $request->validate([
             "kelas" => "required",
             "mapel" => "required",
@@ -74,6 +75,15 @@ class GuruController extends Controller
             "batas_hadir.required" => "Jam Batas Kehadiran tidak boleh kosong!",
             "selesai.required" => "Jam Selesai tidak boleh kosong!",
         ]);
+
+        // checking jadwal absen
+        $jadwal = DB::select("SELECT * FROM jadwal_absens WHERE kelas_id = $validasi[kelas] AND mapel_id = $validasi[mapel] AND tanggal = curdate()");
+
+        // dd($jadwal);
+
+        if(count($jadwal) > 0){
+             return redirect("/absensi/tambah_jadwal")->with("wrong", "Jadwal tersebut sudah tersedia!");
+        }
 
         $query = JadwalAbsen::insert([
             "tanggal" => Date::today(),
@@ -136,7 +146,7 @@ class GuruController extends Controller
         // $data_jadwal = DB::select("SELECT * FROM jadwal_absens WHERE kelas_id = $kelas AND mapel_id = $mapel AND tanggal = curdate()");
 
         $data_jadwal = JadwalAbsen::all()->where("kelas_id", $kelas)->where("mapel_id", $mapel)->where("tanggal", $tanggal);
-
+        // dd($data_jadwal);
         $data_siswa = Siswa::all()->where("kelas_id", $kelas);
 
         $data_absensi = AbsenSiswa::all()->where("kelas_id", $kelas)->where("tanggal", $tanggal);
@@ -150,6 +160,7 @@ class GuruController extends Controller
             "no"=>1,
             "i"=>1,
             "mapels" => $mapel,
+            "tanggals"=>$tanggal,
             "data_jadwals" => $data_jadwal,
             "data_siswas" => $data_siswa,
             "belum_hadir" => $belum_hadir,
@@ -158,7 +169,7 @@ class GuruController extends Controller
         ]);
     }
 
-    public function manual_absen_masuk(Request $request)
+    public function manual_absen_masuk(Request $request, $tanggal, $kelas, $mapel)
     {
         $result = "Data GAgal Ditambahkan";
 
@@ -172,13 +183,46 @@ class GuruController extends Controller
                 "masuk" => $request->datas[$i]['mulai'],
                 "keterangan" => $request->datas[$i]['check']
             ]);
-
+            $result = "Data Absen berhasil di update";
             // $absen_siswa->save();
 
             
         }
-        return $request->datas[0]['check'];
+        return "Absen berhasil di perbaharui";
         
+    }
+
+    // component
+    public function box_absen_keterangan($tanggal, $kelas, $mapel)
+    {
+        $data_jadwal = JadwalAbsen::all()->where("kelas_id", $kelas)->where("mapel_id", $mapel)->where("tanggal", $tanggal);
+
+        $data_siswa = Siswa::all()->where("kelas_id", $kelas);
+
+        $data_absensi = AbsenSiswa::all()->where("kelas_id", $kelas)->where("tanggal", $tanggal);
+
+        // // dd($data_jadwal[0]);
+        $belum_hadir = AbsenSiswa::all()->where("keterangan", "Belum Hadir")->where("kelas_id", $kelas)->where("tanggal", $tanggal);
+
+        return view("guru.component.box_absen_keterangan",[
+            "data_jadwals"=>$data_jadwal,
+            "data_siswas"=>$data_siswa,
+            "belum_hadir"=>$belum_hadir
+        ]);
+    }
+
+    public function table_absen($tanggal, $kelas, $mapel)
+    {
+        $data_absensi = AbsenSiswa::all()->where("kelas_id", $kelas)->where("tanggal", $tanggal);
+
+        return view("guru.component.table_absen",[
+            "data_absensi"=>$data_absensi,
+            "i"=>1,
+            "no"=>1,
+            "tanggals"=>$tanggal,
+            "kelas"=>$kelas,
+            "mapels"=>$mapel
+        ]);
     }
 
     public function absen_keluar_siswa($jadwal ,$mapel, $kelas)
