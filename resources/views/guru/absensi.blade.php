@@ -90,16 +90,17 @@
                                 <!-- please delete or reuse this onclick -->
                                 <td class="p-3 font-semibold " style="border-top-left-radius: 12px; border-bottom-left-radius: 12px;">{{ $no_jadwal++ }}
                                 </td>
-                                <td onclick="location.href = '/absen_siswa/{{ $jadwal_absen->tanggal }}/{{ $jadwal_absen->kelas_id }}/{{ $jadwal_absen->mapel_id }}'" class="p-3 font-semibold">{{ $jadwal_absen->tanggal }}</td>
+                                <td onclick="location.href = '/absen_siswa/{{ $jadwal_absen->tanggal }}/{{ $jadwal_absen->kelas_id }}/{{ $jadwal_absen->mapel_id }}'" class="p-3 font-semibold">{{ \Carbon\Carbon::parse($jadwal_absen->tanggal)->format("d/m/Y") }}</td>
                                 <td onclick="location.href = '/absen_siswa/{{ $jadwal_absen->tanggal }}/{{ $jadwal_absen->kelas_id }}/{{ $jadwal_absen->mapel_id }}'" class="p-3 font-semibold">{{ $jadwal_absen->kelas->kelas }}</td>
                                 <td onclick="location.href = '/absen_siswa/{{ $jadwal_absen->tanggal }}/{{ $jadwal_absen->kelas_id }}/{{ $jadwal_absen->mapel_id }}'" class="p-3 font-semibold">{{ $jadwal_absen->mapel->pelajaran }}</td>
                                 <td onclick="location.href = '/absen_siswa/{{ $jadwal_absen->tanggal }}/{{ $jadwal_absen->kelas_id }}/{{ $jadwal_absen->mapel_id }}'" class="p-3 font-semibold">{{ $jadwal_absen->mulai }}</td>
                                 <td onclick="location.href = '/absen_siswa/{{ $jadwal_absen->tanggal }}/{{ $jadwal_absen->kelas_id }}/{{ $jadwal_absen->mapel_id }}'" class="p-3 font-semibold">{{ $jadwal_absen->selesai }}</td>
                                 <td class="text-n-blue"
-                                    style="border-top-right-radius: 12px; border-bottom-right-radius: 12px;"><span
-                                        class="material-symbols-outlined">edit</span><span
-                                        class="material-symbols-outlined this-one">delete</span><span
-                                        class="material-symbols-outlined">file_download</span></td>
+                                    style="border-top-right-radius: 12px; border-bottom-right-radius: 12px;">
+
+                                    <span class="material-symbols-outlined">edit</span>
+                                    <a href="absensi/hapus/{{ $jadwal_absen->id }}"><span class="material-symbols-outlined this-one">delete</span></a>
+                                    <span class="material-symbols-outlined">file_download</span></td>
                             </tr>
                         @endforeach
 

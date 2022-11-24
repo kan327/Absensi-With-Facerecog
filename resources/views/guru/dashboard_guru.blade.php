@@ -79,7 +79,7 @@
                     <h2 class="text-xl font-extrabold">Kelas Anda!</h2>
                 </div>
                 <int class="font-bold text-sm mt-2 h-10 w-[80px] overflow-y-auto overflow-x-hidden">
-                    XI PPLG 1, <br> XI MM 2, <br> XI TEI 2, <br> XI TKJ 1, <br> XI BC 1</int>
+                    {{ auth()->guard("user")->user()->kelas->kelas }}</int>
             </div>
             <!-- -- -->
         </div>
@@ -91,9 +91,7 @@
                 <h1 class="font-bold text-xl font-[Montserrat] text-blue-dark-10">{{ auth()->guard('user')->user()->username }}</h1>
                 <p>GURU</p>
                 <h2 class="mt-5 font-semibold font-[Montserrat]">Mata Pelajaran</h2>
-                <p>PBO</p>
-                <p>PWD</p>
-                <p>PWL</p>
+                <p>{{ auth()->guard("user")->user()->mapel->pelajaran }}</p>
                 <button onclick="location.href = '/profile'" class="px-4 py-2 mt-5 bg-blue-normal-19 rounded-xl text-white font-bold">Lihat Profil</button>
             </div>
             <!-- box 2 -->

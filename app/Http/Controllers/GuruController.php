@@ -102,7 +102,7 @@ class GuruController extends Controller
             "selesai.required" => "Jam Selesai tidak boleh kosong!",
         ]);
 
-        $data = JadwalAbsen::insert([
+        $query = JadwalAbsen::insert([
             "tanggal" => Date::today(),
             "mapel_id" => $validasi['mapel'],
             "kelas_id" => $validasi['kelas'],
@@ -111,52 +111,73 @@ class GuruController extends Controller
             "batas_hadir" => $validasi['batas_hadir'],
         ]);
 
-        if($data){
-            $siswa = DB::select("SELECT * FROM siswas WHERE kelas_id = $validasi[kelas] ");
+        $data = DB::select("SELECT * FROM absen_siswas WHERE kelas_id = $validasi[kelas] AND tanggal = curdate()");
+        // $data = AbsenSiswa::all()->where("kelas_id", $validasi['kelas'])->where("tanggal", );
+        // dd($data);
+        if($query == true && count($data) < 1){
 
+            $siswa = DB::select("SELECT * FROM siswas WHERE kelas_id = $validasi[kelas] ORDER BY nama_siswa ASC");
+            
             for($i = 0; $i < count($siswa); $i++){
 
                 AbsenSiswa::insert([
                     "siswa_id" => $siswa[$i]->id,
                     "kelas_id" => $validasi['kelas'],
                     "tanggal" => Date::today(),
+                    "keterangan" => "Belum Hadir",
                 ]);
             }
+
+        }else{
+
         }
 
         return redirect("/absensi")->with("success", "Jadwal Absen berhasil di buat");
     }
 
+    // menghapus jadwal
+    public function hapus_jadwal($id)
+    {
+        $jadwal = JadwalAbsen::find($id);
+        $jadwal->delete();
+
+        return redirect("/absensi")->with("success", "Jadwal berhasil di hapus");
+    }
+
     public function absen_siswa($tanggal, $kelas, $mapel)
     {
-        // $process = new Process(['python ../../../app/absen_masuk.py']);
+        // $process = new Process(['python ../../../app/cam_absen_pulang.py']);
         // // $process->setTimeout(0);
         // $process->run();
-
+        
+        
         // if(!$process->isSuccessful())
         // {
         //     throw new ProcessFailedException($process);
         // }
 
         // $data = $process->getOutput();
-        // // dd(json_decode($data, true));
+        // // dd($data);
         // $datas = json_decode($data, true);
-
+        
         // $data_jadwal = DB::select("SELECT * FROM jadwal_absens WHERE kelas_id = $kelas AND mapel_id = $mapel AND tanggal = curdate()");
+
         $data_jadwal = JadwalAbsen::all()->where("kelas_id", $kelas)->where("mapel_id", $mapel)->where("tanggal", $tanggal);
 
         $data_siswa = Siswa::all()->where("kelas_id", $kelas);
 
         $data_absensi = AbsenSiswa::all()->where("kelas_id", $kelas)->where("tanggal", $tanggal);
 
-        $belum_hadir = AbsenSiswa::all()->where("keterangan", "Belum Hadir");
+        // dd($data_jadwal[0]);
+        $belum_hadir = AbsenSiswa::all()->where("keterangan", "Belum Hadir")->where("kelas_id", $kelas)->where("tanggal", $tanggal);
         return view("guru.detail_absensi",[
             "title" => "absensi",
             "kelas" => $kelas,
+            // "symphony" => $data,
             "no"=>1,
             "i"=>1,
             "mapels" => $mapel,
-            "data_jadwal" => $data_jadwal,
+            "data_jadwals" => $data_jadwal,
             "data_siswas" => $data_siswa,
             "belum_hadir" => $belum_hadir,
             "data_absensi" => $data_absensi,
@@ -165,5 +186,71 @@ class GuruController extends Controller
     }
      
     
+
+    public function manual_absen_masuk(Request $request)
+    {
+        $result = "Data GAgal Ditambahkan";
+
+        // echo 'loop for';
+        for($i = 0; $i < count($request->datas); $i++){
+
+            $absen_siswa = DB::table("absen_siswas")->where("id", $request->datas[$i]['id_siswa']);
+            $result = "absen ok";
+
+            $absen_siswa->update([
+                "masuk" => $request->datas[$i]['mulai'],
+                "keterangan" => $request->datas[$i]['check']
+            ]);
+
+            // $absen_siswa->save();
+
+            
+        }
+        return $request->datas[0]['check'];
+        
+    }
+
+    public function absen_keluar_siswa($jadwal ,$mapel, $kelas)
+    {
+        // require "C:\laragon\www\Absensi-With-Facerecog\app\cam_absen_masuk.py";
+
+        $process = new Process(['python ../../../app/absen_pulang.py']);
+        // $process->setTimeout(0);
+        $process->run();
+
+        if(!$process->isSuccessful())
+        {
+            throw new ProcessFailedException($process);
+        }
+
+        $data = $process->getOutput();
+        // dd(json_decode($data, true));
+        $datas = json_decode($data, true);
+        return view("guru.absensiswapulang",[
+            "kelas" => $kelas,
+            "no"=>1,
+            "mapel" => $mapel,
+            "datas"=> $datas
+        ]);
+    }
+
+    public function cam_masuk($mapel, $kelas)
+    {
+        // $process = new Process(['python ../../../app/cam_absen_masuk.py']);
+        // $process->setTimeout(3600);
+        // $process->run();
+        // // $camera = video_feed();
+
+        // if(!$process->isSuccessful())
+        // {
+        //     throw new ProcessFailedException($process);
+        // }
+
+        // dd( $process->getOutput());
+
+        // // $datas = json_decode($data, true);
+
+        return view("templates.absencam");
+    }
 
 }

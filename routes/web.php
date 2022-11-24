@@ -14,6 +14,7 @@ Route::controller(GuruController::class)->group(function(){
     Route::get("/",  "index")->name('/')->middleware("isLoginGuru");
     Route::get("/profile",  "profile");
     Route::get("/absensi",  "absensi");
+    Route::get("/absensi/hapus/{id}",  "hapus_jadwal");
     Route::get("/absensi/tambah_jadwal", "tambah_jadwal");
     Route::post("/absensi/tambah_jadwal", "insert_jadwal");
     // Route::get("/data_kelas",  "data_kelas");
@@ -22,6 +23,7 @@ Route::controller(GuruController::class)->group(function(){
     Route::post("/data_siswa/tambah_murid",  "insert_murid");
     Route::get("/absen_siswa/{tanggal}/{kelas}/{mapel}",  "absen_siswa");
     Route::get("/absen_siswa/{tanggal}/{kelas}/{mapel}/cam_masuk",  "cam_masuk");
+    Route::post("/manual_absen",  "manual_absen_masuk");
     
 });
 

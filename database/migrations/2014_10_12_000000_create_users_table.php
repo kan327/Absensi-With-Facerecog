@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('username', 12);
             $table->string('email', 25)->unique();
             $table->string('no_hp', 14)->unique();
+            $table->foreignId("kelas_id");
+            $table->foreignId("mapel_id");
             $table->string('password');
         });
     }
