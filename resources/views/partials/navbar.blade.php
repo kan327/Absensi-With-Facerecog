@@ -8,7 +8,7 @@
             {{ auth()->guard('user')->user()->username }} |</p>
         <form action="/logout" method="POST">
             @csrf
-            <button type="submit" class="bg-blue-dark-10 text-white px-2 py-1 rounded ">
+            <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded ">
                 Log Out</button>
         </form>
     </div>

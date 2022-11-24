@@ -39,11 +39,38 @@ class GuruController extends Controller
         ]);
     }
 
-    public function data_kelas()
+    public function data_siswa()
     {
-        return view("guru.data_kelas", [
-            "title" => "data_kelas",
+        $data = Siswa::all();
+        return view("guru.data_siswa", [
+            "title" => "data_siswa",
+            "data_siswas"=>$data,
+            'no_siswa'=>1
         ]);
+    }
+    public function tambah_murid()
+    {
+        $kelas = kelas::all(); 
+        $mapel = mapel::all();
+        return view("guru.tambah_murid",[
+            "title"=>"data_siswa",
+            "kelas"=>$kelas,
+            "mapels"=>$mapel
+            
+        ]);
+    }
+    public function insert_murid(Request $request)
+    {
+        // SELECT ifnull(max(id_master) + 1 , 1001) FROM data_person
+        Siswa::insert([
+            'nama_siswa'=>$request->nama,
+            "kelas_id"=>$request->kelas,
+            "jenis_kelamin" => $request->jeniskelamin,
+            "tgl_lahir" => $request->tgllahir
+        ]);
+       
+        return redirect("/data_siswa")->with("success", "Data siswa berhasil di buat");
+
     }
 
     // menampilkan tampilan tambah jadwal
@@ -136,52 +163,7 @@ class GuruController extends Controller
             // "data"=> $datas
         ]);
     }
+     
+    
 
-    public function absen_keluar_siswa($jadwal ,$mapel, $kelas)
-    {
-        // require "C:\laragon\www\Absensi-With-Facerecog\app\cam_absen_masuk.py";
-
-        $process = new Process(['python ../../../app/absen_pulang.py']);
-        // $process->setTimeout(0);
-        $process->run();
-
-        if(!$process->isSuccessful())
-        {
-            throw new ProcessFailedException($process);
-        }
-
-        $data = $process->getOutput();
-        // dd(json_decode($data, true));
-        $datas = json_decode($data, true);
-        return view("guru.absensiswapulang",[
-            "kelas" => $kelas,
-            "no"=>1,
-            "mapel" => $mapel,
-            "datas"=> $datas
-        ]);
-    }
-
-    public function cam_masuk($mapel, $kelas)
-    {
-        // $process = new Process(['python ../../../app/cam_absen_masuk.py']);
-        // $process->setTimeout(3600);
-        // $process->run();
-        // // $camera = video_feed();
-
-        // if(!$process->isSuccessful())
-        // {
-        //     throw new ProcessFailedException($process);
-        // }
-
-        // dd( $process->getOutput());
-
-        // // $datas = json_decode($data, true);
-
-        return view("templates.absencam");
-    }
-
-    public function read()
-    {
-        return "app/";
-    }
 }

@@ -166,20 +166,7 @@
 
     </div>
 
-    <script>
-        function simpan(){
-            var kelas = document.getElementsByName("kelas");
-            var kelas = document.getElementsByName("kelas");
-            for(i=0; i<kelas.length; i++){
-                if(kelas[i].checked) {
-                    var valueAkhir = kelas[i].value
-                    console.log(kelas[i].value)
-                }else{
-                    
-                }
-            }
-        }
-    </script>
+    
 </body>
 
 </html>

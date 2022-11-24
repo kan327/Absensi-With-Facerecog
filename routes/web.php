@@ -16,7 +16,10 @@ Route::controller(GuruController::class)->group(function(){
     Route::get("/absensi",  "absensi");
     Route::get("/absensi/tambah_jadwal", "tambah_jadwal");
     Route::post("/absensi/tambah_jadwal", "insert_jadwal");
-    Route::get("/data_kelas",  "data_kelas");
+    // Route::get("/data_kelas",  "data_kelas");
+    Route::get("/data_siswa",  "data_siswa");
+    Route::get("/data_siswa/tambah_murid",  "tambah_murid");
+    Route::post("/data_siswa/tambah_murid",  "insert_murid");
     Route::get("/absen_siswa/{tanggal}/{kelas}/{mapel}",  "absen_siswa");
     Route::get("/absen_siswa/{tanggal}/{kelas}/{mapel}/cam_masuk",  "cam_masuk");
     
