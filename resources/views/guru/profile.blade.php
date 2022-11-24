@@ -8,6 +8,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="{{ asset('assets/CSS/output.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/CSS/suport.css') }}">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <style>
         li {
@@ -333,8 +334,6 @@
         </div>
         <p class="mx-auto ml-[17.5rem]  font-[quicksand] font-medium text-lg text-[#595959]">Are you sure want to Save it?</p>
 
-        {{-- tailwind --}}
-        <script src="https://cdn.tailwindcss.com"></script>
 </body>
 
 </html>

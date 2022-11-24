@@ -10,6 +10,8 @@
     <!-- style css -->
     <link rel="stylesheet" href="{{ asset('assets/CSS/output.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/CSS/suport.css') }}">
+    {{-- tailwind --}}
+    <script src="https://cdn.tailwindcss.com"></script>
     <!-- font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -112,8 +114,9 @@
     <!-- custom alert -->
     <script src="{{ asset('assets/JS/cstkei.alert.js') }}"></script>
 
-    {{-- tailwind --}}
-    <script src="https://cdn.tailwindcss.com"></script>
+    @if (Session::has("success"))
+        <script>keiAlert("{{ session()->get('success') }}", 'done', 'bg-[#22c55e]')</script>
+    @endif
 </body>
 
 </html>

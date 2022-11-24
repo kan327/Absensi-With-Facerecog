@@ -10,6 +10,13 @@
     <!-- style css -->
     <link rel="stylesheet" href="{{ asset('assets/CSS/output.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/CSS/suport.css') }}">
+
+    {{-- jquery --}}
+    <script src="{{ asset('assets/JS/jquery.js') }}"></script>
+
+    {{-- tailwind --}}
+    <script src="https://cdn.tailwindcss.com"></script>
+
     <!-- config -->
     <script>
         tailwind.config = {
@@ -66,7 +73,7 @@
                         <int class="font-bold text-blue-normal-19 text-xl ">
                             {{-- <img src="{{ $symphony }}" alt="{{ $symphony }}"> --}}
                             @foreach ($data_jadwals as $data_jadwal)
-                                {{ \Carbon\Carbon::createFromFormat("G:i:s",$data_jadwal->mulai)->format('g:i A') }}
+                                {{ \Carbon\Carbon::createFromFormat('G:i:s', $data_jadwal->mulai)->format('g:i A') }}
                             @endforeach
                         </int>
                     </div>
@@ -74,7 +81,7 @@
                         <p class="font-bold text-[#656363]">Selesai Sesi</p>
                         <int class="font-bold text-blue-normal-19 text-xl ">
                             @foreach ($data_jadwals as $data_jadwal)
-                                {{ \Carbon\Carbon::createFromFormat("H:i:s", $data_jadwal->selesai)->format("g:i A") }}
+                                {{ \Carbon\Carbon::createFromFormat('H:i:s', $data_jadwal->selesai)->format('g:i A') }}
                             @endforeach
                         </int>
                     </div>
@@ -82,7 +89,7 @@
                         <p class="font-bold text-[#656363]">Batas Hadir</p>
                         <int class="font-bold text-blue-normal-19 text-xl ">
                             @foreach ($data_jadwals as $data_jadwal)
-                                {{ \Carbon\Carbon::createFromFormat("H:i:s", $data_jadwal->batas_hadir)->format("g:i A") }}
+                                {{ \Carbon\Carbon::createFromFormat('H:i:s', $data_jadwal->batas_hadir)->format('g:i A') }}
                             @endforeach
                         </int>
                     </div>
@@ -94,33 +101,23 @@
                 </div>
             </div>
             <!-- right side -->
-            <div class="font-bold flex flex-col mt-5 mr-5">
-                <div>
-                    @foreach ($data_jadwals as $data_jadwal)
-                        <p class="text-[#656363]">Mapel</p>
-                        <int class="text-blue-normal-19 text-xl">{{ $data_jadwal->mapel->pelajaran }}</int>
-                    @endforeach
-                </div>
-                <div>
-                    <p class="text-[#656363]">Total Siswa</p>
-                    <int class="text-blue-normal-19 text-xl">{{ count($data_siswas) }} Orang</int>
-                </div>
-                <div>
-                    <p class="text-[#656363]">Belum Hadir</p>
-                    <int class="text-blue-normal-19 text-xl">{{ count($belum_hadir) }} Orang</int>
-                </div>
+            <div class="font-bold flex flex-col mt-5 mr-5" id="box_absen_keterangan">
+                {{-- box Absen Keterangan --}}
             </div>
         </div>
         <!-- tag -->
         <div class="flex my-5 justify-between">
-            <h1 class="text-2xl mt-2 font-bold text-blue-normal-19 font-[Montserrat]">Daftar Absensi | XI PPLG 1
+            <h1 class="text-2xl mt-2 font-bold text-blue-normal-19 font-[Montserrat]">Daftar Absensi | @foreach ($data_jadwals as $data_jadwal)
+                    {{ $data_jadwal->kelas->kelas }}
+                @endforeach
             </h1>
             <button class="px-4 py-3 bg-blue-normal-19 rounded-xl text-white font-bold">Kirim Ke Telegram</button>
         </div>
         <!-- main -->
         <div class="shadow-box p-8 mx-auto rounded-2xl border-solid border-[0.1px] border-opacity-5 border-[#81B7E980]">
+
             <!-- table -->
-            <div class="h-[50vh] w-full overflow-auto">
+            <div class="h-[50vh] w-full overflow-auto" id="table_absen">
                 <table class="w-full" cellpadding="10">
                     <!-- header table -->
                     <thead class="font-extrabold bg-white top-0 sticky z-10">
@@ -192,8 +189,10 @@
                     <input type="checkbox" onclick="centang(this)"></td>
                 </div>
             </div>
+
             <!-- control manual -->
             <div class="border-blue border-solid border-t-2 flex justify-between text-sm">
+
                 <!-- leftbar -->
                 <div class="font-[Montserrat] w-1/3 min-w-[268px] mt-10 mx-5">
                     <h1 class="font-semibold text-blue-normal-19 text-base">Set Centang</h1>
@@ -229,11 +228,14 @@
                             id="i">
                         <label for="i" class="label-radio">Izin</label>
                     </div>
+
                     <!-- confirm -->
                     <p class="py-4">Pastikan untuk tidak salah pilih!</p>
                     <button class="bg-[#1061FF] px-4 py-2 rounded-xl text-white font-bold" onclick="save()">Simpan
                         Perubahan</button>
+
                 </div>
+
                 <!-- rightbar -->
                 <div class="w-[33%] max-w-[300px] m-x-5 mt-14">
                     <div class="flex justify-between">
@@ -247,16 +249,36 @@
                     <li class="text-[#808080] text-sm">*Pulangkan adalah tombol untuk memulangkan siswa yang di
                         pilih. </li>
                 </div>
+
             </div>
         </div>
     </div>
     <!-- custom alert -->
     <script src="{{ asset('assets/JS/cstkei.alert.js') }}"></script>
 
-    {{-- jquery --}}
-    <script src="{{ asset('assets/JS/jquery.js') }}"></script>
 
     <script>
+        $(document).ready(function() {
+            box_absen_ket()
+            // table_absen()
+        })
+
+        // menampilkan live status siswa
+        function box_absen_ket() {
+            $.get("/absen_siswa/{{ $tanggals }}/{{ $kelas }}/{{ $mapels }}/box_ket", {}, function(data,
+                status) {
+                $("#box_absen_keterangan").html(data)
+            })
+        }
+
+        // // menampilkan live table
+        // function table_absen() {
+        //     $.get("/absen_siswa/{{ $tanggals }}/{{ $kelas }}/{{ $mapels }}/table_absen", {}, function(
+        //         data, status) {
+        //         $("#table_absen").html(data)
+        //     })
+        // }
+
         function centang(any) {
             if (any.checked) {
                 var checkbox = document.getElementsByName('checkbox')
@@ -275,156 +297,114 @@
             document.getElementById(any).classList.toggle("active")
         }
 
-
         function save() {
-
             // menangkap id siswa
             var id_siswa = document.getElementsByName("id_siswa")
-
             var id_siswas = []
-
             // menangkap id siswa ke dalam array
             for (i = 0; i < id_siswa.length; i++) {
                 id_siswas.push(id_siswa[i].value)
                 // console.log(id_siswas)
             }
-
-
             // menangkap jam masuk
             var mulai = document.getElementsByName("jam_masuk")
-
             var mulais = []
-
             // menangkap jam mulai ke dalam array
             for (j = 0; j < mulai.length; j++) {
                 mulais.push(mulai[j].textContent)
                 // console.log(mulais)
             }
-
-
             // meng set centang keterangan
             var ket = document.getElementsByName("ket")
-
             var centang_ket = "notSelected"
-
             for (cent = 0; cent < ket.length; cent++) {
-
                 if (ket[cent].checked) {
                     centang_ket = ket[cent].value
-
                     // console.log(centang_ket)
                 }
-
             }
-
-
             // keterangan option dan checkbox
             var keterangan = document.getElementsByName("keterangan") //keterangan 
-
             var check = document.getElementsByName("checkbox") // checkbox
-
             // console.log(check[0].value)
-
             var checks = []
-
             for (j = 0; j < check.length; j++) {
-
                 if (centang_ket == "notSelected") {
-
+                    box_absen_ket()
                     checks.push(keterangan[j].value)
-
                     if (checks[j] === "Hadir") {
                         keterangan[j][1].setAttribute('selected', true)
                     }
-
                     if (checks[j] === "Alpha") {
                         keterangan[j][2].setAttribute('selected', true)
                     }
-
                     if (checks[j] === "Terlambat") {
                         keterangan[j][3].setAttribute('selected', true)
                     }
-
                     if (checks[j] === "Sakit") {
                         keterangan[j][4].setAttribute('selected', true)
                     }
-
                     if (checks[j] === "Izin") {
                         keterangan[j][5].setAttribute('selected', true)
                     }
-
                 } else if (check[j].checked) {
-
+                    box_absen_ket()
                     check[j].setAttribute("checked", true)
                     checks.push(centang_ket)
-
                     // console.log(checks)
                     if (checks[j] === "Alpha") {
                         keterangan[j][2].setAttribute('selected', true)
                     }
-
                     if (checks[j] === "Hadir") {
                         keterangan[j][1].setAttribute('selected', true)
                     }
-
                     if (checks[j] === "Terlambat") {
                         keterangan[j][3].setAttribute('selected', true)
                     }
-
                     if (checks[j] === "Sakit") {
                         keterangan[j][4].setAttribute('selected', true)
                     }
-
                     if (checks[j] === "Izin") {
                         keterangan[j][5].setAttribute('selected', true)
                     }
-
                 } else {
+                    box_absen_ket()
                     checks.push(keterangan[j].value)
                 }
-                // console.log(checks)
-
             }
-
+            console.log(checks)
 
             // keseluruhan
             var all = []
-
             for (i = 0; i < id_siswa.length; i++) {
-
                 all.push({
                     id_siswa: id_siswas[i],
                     mulai: mulais[i],
                     check: checks[i]
                 })
-
             }
-
             // console.log(all)
             kirim_request(all)
-
-
             function kirim_request(allData) {
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')
                     }
                 });
-
                 $.ajax({
-                    url: "/manual_absen",
+                    url: "/absen_siswa/{{ $tanggals }}/{{ $kelas }}/{{ $mapels }}",
                     type: "POST",
                     data: {
                         datas: allData
                     },
                     success: function(ress) {
-                        console.log(ress)
+                        keiAlert(ress, "done", "bg-[#22c55e]")
                     }
                 });
             }
-
         }
     </script>
+
 </body>
 
 </html>

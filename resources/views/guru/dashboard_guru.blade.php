@@ -9,6 +9,8 @@
     <!-- style css -->
     <link rel="stylesheet" href="{{ asset('assets/CSS/output.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/CSS/suport.css') }}">
+    {{-- tailwind --}}
+    <script src="https://cdn.tailwindcss.com"></script>
     <!-- config -->
     <script>
         tailwind.config = {
@@ -172,8 +174,7 @@
         <script>keiAlert("{{ session()->get('success') }}", 'done', 'bg-[#22c55e]')</script>
     @endif
 
-    {{-- tailwind --}}
-    <script src="https://cdn.tailwindcss.com"></script>
+
 </body>
 
 </html>
