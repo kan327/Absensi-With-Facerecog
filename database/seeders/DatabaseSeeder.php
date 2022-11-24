@@ -118,58 +118,58 @@ class DatabaseSeeder extends Seeder
         DB::table('siswas')->insert([
             "nama_siswa" => "Ridho Rizqi",
             "kelas_id" => 1,
-            "tempat_lahir" => "Cimanggis",
+            "jenis_kelamin" => "Laki-laki",
             "tgl_lahir" => "2022/06/22"
         ]);
         DB::table('siswas')->insert([
             "nama_siswa" => "Andhyka",
             "kelas_id" => 1,
-            "tempat_lahir" => "Depok",
+            "jenis_kelamin" => "Perempuan",
             "tgl_lahir" => "2022/06/22"
         ]);
         DB::table('siswas')->insert([
             "nama_siswa" => "Ahden",
             "kelas_id" => 1,
-            "tempat_lahir" => "Depok",
+            "jenis_kelamin" => "Perempuan",
             "tgl_lahir" => "2022/06/22"
         ]);
         DB::table('siswas')->insert([
             "nama_siswa" => "Kanny",
             "kelas_id" => 1,
-            "tempat_lahir" => "Depok",
+            "jenis_kelamin" => "Perempuan",
             "tgl_lahir" => "2022/06/22"
         ]);
         DB::table('siswas')->insert([
             "nama_siswa" => "Lumi",
             "kelas_id" => 1,
-            "tempat_lahir" => "Depok",
+            "jenis_kelamin" => "Perempuan",
             "tgl_lahir" => "2022/06/22"
         ]);
         DB::table('siswas')->insert([
             "nama_siswa" => "Tsaqif",
             "kelas_id" => 1,
-            "tempat_lahir" => "Depok",
+            "jenis_kelamin" => "Perempuan",
             "tgl_lahir" => "2022/06/22"
         ]);
         
         DB::table('siswas')->insert([
             "nama_siswa" => "Ujang",
             "kelas_id" => 2,
-            "tempat_lahir" => "Depok",
+            "jenis_kelamin" => "Perempuan",
             "tgl_lahir" => "2022/06/22"
         ]);
 
         DB::table('siswas')->insert([
             "nama_siswa" => "Ucup",
             "kelas_id" => 2,
-            "tempat_lahir" => "Depok",
+            "jenis_kelamin" => "Perempuan",
             "tgl_lahir" => "2022/06/22"
         ]);
 
         DB::table('siswas')->insert([
             "nama_siswa" => "tutung",
             "kelas_id" => 2,
-            "tempat_lahir" => "Depok",
+            "jenis_kelamin" => "Perempuan",
             "tgl_lahir" => "2022/06/22"
         ]);
     }

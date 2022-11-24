@@ -177,7 +177,7 @@
                 
                 if (checks[j] === "Hadir") {
                     keterangan[j][1].setAttribute('selected', true)
-                    table_absen()
+                    
                 }
                 
                 if (checks[j] === "Terlambat") {
@@ -230,7 +230,11 @@
                     datas: allData
                 },
                 success: function(ress) {
-
+                    
+                    setTimeout(() => {
+                        keiAlert(ress, "done", "bg-[#22c55e]")
+                    }, 1000);
+                    table_absen()
                 }
             });
         }
