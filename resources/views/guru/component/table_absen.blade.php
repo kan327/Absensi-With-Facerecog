@@ -154,9 +154,9 @@
 
                     console.log(ress)
 
-                    setTimeout(() => {
-                        keiAlert(ress, "done", "bg-[#22c55e]")
-                    }, 1000);
+                    
+                    keiAlert(ress, "done", "bg-[#22c55e]")
+                    
                     table_absen()
 
                 }
@@ -190,9 +190,14 @@
 
                 // console.log(masuk[p].textContent)
 
-                if (checkbox[p].checked && masuk[p].textContent == "--") {
+                if (checkbox[p].checked) {
                     // data_pulang.push(date.getHours()+":"+date.getMinutes()+":"+date.getSeconds())
+    
+                    keiAlert("Jam masuk harus di isi !", "close", "bg-red-600");
                     data_pulang.push(masuk[p].textContent)
+        
+                    data_pulang.push(masuk[p].textContent)
+                    
                 } else {
 
                     data_pulang.push("{{ $data_selesai }}")
@@ -201,6 +206,7 @@
 
             } else {
                 data_pulang.push(pulang[p].textContent)
+                keiAlert("Tidak ada yang di pilih!", "close", "bg-red-600");
             }
 
         }
@@ -236,9 +242,9 @@
 
                     // console.log(ress)
 
-                    setTimeout(() => {
-                        keiAlert(ress, "done", "bg-[#22c55e]")
-                    }, 1000);
+                    
+                    keiAlert(ress, "done", "bg-[#22c55e]")
+
                     table_absen()
 
                 }
@@ -485,10 +491,11 @@
                 },
                 success: function(ress) {
 
-                    setTimeout(() => {
-                        keiAlert(ress, "done", "bg-[#22c55e]")
-                    }, 1000);
+                    
+                    keiAlert(ress, "done", "bg-[#22c55e]")
+
                     table_absen()
+                    
                     box_absen_ket()
                 }
             });

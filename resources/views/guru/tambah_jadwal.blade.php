@@ -81,44 +81,53 @@
                                     <details class="custom-select rounded-lg mt-2" style="width: 80%;">
                                         <summary class="radios" style="padding: 10px 10px; text-align: left;  border: #999bba solid 2px;">
                                             
-                                            @foreach ($mapels as $mapel)
-                                                <input type="radio" name="mapel" title="{{ $mapel->pelajaran }}" id="{{ $mapel->pelajaran }}" value="{{ $mapel->id }}" checked>
+                                            @foreach ($data_gurus as $data_guru)
+                                                @foreach ($data_guru->user_mapels as $mapel_guru)
+                                                    <input type="radio" name="mapel" title="{{ $mapel_guru->pelajaran }}" id="{{ $mapel_guru->pelajaran }}" value="{{ $mapel_guru->id }}" checked>
+                                                @endforeach
                                             @endforeach
 
                                         </summary>
                                         <ul class="list">
 
-                                            @foreach ($mapels as $mapel)
-                                                <li>
-                                                    <label for="{{  $mapel->pelajaran }}">
-                                                        {{  $mapel->pelajaran }}
-                                                        <span></span>
-                                                    </label>
-                                                </li>
+                                            @foreach ($data_gurus as $data_guru)
+                                                @foreach ($data_guru->user_mapels as $mapel_guru)
+                                                    <li>
+                                                        <label for="{{  $mapel_guru->pelajaran }}">
+                                                            {{  $mapel_guru->pelajaran }}
+                                                            <span></span>
+                                                        </label>
+                                                    </li>
+                                                @endforeach
                                             @endforeach
 
                                         </ul>
                                     </details>
                             </div>
                             <div class="w-1/2">
+                                
                                 <label class="font-semibold font-[montserrat] text-xl text-black" for="">Kelas</label><br>
                                 <details class="custom-select rounded-lg mt-2" style="width: 80%;">
                                     <summary class="radios" style="padding: 10px 10px; text-align: left;  border: #999bba solid 2px;">
 
-                                        @foreach ($kelas as $kels)
-                                            <input type="radio" name="kelas" value="{{ $kels->id }}" id="{{ $kels->kelas }}" title="{{ $kels->kelas }}" checked>
+                                        @foreach($data_gurus as $data_guru)
+                                            @foreach($data_guru->user_kelas as $kelas_guru)
+                                                <input type="radio" name="kelas" value="{{ $kelas_guru->id }}" id="{{ $kelas_guru->kelas }}" title="{{ $kelas_guru->kelas }}" checked>
+                                            @endforeach
                                         @endforeach
-
                                     </summary>
                                     <ul class="list">
                                         
-                                        @foreach ($kelas as $kels)
+                                        @foreach ($data_gurus as $data_guru)
+                                            @foreach ($data_guru->user_kelas as $kelas_guru)
+                                                
                                             <li>
-                                                <label for="{{ $kels->kelas }}">
-                                                    {{ $kels->kelas }}
+                                                <label for="{{ $kelas_guru->kelas }}">
+                                                    {{ $kelas_guru->kelas }}
                                                     <span></span>
                                                 </label>
                                             </li>
+                                            @endforeach
                                         @endforeach
 
                                     </ul>
@@ -174,4 +183,4 @@
 </html>
 
 
-<!-- npx tailwindcss -i ./src/input.css -o ./public/assets/css/output.css --watch -->
+{{-- <!-- npx tailwindcss -i ./src/input.css -o ./public/assets/css/output.css --watch --> --}}

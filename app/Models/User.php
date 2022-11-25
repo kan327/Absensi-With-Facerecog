@@ -54,23 +54,14 @@ class User extends Authenticatable
     //     return $this->belongsTo(mapel::class);
     // }
 
-    /**
-     * The roles that belong to the User
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    // public function user_mapels()
-    // {
-    //     return $this->belongsToMany(User::class, UserJob::class);
-    // }
 
-    /**
-     * The roles that belong to the User
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    // public function roles(): BelongsToMany
-    // {
-    //     return $this->belongsToMany(::class, 'role_user_table', 'user_id', 'role_id');
-    // }
+    public function user_mapels()
+    {
+        return $this->belongsToMany(mapel::class, UserMapel::class);
+    }
+
+    public function user_kelas()
+    {
+        return $this->belongsToMany(kelas::class, UserKelas::class);
+    }
 }

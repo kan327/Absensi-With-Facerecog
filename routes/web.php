@@ -13,6 +13,7 @@ Route::controller(GuruController::class)->group(function(){
 
     Route::get("/",  "index")->name('/')->middleware("isLoginGuru");
     Route::get("/profile",  "profile");
+    Route::post("/profile",  "insert_profile");
     Route::get("/absensi",  "absensi");
     Route::get("/absensi/hapus/{id}",  "hapus_jadwal");
     Route::get("/absensi/tambah_jadwal", "tambah_jadwal");

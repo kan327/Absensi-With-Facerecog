@@ -31,8 +31,6 @@ class DatabaseSeeder extends Seeder
             "username"=>"Patir",
             "email"=>"patir@gmail.com",
             "no_hp"=> "82125662178",
-            "kelas_id"=> 1,
-            "mapel_id"=> 1,
             "password"=>Hash::make('123456')
         ]);
 
@@ -42,8 +40,6 @@ class DatabaseSeeder extends Seeder
             "username"=>"Ridho",
             "email"=>"ridho@gmail.com",
             "no_hp"=> "822342342",
-            "kelas_id" => 2,
-            "mapel_id" => 2,
             "password"=>Hash::make('123456')
         ]);
 
@@ -173,30 +169,51 @@ class DatabaseSeeder extends Seeder
             "tgl_lahir" => "2022/06/22"
         ]);
 
-        DB::table('user_jobs')->insert([
-            "user_id" => 1,
-            "mapel_id" => 3,
-            
-        ]);
-        DB::table('user_jobs')->insert([
-            "user_id" => 1,
-            "mapel_id" => 2,
-            
-        ]);
-        DB::table('user_jobs')->insert([
-            "user_id" => 1,
-            "mapel_id" => 1,
-            
-        ]);
-        DB::table('user_jobs')->insert([
+        DB::table('user_mapels')->insert([
             "user_id" => 2,
             "mapel_id" => 1,
             
         ]);
-        DB::table('user_jobs')->insert([
-            "user_id" => 1,
+        DB::table('user_mapels')->insert([
+            "user_id" => 2,
+            "mapel_id" => 3,
+            
+        ]);
+        DB::table('user_mapels')->insert([
+            "user_id" => 2,
             "mapel_id" => 2,
             
+        ]);
+        DB::table('user_mapels')->insert([
+            "user_id" => 1,
+            "mapel_id" => 1,
+            
+        ]);
+        DB::table('user_mapels')->insert([
+            "user_id" => 1,
+            "mapel_id" => 3,
+            
+        ]);
+
+
+        DB::table('user_kelas')->insert([
+            "user_id" => 1,
+            "kelas_id" => 1,
+        ]);
+
+        DB::table('user_kelas')->insert([
+            "user_id" => 1,
+            "kelas_id" => 2,
+        ]);
+
+        DB::table('user_kelas')->insert([
+            "user_id" => 2,
+            "kelas_id" => 1,
+        ]);
+
+        DB::table('user_kelas')->insert([
+            "user_id" => 2,
+            "kelas_id" => 2,
         ]);
     }
 }

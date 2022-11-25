@@ -210,106 +210,53 @@
         <!-- bagian bawah -->
         <div class="flex pl-12 pt-5 w-full h-[45%]">
 
-            <!-- kiri bawah -->
-            <div class="h-full w-1/2 ">
-                <!-- judul input -->
-                <label class="font-[montserrat] text-[#3A3A3A] text-xl font-semibold">
-                    Class
-                </label>
-                <!-- checkbox -->
-                <div class="w-4/5 grid grid-cols-2  gap-3">
-                    <li>
-                        <input type="checkbox" id="checkboxOne" value="XI-PPLG">
-                        <label for="checkboxOne">XI-PPLG</label>
-                    </li>
-                    <li>
-                        <input type="checkbox" id="checkboxTwo" value="XI-MM">
-                        <label for="checkboxTwo">XI-MM</label>
-                    </li>
-                    <li>
-                        <input type="checkbox" id="checkboxThree" value="XI-MM2">
-                        <label for="checkboxThree">XI-MM2</label>
-                    </li>
-                    <li>
-                        <input type="checkbox" id="checkboxfour" value="XI-TJKT">
-                        <label for="checkboxfour">XI-TJKT</label>
-                    </li>
-                    <li>
-                        <input type="checkbox" id="checkbox1" value="XI-PPLG">
-                        <label for="checkbox1">XI-PPLG</label>
-                    </li>
-                    <li>
-                        <input type="checkbox" id="checkbox2" value="XI-MM">
-                        <label for="checkbox2">XI-MM</label>
-                    </li>
-                    <li>
-                        <input type="checkbox" id="checkbox3" value="XI-MM2">
-                        <label for="checkbox3">XI-MM2</label>
-                    </li>
-                    <li>
-                        <input type="checkbox" id="checkbox4" value="XI-TJKT">
-                        <label for="checkbox4">XI-TJKT</label>
-                    </li>
-                </div>
+            <form action="/profile" method="post">
+                @csrf
+                <!-- kiri bawah -->
+                <div class="h-full w-1/2 ">
+                    <!-- judul input -->
+                    <label class="font-[montserrat] text-[#3A3A3A] text-xl font-semibold">
+                        Class
+                    </label>
+                    <!-- checkbox -->
+                    <div class="w-4/5 grid grid-cols-2  gap-3">
 
-            </div>
-
-            <!-- kanan bawah -->
-            <div class="h-full w-1/2">
-                <!-- judul input -->
-                <label class="font-[montserrat] text-[#3A3A3A] text-xl font-semibold">
-                    Subject
-                </label>
-                <!-- checkbox -->
-                <div class="w-4/5 grid grid-cols-2  gap-2">
-                    <li>
-                        <input type="checkbox" id="checkbox12" value="XI-PPLG">
-                        <label for="checkbox12">XI-PPLG</label>
-                    </li>
-                    <li>
-                        <input type="checkbox" id="checkbox22" value="XI-MM">
-                        <label for="checkbox22">XI-MM</label>
-                    </li>
-                    <li>
-                        <input type="checkbox" id="checkbox32" value="XI-MM2">
-                        <label for="checkbox32">XI-MM2</label>
-                    </li>
-                    <li>
-                        <input type="checkbox" id="checkbox42" value="XI-TJKT">
-                        <label for="checkbox42">XI-TJKT</label>
-                    </li>
-                    <li>
-                        <input type="checkbox" id="checkbox52" value="XI-PPLG">
-                        <label for="checkbox52">XI-PPLG</label>
-                    </li>
-                    <li>
-                        <input type="checkbox" id="checkbox62" value="XI-MM">
-                        <label for="checkbox62">XI-MM</label>
-                    </li>
-                    <li>
-                        <input type="checkbox" id="checkbox72" value="XI-MM2">
-                        <label for="checkbox72">XI-MM2</label>
-                    </li>
-                    <li>
-                        <input type="checkbox" id="checkbox82" value="XI-TJKT">
-                        <label for="checkbox82">XI-TJKT</label>
-                    </li>
-                    <li>
-                        <input type="checkbox" id="checkbox82" value="XI-TJKT">
-                        <label for="checkbox82">XI-TJKT</label>
-                    </li>
-                    <!-- button -->
-                    <div class="flex justify-center items-center w-5 h-5">
+                        @foreach ($data_kelas as $kelas)
+                            <li>
+                                <input type="checkbox" id="checkbox{{ $no_kelas }}" name="kelas[]"
+                                    value="{{ $kelas->id }}">
+                                <label for="checkbox{{ $no_kelas++ }}">{{ $kelas->kelas }}</label>
+                            </li>
+                        @endforeach
 
                     </div>
 
                 </div>
 
+                <!-- kanan bawah -->
+                <div class="h-full w-1/2">
+                    <!-- judul input -->
+                    <label class="font-[montserrat] text-[#3A3A3A] text-xl font-semibold">
+                        Mata Pelajaran
+                    </label>
+                    <!-- checkbox -->
+                    <div class="w-4/5 grid grid-cols-2  gap-2">
+                        @foreach ($data_mapels as $mapel)
+                            <li>
+                                <input type="checkbox" id="mapel{{ $no_mapel }}" name="mapel[]" value="{{ $mapel->id }}">
+                                <label for="mapel{{ $no_mapel++ }}">{{ $mapel->pelajaran }}</label>
+                            </li>
+                        @endforeach
 
+                        </li>
+                        <!-- button -->
+                        <div class="flex justify-center items-center w-5 h-5">
 
+                        </div>
 
-            </div>
+                    </div>
 
+                </div>
 
         </div>
 
@@ -322,17 +269,21 @@
 
                     <div class="w-1/2 h-full">
 
-                        <button class="py-1 px-3 border-solid border-2 rounded-xl border-tet-x">Cancel</button>
+                        <a class="py-1 px-3 border-solid border-2 rounded-xl border-tet-x"
+                            onclick="location.href='/'">Cancel</a>
                     </div>
 
                     <div class="w-1/2 h-full">
                         <button class="py-1 px-3 border-solid border-2 rounded-xl border-tet-x">Save</button>
 
                     </div>
+                    </form>
+
                 </div>
             </div>
         </div>
-        <p class="mx-auto ml-[17.5rem]  font-[quicksand] font-medium text-lg text-[#595959]">Are you sure want to Save it?</p>
+        <p class="mx-auto ml-[17.5rem]  font-[quicksand] font-medium text-lg text-[#595959]">Are you sure want to Save
+            it?</p>
 
 </body>
 

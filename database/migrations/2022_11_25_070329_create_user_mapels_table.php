@@ -13,14 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('nip');
-            $table->string('name', 30);
-            $table->string('username', 12);
-            $table->string('email', 25)->unique();
-            $table->string('no_hp', 14)->unique();
-            $table->string('password');
+        Schema::create('user_mapels', function (Blueprint $table) {
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references("id")->on("users");
+            $table->unsignedBigInteger('mapel_id');
+            $table->foreign('mapel_id')->references("id")->on("mapels"); 
         });
     }
 
@@ -31,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('user_mapels');
     }
 };

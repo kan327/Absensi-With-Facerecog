@@ -20,4 +20,9 @@ class JadwalAbsen extends Model
     {
         return $this->belongsTo(mapel::class);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
