@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\AbsenSiswa;
+use App\Models\User;
 use Illuminate\Support\Facades\Date;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\Exception\ProcessFailedException;
@@ -30,7 +31,7 @@ class GuruController extends Controller
 
     public function absensi()
     {
-        $data = JadwalAbsen::all();
+        $data = JadwalAbsen::all()->where("kelas_id", auth()->guard('user')->user()->kelas_id);
 
         return view("guru.absensi", [
             "title" => "absensi",
@@ -81,8 +82,8 @@ class GuruController extends Controller
     // menampilkan tampilan tambah jadwal
     public function tambah_jadwal()
     {
-        $kelas = kelas::all(); 
-        $mapel = mapel::all();
+        $kelas = kelas::all()->where("id", auth()->guard('user')->user()->kelas_id); 
+        $mapel = mapel::all()->where("id", auth()->guard('user')->user()->mapel_id);
         return view("guru.tambah_jadwal",[
             "title"=>"absensi",
             "kelas"=>$kelas,
@@ -179,8 +180,7 @@ class GuruController extends Controller
         // $data_jadwal = DB::select("SELECT * FROM jadwal_absens WHERE kelas_id = $kelas AND mapel_id = $mapel AND tanggal = curdate()");
 
         $data_jadwal = JadwalAbsen::all()->where("kelas_id", $kelas)->where("mapel_id", $mapel)->where("tanggal", $tanggal);
-
-
+        
         $data_siswa = Siswa::all()->where("kelas_id", $kelas);
 
         $data_absensi = AbsenSiswa::all()->where("kelas_id", $kelas)->where("tanggal", $tanggal);
@@ -242,6 +242,27 @@ class GuruController extends Controller
 
             $result = "Siswa berhasil di pulangkan";
         }
+        return $result;
+    }
+
+    public function tutup_absen(Request $request, $tanggal, $kelas, $mapel)
+    {
+        $result = "gagal";
+        
+        for($i = 0; $i < count($request->datas); $i++){
+
+            $absen_siswa = DB::table("absen_siswas")->where("id", $request->datas[$i]['id_siswa']);
+            $result = "ok";
+
+            $absen_siswa->update([
+                "masuk" => $request->datas[$i]['jam_masuk'],
+                "keterangan" => $request->datas[$i]['keterangan']
+            ]);
+
+            $result = "Sesi absen telah di tutup";
+
+        }
+
         return $result;
     }
 

@@ -171,7 +171,7 @@
                 <div class="w-[33%] max-w-[300px] m-x-5 mt-14">
                     <div class="flex justify-between">
                         <button
-                            class="px-4 py-1 border-2 border-solid border-blue-normal-19 text-blue-dark-10 rounded-lg font-bold">Tutup
+                            class="px-4 py-1 border-2 border-solid border-blue-normal-19 text-blue-dark-10 rounded-lg font-bold" onclick="tutup_absen()">Tutup
                             Absen</button>
                         <button class="bg-[#1061FF] px-4 py-2 rounded-lg text-white font-bold" onclick="pulang()" id="pulangkan">Pulangkan</button>
                     </div>

@@ -83,23 +83,89 @@
         document.getElementById(any).classList.toggle("active")
     }
 
-    // mendisable button pulangkan
-    var mulai = document.getElementsByName("jam_masuk")
-    var btn_pulang = document.getElementById("pulangkan")
+    function tutup_absen() {
 
-    for(m = 0; m < mulai.length; m++){
-        if(mulai[m].textContent == "--"){
-            // console.log(mulai[m].textContent)
-            btn_pulang.setAttribute("disabled", true)
-            btn_pulang.textContent = "Button Disabled"
-        }else{
-            // console.log(mulai[m].textContent)
-            btn_pulang.removeAttribute("disabled")
-            btn_pulang.textContent = "Pulangkan"
+        var id_siswa = document.getElementsByName("id_siswa")
+
+        var id_siswas = []
+
+        for (i = 0; i < id_siswa.length; i++) {
+            id_siswas.push(id_siswa[i].value)
+        }
+        // console.log(id_siswas)
+
+        var masuk = document.getElementsByName("jam_masuk")
+
+        var jam_masuk = []
+
+        for(j = 0; j < masuk.length; j++){
+            jam_masuk.push(masuk[j].textContent)
+        }
+
+        // console.log(jam_masuk)
+        
+        var keterangan = document.getElementsByName("keterangan")
+
+        var keterangans = []
+
+        for(k = 0; k < id_siswa.length; k++){
+
+            if(masuk[k].textContent == "--"){
+                jam_masuk[k] = "{{ $data_mulai }}"
+                // keterangan[k][3].setAttribute('selected', true)
+                keterangans.push(keterangan[k][3].value)
+            }else{
+                keterangans.push(keterangan[k].value)
+            }
+
+        }
+
+        var data_keterlambatan = []
+
+        for(a = 0; a < id_siswa.length; a++){
+            data_keterlambatan.push({
+                id_siswa : id_siswas[a],
+                jam_masuk : jam_masuk[a],
+                keterangan : keterangans[a]
+            })
+        }
+
+        // console.log(keterangans)        
+        // console.log(data_absen)
+        // console.log(jam_masuk)
+
+        kirim_request_keterlambatan(data_keterlambatan)
+
+        function kirim_request_keterlambatan(allData){
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')
+                }
+            });
+
+            $.ajax({
+                url: "/absen_siswa/{{ $tanggals }}/{{ $kelas }}/{{ $mapels }}/tutup_absen",
+                type: "POST",
+                data: {
+                    datas: allData
+                },
+                success: function(ress) {
+
+                    console.log(ress)
+
+                    setTimeout(() => {
+                        keiAlert(ress, "done", "bg-[#22c55e]")
+                    }, 1000);
+                    table_absen()
+
+                }
+            });
+
         }
     }
 
-
+    // mengubah jam pulang
     function pulang() {
 
         var id_siswa = document.getElementsByName("id_siswa")
@@ -112,6 +178,7 @@
 
         // console.log(id_siswas)
 
+        var masuk = document.getElementsByName("jam_masuk")
         var pulang = document.getElementsByName("jam_pulang")
         var checkbox = document.getElementsByName("checkbox")
 
@@ -121,20 +188,29 @@
 
             if (checkbox[p].checked) {
 
-                // data_pulang.push(date.getHours()+":"+date.getMinutes()+":"+date.getSeconds())
-                data_pulang.push("{{ $data_selesai }}")
-            }else{
+                // console.log(masuk[p].textContent)
+
+                if (checkbox[p].checked && masuk[p].textContent == "--") {
+                    // data_pulang.push(date.getHours()+":"+date.getMinutes()+":"+date.getSeconds())
+                    data_pulang.push(masuk[p].textContent)
+                } else {
+
+                    data_pulang.push("{{ $data_selesai }}")
+                }
+
+
+            } else {
                 data_pulang.push(pulang[p].textContent)
             }
-            
+
         }
 
         var data_waktu = []
 
-        for(w = 0; w < id_siswa.length; w++){
+        for (w = 0; w < id_siswa.length; w++) {
             data_waktu.push({
-                id_siswa : id_siswa[w].value,
-                data_pulang : data_pulang[w]
+                id_siswa: id_siswa[w].value,
+                data_pulang: data_pulang[w]
             })
         }
 
@@ -142,7 +218,7 @@
 
         kirim_request_waktu(data_waktu)
 
-        function kirim_request_waktu(allData){
+        function kirim_request_waktu(allData) {
 
             $.ajaxSetup({
                 headers: {
@@ -154,11 +230,11 @@
                 url: "/absen_siswa/{{ $tanggals }}/{{ $kelas }}/{{ $mapels }}/manual_pulang",
                 type: "POST",
                 data: {
-                    datas : allData
+                    datas: allData
                 },
-                success: function (ress) {
+                success: function(ress) {
 
-                    console.log(ress)
+                    // console.log(ress)
 
                     setTimeout(() => {
                         keiAlert(ress, "done", "bg-[#22c55e]")
@@ -289,7 +365,7 @@
                         mulais[j] = "--"
                     }
                 }
-                
+
                 if (checks[j] === "Alpha") {
                     keterangan[j][2].setAttribute('selected', true)
                     if (mulais[j] != "--") {

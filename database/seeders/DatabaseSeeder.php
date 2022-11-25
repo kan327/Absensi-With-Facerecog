@@ -172,5 +172,31 @@ class DatabaseSeeder extends Seeder
             "jenis_kelamin" => "Perempuan",
             "tgl_lahir" => "2022/06/22"
         ]);
+
+        DB::table('user_jobs')->insert([
+            "user_id" => 1,
+            "mapel_id" => 3,
+            
+        ]);
+        DB::table('user_jobs')->insert([
+            "user_id" => 1,
+            "mapel_id" => 2,
+            
+        ]);
+        DB::table('user_jobs')->insert([
+            "user_id" => 1,
+            "mapel_id" => 1,
+            
+        ]);
+        DB::table('user_jobs')->insert([
+            "user_id" => 2,
+            "mapel_id" => 1,
+            
+        ]);
+        DB::table('user_jobs')->insert([
+            "user_id" => 1,
+            "mapel_id" => 2,
+            
+        ]);
     }
 }

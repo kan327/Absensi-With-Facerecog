@@ -90,10 +90,14 @@
             <!-- box 1 bio -->
             <div
                 class="shadow-box w-[28%] border-solid border-[0.1px] border-opacity-5 p-5 text-center border-black rounded-md">
-                <h1 class="font-bold text-xl font-[Montserrat] text-blue-dark-10">{{ auth()->guard('user')->user()->username }}</h1>
+                <h1 class="font-bold text-xl font-[Montserrat] text-blue-dark-10">{{ auth()->guard('user')->user()->name }}</h1>
                 <p>GURU</p>
                 <h2 class="mt-5 font-semibold font-[Montserrat]">Mata Pelajaran</h2>
-                <p>{{ auth()->guard("user")->user()->mapel->pelajaran }}</p>
+                <p>
+                    {{-- @foreach ($data_gurus as $data_guru)
+                        {{ $data_guru->user_mapels }}
+                    @endforeach --}}
+                </p>
                 <button onclick="location.href = '/profile'" class="px-4 py-2 mt-5 bg-blue-normal-19 rounded-xl text-white font-bold">Lihat Profil</button>
             </div>
             <!-- box 2 -->
