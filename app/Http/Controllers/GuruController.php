@@ -113,7 +113,7 @@ class GuruController extends Controller
     {
         $id_guru = auth()->guard('user')->user()->id;
         $data_guru = User::with(['user_mapels','user_kelas'])->where("id", $id_guru)->get();
-
+        // dd($data_guru);
         $kelas_gurus = [];
         $kelas_id = [];
         foreach($data_guru as $guru){
@@ -123,7 +123,7 @@ class GuruController extends Controller
                 // dump($kelas_guru->kelas);
             }
         }
-        // dd($kelas_gurus);
+        // dd($kelas_id);
 
         $siswas = [];
         
@@ -204,7 +204,7 @@ class GuruController extends Controller
     // menambahkan data ke jadwal database
     public function insert_jadwal(Request $request)
     {
-        // dd(Date::today());
+        // dd((Dat)e::today());
         $id_guru = auth()->guard('user')->user()->id;
         // validasi
         $validasi = $request->validate([
