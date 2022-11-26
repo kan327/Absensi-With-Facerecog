@@ -77,4 +77,4 @@ def generate_dataset(nbr):
                 cap.release()
                 cv2.destroyAllWindows()
 
-print(json.dumps({"dataset":generate_dataset(1) }, iterable_as_array=True))  
+print(json.dumps({"dataset":generate_dataset(100) }, iterable_as_array=True))  
