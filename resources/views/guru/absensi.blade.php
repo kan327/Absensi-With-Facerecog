@@ -102,7 +102,7 @@
 
                                     <span class="material-symbols-outlined">edit</span>
                                     <a href="absensi/hapus/{{ $jadwal_absen->id }}"><span class="material-symbols-outlined this-one">delete</span></a>
-                                    <span class="material-symbols-outlined">file_download</span></td>
+                                    <a href="/excel"><span class="material-symbols-outlined">file_download</span></a></td>
                             </tr>
                         @endforeach
 

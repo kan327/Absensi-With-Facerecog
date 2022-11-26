@@ -9,7 +9,7 @@ from datetime import date, datetime
   
  
 cnt = 0
-pause_cnt = 0
+pause_cnt = 0 
 justscanned = False
  
 mydb = mysql.connector.connect(
