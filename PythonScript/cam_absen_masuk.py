@@ -133,6 +133,6 @@ def face_recognition():  # generate frame by frame from camera
 
 
 # print(json.dumps(video_feed()))
-func = {"function1":face_recognition()}
+func = {"function1":face_recognition(1)}
 
 print(json.dumps(func, iterable_as_array=True))

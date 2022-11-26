@@ -147,7 +147,7 @@ class GuruController extends Controller
     }
     public function tambah_murid()
     {
-        $id_siswa = DB::select('SELECT ifnull(max(id) + 1 , 1) FROM siswas ');
+        // $id_siswa = DB::select('SELECT ifnull(max(id) + 1 , 1) FROM siswas ');
         // dd($id_siswa);
 
         $kelas = kelas::all(); 
@@ -156,7 +156,7 @@ class GuruController extends Controller
             "title"=>"data_siswa",
             "kelas"=>$kelas,
             "mapels"=>$mapel,
-            "nbr"=>$id_siswa,
+            // "nbr"=>$id_siswa,
             
         ]);
     }
@@ -456,8 +456,9 @@ class GuruController extends Controller
     public function cam_daftar()
     {
         $data_siswa = DB::select('SELECT * FROM siswas ORDER BY id DESC LIMIT 1 ')[0]->id;
-        // dd($data_siswa);
-        $nbr = $data_siswa;
+        // // dd($data_siswa);
+
+        $nbr = json_encode($data_siswa);
 
         $process = new Process(["python ../../../PythonScript/cam_daftar.py",$nbr]);
         // $process->setTimeout(0);
