@@ -21,19 +21,37 @@ class GuruController extends Controller
     {
         $id_guru = auth()->guard('user')->user()->id;
 
+        
         $data_guru = User::with(['user_mapels', 'user_kelas'])->get()->where("id", $id_guru);
-        $id = auth()->guard('user')->user()->id;
+        
         $live_absen = JadwalAbsen::with(['user', 'kelas', 'mapel'])->where('user_id', $id_guru)->where("status", "live")->orderBy('id', 'desc')->limit(1)->get();
-        ;
-        // foreach($live_absen as $live){
-        //     dump($live->tanggal);
-        //     dump($live->kelas_id);
-        //     dump($live->mapel_id);
+        
+        $lives = null;
+        foreach($live_absen as $live){
+            $lives = $live;
+        }
+     
+        // mengambil data absen
+        if(count($live_absen) > 0){
+            $live_sisw_absen = AbsenSiswa::where("user_id", $id_guru)->where("tanggal", $lives->tanggal)->where("kelas_id", $lives->kelas_id)->get();
+        }else{
+            $live_sisw_absen = [];
+        }
+        
+        // foreach($live_siswa_absen as $live){
+            // dump($live->tanggal);
+            // dump($live->kelas_id);
+            // dump($live->mapel_id);
+            // dump($live);
         // }
+
+        // dd($live_siswa_absen);
         return view("guru.dashboard_guru", [
             "title" => "dashboard_guru",
             "gurus"=>$data_guru,
             "live_absens"=>$live_absen,
+            "live_siswa_absens"=>$live_sisw_absen,
+            "no_absen"=>1,
         ]);
     }
 
@@ -91,18 +109,40 @@ class GuruController extends Controller
         ]);
     }
 
-    public function data_siswa($id)
+    public function data_siswa()
     {
-        $data = Siswa::all()->where("kelas_id", $id);
-        // $kelas = Siswa::all("kelas_id")->where("kelas_id",$id);
+        $id_guru = auth()->guard('user')->user()->id;
+        $data_guru = User::with(['user_mapels','user_kelas'])->where("id", $id_guru)->get();
 
-        // dd($kelas);
+        $kelas_gurus = [];
+        $kelas_id = [];
+        foreach($data_guru as $guru){
+            foreach($guru->user_kelas as $kelas_guru){
+                $kelas_gurus[] = $kelas_guru->kelas;
+                $kelas_id[] = $kelas_guru->id;
+                // dump($kelas_guru->kelas);
+            }
+        }
+        // dd($kelas_gurus);
 
+        $siswas = [];
+        
+        for($i = 0; $i < count($kelas_id); $i++){
+            // if($kelas_gurus[$i] == ){
+                
+                // }
+                $siswas[] = Siswa::with(['kelas'])->where("kelas_id", $kelas_id[$i])->get();
+                // dump($siswas);
+        }
+            
+        // dd($siswas);
+
+        
         return view("guru.data_siswa", [
             "title" => "data_siswa",
-            "data_siswas"=>$data,
             'no_siswa'=>1,
-            // "data_kelas"=>$kelas
+            "data_kelas"=>$kelas_gurus,
+            "data_siswas"=>$siswas,
         ]);
     }
     public function tambah_murid()
@@ -160,6 +200,8 @@ class GuruController extends Controller
     // menambahkan data ke jadwal database
     public function insert_jadwal(Request $request)
     {
+        // dd(Date::today());
+        $id_guru = auth()->guard('user')->user()->id;
         // validasi
         $validasi = $request->validate([
             "kelas" => "required",
@@ -176,7 +218,7 @@ class GuruController extends Controller
         ]);
 
         // checking jadwal absen
-        $jadwal = DB::select("SELECT * FROM jadwal_absens WHERE kelas_id = $validasi[kelas] AND mapel_id = $validasi[mapel] AND tanggal = curdate()");
+        $jadwal = DB::select("SELECT * FROM jadwal_absens WHERE user_id = $id_guru AND kelas_id = $validasi[kelas] AND mapel_id = $validasi[mapel] AND tanggal = curdate()");
 
         // dd($jadwal);
 
@@ -204,6 +246,7 @@ class GuruController extends Controller
             for($i = 0; $i < count($siswa); $i++){
 
                 AbsenSiswa::insert([
+                    "user_id" => $id_guru,
                     "siswa_id" => $siswa[$i]->id,
                     "kelas_id" => $validasi['kelas'],
                     "tanggal" => Date::today(),

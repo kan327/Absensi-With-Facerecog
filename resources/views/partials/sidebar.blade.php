@@ -16,7 +16,7 @@
             Absen
         </div>
     </a>
-    <a href="/data_siswa/{{ auth()->guard('user')->user()->kelas_id }}">
+    <a href="/data_siswa">
         <div class="{{ ($title === 'data_siswa') ? 'mt-10 font-black text-black' : 'mt-10 text-un-x-tet' }}"><span class="material-symbols-outlined -mb-3 mr-5">assignment_ind</span>
             Data Kelas
         </div>

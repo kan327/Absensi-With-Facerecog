@@ -55,16 +55,28 @@
         <h1 class="text-3xl text-blue-dark-10 font-bold mt-32 font-[Montserrat]">Hai, {{ auth()->guard('user')->user()->username }}!</h1>
         <div class="mt-10 flex w-full justify-evenly">
             <!-- box 1 session -->
-            @foreach ($live_absens as $live_absen)
-            <div onclick="location.href= '/absen_siswa/{{ $live_absen->tanggal }}/{{ $live_absen->kelas_id }}/{{ $live_absen->mapel_id }}'"
-                class="cursor-pointer hover:bg-blue-normal-19 hover:text-white shadow-box border-solid border-[0.1px] border-opacity-5 border-black p-6 rounded-md w-[28%] flex justify-between">
-                <div>
-                    <h3 class="font-semibold text-sm">Sesi Aktif</h3>
-                    <h2 class="text-xl font-extrabold">{{$live_absen->kelas->kelas}} </h2>
+            @if (count($live_absens) > 0)
+                @foreach ($live_absens as $live_absen)
+                    <div onclick="location.href= '/absen_siswa/{{ $live_absen->tanggal }}/{{ $live_absen->kelas_id }}/{{ $live_absen->mapel_id }}'"
+                        class="cursor-pointer hover:bg-blue-normal-19 hover:text-white shadow-box border-solid border-[0.1px] border-opacity-5 border-black p-6 rounded-md w-[28%] flex justify-between">
+                        <div>
+                            <h3 class="font-semibold text-sm">Sesi Aktif</h3>
+                            <h2 class="text-xl font-extrabold">{{$live_absen->kelas->kelas}} </h2>
+                        </div>
+                        <int class="font-bold text-2xl mt-2">Masuk</int>
+                    </div>
+                @endforeach
+                
+            @else
+                <div
+                    class="select-none hover:bg-blue-normal-19 hover:text-white shadow-box border-solid border-[0.1px] border-opacity-5 border-black p-6 rounded-md w-[28%] flex justify-between">
+                    <div>
+                        <h3 class="font-semibold text-sm">Sesi Aktif</h3>
+                        <h2 class="text-xl font-extrabold">Tidak Ada Sesi Aktif</h2>
+                    </div>
+                    <int class="font-bold text-2xl mt-2"></int>
                 </div>
-                <int class="font-bold text-2xl mt-2">Masuk</int>
-            </div>
-            @endforeach
+            @endif
             <!-- box 2 -->
             <div onclick = "location.href= '/absensi/tambah_jadwal'"
                 class="cursor-pointer hover:bg-blue-normal-19 hover:text-white shadow-box border-solid border-[0.1px] border-opacity-5 border-black p-6 rounded-md w-[28%] flex justify-between">
@@ -127,50 +139,23 @@
                         </thead>
                         <!-- body -->
                         <tbody class="text-center text-base font-bold text-n-tet-x cursor-pointer select-none">
-                            <tr class="hover:bg-[#E8F4FF] rounded-full in-hover-to"
-                                onclick="location.href = 'detailabsensi.html'">
-                                <!-- please delete or reuse this onclick-->
-                                <td class="p-3" style="border-top-left-radius: 12px; border-bottom-left-radius: 12px;">1
-                                </td>
-                                <td class="p-3">Fathir Akmal Burhanudin</td>
-                                <td class="p-3">XI PPLG 1</td>
-                                <td class="p-3">12.40</td>
-                                <td class="p-3"
-                                    style="border-top-right-radius: 12px; border-bottom-right-radius: 12px;">12.40</td>
-                            </tr>
-                            <tr class="hover:bg-[#E8F4FF] rounded-full in-hover-to"
-                                onclick="location.href = 'detailabsensi.html'">
-                                <!-- please delete or reuse this onclick-->
-                                <td class="p-3" style="border-top-left-radius: 12px; border-bottom-left-radius: 12px;">1
-                                </td>
-                                <td class="p-3">Fathir Akmal Burhanudin</td>
-                                <td class="p-3">XI PPLG 1</td>
-                                <td class="p-3">12.40</td>
-                                <td class="p-3"
-                                    style="border-top-right-radius: 12px; border-bottom-right-radius: 12px;">12.40</td>
-                            </tr>
-                            <tr class="hover:bg-[#E8F4FF] rounded-full in-hover-to"
-                                onclick="location.href = 'detailabsensi.html'">
-                                <!-- please delete or reuse this onclick-->
-                                <td class="p-3" style="border-top-left-radius: 12px; border-bottom-left-radius: 12px;">1
-                                </td>
-                                <td class="p-3">Fathir Akmal Burhanudin</td>
-                                <td class="p-3">XI PPLG 1</td>
-                                <td class="p-3">12.40</td>
-                                <td class="p-3"
-                                    style="border-top-right-radius: 12px; border-bottom-right-radius: 12px;">12.40</td>
-                            </tr>
-                            <tr class="hover:bg-[#E8F4FF] rounded-full in-hover-to"
-                                onclick="location.href = 'detailabsensi.html'">
-                                <!-- please delete or reuse this onclick-->
-                                <td class="p-3" style="border-top-left-radius: 12px; border-bottom-left-radius: 12px;">1
-                                </td>
-                                <td class="p-3">Fathir Akmal Burhanudin</td>
-                                <td class="p-3">XI PPLG 1</td>
-                                <td class="p-3">12.40</td>
-                                <td class="p-3"
-                                    style="border-top-right-radius: 12px; border-bottom-right-radius: 12px;">12.40</td>
-                            </tr>
+
+                            @if (count($live_siswa_absens) > 0 )
+                                @foreach ($live_siswa_absens as $live_siswa_absen)
+                                <tr class="hover:bg-[#E8F4FF] rounded-full in-hover-to"
+                                    onclick="location.href = 'detailabsensi.html'">
+                                    <!-- please delete or reuse this onclick-->
+                                    <td class="p-3" style="border-top-left-radius: 12px; border-bottom-left-radius: 12px;">{{ $no_absen++ }}
+                                    </td>
+                                    <td class="p-3">{{ $live_siswa_absen->siswa->nama_siswa }}</td>
+                                    <td class="p-3">{{ $live_siswa_absen->kelas->kelas }}</td>
+                                    <td class="p-3">{{ $live_siswa_absen->masuk }}</td>
+                                    <td class="p-3"
+                                        style="border-top-right-radius: 12px; border-bottom-right-radius: 12px;">{{ $live_siswa_absen->pulang }}</td>
+                                </tr>
+                                @endforeach
+                            @endif
+
                         </tbody>
                     </table>
                 </div>

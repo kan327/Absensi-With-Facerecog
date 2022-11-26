@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('absen_siswas', function (Blueprint $table) {
             $table->id();
+            $table->foreignId("user_id");
             $table->foreignId("siswa_id");
             $table->foreignId("kelas_id");
             $table->date("tanggal");

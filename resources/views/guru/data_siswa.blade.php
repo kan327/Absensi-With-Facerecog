@@ -54,11 +54,13 @@
     <!-- content -->
     <div class="absolute left-72 w-3/4 pb-20">
         <!-- card 1 -->
+        @foreach ($data_kelas as $kelas)
         <div
             class="shadow-box mt-32 p-8 w-5/6 mx-auto rounded-2xl border-solid border-[0.1px] border-opacity-5 border-black"> 
+
             <div>
                 <div class="w-fit float-left">
-                    <h1 class="text-[#3F80FF] font-bold font-[Montserrat] text-2xl">Daftar Siswa | {{ auth()->guard('user')->user()->kelas->kelas }}</h1>
+                    <h1 class="text-[#3F80FF] font-bold font-[Montserrat] text-2xl">Daftar Siswa | {{ $kelas }}</h1>
                     <p>Lihat dan Periksa kembali murid anda</p>
                 </div>
                 <a href='/data_siswa/tambah_murid' class="px-4 py-2 float-right bg-blue-normal-19 rounded-xl text-white font-bold">+Tambahkan Murid</a>
@@ -73,56 +75,26 @@
                             <th class="p-3">Kelas</th>
                         </tr>
                     </thead>
-
-                  
-                        @foreach ($data_siswas as $data_siswas)
-                        <tbody class="text-center text-base font-bold text-n-tet-x cursor-pointer select-none">
-                            <tr class="hover:bg-[#E8F4FF] rounded-full in-hover-to">
-                                <td class="p-3" style="border-top-left-radius: 12px; border-bottom-left-radius: 12px;">{{ $no_siswa++ }}</td>
-                                <td class="p-3">{{ $data_siswas->nama_siswa }}</td>
-                                <td class="p-3">{{ $data_siswas->jenis_kelamin }}</td>
-                                <td class="p-3" style="border-top-right-radius: 12px; border-bottom-right-radius: 12px;">{{ $data_siswas->kelas->kelas }}</td>
-                            </tr>
-                        </tbody>
+  
+                        @foreach ($data_siswas as $data_siswa)
+                            @foreach ($data_siswa as $siswa)
+                                <tbody class="text-center text-base font-bold text-n-tet-x cursor-pointer select-none">
+                                    <tr class="hover:bg-[#E8F4FF] rounded-full in-hover-to">
+                                        <td class="p-3" style="border-top-left-radius: 12px; border-bottom-left-radius: 12px;">{{ $no_siswa++ }}</td>
+                                        <td class="p-3">{{ $siswa->nama_siswa }}</td>
+                                        <td class="p-3">{{ $siswa->jenis_kelamin }}</td>
+                                        <td class="p-3" style="border-top-right-radius: 12px; border-bottom-right-radius: 12px;">{{ $siswa->kelas->kelas }}</td>
+                                    </tr>
+                                </tbody>
+                            @endforeach
                         @endforeach
                     
                 </table>
             </div>
+            
         </div>
+        @endforeach
         <!-- card 2 -->
-        <div
-            class="shadow-box mt-32 p-8 w-5/6 mx-auto rounded-2xl border-solid border-[0.1px] border-opacity-5 border-black">
-            <div>
-                <div class="w-fit float-left">
-                    <h1 class="text-[#3F80FF] font-bold font-[Montserrat] text-2xl">Daftar Siswa | XI-PPLG 1</h1>
-                    <p>Lihat dan Periksa kembali murid anda</p>
-                </div>
-                <button class="px-4 py-2 float-right bg-blue-normal-19 rounded-xl text-white font-bold">+ Tambahkan
-                    Murid</button>
-            </div>
-            <div class="mt-20 h-[50vh] w-full overflow-auto">
-                <table class="text-black w-full" cellpadding="2">
-                    <thead class="text-[#8C8C8C] font-extrabold bg-white top-0 sticky z-10">
-                        <tr class="text-sm text-un-tet">
-                            <th class="p-3">No</th>
-                            <th class="p-3">Nama</th>
-                            <th class="p-3">Lahir</th>
-                            <th class="p-3">Gender</th>
-                        </tr>
-                    </thead>
-                    <tbody class="text-center text-base font-bold text-n-tet-x cursor-pointer select-none">
-                        <tr class="hover:bg-[#E8F4FF] rounded-full in-hover-to">
-                            <td class="p-3" style="border-top-left-radius: 12px; border-bottom-left-radius: 12px;">1
-                            </td>
-                            <td class="p-3">Fathir Akmal Burhanudin</td>
-                            <td class="p-3">2005-08-15</td>
-                            <td class="p-3" style="border-top-right-radius: 12px; border-bottom-right-radius: 12px;">
-                                Laki-laki</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
     </div>
 </body>
 

@@ -188,25 +188,25 @@
 
             if (checkbox[p].checked) {
 
-                // console.log(masuk[p].textContent)
+                console.log(masuk[p].textContent)
 
-                if (checkbox[p].checked) {
-                    // data_pulang.push(date.getHours()+":"+date.getMinutes()+":"+date.getSeconds())
-    
-                    keiAlert("Jam masuk harus di isi !", "close", "bg-red-600");
-                    data_pulang.push(masuk[p].textContent)
-        
-                    data_pulang.push(masuk[p].textContent)
-                    
-                } else {
+                if(masuk[p].textContent == "--"){
+
+                    data_pulang.push(pulang[p].textContent)
+                }else{
 
                     data_pulang.push("{{ $data_selesai }}")
                 }
+                // data_pulang.push(date.getHours()+":"+date.getMinutes()+":"+date.getSeconds())
+    
+                // data_pulang.push(masuk[p].textContent)
+                    
+            
 
 
             } else {
                 data_pulang.push(pulang[p].textContent)
-                keiAlert("Tidak ada yang di pilih!", "close", "bg-red-600");
+                // keiAlert("Tidak ada yang di pilih!", "close", "bg-red-600");
             }
 
         }

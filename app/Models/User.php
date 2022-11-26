@@ -48,12 +48,6 @@ class User extends Authenticatable
     {
         return $this->belongsTo(kelas::class);
     }
-    
-    // public function mapel()
-    // {
-    //     return $this->belongsTo(mapel::class);
-    // }
-
 
     public function user_mapels()
     {
