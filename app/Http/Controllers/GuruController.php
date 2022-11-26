@@ -5,15 +5,18 @@ use App\Models\kelas;
 use App\Models\mapel;
 use App\Models\Siswa;
 use App\Models\UserKelas;
+use App\Models\UserMapel;
 use App\Models\AbsenSiswa;
 use App\Models\JadwalAbsen;
+use App\Exports\SiswaExport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\UserMapel;
 use Illuminate\Support\Facades\Date;
+use Maatwebsite\Excel\Facades\Excel;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\Exception\ProcessFailedException;
+use Maatwebsite\Excel\Concerns\WithHeadings;
 
 class GuruController extends Controller
 {
@@ -496,5 +499,11 @@ class GuruController extends Controller
 
         return view("templates.absencam");
     }
+
+    public function excel(){
+        return Excel::download(new SiswaExport, 'DataSiswa.xlsx');
+    }
+
+    
 
 }
