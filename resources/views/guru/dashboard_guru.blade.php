@@ -55,17 +55,19 @@
         <h1 class="text-3xl text-blue-dark-10 font-bold mt-32 font-[Montserrat]">Hai, {{ auth()->guard('user')->user()->username }}!</h1>
         <div class="mt-10 flex w-full justify-evenly">
             <!-- box 1 session -->
-            <div
-                class="hover:bg-blue-normal-19 hover:text-white shadow-box border-solid border-[0.1px] border-opacity-5 border-black p-6 rounded-md w-[28%] flex justify-between">
+            @foreach ($live_absens as $live_absen)
+            <div onclick="location.href= '/absen_siswa/{{ $live_absen->tanggal }}/{{ $live_absen->kelas_id }}/{{ $live_absen->mapel_id }}'"
+                class="cursor-pointer hover:bg-blue-normal-19 hover:text-white shadow-box border-solid border-[0.1px] border-opacity-5 border-black p-6 rounded-md w-[28%] flex justify-between">
                 <div>
                     <h3 class="font-semibold text-sm">Sesi Aktif</h3>
-                    <h2 class="text-xl font-extrabold">XI-PPLG 1</h2>
+                    <h2 class="text-xl font-extrabold">{{$live_absen->kelas->kelas}} </h2>
                 </div>
                 <int class="font-bold text-2xl mt-2">Masuk</int>
             </div>
+            @endforeach
             <!-- box 2 -->
-            <div
-                class="hover:bg-blue-normal-19 hover:text-white shadow-box border-solid border-[0.1px] border-opacity-5 border-black p-6 rounded-md w-[28%] flex justify-between">
+            <div onclick = "location.href= '/absensi/tambah_jadwal'"
+                class="cursor-pointer hover:bg-blue-normal-19 hover:text-white shadow-box border-solid border-[0.1px] border-opacity-5 border-black p-6 rounded-md w-[28%] flex justify-between">
                 <div>
                     <h3 class="font-semibold text-sm">Jadwal</h3>
                     <h2 class="text-xl font-extrabold">Mata Pelajaran</h2>
@@ -81,7 +83,11 @@
                     <h2 class="text-xl font-extrabold">Kelas Anda!</h2>
                 </div>
                 <int class="font-bold text-sm mt-2 h-10 w-[80px] overflow-y-auto overflow-x-hidden">
-                    {{ auth()->guard("user")->user()->kelas->kelas }}</int>
+                    @foreach ($gurus as $guru)
+                        @foreach ($guru->user_kelas as $kelas_guru)
+                            {{ $kelas_guru->kelas }}<br>
+                        @endforeach
+                    @endforeach</int>
             </div>
             <!-- -- -->
         </div>
@@ -94,9 +100,11 @@
                 <p>GURU</p>
                 <h2 class="mt-5 font-semibold font-[Montserrat]">Mata Pelajaran</h2>
                 <p>
-                    {{-- @foreach ($data_gurus as $data_guru)
-                        {{ $data_guru->user_mapels }}
-                    @endforeach --}}
+                    @foreach ($gurus as $guru)
+                        @foreach ($guru->user_mapels as $mapel_guru)
+                            {{ $mapel_guru->pelajaran }}<br>
+                        @endforeach
+                    @endforeach
                 </p>
                 <button onclick="location.href = '/profile'" class="px-4 py-2 mt-5 bg-blue-normal-19 rounded-xl text-white font-bold">Lihat Profil</button>
             </div>

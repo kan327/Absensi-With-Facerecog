@@ -15,12 +15,15 @@ return new class extends Migration
     {
         Schema::create('jadwal_absens', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger("user_id");
+            $table->foreign("user_id")->references("id")->on("users");
             $table->date("tanggal");
             $table->foreignId("mapel_id");
             $table->foreignId("kelas_id");
             $table->time("mulai");
             $table->time("selesai");
             $table->time("batas_hadir");
+            $table->string("status", 6)->default("live");
         });
     }
 
