@@ -1,5 +1,6 @@
 import mysql.connector
 import cv2
+import sys
 from PIL import Image
 import numpy as np
 import os
@@ -17,7 +18,7 @@ mydb = mysql.connector.connect(
     host="localhost",
     user="root",
     passwd="",
-    database="db_absensi"
+    database="db_absensi2"
 )
 
 mycursor = mydb.cursor() 
@@ -31,8 +32,9 @@ speech.setProperty("volume", 1)
 speech.setProperty("voice", voices[1].id)
 
 def generate_dataset(nbr):
-    face_classifier = cv2.CascadeClassifier("xmlsrc/haarcascade_frontalface_default.xml")
- 
+
+    face_classifier = cv2.CascadeClassifier("C:\\laragon\\www\\Absensi-With-Facerecog\\PythonScript\\xmlsrc\\haarcascade_frontalface_default.xml")
+
     def face_cropped(img):
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         faces = face_classifier.detectMultiScale(gray, 1.3, 5)
@@ -60,13 +62,12 @@ def generate_dataset(nbr):
             img_id += 1
             face = cv2.resize(face_cropped(img), (800, 500))
             face = cv2.cvtColor(face, cv2.COLOR_BGR2GRAY)
- 
-            file_name_path = "dataset/"+nbr+"."+ str(img_id) + ".jpg"
+            file_name_path = "C:\\laragon\\www\\Absensi-With-Facerecog\\PythonScript\\dataset\\"+str(nbr)+"."+ str(img_id) + ".jpg"
             cv2.imwrite(file_name_path, face)
             cv2.putText(face, str(count_img), (50, 50), cv2.FONT_HERSHEY_COMPLEX, 1, (0, 255, 0), 2)
  
             mycursor.execute("""INSERT INTO `images` (`img_id`, `img_person`) VALUES
-                                ('{}', '{}')""".format(img_id, nbr))
+                                ('{}', '{}')""".format(img_id, str(nbr)))
             mydb.commit()
  
             frame = cv2.imencode('.jpg', face)[1].tobytes()
@@ -76,5 +77,8 @@ def generate_dataset(nbr):
                 break
                 cap.release()
                 cv2.destroyAllWindows()
+nbr = sys.argv[1]
+number = json.loads(nbr)
+# print(number)
+print(json.dumps({"dataset":generate_dataset(number) }, iterable_as_array=True))  
 
-print(json.dumps({"dataset":generate_dataset() }, iterable_as_array=True))  

@@ -58,7 +58,7 @@
             <!-- judul -->
             <div class="flex items-center w-full h-[10%] border-b-[1px] border-b-black">
                 <h1 class="capitalize font-[montserrat] text-xl text-blue-dark-10 font-bold">
-                    tambah jadwal mata pelajaran
+                    Tambah jadwal mata pelajaran
                 </h1>
             </div>
 
