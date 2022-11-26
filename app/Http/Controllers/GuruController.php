@@ -273,7 +273,7 @@ class GuruController extends Controller
 
     public function absen_siswa($tanggal, $kelas, $mapel)
     {
-        // $process = new Process(['python ../../../app/cam_absen_pulang.py']);
+        // $process = new Process(['python ../../../app/PythonScript/cam_absen_pulang.py']);
         // // $process->setTimeout(0);
         // $process->run();
         
@@ -451,17 +451,17 @@ class GuruController extends Controller
 
     public function cam_masuk($mapel, $kelas)
     {
-        // $process = new Process(['python ../../../app/cam_absen_masuk.py']);
-        // $process->setTimeout(3600);
-        // $process->run();
-        // // $camera = video_feed();
+        $process = new Process(['python ../../../app/cam_absen_masuk.py']);
+        $process->setTimeout(3600);
+        $process->run();
+        // $camera = video_feed();
 
-        // if(!$process->isSuccessful())
-        // {
-        //     throw new ProcessFailedException($process);
-        // }
+        if(!$process->isSuccessful())
+        {
+            throw new ProcessFailedException($process);
+        }
 
-        // dd( $process->getOutput());
+        dd( $process->getOutput());
 
         // // $datas = json_decode($data, true);
 

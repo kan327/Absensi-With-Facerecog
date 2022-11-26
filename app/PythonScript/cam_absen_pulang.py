@@ -9,7 +9,6 @@ import simplejson as json
 import pyttsx3
 from datetime import date, datetime
 
-# app = Flask(__name__)
 
 cnt = 0
 pause_cnt = 0

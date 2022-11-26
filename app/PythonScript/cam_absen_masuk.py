@@ -1,16 +1,14 @@
-from flask import Flask, render_template, request, redirect, url_for, Response, jsonify
 import mysql.connector
 import cv2
 from PIL import Image
 import numpy as np
 import os
-import json
+import simplejson as json
 import time
 import pyttsx3
 from datetime import date, datetime
 
-app = Flask(__name__)
-
+ 
 cnt = 0
 pause_cnt = 0
 justscanned = False
@@ -134,9 +132,7 @@ def face_recognition():  # generate frame by frame from camera
             break
 
 
-def video_feed():
-    # Video streaming route. Put this in the src attribute of an img tag
-    return Response(face_recognition(), mimetype='multipart/x-mixed-replace; boundary=frame')
-
 # print(json.dumps(video_feed()))
-video_feed()
+func = {"function1":face_recognition()}
+
+print(json.dumps(func, iterable_as_array=True))
