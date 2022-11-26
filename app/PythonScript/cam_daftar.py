@@ -3,6 +3,7 @@ import cv2
 from PIL import Image
 import numpy as np
 import os
+import simplejson as json
 import time
 import pyttsx3
 from datetime import date, datetime
@@ -30,7 +31,7 @@ speech.setProperty("volume", 1)
 speech.setProperty("voice", voices[1].id)
 
 def generate_dataset(nbr):
-    face_classifier = cv2.CascadeClassifier("resources/haarcascade_frontalface_default.xml")
+    face_classifier = cv2.CascadeClassifier("xml/haarcascade_frontalface_default.xml")
  
     def face_cropped(img):
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -74,4 +75,6 @@ def generate_dataset(nbr):
             if cv2.waitKey(1) == 13 or int(img_id) == int(max_imgid):
                 break
                 cap.release()
-                cv2.destroyAllWindows()  
+                cv2.destroyAllWindows()
+
+print(json.dumps({"dataset":generate_dataset(1) }, iterable_as_array=True))  

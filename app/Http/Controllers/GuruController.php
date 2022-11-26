@@ -147,18 +147,21 @@ class GuruController extends Controller
     }
     public function tambah_murid()
     {
+        $id_siswa = DB::select('SELECT ifnull(max(id) + 1 , 1) FROM siswas ');
+        // dd($id_siswa);
+
         $kelas = kelas::all(); 
         $mapel = mapel::all();
         return view("guru.tambah_murid",[
             "title"=>"data_siswa",
             "kelas"=>$kelas,
-            "mapels"=>$mapel
+            "mapels"=>$mapel,
+            "nbr"=>$id_siswa,
             
         ]);
     }
     public function insert_murid(Request $request)
     {
-        // SELECT ifnull(max(id_master) + 1 , 1001) FROM data_person
         Siswa::insert([
             'nama_siswa'=>$request->nama,
             "kelas_id"=>$request->kelas,
@@ -166,7 +169,8 @@ class GuruController extends Controller
             "tgl_lahir" => $request->tgllahir
         ]);
        
-        return redirect("/data_siswa")->with("success", "Data siswa berhasil di buat");
+        return redirect("/data_siswa/tambah_murid/cam_masuk")->with("success", "Data siswa berhasil di buat");
+
 
     }
 
@@ -446,6 +450,31 @@ class GuruController extends Controller
             "no"=>1,
             "mapel" => $mapel,
             "datas"=> $datas
+        ]);
+    }
+
+    public function cam_daftar()
+    {
+        $data_siswa = DB::select('SELECT * FROM siswas ORDER BY id DESC LIMIT 1 ')[0]->id;
+        // dd($data_siswa);
+        $nbr = $data_siswa;
+
+        $process = new Process(["python ../../../PythonScript/cam_daftar.py",$nbr]);
+        // $process->setTimeout(0);
+        $process->run();
+        
+        
+        if(!$process->isSuccessful())
+        {
+            throw new ProcessFailedException($process);
+        }
+
+        $data = $process->getOutput();
+        $datas = json_decode($data, true);
+        dd($datas);
+
+        return view('guru.cam.camdaftar',[
+            "title"=>"data_siswa"
         ]);
     }
 

@@ -31,6 +31,9 @@ Route::controller(GuruController::class)->group(function(){
     Route::post("/absen_siswa/{tanggal}/{kelas}/{mapel}/manual_pulang", "manual_absen_pulang");
     Route::post("/absen_siswa/{tanggal}/{kelas}/{mapel}/tutup_absen", "tutup_absen");
     
+    // Camera
+    Route::get("/data_siswa/tambah_murid/cam_daftar", "cam_daftar");
+    
 });
 
 // Admin Route
