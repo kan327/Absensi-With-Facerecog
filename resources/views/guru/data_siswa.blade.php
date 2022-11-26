@@ -77,16 +77,16 @@
                     </thead>
   
                         @foreach ($data_siswas as $data_siswa)
-                            {{-- @foreach ($data_siswa as $siswa) --}}
+                            @foreach ($data_siswa as $siswa)
                                 <tbody class="text-center text-base font-bold text-n-tet-x cursor-pointer select-none">
                                     <tr class="hover:bg-[#E8F4FF] rounded-full in-hover-to">
                                         <td class="p-3" style="border-top-left-radius: 12px; border-bottom-left-radius: 12px;">{{ $no_siswa++ }}</td>
-                                        <td class="p-3">{{ $data_siswa[0]->nama_siswa }}</td>
-                                        <td class="p-3">{{ $data_siswa[0]->jenis_kelamin }}</td>
+                                        <td class="p-3">{{ $siswa->nama_siswa }}</td>
+                                        <td class="p-3">{{ $siswa->jenis_kelamin }}</td>
                                         <td class="p-3" style="border-top-right-radius: 12px; border-bottom-right-radius: 12px;">{{ $siswa->kelas->kelas }}</td>
                                     </tr>
                                 </tbody>
-                            {{-- @endforeach --}}
+                            @endforeach
                         @endforeach
                     
                 </table>

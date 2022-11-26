@@ -147,7 +147,7 @@ class GuruController extends Controller
     }
     public function tambah_murid()
     {
-        $id_siswa = DB::select('SELECT ifnull(max(id) + 1 , 1) FROM siswas ');
+        // $id_siswa = DB::select('SELECT ifnull(max(id) + 1 , 1) FROM siswas ');
         // dd($id_siswa);
 
         $kelas = kelas::all(); 
@@ -156,7 +156,7 @@ class GuruController extends Controller
             "title"=>"data_siswa",
             "kelas"=>$kelas,
             "mapels"=>$mapel,
-            "nbr"=>$id_siswa,
+            // "nbr"=>$id_siswa,
             
         ]);
     }
@@ -169,7 +169,7 @@ class GuruController extends Controller
             "tgl_lahir" => $request->tgllahir
         ]);
        
-        return redirect("/data_siswa/tambah_murid/cam_masuk")->with("success", "Data siswa berhasil di buat");
+        return redirect("/data_siswa/tambah_murid/cam_daftar")->with("success", "Data siswa berhasil di buat");
 
 
     }

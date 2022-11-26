@@ -31,7 +31,7 @@ speech.setProperty("volume", 1)
 speech.setProperty("voice", voices[1].id)
 
 def generate_dataset(nbr):
-    face_classifier = cv2.CascadeClassifier("xml/haarcascade_frontalface_default.xml")
+    face_classifier = cv2.CascadeClassifier("xmlsrc/haarcascade_frontalface_default.xml")
  
     def face_cropped(img):
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -77,4 +77,4 @@ def generate_dataset(nbr):
                 cap.release()
                 cv2.destroyAllWindows()
 
-print(json.dumps({"dataset":generate_dataset(100) }, iterable_as_array=True))  
+print(json.dumps({"dataset":generate_dataset() }, iterable_as_array=True))  

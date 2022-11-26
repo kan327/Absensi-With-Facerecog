@@ -73,7 +73,7 @@
             <!-- input -->
         <form action="/data_siswa/tambah_murid" method="POST" enctype="multipart/form-data">
             @csrf
-            <input type="hidden" value="{{ $nbr }}">
+            {{-- <input type="hidden" value="{{ $nbr }}"> --}}
             <div class="flex w-full  h-[50%] ">
                 <!-- kiri -->
                 <div class="w-3/5 pl-32 pt-3 h-full ">
