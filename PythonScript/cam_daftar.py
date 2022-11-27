@@ -33,8 +33,9 @@ speech.setProperty("volume", 1)
 speech.setProperty("voice", voices[1].id)
 
 def generate_dataset(nbr):
+
     face_classifier = cv2.CascadeClassifier("C:\\laragon\\www\\Absensi-With-Facerecog\\PythonScript\\xmlsrc\\haarcascade_frontalface_default.xml")
- 
+
     def face_cropped(img):
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         faces = face_classifier.detectMultiScale(gray, 1.3, 5)
@@ -77,9 +78,9 @@ def generate_dataset(nbr):
                 break
                 cap.release()
                 cv2.destroyAllWindows()
- 
- 
-nbr = sys.argv[1]
-number = json.loads(nbr)
+nubr = sys.argv[1]
+nbr = nubr[1].encode('latin1')
+number = {"dataset" : generate_dataset(nbr)}
 # print(number)
-print(json.dumps({"dataset":generate_dataset(number) }, iterable_as_array=True))  
+print(json.dumps(number, iterable_as_array=True))  
+
