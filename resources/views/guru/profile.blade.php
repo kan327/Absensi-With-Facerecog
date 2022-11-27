@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Profile | Starbhak Absensi</title>
     <link rel="stylesheet" href="{{ asset('assets/CSS/output.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/CSS/suport.css') }}">
 
@@ -138,7 +138,7 @@
                     </p>
 
                     <!-- input -->
-                    <input type="text" readonly value="08649234"
+                    <input type="text" readonly value="{{ $data_guru->nip }}"
                         class="w-2/3 pl-3 h-[40px] rounded-lg border-2 border-solid border-[#A0A0A0]">
 
                     <br></br>
@@ -154,7 +154,7 @@
                     </p>
 
                     <!-- input -->
-                    <input type="text" readonly value="Kanny Indira Baihaqi"
+                    <input type="text" readonly value="{{ $data_guru->name }}"
                         class="w-2/3 pl-3 h-[40px] rounded-lg border-2 border-solid border-[#A0A0A0]">
 
                 </div>
@@ -173,7 +173,7 @@
                     </p>
 
                     <!-- input -->
-                    <input readonly type="text" value="kan321@gmail.com"
+                    <input readonly type="text" value="{{ $data_guru->email }}"
                         class="w-2/3 pl-3 h-[40px] rounded-lg border-2 border-solid border-[#A0A0A0]">
 
                     <br></br>
@@ -189,7 +189,7 @@
                     </p>
 
                     <!-- input -->
-                    <input type="text" readonly value="0864-7423-43242"
+                    <input type="text" readonly value="+62{{ $data_guru->no_hp }}"
                         class="w-2/3 pl-3 h-[40px] rounded-lg border-2 border-solid border-[#A0A0A0]">
 
                 </div>
@@ -223,7 +223,7 @@
 
                         @foreach ($data_kelas as $kelas)
                             <li>
-                                <input type="checkbox" id="checkbox{{ $no_kelas }}" name="kelas[]"
+                                <input type="checkbox" {{ ($kelas->id == $kelas->id) ? "checked" : '' }} id="checkbox{{ $no_kelas }}" name="kelas[]"
                                     value="{{ $kelas->id }}">
                                 <label for="checkbox{{ $no_kelas++ }}">{{ $kelas->kelas }}</label>
                             </li>
@@ -243,7 +243,7 @@
                     <div class="w-4/5 grid grid-cols-2  gap-2">
                         @foreach ($data_mapels as $mapel)
                             <li>
-                                <input type="checkbox" id="mapel{{ $no_mapel }}" name="mapel[]" value="{{ $mapel->id }}">
+                                <input type="checkbox" {{ ($mapel->id) ? "checked" : '' }} id="mapel{{ $no_mapel }}" name="mapel[]" value="{{ $mapel->id }}">
                                 <label for="mapel{{ $no_mapel++ }}">{{ $mapel->pelajaran }}</label>
                             </li>
                         @endforeach

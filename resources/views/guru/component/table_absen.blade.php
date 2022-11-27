@@ -22,7 +22,7 @@
                 <input type="hidden" value="{{ $data_absen->id }}" name="id_siswa">
 
                 <td class="text-left">{{ $data_absen->siswa->nama_siswa }}</td>
-                <td name="jam_masuk">{{  \Carbon\Carbon::createFromFormat('H:i:s', $data_absen->masuk)->format('H:i') }}</td>
+                <td name="jam_masuk">{{  $data_absen->masuk }}</td>
                 <td name="jam_pulang">{{ $data_absen->pulang }}</td>
                 <td class="text-left">
 

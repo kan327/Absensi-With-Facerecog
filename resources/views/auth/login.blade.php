@@ -7,98 +7,124 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
 
-    <link rel="stylesheet" href="{{ asset('assets/CSS/login.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('assets/CSS/login.css') }}"> --}}
 
+    {{-- tailwind --}}
+    <script src="https://cdn.tailwindcss.com"></script>
+    {{-- alert --}}
+    <script src="{{ asset('assets/JS/cstkei.alert.js') }}"></script>
+    
     <!-- roboto -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Poppins:wght@600&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('assets/CSS/output.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/CSS/suport.css') }}">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'blue-dark': '#1061FF',
+                        'blue': '#349DFD',
+                        'tet': '#001458',
+                        'unselect': '#BAC5E7',
+                        'stroke': '#81B7E9',
+                    },
+                    boxShadow: {
+                        nav: '2px 2px 50px 1px rgba(179, 185, 191, 0.1);',
+                        side: ' 0px 5px 10px rgba(0, 0, 0, 0.05);',
+                    }
+                },
+            }
+        }
+    </script>
 </head>
 
-<body>
+<body style="background-image: url('{{ asset('assets/img/Login 4-1.png') }}'); margin: 0; padding: 0; background-repeat: no-repeat; background-size: cover;">
     <!-- Container -->
-    <div class="bg">
-        <!-- vector -->
-        <div class="img">
-            <img src="{{ asset('assets/img/decor.png') }}" alt="">
-        </div>
-        <div class="imgs">
-            <img src="{{ asset('assets/img/decor2.png') }}" alt="">
-        </div>
-        <!-- login -->
-        <div class="login">
-            <!-- card -->
-            <div class="card">
-                <!-- One -->
-                <div class="one">
-                    <!-- FOTO KANAN -->
-                    <img src="{{ asset('assets/img/Online presentation_Outline.png') }}" alt="">
-                </div>
+    <div class="flex w-screen h-screen">
+        <!-- kiri -->
+        <div class="w-2/3  h-full ">
+            <!-- nav -->
+            <nav class="w-full flex items-center font-bold text-[#0E6EAB] justify-evenly h-[10%]">
+                <!-- links -->
+                <a class="hover:border-b-[3px] text-sm transition-all border-[#0E6EAB] bor font-[montserrat]" class="" href="">Dokumentasi</a>
+                <a class="hover:border-b-[3px] text-sm transition-all border-[#0E6EAB] font-[montserrat]" href="">Peraturan</a>
+                <a class="hover:border-b-[3px] text-sm transition-all border-[#0E6EAB] font-[montserrat]" href="">Contact</a>
+            </nav>
+            <!-- mid text -->
+            <div class="h-2/3 flex items-center justify-center text-[#0968A8] w-full">
+                <h1 class="text-4xl">
+                    <span class="font-[quicksand] font-medium">Selamat datang di</span> 
+                    <span class="font-[montserrat] font-semibold">STARBHAK</span> <br>
+                    <span class="font-[poppins] font-semibold">Attendance</span>
+                </h1>
 
-
-                <!-- two -->
-                <div class="two">
-                    <!-- judul -->
-                    <div class="line"></div>
-                    <div class="admin">
-                        <h2>Login Account</h2>
-
-
-                        @if (Session::has("wrong"))
-                            <div class="alert">
-                                <p>{{ Session::get("wrong") }}</p>
-                                <p class="material-symbols-outlined">
-                                    cancel
-                                </p>
-                            </div>
-                        @endif
-
-                        @if (Session::has("success"))
-                            <div class="succes">
-                                <p>{{ Session::get("success") }}</p>
-                                <p class="material-symbols-outlined">
-                                    check_circle
-                                </p>
-                            </div>
-                        @endif
-                    </div>
-
-                    <!-- Inputan -->
-
-                    <form action="/login" method="post">
-                        @csrf
-                        <!-- input username -->
-                        <div class="input1">
-                            <svg width="24" viewBox="0 0 24 24">
-                                <path
-                                    d="M20.822 18.096c-3.439-.794-6.64-1.49-5.09-4.418 4.72-8.912 1.251-13.678-3.732-13.678-5.082 0-8.464 4.949-3.732 13.678 1.597 2.945-1.725 3.641-5.09 4.418-3.073.71-3.188 2.236-3.178 4.904l.004 1h23.99l.004-.969c.012-2.688-.092-4.222-3.176-4.935z" />
-                            </svg>
-    
-                            <input class="input" placeholder="Email" autocomplete="off" name="email" type="text " value="{{ old('email') }}">
-                        </div>
-                        <!-- input password -->
-                        @error('email')
-                            <small class="require">{{ $message }}</small>
-                        @enderror
-                        <div class="input2">
-                            <svg viewBox="0 0 24 24" width="24">
-                                <path
-                                    d="m18.75 9h-.75v-3c0-3.309-2.691-6-6-6s-6 2.691-6 6v3h-.75c-1.24 0-2.25 1.009-2.25 2.25v10.5c0 1.241 1.01 2.25 2.25 2.25h13.5c1.24 0 2.25-1.009 2.25-2.25v-10.5c0-1.241-1.01-2.25-2.25-2.25zm-10.75-3c0-2.206 1.794-4 4-4s4 1.794 4 4v3h-8zm5 10.722v2.278c0 .552-.447 1-1 1s-1-.448-1-1v-2.278c-.595-.347-1-.985-1-1.722 0-1.103.897-2 2-2s2 .897 2 2c0 .737-.405 1.375-1 1.722z" />
-                            </svg>
-    
-                            <input class="input" placeholder="Password" name="password" type="password">
-                        </div>
-                        @error('password')
-                            <small class="require">{{ $message }}</small>
-                        @enderror
-    
-                        <!-- button login -->
-                        <button class="Login" type="submit">Login</button>
-                    </form>
-                </div>
             </div>
         </div>
+
+        <!-- kanan -->
+        <div class=" flex justify-center w-1/2 h-full ">
+            
+            <!-- inputan -->
+            <div style="margin-top:25%;" class="w-3/4 h-3/4">
+
+                <!-- judul -->
+                    <div class="flex justify-end">
+                        <span class="text-white font-[quicksand] text-lg font-bold">Log in</span>
+                    </div>
+
+                    <div class="flex justify-end">
+                        <span class="text-white mt-3 font-[montserrat] text-2xl font-semibold">Selamat Pagi,Guru!</span>
+                    </div>
+
+                    <div class="flex justify-end">
+                        <span class="text-white mt-2 font-[quicksand] text-sm font-normal">Silahkan Masukan akun yang sudah diberikan</span>
+                    </div>
+                    
+                    <!-- input -->
+                    <form action="/login" method="POST">
+                        @csrf
+                        <div class="h-fit flex justify-end w-full">
+                            <input placeholder="Masukkan Email" name="email" class="border-b-[1px] placeholder:text-white px-2 py-1 w-2/3 mt-5 text-white focus:outline-none bg-transparent" autocomplete="off" type="enail" >
+                        </div>
+
+                        <div class="h-fit flex justify-end w-full">
+                            <input placeholder="Masukkan Password" name="password" class="border-b-[1px] placeholder:text-white px-2 py-1 w-2/3 my-5 text-white focus:outline-none bg-transparent" autocomplete="off" type="password">
+                        </div>
+    
+                        <!-- button -->
+                        <div class="w-full flex justify-end items-center  h-1/4 ">
+                            <button type="submit" class="font-[quicksand] text-white rounded font-bold py-1 w-2/3 mt-5 border-[1px]">
+                                Masuk
+                            </button>
+                        </div>
+                        @if (Session::has('success'))
+                            <script>keiAlert("{{ Session::get('success') }}", 'done', 'bg-[#22c55e]')</script>
+                            @endif
+                            
+                        @if (Session::has('wrong'))
+                            <script>keiAlert("{{ Session::get('wrong') }}", 'close', 'bg-red-600')</script>
+                        @endif
+
+                        @error('email')
+                            <script>keiAlert("{{ $message }}", 'close', 'bg-red-600')</script>
+                        @enderror
+                        @error('password')
+                            <script>keiAlert("{{ $message }}", 'close', 'bg-red-600')</script>
+                        @enderror
+                    </form>
+                    </div>
+            </div>
+
+            </div>
+        </div>
+            
     </div>
 </body>
 

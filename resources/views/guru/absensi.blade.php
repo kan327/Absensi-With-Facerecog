@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Absensi | Starbhak Absensi</title>
     <!-- style css -->
     <link rel="stylesheet" href="{{ asset('assets/CSS/output.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/CSS/suport.css') }}">
@@ -102,7 +102,7 @@
 
                                     <span class="material-symbols-outlined">edit</span>
                                     <a href="absensi/hapus/{{ $jadwal_absen->id }}"><span class="material-symbols-outlined this-one">delete</span></a>
-                                    <a href="/excel"><span class="material-symbols-outlined">file_download</span></a></td>
+                                    <a href="/excel/{{ $jadwal_absen->tanggal }}/{{ $jadwal_absen->kelas_id }}/{{ $jadwal_absen->mapel_id }}"><span class="material-symbols-outlined">file_download</span></a></td>
                             </tr>
                         @endforeach
 

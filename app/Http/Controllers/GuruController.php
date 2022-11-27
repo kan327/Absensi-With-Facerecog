@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers;
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\kelas;
 use App\Models\mapel;
@@ -9,14 +10,15 @@ use App\Models\UserMapel;
 use App\Models\AbsenSiswa;
 use App\Models\JadwalAbsen;
 use App\Exports\SiswaExport;
+// use Maatwebsite\Excel\Excel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Date;
 use Maatwebsite\Excel\Facades\Excel;
 use Symfony\Component\Process\Process;
-use Symfony\Component\Process\Exception\ProcessFailedException;
 use Maatwebsite\Excel\Concerns\WithHeadings;
+use Symfony\Component\Process\Exception\ProcessFailedException;
 
 class GuruController extends Controller
 {
@@ -60,13 +62,17 @@ class GuruController extends Controller
 
     public function profile()
     {
+        $id_guru = auth()->guard('user')->user()->id;
         $kelas = kelas::all();
         $mapel = mapel::all();
+        $guru = User::all()->where('id', $id_guru)->first();
+        // dd($kelas);
 
         return view("guru.profile", [
             "title" => "profile_guru",
             "data_kelas"=> $kelas,
             "data_mapels"=> $mapel,
+            "data_guru"=> $guru,
             "no_kelas"=>1,
             "no_mapel"=>1,
         ]);
@@ -112,57 +118,51 @@ class GuruController extends Controller
         ]);
     }
 
-    public function data_siswa()
+    public function data_kelas()
     {
         $id_guru = auth()->guard('user')->user()->id;
         $data_guru = User::with(['user_mapels','user_kelas'])->where("id", $id_guru)->get();
         // dd($data_guru);
-        $kelas_gurus = [];
-        $kelas_id = [];
-        foreach($data_guru as $guru){
-            foreach($guru->user_kelas as $kelas_guru){
-                $kelas_gurus[] = $kelas_guru->kelas;
-                $kelas_id[] = $kelas_guru->id;
-                // dump($kelas_guru->kelas);
-            }
-        }
-        // dd($kelas_id);
-
-        $siswas = [];
         
-        for($i = 0; $i < count($kelas_id); $i++){
-            // if($kelas_gurus[$i] == ){
-                
-                // }
-                $siswas[] = Siswa::with(['kelas'])->where("kelas_id", $kelas_id[$i])->get();
-                // dump($siswas);
-        }
-            
-        // dd($siswas);
-
-        
-        return view("guru.data_siswa", [
-            "title" => "data_siswa",
+        return view("guru.data_kelas", [
+            "title" => "data_kelas",
             'no_siswa'=>1,
-            "data_kelas"=>$kelas_gurus,
-            "data_siswas"=>$siswas,
+            "data_guru"=>$data_guru,
         ]);
     }
-    public function tambah_murid()
+
+    public function table_kelas($id)
+    {
+        $kelas = kelas::all()->where("id", $id)->first();
+        $siswa = Siswa::all()->where("kelas_id", $kelas->id);
+        // dd($siswa);
+        return view("guru.table_kelas", [
+            "title"=>"data_kelas",
+            "data_kelas"=>$kelas,
+            "data_siswa"=>$siswa,
+            "no"=>1,
+        ]);
+    }
+
+    public function tambah_murid($id)
     {
         // $id_siswa = DB::select('SELECT ifnull(max(id) + 1 , 1) FROM siswas ');
         // dd($id_siswa);
 
-        $kelas = kelas::all(); 
+        $data_guru = User::with(['user_mapels', "user_kelas"])->get()->where("id", auth()->guard('user')->user()->id)->first();
+        // dd($data_guru->first()->user_mapels);
+        $kelas = kelas::all()->where('id', $id); 
         $mapel = mapel::all();
         return view("guru.tambah_murid",[
-            "title"=>"data_siswa",
+            "title"=>"data_kelas",
             "kelas"=>$kelas,
             "mapels"=>$mapel,
+            "data_guru"=>$data_guru
             // "nbr"=>$id_siswa,
             
         ]);
     }
+
     public function insert_murid(Request $request)
     {
         Siswa::insert([
@@ -172,7 +172,7 @@ class GuruController extends Controller
             "tgl_lahir" => $request->tgllahir
         ]);
        
-        return redirect("/data_siswa/tambah_murid/cam_masuk")->with("success", "Data siswa berhasil di buat");
+        return redirect("/data_siswa/tambah_murid/cam_daftar")->with("success", "Data siswa berhasil di buat");
 
 
     }
@@ -181,19 +181,6 @@ class GuruController extends Controller
     public function tambah_jadwal()
     {
         $data_gurus = User::with(['user_mapels', "user_kelas"])->get()->where("id", auth()->guard('user')->user()->id);
-        // dd($data_guru);
-
-        // multiple mapel guru
-        // foreach($data_gurus as $data_guru){
-        //     foreach($data_guru->user_mapels as $mapel_guru){
-        //         $mapel = mapel::all()->where("id", $mapel_guru->id);
-        //         $data = $mapel_guru;
-        //         // dump($mapel);
-        //     }
-        // }
-        // $i = 0;
-        // multiple kelas guru
-        
             
         // $kelas = kelas::all(); 
         return view("guru.tambah_jadwal",[
@@ -459,10 +446,10 @@ class GuruController extends Controller
     public function cam_daftar()
     {
         $data_siswa = DB::select('SELECT * FROM siswas ORDER BY id DESC LIMIT 1 ')[0]->id;
-        // // dd($data_siswa);
+        // dd($data_siswa);
 
         $nbr = json_encode($data_siswa);
-
+        // dd($nbr);
         $process = new Process(["python ../../../PythonScript/cam_daftar.py",$nbr]);
         // $process->setTimeout(0);
         $process->run();
@@ -501,8 +488,11 @@ class GuruController extends Controller
         return view("templates.absencam");
     }
 
-    public function excel(){
-        return Excel::download(new SiswaExport, 'DataSiswa.xlsx');
+    public function excel($tanggal, $kelas, $mapel){
+        $id_guru = auth()->guard('user')->user()->id;
+        $date = Carbon::createFromFormat('Y-m-d', $tanggal)->format('d-m-Y');
+        // dd($date);
+        return Excel::download(new SiswaExport($id_guru, $tanggal, $kelas, $mapel), 'Absensi '.$date.'.xlsx');
     }
 
     

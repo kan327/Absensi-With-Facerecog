@@ -11,64 +11,78 @@ use Illuminate\Support\Facades\Route;
 // Guru Route
 Route::controller(GuruController::class)->group(function(){
 
+    // view
     Route::get("/",  "index")->name('/')->middleware("isLoginGuru");
-    Route::get("/profile",  "profile");
+    Route::get("/profile",  "profile")->middleware("isLoginGuru"); //sidebar
+    Route::get("/absensi",  "absensi")->middleware("isLoginGuru");// sidebar
+    Route::get("/absensi/tambah_jadwal", "tambah_jadwal")->middleware("isLoginGuru");
+    Route::get("/data_kelas",  "data_kelas")->middleware("isLoginGuru"); //sidebaar
+    Route::get("/data_kelas/{id}",  "table_kelas")->middleware("isLoginGuru"); //sidebaar
+    Route::get("/data_kelas/tambah_murid/{id}",  "tambah_murid")->middleware("isLoginGuru");
+    Route::get("/absen_siswa/{tanggal}/{kelas}/{mapel}",  "absen_siswa")->middleware("isLoginGuru");
+    Route::get("/absen_siswa/{tanggal}/{kelas}/{mapel}/cam_masuk",  "cam_masuk")->middleware("isLoginGuru");
+    
+    // View Component
+    Route::get("/absen_siswa/{tanggal}/{kelas}/{mapel}/box_ket", "box_absen_keterangan")->middleware("isLoginGuru");
+    Route::get("/absen_siswa/{tanggal}/{kelas}/{mapel}/table_absen", "table_absen")->middleware("isLoginGuru");
+    
+    // insert
     Route::post("/profile",  "insert_profile");
-    Route::get("/absensi",  "absensi");
-    Route::get("/absensi/hapus/{id}",  "hapus_jadwal");
-    Route::get("/absensi/tambah_jadwal", "tambah_jadwal");
     Route::post("/absensi/tambah_jadwal", "insert_jadwal");
-    // Route::get("/data_kelas",  "data_kelas");
-    Route::get("/data_siswa",  "data_siswa");
-    Route::get("/data_siswa/tambah_murid",  "tambah_murid");
     Route::post("/data_siswa/tambah_murid",  "insert_murid");
-    Route::get("/absen_siswa/{tanggal}/{kelas}/{mapel}",  "absen_siswa");
+    
+    // edit
     Route::post("/absen_siswa/{tanggal}/{kelas}/{mapel}",  "manual_absen_masuk");
-    Route::get("/absen_siswa/{tanggal}/{kelas}/{mapel}/cam_masuk",  "cam_masuk");
-    // Route::post("/manual_absen",  "manual_absen_masuk");
-    Route::get("/absen_siswa/{tanggal}/{kelas}/{mapel}/box_ket", "box_absen_keterangan");
-    Route::get("/absen_siswa/{tanggal}/{kelas}/{mapel}/table_absen", "table_absen");
     Route::post("/absen_siswa/{tanggal}/{kelas}/{mapel}/manual_pulang", "manual_absen_pulang");
     Route::post("/absen_siswa/{tanggal}/{kelas}/{mapel}/tutup_absen", "tutup_absen");
-    
+
+    // delete
+    Route::get("/absensi/hapus/{id}",  "hapus_jadwal")->middleware("isLoginGuru");
+
     // MaatWebsite
-    Route::get("/excel",  "excel");
+    Route::get("/excel/{tanggal}/{kelas}/{mapel}", "excel")->middleware("isLoginGuru");
 
     // Camera
-    Route::get("/data_siswa/tambah_murid/cam_daftar", "cam_daftar");
+    Route::get("/data_siswa/tambah_murid/cam_daftar", "cam_daftar")->middleware("isLoginGuru");
     
 });
 
 // Admin Route
 Route::controller(AdminController::class)->group(function(){
 
+    // View
     Route::get("/admin",  "index_admin")->name('admin')->middleware("isLoginGuru");
-    Route::get("/admin/box",  "box");
-    Route::get("/admin/table_mapel",  "table_mapel");
+    Route::get("/admin/guru",  "guru")->middleware("isLoginGuru");
+    
+    // View Component 
+    Route::get("/admin/box",  "box")->middleware("isLoginGuru");
+    Route::get("/admin/table_mapel",  "table_mapel")->middleware("isLoginGuru");
+    Route::get("/admin/table_kelas",  "table_kelas")->middleware("isLoginGuru");
+    
+    // insert
     Route::post("/admin/mapel",  "insert_mapel");
-    Route::get("/admin/table_kelas",  "table_kelas");
     Route::post("/admin/kelas",  "insert_kelas");
-    Route::get("/admin/guru",  "guru");
     Route::post("/admin/tambah_guru",  "tambah_guru");
     
-    // delete
-    Route::get("/admin/mapel/{id}", "delete_mapel");
-    Route::get("/admin/kelas/{id}", "delete_kelas");
-    Route::get("/admin/guru/{id}", "update_guru");
+    // edit
     Route::post("/admin/guru/{id}", "edit_guru");
 
-});
+    // delete
+    Route::get("/admin/mapel/{id}", "delete_mapel")->middleware("isLoginGuru");
+    Route::get("/admin/kelas/{id}", "delete_kelas")->middleware("isLoginGuru");
+    Route::get("/admin/guru/{id}", "update_guru")->middleware("isLoginGuru");
 
-Route::controller(DashboardController::class)->group(function(){
 });
 
 // Login
 Route::controller(LoginController::class)->group(function(){
+
     Route::get('/login', "index")->middleware("isGuru");
     Route::get('/login_admin', "index_admin")->middleware("isGuru");
     Route::post('/login', "login");
     Route::post('/login_admin', "login_admin");
     Route::post('/logout', "logout");
+
 });
 
 

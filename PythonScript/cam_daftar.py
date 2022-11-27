@@ -4,6 +4,7 @@ import sys
 from PIL import Image
 import numpy as np
 import os
+import chardet
 import simplejson as json
 import time
 import pyttsx3

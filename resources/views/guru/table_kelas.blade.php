@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Data Kelas | Starbhak Absensi</title>
     <link rel="stylesheet" href="{{ asset('assets/CSS/output.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/CSS/suport.css') }}">
     {{-- tailwind --}}
@@ -51,19 +51,18 @@
     <!-- Sidebar left -->
     @include('partials.sidebar')
 
-    <!-- content -->
     <div class="absolute left-72 w-3/4 pb-20">
+        
         <!-- card 1 -->
-        @foreach ($data_kelas as $kelas)
         <div
-            class="shadow-box mt-32 p-8 w-5/6 mx-auto rounded-2xl border-solid border-[0.1px] border-opacity-5 border-black"> 
-
+            class="shadow-box mt-32 p-8 w-5/6 mx-auto rounded-2xl border-solid border-[0.1px] border-opacity-5 border-black">
             <div>
                 <div class="w-fit float-left">
-                    <h1 class="text-[#3F80FF] font-bold font-[Montserrat] text-2xl">Daftar Siswa | {{ $kelas }}</h1>
+                    <h1 class="text-[#3F80FF] font-bold font-[Montserrat] text-2xl">Data Siswa | {{ $data_kelas->kelas }}</h1>
                     <p>Lihat dan Periksa kembali murid anda</p>
                 </div>
-                <a href='/data_siswa/tambah_murid' class="px-4 py-2 float-right bg-blue-normal-19 rounded-xl text-white font-bold">+Tambahkan Murid</a>
+                <button onclick="location.href='/data_kelas/tambah_murid/{{ $data_kelas->id }}'" class="px-4 py-2 float-right bg-blue-normal-19 rounded-xl text-white font-bold">+ Tambahkan
+                    Murid</button>
             </div>
             <div class="mt-20 h-[50vh] w-full overflow-auto">
                 <table class="text-black w-full" cellpadding="2">
@@ -71,30 +70,28 @@
                         <tr class="text-sm text-un-tet">
                             <th class="p-3">No</th>
                             <th class="p-3">Nama</th>
+                            <th class="p-3">Lahir</th>
                             <th class="p-3">Gender</th>
-                            <th class="p-3">Kelas</th>
                         </tr>
                     </thead>
-  
-                        @foreach ($data_siswas as $data_siswa)
-                            @foreach ($data_siswa as $siswa)
-                                <tbody class="text-center text-base font-bold text-n-tet-x cursor-pointer select-none">
-                                    <tr class="hover:bg-[#E8F4FF] rounded-full in-hover-to">
-                                        <td class="p-3" style="border-top-left-radius: 12px; border-bottom-left-radius: 12px;">{{ $no_siswa++ }}</td>
-                                        <td class="p-3">{{ $siswa->nama_siswa }}</td>
-                                        <td class="p-3">{{ $siswa->jenis_kelamin }}</td>
-                                        <td class="p-3" style="border-top-right-radius: 12px; border-bottom-right-radius: 12px;">{{ $siswa->kelas->kelas }}</td>
-                                    </tr>
-                                </tbody>
-                            @endforeach
+                    <tbody class="text-center text-base font-bold text-n-tet-x cursor-pointer select-none">
+                        
+                        @foreach ($data_siswa as $siswa)
+                            <tr class="hover:bg-[#E8F4FF] rounded-full in-hover-to">
+                                <td class="p-3" style="border-top-left-radius: 12px; border-bottom-left-radius: 12px;">{{ $no++ }}
+                                </td>
+                                <td class="p-3">{{ $siswa->nama_siswa }}</td>
+                                <td class="p-3">{{ $siswa->tgl_lahir }}</td>
+                                <td class="p-3" style="border-top-right-radius: 12px; border-bottom-right-radius: 12px;">
+                                    {{ $siswa->jenis_kelamin }}</td>
+                            </tr>
                         @endforeach
-                    
+
+                    </tbody>
                 </table>
             </div>
-            
         </div>
-        @endforeach
-        <!-- card 2 -->
+        
     </div>
 </body>
 
