@@ -77,8 +77,9 @@ def generate_dataset(nbr):
                 break
                 cap.release()
                 cv2.destroyAllWindows()
-nbr = sys.argv[1]
-number = json.loads(nbr)
+nubr = sys.argv[1]
+nbr = nubr[1].encode('latin1')
+number = {"dataset" : generate_dataset(nbr)}
 # print(number)
-print(json.dumps({"dataset":generate_dataset(number) }, iterable_as_array=True))  
+print(json.dumps(number, iterable_as_array=True))  
 
