@@ -101,9 +101,9 @@ def face_recognition2():  # generate frame by frame from camera
         coords = draw_boundary2(img, faceCascade, 1.1, 10, (255, 255, 0), "Face", clf)
         return img
  
-    faceCascade = cv2.CascadeClassifier("xml/haarcascade_frontalface_default.xml")
+    faceCascade = cv2.CascadeClassifier("C:\\laragon\\www\\Absensi-With-Facerecog\\PythonScript\\xmlsrc\\haarcascade_frontalface_default.xml")
     clf = cv2.face.LBPHFaceRecognizer_create()
-    clf.read("classifier.xml")
+    clf.read("C:\\laragon\\www\\Absensi-With-Facerecog\\PythonScript\\classifier.xml")
  
     wCam, hCam = 400, 400
  

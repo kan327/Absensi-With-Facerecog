@@ -45,6 +45,9 @@ Route::controller(GuruController::class)->group(function(){
     // Camera
     Route::get("/data_siswa/tambah_murid/cam_daftar", "cam_daftar")->middleware("isLoginGuru");
     
+    // dataset
+    Route::get("/data_siswa/tambah_murid/simpan_dataset", "simpan_dataset")->middleware("isLoginGuru");
+    
 });
 
 // Admin Route
