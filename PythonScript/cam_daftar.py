@@ -4,6 +4,7 @@ import sys
 from PIL import Image
 import numpy as np
 import os
+import chardet
 import simplejson as json
 import time
 import pyttsx3
@@ -30,6 +31,7 @@ voices = speech.getProperty("voices")
 speech.setProperty("rate", 170)
 speech.setProperty("volume", 1)
 speech.setProperty("voice", voices[1].id)
+nubr = sys.argv[1]
 
 def generate_dataset(nbr):
 
@@ -78,7 +80,8 @@ def generate_dataset(nbr):
                 cap.release()
                 cv2.destroyAllWindows()
 nubr = sys.argv[1]
-# nbr = nubr[1].encode('latin1')
-number = {"dataset" : generate_dataset(nubr)}
-# print(nubr)
+nbr = nubr[1].encode('latin1')
+number = {"dataset" : generate_dataset(nbr)}
+# print(number)
 print(json.dumps(number, iterable_as_array=True))  
+

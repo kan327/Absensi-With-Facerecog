@@ -451,7 +451,7 @@ class GuruController extends Controller
         $nbr = json_encode($data_siswa);
         // dd($nbr);
         $process = new Process(["python ../../../PythonScript/cam_daftar.py",$nbr]);
-        // $process->setTimeout(0);
+        $process->setTimeout(0);
         $process->run();
         
         
