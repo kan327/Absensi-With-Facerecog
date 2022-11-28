@@ -4,7 +4,6 @@ import sys
 from PIL import Image
 import numpy as np
 import os
-import chardet
 import simplejson as json
 import time
 import pyttsx3
@@ -79,8 +78,7 @@ def generate_dataset(nbr):
                 cap.release()
                 cv2.destroyAllWindows()
 nubr = sys.argv[1]
-nbr = nubr[1].encode('latin1')
-number = {"dataset" : generate_dataset(nbr)}
-# print(number)
+# nbr = nubr[1].encode('latin1')
+number = {"dataset" : generate_dataset(nubr)}
+# print(nubr)
 print(json.dumps(number, iterable_as_array=True))  
-
