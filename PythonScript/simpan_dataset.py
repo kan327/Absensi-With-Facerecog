@@ -3,6 +3,8 @@ import cv2
 from PIL import Image
 import numpy as np
 import os
+import sys
+import simplejson as json
 import time
 import pyttsx3
 from datetime import date, datetime
@@ -11,6 +13,7 @@ from datetime import date, datetime
 cnt = 0
 pause_cnt = 0 
 justscanned = False
+nubr = sys.argv[1]
  
 mydb = mysql.connector.connect(
     host="localhost",
@@ -41,3 +44,7 @@ def train_classifier(nbr):
     clf = cv2.face.LBPHFaceRecognizer_create()
     clf.train(faces, ids)
     clf.write("C:\\laragon\\www\\Absensi-With-Facerecog\\PythonScript\\classifier.xml")
+
+data = {"dataset" : train_classifier(nubr)}
+# print(number)
+print(json.dumps(data, iterable_as_array=True))  

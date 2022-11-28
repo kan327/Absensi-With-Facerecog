@@ -62,10 +62,7 @@ def face_recognition2():  # generate frame by frame from camera
                 cv2.rectangle(img, (x, y + h + 40), (x + w, y + h + 50), color, 2)
                 cv2.rectangle(img, (x, y + h + 40), (x + int(w_filled), y + h + 50), (153, 255, 255), cv2.FILLED)
  
-                mycursor.execute("SELECT a.img_person, b.nama, b.kelas, b.tanggal_lahir "
-                                 " FROM images a "
-                                 " LEFT JOIN data_person b ON a.img_person = b.id_master "
-                                 " WHERE img_id = " + str(id))
+                mycursor.execute("SELECT a.img_person, b.nama, b.kelas, b.tanggal_lahir FROM images a LEFT JOIN data_person b ON a.img_person = b.id_master WHERE img_id = " + str(id))
                 row = mycursor.fetchone()
                 pnbr = row[0]
                 pname = row[1]
@@ -101,9 +98,9 @@ def face_recognition2():  # generate frame by frame from camera
         coords = draw_boundary2(img, faceCascade, 1.1, 10, (255, 255, 0), "Face", clf)
         return img
  
-    faceCascade = cv2.CascadeClassifier("xml/haarcascade_frontalface_default.xml")
+    faceCascade = cv2.CascadeClassifier("C:\\laragon\\www\\Absensi-With-Facerecog\\PythonScript\\xmlsrc\\haarcascade_frontalface_default.xml")
     clf = cv2.face.LBPHFaceRecognizer_create()
-    clf.read("classifier.xml")
+    clf.read("C:\\laragon\\www\\Absensi-With-Facerecog\\PythonScript\\classifier.xml")
  
     wCam, hCam = 400, 400
  

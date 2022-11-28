@@ -508,10 +508,6 @@ class GuruController extends Controller
 
     public function cam_daftar()
     {
-        view('guru.cam.camdaftar',[
-            "title"=>"data_kelas",
-        ]);
-
 
         $data_siswa = DB::select('SELECT * FROM siswas ORDER BY id DESC LIMIT 1 ')[0]->id;
         // dd($data_siswa);
@@ -532,10 +528,32 @@ class GuruController extends Controller
         $datas = json_decode($data, true);
     }
 
-    public function cam_masuk($mapel, $kelas)
+    public function simpan_dataset()
     {
-        $process = new Process(['python ../../../app/cam_absen_masuk.py']);
-        $process->setTimeout(3600);
+        $data_siswa = DB::select('SELECT * FROM siswas ORDER BY id DESC LIMIT 1 ')[0]->id;
+        // dd($data_siswa);
+        
+        $nbr = json_encode($data_siswa);
+        // dd($nbr);
+        $process = new Process(["python ../../../PythonScript/simpan_dataset.py",$nbr]);
+        $process->setTimeout(0);
+        $process->run();
+        
+        
+        if(!$process->isSuccessful())
+        {
+            throw new ProcessFailedException($process);
+        }
+        
+        $data = $process->getOutput();
+        $datas = json_decode($data, true);
+        return redirect("/data_kelas");
+    }
+
+    public function cam_masuk()
+    {
+        $process = new Process(['python ../../../PythonScript/cam_absen_masuk.py']);
+        // $process->setTimeout(3600);
         $process->run();
         // $camera = video_feed();
 

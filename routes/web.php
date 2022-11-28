@@ -35,15 +35,20 @@ Route::controller(GuruController::class)->group(function(){
     Route::post("/absen_siswa/{tanggal}/{kelas}/{mapel}",  "manual_absen_masuk");
     Route::post("/absen_siswa/{tanggal}/{kelas}/{mapel}/manual_pulang", "manual_absen_pulang");
     Route::post("/absen_siswa/{tanggal}/{kelas}/{mapel}/tutup_absen", "tutup_absen");
-
+    
     // delete
     Route::get("/absensi/hapus/{id}",  "hapus_jadwal")->middleware("isLoginGuru");
-
+    
     // MaatWebsite
     Route::get("/excel/{tanggal}/{kelas}/{mapel}", "excel")->middleware("isLoginGuru");
 
     // Camera
     Route::get("/data_siswa/tambah_murid/cam_daftar", "cam_daftar")->middleware("isLoginGuru");
+    Route::get("/absen_siswa/{tanggal}/{kelas}/{mapel}/cam_masuk", "cam_masuk");
+    Route::get("/absen_siswa/{tanggal}/{kelas}/{mapel}/cam_pulang", "cam_pulang");
+    
+    // simpan dataset
+    Route::get("/data_siswa/tambah_murid/simpan_dataset", "simpan_dataset")->middleware("isLoginGuru");
     
 });
 
