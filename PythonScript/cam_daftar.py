@@ -4,7 +4,7 @@ import sys
 from PIL import Image
 import numpy as np
 import os
-import chardet
+# import chardet
 import simplejson as json
 import time
 import pyttsx3
@@ -31,6 +31,7 @@ voices = speech.getProperty("voices")
 speech.setProperty("rate", 170)
 speech.setProperty("volume", 1)
 speech.setProperty("voice", voices[1].id)
+nubr = sys.argv[1]
 
 def generate_dataset(nbr):
 
@@ -53,7 +54,7 @@ def generate_dataset(nbr):
     lastid = row[0]
  
     img_id = lastid
-    max_imgid = img_id + 100
+    max_imgid = img_id + 60
     count_img = 0
  
     while True:
@@ -63,12 +64,11 @@ def generate_dataset(nbr):
             img_id += 1
             face = cv2.resize(face_cropped(img), (800, 500))
             face = cv2.cvtColor(face, cv2.COLOR_BGR2GRAY)
-            file_name_path = "C:\\laragon\\www\\Absensi-With-Facerecog\\PythonScript\\dataset\\"+str(nbr)+"."+ str(img_id) + ".jpg"
+            file_name_path = "C:\\laragon\\www\\Absensi-With-Facerecog\\PythonScript\\dataset\\"+nbr+"."+ str(img_id) + ".jpg"
             cv2.imwrite(file_name_path, face)
             cv2.putText(face, str(count_img), (50, 50), cv2.FONT_HERSHEY_COMPLEX, 1, (0, 255, 0), 2)
  
-            mycursor.execute("""INSERT INTO `images` (`img_id`, `img_person`) VALUES
-                                ('{}', '{}')""".format(img_id, str(nbr)))
+            mycursor.execute("INSERT INTO `images` (`img_id`, `img_person`) VALUES ('{}', '{}')".format(img_id, str(nbr)))
             mydb.commit()
  
             frame = cv2.imencode('.jpg', face)[1].tobytes()
@@ -78,9 +78,8 @@ def generate_dataset(nbr):
                 break
                 cap.release()
                 cv2.destroyAllWindows()
-nubr = sys.argv[1]
-nbr = nubr[1].encode('latin1')
-number = {"dataset" : generate_dataset(nbr)}
+
+number = {"dataset" : generate_dataset(nubr)}
 # print(number)
 print(json.dumps(number, iterable_as_array=True))  
 

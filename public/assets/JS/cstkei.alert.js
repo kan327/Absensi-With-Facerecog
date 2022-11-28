@@ -7,7 +7,7 @@ function keiAlert(messege, icon='done', color='bg-blue-dark'){
     if(document.body.contains(oldAlt)){
 
     }else{
-        document.body.innerHTML += '<div id="p1" class="animated-up fixed z-50 py-3 px-5 left-[75%] top-20 flex justify-between w-96 h-12 '+color+' rounded "><p class="text-white">'+messege+'</p><span class="material-symbols-outlined text-white">'+icon+'</span></div>'
+        document.body.innerHTML += '<div id="p1" class="animated-up fixed z-50 py-3 px-5 left-[70%] top-20 flex justify-between w-82 h-12 '+color+' rounded "><p class="text-white">'+messege+'</p><span class="material-symbols-outlined text-white">'+icon+'</span></div>'
         var box2 = document.getElementById('p1')
         setTimeout(bo2d, 4000)
         function bo2d(){
