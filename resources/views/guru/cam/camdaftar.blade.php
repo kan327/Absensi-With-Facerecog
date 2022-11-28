@@ -64,7 +64,7 @@
                 <h2 for="" class="font-['Quicksand'] font-semibold text-tet text-ms">Pengambilan Wajah</h2>
                 <img src="" alt="blm bisa" width="100%" class="img-thumbnail">
 
-                <a href="" type="button" class="text-center bg-gray-400 text-base text-white rounded-md mx-auto w-3/4 mt-3 h-8">
+                <a href="/data_siswa/tambah_murid/simpan_dataset" type="button" class="text-center bg-gray-400 text-base text-white rounded-md mx-auto w-3/4 mt-3 h-8">
                     Simpan Data
                 </a>
                

@@ -39,6 +39,7 @@ def face_recognition():  # generate frame by frame from camera
 
         global justscanned
         global pause_cnt
+        waktu = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
         pause_cnt += 1
 
@@ -64,10 +65,7 @@ def face_recognition():  # generate frame by frame from camera
                 cv2.rectangle(img, (x, y + h + 40), (x + int(w_filled),
                               y + h + 50), (153, 255, 255), cv2.FILLED)
 
-                mycursor.execute("SELECT a.img_person, b.nama, b.kelas, b.tanggal_lahir "
-                                 " FROM images a "
-                                 " LEFT JOIN data_person b ON a.img_person = b.id_master "
-                                 " WHERE img_id = " + str(id))
+                mycursor.execute("SELECT a.img_person, b.nama, b.kelas, b.tanggal_lahir FROM images a LEFT JOIN data_person b ON a.img_person = b.id_master WHERE img_id = " + str(id))
                 row = mycursor.fetchone()
                 pnbr = row[0]
                 pname = row[1]
@@ -76,8 +74,7 @@ def face_recognition():  # generate frame by frame from camera
                 if int(cnt) == 30:
                     cnt = 0
 
-                    mycursor.execute(
-                        "INSERT INTO attendance_datamaster (attendance_date, attendance_person) values('"+str(date.today())+"', '" + pnbr + "')")
+                    mycursor.execute("UPDATE attendance_datamaster SET attendance_in = ' " + waktu + " ' WHERE attendance_person = '" + pnbr + "'")
                     mydb.commit()
 
                     cv2.putText(img, pname + ' | ' + pkelas, (x - 10, y - 10),
@@ -108,10 +105,9 @@ def face_recognition():  # generate frame by frame from camera
                                (255, 255, 0), "Face", clf)
         return img
 
-    faceCascade = cv2.CascadeClassifier(
-        "resources/haarcascade_frontalface_default.xml")
+    faceCascade = cv2.CascadeClassifier("C:\\laragon\\www\\Absensi-With-Facerecog\\PythonScript\\xmlsrc\\haarcascade_frontalface_default.xml")
     clf = cv2.face.LBPHFaceRecognizer_create()
-    clf.read("classifier.xml")
+    clf.read("C:\\laragon\\www\\Absensi-With-Facerecog\\PythonScript\\classifier.xml")
 
     wCam, hCam = 400, 400
 
@@ -131,8 +127,6 @@ def face_recognition():  # generate frame by frame from camera
         if key == 27:
             break
 
+func = {"function1":face_recognition()}
 
-# print(json.dumps(video_feed()))
-func = {"function1":face_recognition(1)}
-
-print(json.dumps(func, iterable_as_array=True))
+# print(json.dumps(func, iterable_as_array=True))

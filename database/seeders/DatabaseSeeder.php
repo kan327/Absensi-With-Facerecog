@@ -144,7 +144,7 @@ class DatabaseSeeder extends Seeder
         DB::table('siswas')->insert([
             "nama_siswa" => "Tsaqif",
             "kelas_id" => 1,
-            "jenis_kelamin" => "Perempuan",
+            "jenis_kelamin" => "Laki-laki",
             "tgl_lahir" => "2022/06/22"
         ]);
         
