@@ -22,7 +22,7 @@ mydb = mysql.connector.connect(
 mycursor = mydb.cursor() 
 
 def train_classifier(nbr):
-    dataset_dir = "dataset"
+    dataset_dir = "C:\\laragon\\www\\Absensi-With-Facerecog\\PythonScript\\dataset"
  
     path = [os.path.join(dataset_dir, f) for f in os.listdir(dataset_dir)]
     faces = []
@@ -40,6 +40,4 @@ def train_classifier(nbr):
     # Train the classifier and save
     clf = cv2.face.LBPHFaceRecognizer_create()
     clf.train(faces, ids)
-    clf.write("classifier.xml")
- 
-  
+    clf.write("C:\\laragon\\www\\Absensi-With-Facerecog\\PythonScript\\classifier.xml")
