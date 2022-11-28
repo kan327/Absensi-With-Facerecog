@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Route;
 // Guru Route
 Route::controller(GuruController::class)->group(function(){
 
-    // view
+    // views
     Route::get("/",  "index")->name('/')->middleware("isLoginGuru");
     Route::get("/profile",  "profile")->middleware("isLoginGuru"); //sidebar
     Route::get("/absensi",  "absensi")->middleware("isLoginGuru");// sidebar
