@@ -54,7 +54,7 @@ def generate_dataset(nbr):
     lastid = row[0]
  
     img_id = lastid
-    max_imgid = img_id + 100
+    max_imgid = img_id + 60
     count_img = 0
  
     while True:
