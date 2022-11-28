@@ -8,6 +8,7 @@ use App\Models\Siswa;
 use App\Models\UserKelas;
 use App\Models\UserMapel;
 use App\Models\AbsenSiswa;
+use App\Models\AbsenExcel;
 use App\Models\JadwalAbsen;
 use App\Exports\SiswaExport;
 // use Maatwebsite\Excel\Excel;
@@ -196,6 +197,11 @@ class GuruController extends Controller
     {
         // dd((Dat)e::today());
         $id_guru = auth()->guard('user')->user()->id;
+
+        $guru = User::all()->where('id', $id_guru);
+
+        $kelas = kelas::all()->where('id', $request->kelas);
+
         // validasi
         $validasi = $request->validate([
             "kelas" => "required",
@@ -243,6 +249,13 @@ class GuruController extends Controller
                     "user_id" => $id_guru,
                     "siswa_id" => $siswa[$i]->id,
                     "kelas_id" => $validasi['kelas'],
+                    "tanggal" => Date::today(),
+                    "keterangan" => "Belum Hadir",
+                ]);
+                AbsenExcel::insert([
+                    "nama_guru" => $guru->first()->name,
+                    "nama_siswa" => $siswa[$i]->nama_siswa,
+                    "nama_kelas" => $kelas->first()->kelas,
                     "tanggal" => Date::today(),
                     "keterangan" => "Belum Hadir",
                 ]);
@@ -313,16 +326,34 @@ class GuruController extends Controller
     {
         $result = "Data Gagal di update";
 
+        $id_guru = auth()->guard('user')->user()->id;
+
+        // guru
+        $guru = User::all()->where("id", $id_guru);
+
+        // kelas
+        $data_kelas = kelas::all()->where("id", $kelas);
+
         // echo 'loop for';
         for($i = 0; $i < count($request->datas); $i++){
 
-            $absen_siswa = DB::table("absen_siswas")->where("id", $request->datas[$i]['id_siswa']);
+            $absen_siswa = DB::table("absen_siswas")->where("tanggal", $tanggal)->where("user_id", $id_guru)->where('kelas_id', $kelas)->where("id", $request->datas[$i]['id_siswa']);
+
+            $absen_excel = DB::table('absen_excels')->where('tanggal', $tanggal)->where("nama_guru", $guru->first()->name)->where("nama_kelas", $data_kelas->first()->kelas)->where("id", $request->datas[$i]['id_siswa']);
+
             $result = "absen ok";
 
             $absen_siswa->update([
                 "masuk" => $request->datas[$i]['mulai'],
                 "keterangan" => $request->datas[$i]['check']
             ]);
+
+            $absen_excel->update([
+                "masuk" => $request->datas[$i]['mulai'],
+                "keterangan" => $request->datas[$i]['check']
+            ]);
+
+
             $result = "Data berhasil di update ";
             // $absen_siswa->save();
 
@@ -336,16 +367,31 @@ class GuruController extends Controller
     {
         $result = "";
 
+        $id_guru = auth()->guard('user')->user()->id;
+
+        // guru
+        $guru = User::all()->where("id", $id_guru);
+        
+        // kelas
+        $data_kelas = kelas::all()->where("id", $kelas);
+
         for($i = 0; $i < count($request->datas); $i++){
 
-            $absen_siswa = DB::table("absen_siswas")->where("id", $request->datas[$i]['id_siswa']);
+            $absen_siswa = DB::table("absen_siswas")->where("tanggal", $tanggal)->where("user_id", $id_guru)->where('kelas_id', $kelas)->where("id", $request->datas[$i]['id_siswa']);
+
+            $absen_excel = DB::table('absen_excels')->where('tanggal', $tanggal)->where("nama_guru", $guru->first()->name)->where("nama_kelas", $data_kelas->first()->kelas)->where("id", $request->datas[$i]['id_siswa']);
+
             $result = "ok";
 
             $absen_siswa->update([
                 "pulang" => $request->datas[$i]['data_pulang']
             ]);
 
-            $result = "Siswa berhasil di pulangkan";
+            $absen_excel->update([
+                "pulang" => $request->datas[$i]['data_pulang']
+            ]);
+
+            $result = "Siswa berhasil di pulangkan" ;
         }
         return $result;
     }
@@ -353,7 +399,16 @@ class GuruController extends Controller
     public function tutup_absen(Request $request, $tanggal, $kelas, $mapel)
     {
         $result = "gagal";
+
+        // id guru
         $id = auth()->guard('user')->user()->id;
+
+        // kelas
+        $data_kelas = kelas::all()->where('id', $kelas);
+
+        // guru
+        $guru = User::all()->where("id", $id);
+
         DB::table("jadwal_absens")->where("user_id", $id)->where('tanggal', $tanggal)->where('kelas_id', $kelas)->where('mapel_id', $mapel)->update([
             "status"=>"down"
         ]);
@@ -361,7 +416,10 @@ class GuruController extends Controller
         
         for($i = 0; $i < count($request->datas); $i++){
 
-            $absen_siswa = DB::table("absen_siswas")->where("id", $request->datas[$i]['id_siswa']);
+            $absen_siswa = DB::table("absen_siswas")->where("tanggal", $tanggal)->where("user_id", $id)->where('kelas_id', $kelas)->where("id", $request->datas[$i]['id_siswa']);
+
+            $absen_excel = DB::table('absen_excels')->where('tanggal', $tanggal)->where("nama_guru", $guru->first()->name)->where("nama_kelas", $data_kelas->first()->kelas)->where("id", $request->datas[$i]['id_siswa']);
+
             $result = "ok";
 
             $absen_siswa->update([
@@ -369,7 +427,12 @@ class GuruController extends Controller
                 "keterangan" => $request->datas[$i]['keterangan']
             ]);
 
-            $result = "Sesi absen telah di tutup";
+            $absen_excel->update([
+                "masuk" => $request->datas[$i]['jam_masuk'],
+                "keterangan" => $request->datas[$i]['keterangan']
+            ]);
+
+            $result = "Sesi Absen Telah Di Tutup";
 
         }
 
@@ -489,10 +552,21 @@ class GuruController extends Controller
     }
 
     public function excel($tanggal, $kelas, $mapel){
+
         $id_guru = auth()->guard('user')->user()->id;
+
+        // guru
+        $guru = User::all()->where('id', $id_guru);
+
+        // kelas
+        $data_kelas = kelas::all()->where('id', $kelas);
+
+        // mapel
+        $data_mapel = mapel::all()->where("id", $mapel);
+
         $date = Carbon::createFromFormat('Y-m-d', $tanggal)->format('d-m-Y');
-        // dd($date);
-        return Excel::download(new SiswaExport($id_guru, $tanggal, $kelas, $mapel), 'Absensi '.$date.'.xlsx');
+
+        return (new SiswaExport($id_guru, $tanggal, $kelas))->download("Absensi {$guru->first()->name} $tanggal {$data_mapel->first()->pelajaran} {$data_kelas->first()->kelas}.xlsx");
     }
 
     
