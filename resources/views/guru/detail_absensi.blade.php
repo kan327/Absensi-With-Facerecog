@@ -98,9 +98,9 @@
                     </div>
                 </div>
                 <div class="w-fit ml-10">
-                    <button class="bg-[#1061FF] px-4 py-1 rounded-xl text-white font-bold"> Masuk </button>
+                    <button class="bg-[#1061FF] px-4 py-1 rounded-xl text-white font-bold" onclick="location.href = '/absen_siswa/{{ $tanggals }}/{{ $kelas }}/{{ $mapels }}/cam_masuk'"> Masuk </button>
                     <button
-                        class=" px-4 py-0.5 border-2 border-solid border-blue-normal-19 text-blue-dark-10 rounded-xl font-bold">Pulang</button>
+                        class=" px-4 py-0.5 border-2 border-solid border-blue-normal-19 text-blue-dark-10 rounded-xl font-bold" onclick="location.href = '/absen_siswa/{{ $tanggals }}/{{ $kelas }}/{{ $mapels }}/cam_pulang'">Pulang</button>
                 </div>
             </div>
             <!-- right side -->

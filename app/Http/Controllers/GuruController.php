@@ -492,10 +492,10 @@ class GuruController extends Controller
         return redirect("/data_kelas");
     }
 
-    public function cam_masuk($mapel, $kelas)
+    public function cam_masuk()
     {
-        $process = new Process(['python ../../../app/cam_absen_masuk.py']);
-        $process->setTimeout(3600);
+        $process = new Process(['python ../../../PythonScript/cam_absen_masuk.py']);
+        // $process->setTimeout(3600);
         $process->run();
         // $camera = video_feed();
 

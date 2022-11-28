@@ -62,10 +62,7 @@ def face_recognition2():  # generate frame by frame from camera
                 cv2.rectangle(img, (x, y + h + 40), (x + w, y + h + 50), color, 2)
                 cv2.rectangle(img, (x, y + h + 40), (x + int(w_filled), y + h + 50), (153, 255, 255), cv2.FILLED)
  
-                mycursor.execute("SELECT a.img_person, b.nama, b.kelas, b.tanggal_lahir "
-                                 " FROM images a "
-                                 " LEFT JOIN data_person b ON a.img_person = b.id_master "
-                                 " WHERE img_id = " + str(id))
+                mycursor.execute("SELECT a.img_person, b.nama, b.kelas, b.tanggal_lahir FROM images a LEFT JOIN data_person b ON a.img_person = b.id_master WHERE img_id = " + str(id))
                 row = mycursor.fetchone()
                 pnbr = row[0]
                 pname = row[1]
