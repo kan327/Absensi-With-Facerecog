@@ -240,7 +240,7 @@
                 },
                 success: function(ress) {
 
-                    // console.log(ress)
+                    console.log(ress)
 
                     
                     keiAlert(ress, "done", "bg-[#22c55e]")
@@ -339,7 +339,7 @@
                 if (checks[j] === "Terlambat") {
                     keterangan[j][3].setAttribute('selected', true)
                     if (mulais[j] == "--") {
-                        mulais[j] = "--"
+                        mulais[j] = "{{ $data_mulai }}"
                     }
                 }
 
@@ -390,7 +390,7 @@
                 if (checks[j] === "Terlambat") {
                     keterangan[j][3].setAttribute('selected', true)
                     if (mulais[j] != "--") {
-                        mulais[j] = "--"
+                        mulais[j] = "{{ $data_mulai }}"
                     }
                 }
 
@@ -437,7 +437,7 @@
                 if (checks[j] === "Terlambat") {
                     keterangan[j][3].setAttribute('selected', true)
                     if (mulais[j] != "--") {
-                        mulais[j] = "--"
+                        mulais[j] = "{{ $data_mulai }}"
                     }
                 }
 
