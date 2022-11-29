@@ -127,7 +127,7 @@
                     <br>
 
                     <label class="font-bold font-[montserrat] text-base text-black" for="">
-                        Born
+                        Tanggal Lahir
                     </label><br>
                     <input
                         class="rounded w-1/2 h-[18%] border-[#9C9C9C] outline-none focus:border-[#6D6D6D] border-[1px]"
