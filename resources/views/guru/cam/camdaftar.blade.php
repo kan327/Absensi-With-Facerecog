@@ -77,7 +77,7 @@
 
     <script>
         function cam(){
-            $.get("/absen_siswa/akses_cam_daftar",{}, function (data, status) {
+            $.get("/absen_siswa/akses_cam_daftar",{}, async function (data, status) {
                 console.log(status)
                 console.log(data)
             })

@@ -117,10 +117,10 @@
             <button class="px-4 py-3 bg-blue-normal-19 rounded-xl text-white font-bold">Kirim Ke Telegram</button>
         </div>
         <!-- main -->
-        <div class="shadow-box p-8 mx-auto rounded-2xl border-solid border-[0.1px] border-opacity-5 border-[#81B7E980]">
+    <div class="shadow-box p-8 mx-auto rounded-2xl border-solid border-[0.1px] border-opacity-5 border-[#81B7E980]">
 
             <!-- table -->
-            <div class="h-[50vh] w-full overflow-auto" id="table_absen">
+        <div class="h-[50vh] w-full overflow-auto" id="table_absen">
                 
             </div>
 
