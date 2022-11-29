@@ -445,11 +445,8 @@ class GuruController extends Controller
 
     public function cam_daftar()
     {
-        view('guru.cam.camdaftar',[
-            "title"=>"data_kelas",
-        ]);
-
-
+        
+        
         $data_siswa = DB::select('SELECT * FROM siswas ORDER BY id DESC LIMIT 1 ')[0]->id;
         // dd($data_siswa);
         
@@ -468,6 +465,9 @@ class GuruController extends Controller
         $data = $process->getOutput();
         $datas = json_decode($data, true);
         // dd($datas);
+        return view('guru.cam.camdaftar',[
+            "title"=>"data_kelas",
+        ]);
     }
 
     public function simpan_dataset()
@@ -489,7 +489,7 @@ class GuruController extends Controller
         
         $data = $process->getOutput();
         $datas = json_decode($data, true);
-        return redirect("/data_kelas");
+        return redirect("/data_kelas")->with("success", "Data anda berhasil disimpan!");
     }
 
     public function cam_masuk()

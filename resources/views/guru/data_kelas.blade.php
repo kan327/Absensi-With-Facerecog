@@ -9,6 +9,7 @@
     <title>Data Kelas | Starbhak Absensi</title>
     <link rel="stylesheet" href="{{ asset('assets/CSS/output.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/CSS/suport.css') }}">
+    <script src="{{ asset('assets/JS/cstkei.alert.js') }}"></script>
     {{-- tailwind --}}
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -65,6 +66,11 @@
         @endforeach
         <!-- card 2 -->
     </div>
+    @if (Session::has("success"))
+        <script>
+            keiAlert("{{ Session::get('success') }}")
+        </script>
+    @endif
 </body>
 
 </html>

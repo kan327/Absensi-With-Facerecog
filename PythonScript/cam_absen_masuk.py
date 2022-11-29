@@ -74,7 +74,7 @@ def face_recognition():  # generate frame by frame from camera
                 if int(cnt) == 30:
                     cnt = 0
 
-                    mycursor.execute("UPDATE attendance_datamaster SET attendance_in = ' " + waktu + " ' WHERE attendance_person = '" + pnbr + "'")
+                    mycursor.execute("UPDATE attendance_datamaster SET attendance_in = ' " + waktu + " ' WHERE attendance_person = '" + pnbr + "' AND attendance_date = curdate()")
                     mydb.commit()
 
                     cv2.putText(img, pname + ' | ' + pkelas, (x - 10, y - 10),
