@@ -68,7 +68,7 @@
     </div>
     @if (Session::has("success"))
         <script>
-            keiAlert("{{ Session::get('success') }}")
+            keiAlert("{{ Session::get('success') }}", "done", "bg-blue")
         </script>
     @endif
 </body>

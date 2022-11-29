@@ -67,8 +67,8 @@
             <!-- left side -->
             <div>
                 <div>
-                    <h1 class=" text-2xl font-bold text-blue-normal-19">Absensi</h1>
-                    <p class="text-[#8C8C8C]">Mohon untuk tidak menutup sesi terlalu cepat.</p>
+                    <h1 class=" text-2xl font-bold text-blue-normal-19">Absensi Otomatis</h1>
+                    {{-- <p class="text-[#8C8C8C]">Mohon untuk tidak menutup sesi terlalu cepat.</p> --}}
                 </div>
                 <div class="flex my-5 ml-10">
                     <div class="mr-5">
@@ -130,7 +130,7 @@
                 <!-- leftbar -->
                 <div class="font-[Montserrat] w-1/3 min-w-[268px] mt-10 mx-5">
                     <h1 class="font-semibold text-blue-normal-19 text-base">Set Centang</h1>
-                    <p class="text-[#8C8C8C] my-4">Atur keterangan Centang</p>
+                    <p class="text-[#8C8C8C] my-4">Atur status keterangan siswa</p>
 
                     <!-- radio -->
                     <div class="flex ml-5">
@@ -164,7 +164,7 @@
                     </div>
 
                     <!-- confirm -->
-                    <p class="py-4">Pastikan untuk tidak salah pilih!</p>
+                    <p class="py-4">Konfirmasi pilihan anda sebelum melakukan perubahan</p>
                     <button class="bg-[#1061FF] px-4 py-2 rounded-xl text-white font-bold" onclick="save()">Simpan
                         Perubahan</button>
 
@@ -178,10 +178,9 @@
                             Absen</button>
                         <button class="bg-[#1061FF] px-4 py-2 rounded-lg text-white font-bold" onclick="pulang()" id="pulangkan">Pulangkan</button>
                     </div>
-                    <li class="text-[#808080] text-sm my-1">*Tutup absen akan membuat seluruh siswa yang belum
-                        memiliki keterangan sebagai belum hadir</li>
-                    <li class="text-[#808080] text-sm">*Pulangkan adalah tombol untuk memulangkan siswa yang di
-                        pilih. </li>
+                    <li class="text-[#808080] text-sm my-1">Tombol tutup absen akan membuat seluruh siswa yang
+                        memiliki status belum hadir menjadi terlambat</li>
+                    <li class="text-[#808080] text-sm">Tombol pulangkan berfungsi untuk mengubah jam pulang siswa yang dipilih</li>
                 </div>
 
             </div>

@@ -71,25 +71,7 @@ class DatabaseSeeder extends Seeder
             "kelas"=>"XI PPLG 3"
         ]);
 
-        // data absen masuk
-        DB::table('attendance_datamaster')->insert([
-            "attendance_date"=> "2022-11-12",
-            "attendance_person"=> "Ucup",
-            "attendance_in"=> "2022-11-12 10:03:08",
-            "attendance_out"=>"2022-11-12 15:03:08"
-        ]);
-        DB::table('attendance_datamaster')->insert([
-            "attendance_date"=> "2022-11-12",
-            "attendance_person"=> "Tutung",
-            "attendance_in"=> "2022-11-12 10:03:08",
-            "attendance_out"=>"2022-11-12 15:03:08"
-        ]);
-        DB::table('attendance_datamaster')->insert([
-            "attendance_date"=> "2022-11-12",
-            "attendance_person"=> "Ujang",
-            "attendance_in"=> "2022-11-12 10:04:08",
-            "attendance_out"=>"2022-11-12 15:03:08"
-        ]);
+      
         DB::table('data_person')->insert([
             "id_master"=> "1",
             "nama"=> "Ucup",

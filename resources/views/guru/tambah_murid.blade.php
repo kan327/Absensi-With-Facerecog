@@ -139,14 +139,14 @@
             <!-- Button -->
             <div class="flex justify-center w-full">
                 <button type="submit"
-                    class="border-[1px] rounded w-[12%] h-3/4 hover:scale-110 font-[quicksand] font-medium text-lg border-black">
-                    Save
+                    class="border-[1px] rounded w-[18%] h-3/4 hover:scale-110 font-[quicksand] font-medium text-lg border-black">
+                    Selanjutnya
                 </button>
 
             </div>
 
             <p class="font-[quicksand] w-full flex justify-center font-medium text-lg">
-                are you sure you want to change it?
+                Periksa kembali data dengan benar
             </p>
 
 

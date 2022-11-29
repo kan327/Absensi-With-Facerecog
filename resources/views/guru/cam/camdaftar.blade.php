@@ -13,6 +13,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     {{-- tailwind --}}
     <script src="https://cdn.tailwindcss.com"></script>
+    {{-- jquery --}}
+    <script src="{{ asset('assets/JS/jquery.js') }}"></script>
     <!-- font montserrat -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;1,500&display=swap"
         rel="stylesheet">
@@ -48,7 +50,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
 </head>
 
-<body class="text-tet">
+<body class="text-tet" onload="cam()">
     
     {{-- navbar --}}
     @include('partials.navbar')
@@ -62,7 +64,7 @@
         <main class="mx-auto mt-5 w-4/5 text-base ">
             <form action="" class="mx-auto item-center flex flex-col">
                 <h2 for="" class="font-['Quicksand'] font-semibold text-tet text-ms">Pengambilan Wajah</h2>
-                <img src="" alt="blm bisa" width="100%" class="img-thumbnail">
+                <img src="" alt="blm bisa" width="100%" id="cam_daftar" class="img-thumbnail">
                 <a href="/data_siswa/tambah_murid/simpan_dataset" type="button" class="text-center bg-gray-400 text-base text-white rounded-md mx-auto w-3/4 mt-3 h-8">
                     Simpan Data
                 </a>
@@ -70,7 +72,15 @@
             </form>
         </main>
 
-        <script src="https://codepen.io/kan327/pen/PoaZWxe"></script>
+        {{-- <script src="https://codepen.io/kan327/pen/PoaZWxe"></script> --}}
     </div>
+
+    <script>
+        function cam(){
+            $.get("/absen_siswa/akses_cam_daftar",{}, function (data, status) {
+                console.log(status)
+            })
+        }
+    </script>
 </body>
 </html>

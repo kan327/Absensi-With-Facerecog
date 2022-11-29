@@ -59,7 +59,7 @@
             <div>
                 <div class="w-fit float-left">
                     <h1 class="text-[#3F80FF] font-bold font-[Montserrat] text-2xl">Data Siswa | {{ $data_kelas->kelas }}</h1>
-                    <p>Lihat dan Periksa kembali murid anda</p>
+                    <p>Tambahkan data siswa anda disini!</p>
                 </div>
                 <button onclick="location.href='/data_kelas/tambah_murid/{{ $data_kelas->id }}'" class="px-4 py-2 float-right bg-blue-normal-19 rounded-xl text-white font-bold">+ Tambahkan
                     Murid</button>

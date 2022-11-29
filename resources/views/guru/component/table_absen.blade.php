@@ -111,7 +111,7 @@
         for(k = 0; k < id_siswa.length; k++){
 
             if(masuk[k].textContent == "--"){
-                jam_masuk[k] = "{{ $data_mulai }}"
+                jam_masuk[k] = "{{ $batas_hadir }}"
                 // keterangan[k][3].setAttribute('selected', true)
                 keterangans.push(keterangan[k][3].value)
             }else{
@@ -339,7 +339,7 @@
                 if (checks[j] === "Terlambat") {
                     keterangan[j][3].setAttribute('selected', true)
                     if (mulais[j] == "--") {
-                        mulais[j] = "{{ $data_mulai }}"
+                        mulais[j] = "{{ $batas_hadir }}"
                     }
                 }
 
@@ -390,7 +390,7 @@
                 if (checks[j] === "Terlambat") {
                     keterangan[j][3].setAttribute('selected', true)
                     if (mulais[j] != "--") {
-                        mulais[j] = "{{ $data_mulai }}"
+                        mulais[j] = "{{ $batas_hadir }}"
                     }
                 }
 
@@ -437,7 +437,7 @@
                 if (checks[j] === "Terlambat") {
                     keterangan[j][3].setAttribute('selected', true)
                     if (mulais[j] != "--") {
-                        mulais[j] = "{{ $data_mulai }}"
+                        mulais[j] = "{{ $batas_hadir }}"
                     }
                 }
 

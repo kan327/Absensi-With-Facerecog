@@ -464,12 +464,14 @@ class GuruController extends Controller
         foreach($data_jadwal as $data_jadwa){
             $data_selesai = $data_jadwa->selesai;
             $data_masuk = $data_jadwa->mulai;
+            $batas_hadir = $data_jadwa->batas_hadir;
             // dd($data_jadwa->selesai);
         }
 
         return view("guru.component.table_absen",[
             "data_absensi"=>$data_absensi,
             "data_selesai"=>$data_selesai,
+            "batas_hadir"=>$batas_hadir,
             "data_mulai"=>$data_masuk,
             "i"=>1,
             "no"=>1,
@@ -506,15 +508,22 @@ class GuruController extends Controller
     public function cam_daftar()
     {
 
+       return view("guru.cam.camdaftar", [
+            "title"=>"data_kelas",
+       ]);
+
+    }
+
+    public function akses_cam_daftar()
+    {
         $data_siswa = DB::select('SELECT * FROM siswas ORDER BY id DESC LIMIT 1 ')[0]->id;
         // dd($data_siswa);
-        
         $nbr = json_encode($data_siswa);
-        dd($nbr);
+
         $process = new Process(["python ../../../PythonScript/cam_daftar.py",$nbr]);
         $process->setTimeout(0);
         $process->run();
-        
+        // dd($nbr);
         
         if(!$process->isSuccessful())
         {
@@ -523,11 +532,7 @@ class GuruController extends Controller
         
         $data = $process->getOutput();
         $datas = json_decode($data, true);
-
-        return view("guru.cam.camdaftar", [
-            "title" => "data_kelas",
-            
-        ]);
+        return $datas;
     }
 
     public function simpan_dataset()
@@ -549,7 +554,7 @@ class GuruController extends Controller
         
         $data = $process->getOutput();
         $datas = json_decode($data, true);
-        return redirect("/data_kelas")->with("success", "Data anda berhasil disimpan!");
+        return redirect("/data_kelas")->with("success", "Data murid berhasil disimpan!");
     }
 
     public function cam_masuk($tanggal, $kelas, $mapel)
