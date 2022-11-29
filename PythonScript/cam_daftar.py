@@ -1,4 +1,5 @@
 import mysql.connector
+from Flask import Response
 import cv2
 import sys
 from PIL import Image
@@ -54,6 +55,7 @@ def generate_dataset(nbr):
  
     img_id = lastid
     max_imgid = img_id + 5
+
     count_img = 0
  
     while True:
@@ -77,6 +79,10 @@ def generate_dataset(nbr):
                 break
                 cap.release()
                 cv2.destroyAllWindows()
+
+def vidfeed_dataset(nbr):
+    return Response(generate_dataset(nbr))
+
 
 number = {"dataset" : generate_dataset(nubr)}
 # print(number)
