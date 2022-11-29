@@ -10,12 +10,12 @@ use App\Models\UserMapel;
 use App\Models\AbsenSiswa;
 use App\Models\JadwalAbsen;
 use App\Exports\SiswaExport;
-// use Maatwebsite\Excel\Excel;
+use Maatwebsite\Excel\Excel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Date;
-use Maatwebsite\Excel\Facades\Excel;
+// use Maatwebsite\Excel\Facades\Excel;
 use Symfony\Component\Process\Process;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Symfony\Component\Process\Exception\ProcessFailedException;
@@ -24,8 +24,10 @@ class GuruController extends Controller
 {
     public function index()
     {
-        $id_guru = auth()->guard('user')->user()->id;
 
+
+
+        $id_guru = auth()->guard('user')->user()->id;
         
         $data_guru = User::with(['user_mapels', 'user_kelas'])->get()->where("id", $id_guru);
         
@@ -194,7 +196,6 @@ class GuruController extends Controller
     // menambahkan data ke jadwal database
     public function insert_jadwal(Request $request)
     {
-        // dd((Dat)e::today());
         $id_guru = auth()->guard('user')->user()->id;
         // validasi
         $validasi = $request->validate([
@@ -214,8 +215,6 @@ class GuruController extends Controller
         // checking jadwal absen
         $jadwal = DB::select("SELECT * FROM jadwal_absens WHERE user_id = $id_guru AND kelas_id = $validasi[kelas] AND mapel_id = $validasi[mapel] AND tanggal = curdate()");
 
-        // dd($jadwal);
-
         if(count($jadwal) > 0){
              return redirect("/absensi/tambah_jadwal")->with("wrong", "Jadwal tersebut sudah tersedia!");
         }
@@ -230,7 +229,7 @@ class GuruController extends Controller
             "batas_hadir" => $validasi['batas_hadir'],
         ]);
 
-        $data = DB::select("SELECT * FROM absen_siswas WHERE kelas_id = $validasi[kelas] AND tanggal = curdate()");
+        $data = DB::select("SELECT * FROM absen_siswas WHERE kelas_id = $validasi[kelas] AND tanggal = curdate() AND user_id = $id_guru");
         // $data = AbsenSiswa::all()->where("kelas_id", $validasi['kelas'])->where("tanggal", );
         // dd($data);
         if($query == true && count($data) < 1){
@@ -248,11 +247,9 @@ class GuruController extends Controller
                 ]);
             }
 
-        }else{
-
         }
-
         return redirect("/absensi")->with("success", "Jadwal Absen berhasil di buat");
+
     }
 
     // menghapus jadwal
@@ -507,10 +504,22 @@ class GuruController extends Controller
     }
 
     public function excel($tanggal, $kelas, $mapel){
+        
+        // id guru
         $id_guru = auth()->guard('user')->user()->id;
+        
+        // kelas
+        $data_kelas = kelas::all()->where("id", $kelas);
+
+        // guru
+        $guru = User::all()->where('id', $id_guru);
+
+        // absen siswa
+        $absen_siswa = AbsenSiswa::with(['kelas', 'user', 'siswa'])->where('tanggal', $tanggal)->where("user_id", $id_guru)->where("kelas_id", $kelas)->get();
+    
         $date = Carbon::createFromFormat('Y-m-d', $tanggal)->format('d-m-Y');
-        // dd($date);
-        return Excel::download(new SiswaExport($id_guru, $tanggal, $kelas, $mapel), 'Absensi '.$date.'.xlsx');
+        // dd($date);//, 'Absensi '.$date.'.xlsx'
+        return (new SiswaExport($absen_siswa->pluck("id")))->download('absen .xlsx');
     }
 
     
