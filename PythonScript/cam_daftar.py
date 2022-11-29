@@ -1,5 +1,4 @@
 import mysql.connector
-from Flask import Response
 import cv2
 import sys
 from PIL import Image
@@ -79,9 +78,6 @@ def generate_dataset(nbr):
                 break
                 cap.release()
                 cv2.destroyAllWindows()
-
-def vidfeed_dataset(nbr):
-    return Response(generate_dataset(nbr))
 
 
 number = {"dataset" : generate_dataset(nubr)}
