@@ -79,6 +79,7 @@
         function cam(){
             $.get("/absen_siswa/akses_cam_daftar",{}, function (data, status) {
                 console.log(status)
+                console.log(data)
             })
         }
     </script>
