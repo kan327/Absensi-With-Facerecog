@@ -510,7 +510,7 @@ class GuruController extends Controller
         // dd($data_siswa);
         
         $nbr = json_encode($data_siswa);
-        // dd($nbr);
+        dd($nbr);
         $process = new Process(["python ../../../PythonScript/cam_daftar.py",$nbr]);
         $process->setTimeout(0);
         $process->run();
@@ -523,6 +523,11 @@ class GuruController extends Controller
         
         $data = $process->getOutput();
         $datas = json_decode($data, true);
+
+        return view("guru.cam.camdaftar", [
+            "title" => "data_kelas",
+            
+        ]);
     }
 
     public function simpan_dataset()
@@ -547,9 +552,9 @@ class GuruController extends Controller
         return redirect("/data_kelas")->with("success", "Data anda berhasil disimpan!");
     }
 
-    public function cam_masuk()
+    public function cam_masuk($tanggal, $kelas, $mapel)
     {
-        $process = new Process(['python ../../../PythonScript/cam_absen_masuk.py']);
+        $process = new Process(['python ../../../PythonScript/cam_absen_masuk.py',$kelas]);
         // $process->setTimeout(3600);
         $process->run();
         // $camera = video_feed();
@@ -559,11 +564,14 @@ class GuruController extends Controller
             throw new ProcessFailedException($process);
         }
 
-        dd( $process->getOutput());
 
-        // // $datas = json_decode($data, true);
+        $data = $process->getOutput();
+        $datas = json_decode($data, true);
 
-        return view("templates.absencam");
+        return view("guru.cam.absencam", [
+            "title"=>"absensi",
+            "proccess"=>$process
+        ]);
     }
 
     public function excel($tanggal, $kelas, $mapel){

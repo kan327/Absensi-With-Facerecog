@@ -4,6 +4,7 @@ import cv2
 from PIL import Image
 import numpy as np
 # import json
+import sys
 import time
 import simplejson as json
 import pyttsx3
@@ -40,7 +41,7 @@ def face_recognition2():  # generate frame by frame from camera
         global justscanned
         global pause_cnt
         waktu = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-
+        kelas = sys.argv[1]
         pause_cnt += 1
  
         coords = []
@@ -67,11 +68,11 @@ def face_recognition2():  # generate frame by frame from camera
                 pnbr = row[0]
                 pname = row[1]
                 pkelas = row[2]
- 
+
                 if int(cnt) == 30:
                     cnt = 0
  
-                    mycursor.execute("UPDATE attendance_datamaster SET attendance_out = ' " + waktu + " ' WHERE attendance_person = '" + pnbr + "' AND attendance_date = curdate()")
+                    mycursor.execute("UPDATE absen_siswas SET pulang = ' " + waktu + " ' WHERE siswa_id = '" + pnbr + "' AND tanggal = curdate() AND kelas_id = ' " + kelas + "'")
                     mydb.commit()
  
                     cv2.putText(img, pname + ' | ' + pkelas, (x - 10, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (153, 255, 255), 2, cv2.LINE_AA)
