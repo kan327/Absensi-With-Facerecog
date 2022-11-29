@@ -587,14 +587,4 @@ class GuruController extends Controller
         return Excel::download(new SiswaExport($absen_siswa->pluck("id"), $tanggal, $kelas, $mapel), "Absensi $date Kelas {$data_kelas->first()->kelas} Mata Pelajaran {$data_mapel->first()->pelajaran}.xlsx");
     }
     
-    
-    public function table_excels()
-    {
-        $data = AbsenSiswa::all();
-        return view("guru.excels.table_excel",[
-            "data_absens"=>$data,
-            "no"=>1
-        ]);
-        // return (new SiswaExport($absen_siswa->pluck("id"), $tanggal, $kelas, $mapel))->download("Absensi $tanggal Kelas {$data_kelas->first()->kelas} Mata Pelajaran {$data_mapel->first()->pelajaran}.xlsx");
-    }
 }
