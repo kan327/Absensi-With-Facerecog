@@ -81,7 +81,7 @@ ins = GenEncoder(funcspas=gen_data())
 def parseGen(genencoder):
     if isinstance(genencoder, GenEncoder):
         return {'fun1': genencoder.funcspas}
-    raise TypeError(f'failed to load, status ({genencoder})')
+    raise TypeError(f'failed to load, output ({genencoder})')
 
 cetak = json.dumps(ins, default=parseGen, indent=4)
 print()
