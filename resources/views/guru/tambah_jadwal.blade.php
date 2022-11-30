@@ -11,6 +11,9 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
 
+    <!-- custom alert -->
+    <script src="{{ asset('assets/JS/cstkei.alert.js') }}"></script>
+
     {{-- link css --}}
     <link rel="stylesheet" href="{{ asset('assets/CSS/output.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/CSS/suport.css') }}">
@@ -177,6 +180,13 @@
 
     </div>
 
+    @if (Session::has("success"))
+        <script>keiAlert("{{ Session::get('success') }}", 'done', "bg-[#22c55e]")</script>
+    @endif
+
+    @if (Session::has("wrong"))
+        <script>keiAlert("{{ Session::get('wrong') }}", 'close', "bg-red-600")</script>    
+    @endif
     
 </body>
 

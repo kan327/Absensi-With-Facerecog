@@ -96,7 +96,7 @@
                                 <td onclick="location.href = '/absen_siswa/{{ $jadwal_absen->tanggal }}/{{ $jadwal_absen->kelas_id }}/{{ $jadwal_absen->mapel_id }}'" class="p-3 font-semibold">{{ $jadwal_absen->kelas->kelas }}</td>
                                 <td onclick="location.href = '/absen_siswa/{{ $jadwal_absen->tanggal }}/{{ $jadwal_absen->kelas_id }}/{{ $jadwal_absen->mapel_id }}'" class="p-3 font-semibold">{{ $jadwal_absen->mapel->pelajaran }}</td>
                                 <td onclick="location.href = '/absen_siswa/{{ $jadwal_absen->tanggal }}/{{ $jadwal_absen->kelas_id }}/{{ $jadwal_absen->mapel_id }}'" class="p-3 font-semibold">{{ $jadwal_absen->mulai }}</td>
-                                <td onclick="location.href = '/absen_siswa/{{ $jadwal_absen->tanggal }}/{{ $jadwal_absen->kelas_id }}/{{ $jadwal_absen->mapel_id }}'" class="p-3 font-semibold">{{ $jadwal_absen->selesai }}</td>
+                                <td onclick="location.href = '/absen_siswa/{{ $jadwal_absen->tanggal }}/{{ $jadwal_absen->kelas_id }}/{{ $jadwal_absen->mapel_id }}'" class="p-3 font-semibold" id="jam_pulang">{{ $jadwal_absen->selesai }}</td>
                                 <td class="text-n-blue"
                                     style="border-top-right-radius: 12px; border-bottom-right-radius: 12px;">
 
@@ -116,6 +116,10 @@
 
     @if (Session::has("success"))
         <script>keiAlert("{{ session()->get('success') }}", 'done', 'bg-[#22c55e]')</script>
+        @endif
+        
+    @if (Session::has("wrong"))
+        <script>keiAlert("{{ session()->get('wrong') }}", 'close', 'bg-red-600')</script>
     @endif
 </body>
 
