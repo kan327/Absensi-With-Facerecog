@@ -28,7 +28,7 @@ def generate_dataset(nbr):
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         faces = face_classifier.detectMultiScale(gray, 1.3, 5)
  
-        if faces is ():
+        if faces == ():
             return None
         for (x, y, w, h) in faces:
             cropped_face = img[y:y + h, x:x + w]
