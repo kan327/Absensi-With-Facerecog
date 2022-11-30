@@ -1,0 +1,43 @@
+# @dataclass
+# class GenEncoder:
+#     def __init__(self, funcspas):
+#         self.funcspas = funcspas
+
+# ins = GenEncoder(funcspas=gen_data())
+# class InsGenEncoder(json.JSONEncoder):
+#     def default(self,o):
+#         if isinstance(o, GenEncoder):
+#             return {'fun1': o.funcspas}
+#         return super().default(o)
+
+# json_p = json.dumps(ins, cls=InsGenEncoder, indent=4)
+# print(json_p)
+################################
+# @dataclass
+# class GenEncoder:
+#     def __init__(self, funcspas):
+#         self.funcspas = funcspas
+#
+# ins = GenEncoder(funcspas=gen_data())
+#
+# def parseGen(genencoder):
+#     if isinstance(genencoder, GenEncoder):
+#         return {'fun1': genencoder.funcspas}
+#     raise TypeError(f'failed to load, status ({genencoder})')
+
+# cetak = json.dumps(ins, default=parseGen, indent=4)
+# print(cetak)
+################################
+# def gen_data():
+#     # Video streaming route. Put this in the src attribute of an img tag
+#     return json.dumps(Response(generate_dataset(nubr), mimetype='multipart/x-mixed-replace; boundary=frame'))
+    
+# func = {"function1": gen_data()}
+
+# print(json.dumps(func, iterable_as_array=True))
+
+################################
+
+# number = {"dataset" : generate_dataset(nubr)}
+# # print(number)
+# print(json.dumps(number, iterable_as_array=True))
