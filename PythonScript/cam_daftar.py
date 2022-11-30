@@ -3,7 +3,8 @@ import cv2
 import sys
 from flask import Response
 import json
-# import json
+# import simplejson as json
+from json import JSONEncoder
 from dataclasses import dataclass
  
 cnt = 0
@@ -20,6 +21,7 @@ mydb = mysql.connector.connect(
 mycursor = mydb.cursor() 
 
 nubr = sys.argv[1]
+# nubr = 10
 
 def generate_dataset(nbr):
     face_classifier = cv2.CascadeClassifier("C:\\laragon\\www\\Absensi-With-Facerecog\\PythonScript\\xmlsrc\\haarcascade_frontalface_default.xml")
@@ -69,63 +71,29 @@ def generate_dataset(nbr):
 
 def gen_data():
     # Video streaming route. Put this in the src attribute of an img tag
-    return Response(generate_dataset(nubr), mimetype='multipart/x-mixed-replace; boundary=frame')
+    vari = json.dumps(Response(generate_dataset(nubr), mimetype='multipart/x-mixed-replace; boundary=frame'))
+    return vari
 
-# @dataclass
+@dataclass
 class GenEncoder:
     def __init__(self, funcspas):
         self.funcspas = funcspas
 
 ins = GenEncoder(funcspas=gen_data())
+class InsGenEncoder(json.JSONEncoder):
+    def default(self,o):
+        if isinstance(o, GenEncoder):
+            return {'fun1': o.funcspas}
+        return super().default(o)
 
-def parseGen(genencoder):
-    if isinstance(genencoder, GenEncoder):
-        return {'fun1': genencoder.funcspas}
-    raise TypeError(f'failed to load, output ({genencoder})')
-
-cetak = json.dumps(ins, default=parseGen, indent=4)
-print()
-print(cetak)
-
+json_p = json.dumps(ins, cls=InsGenEncoder, indent=4)
+print(json_p)
 
 
 
 
 
 
-
-
-
-
-# @dataclass
-# class GenEncoder:
-#     def __init__(self, funcspas):
-#         self.funcspas = funcspas
-
-# ins = GenEncoder(funcspas=gen_data())
-# class InsGenEncoder(json.JSONEncoder):
-#     def default(self,o):
-#         if isinstance(o, GenEncoder):
-#             return {'fun1': o.funcspas}
-#         return super().default(o)
-
-# json_p = json.dumps(ins, cls=InsGenEncoder, indent=4)
-# print(json_p)
-################################
-# @dataclass
-# class GenEncoder:
-#     def __init__(self, funcspas):
-#         self.funcspas = funcspas
-#
-# ins = GenEncoder(funcspas=gen_data())
-#
-# def parseGen(genencoder):
-#     if isinstance(genencoder, GenEncoder):
-#         return {'fun1': genencoder.funcspas}
-#     raise TypeError(f'failed to load, status ({genencoder})')
-
-# cetak = json.dumps(ins, default=parseGen, indent=4)
-# print(cetak)
 ################################
 # def gen_data():
 #     # Video streaming route. Put this in the src attribute of an img tag
