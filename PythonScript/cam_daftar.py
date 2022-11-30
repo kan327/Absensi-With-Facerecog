@@ -5,6 +5,7 @@ from PIL import Image
 import numpy as np
 import os
 # import chardet
+from flask import Response
 import simplejson as json
 import time
 import pyttsx3
@@ -78,6 +79,14 @@ def generate_dataset(nbr):
                 break
                 cap.release()
                 cv2.destroyAllWindows()
+
+# def gen_data():
+#     # Video streaming route. Put this in the src attribute of an img tag
+#     return Response(json.dumps(generate_dataset(nubr)), mimetype='multipart/x-mixed-replace; boundary=frame')
+
+# func = {"function1": gen_data()}
+
+# print(json.dumps(func, iterable_as_array=True))
 
 number = {"dataset" : generate_dataset(nubr)}
 # print(number)

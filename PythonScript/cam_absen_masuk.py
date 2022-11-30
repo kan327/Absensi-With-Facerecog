@@ -2,12 +2,12 @@ import mysql.connector
 import cv2
 from PIL import Image
 import numpy as np
+from flask import Response
 import sys
 import simplejson as json
 import time
 import pyttsx3
 from datetime import date, datetime
-
  
 cnt = 0
 pause_cnt = 0
@@ -57,8 +57,7 @@ def face_recognition():  # generate frame by frame from camera
                 n = (100 / 30) * cnt
                 w_filled = (cnt / 30) * w
 
-                cv2.putText(img, str(int(n))+' %', (x + 20, y + h + 28),
-                            cv2.FONT_HERSHEY_SIMPLEX, 0.8, (153, 255, 255), 2, cv2.LINE_AA)
+                cv2.putText(img, str(int(n))+' %', (x + 20, y + h + 28), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (153, 255, 255), 2, cv2.LINE_AA)
 
                 cv2.rectangle(img, (x, y + h + 40),
                               (x + w, y + h + 50), color, 2)
@@ -77,8 +76,7 @@ def face_recognition():  # generate frame by frame from camera
                     mycursor.execute("UPDATE absen_siswas SET masuk = ' " + waktu + " ' WHERE siswa_id = '" + pnbr + "' AND tanggal = curdate() AND kelas_id = ' " + kelas + "'")
                     mydb.commit()
 
-                    cv2.putText(img, pname + ' | ' + pkelas, (x - 10, y - 10),
-                                cv2.FONT_HERSHEY_SIMPLEX, 0.8, (153, 255, 255), 2, cv2.LINE_AA)
+                    cv2.putText(img, pname + ' | ' + pkelas, (x - 10, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (153, 255, 255), 2, cv2.LINE_AA)
                     time.sleep(7)
                     # speech.say(pname + "successfully processed")
                     # speech.runAndWait()
@@ -101,8 +99,7 @@ def face_recognition():  # generate frame by frame from camera
         return coords
 
     def recognize(img, clf, faceCascade):
-        coords = draw_boundary(img, faceCascade, 1.1, 10,
-                               (255, 255, 0), "Face", clf)
+        coords = draw_boundary(img, faceCascade, 1.1, 10, (255, 255, 0), "Face", clf)
         return img
 
     faceCascade = cv2.CascadeClassifier("C:\\laragon\\www\\Absensi-With-Facerecog\\PythonScript\\xmlsrc\\haarcascade_frontalface_default.xml")
@@ -126,7 +123,11 @@ def face_recognition():  # generate frame by frame from camera
         key = cv2.waitKey(1)
         if key == 27:
             break
+# aisce = face.recognition()
+def video_feed():
+    # Video streaming route. Put this in the src attribute of an img tag
+    return Response(json.loads(face_recognition()), mimetype='multipart/x-mixed-replace; boundary=frame')
 
-func = {"function1":face_recognition()}
+func = {"function1":video_feed()}
 
 print(json.dumps(func, iterable_as_array=True))
