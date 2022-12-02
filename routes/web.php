@@ -40,7 +40,7 @@ Route::controller(GuruController::class)->group(function(){
     Route::get("/absensi/hapus/{id}",  "hapus_jadwal")->middleware("isLoginGuru");
     
     // MaatWebsite
-    Route::get("/excel/{tanggal}/{kelas}/{mapel}", "excel")->middleware("isLoginGuru");
+    Route::get("/absensi/excel/{tanggal}/{kelas}/{mapel}", "excel")->middleware("isLoginGuru");
 
     // Camera
     Route::get("/data_siswa/tambah_murid/cam_daftar", "cam_daftar")->middleware("isLoginGuru");
@@ -59,6 +59,16 @@ Route::controller(AdminController::class)->group(function(){
     // View
     Route::get("/admin",  "index_admin")->name('admin')->middleware("isLoginGuru");
     Route::get("/admin/guru",  "guru")->middleware("isLoginGuru");
+    Route::get("/admin/guru/{id}", "update_guru")->middleware("isLoginGuru");
+    Route::get("/admin/pino_bot/", "pino_bot")->middleware("isLoginGuru");
+    Route::get("/admin/grup_kelas", "grup_kelas")->middleware("isLoginGuru");
+    Route::get("/admin/grup_kelas/{id}", "update_grup_kelas")->middleware("isLoginGuru");
+    Route::get("/admin/murid/{id}", "update_siswa")->middleware("isLoginGuru");
+    
+    // search
+    Route::get("/admin/pino_bot/search", "search_grup_kelas")->middleware("isLoginGuru");
+    Route::get("/admin/search/", "search_guru")->middleware("isLoginGuru");
+    Route::get("/admin/siswa/search", "search_siswa")->middleware("isLoginGuru");
     
     // View Component 
     Route::get("/admin/box",  "box")->middleware("isLoginGuru");
@@ -67,16 +77,20 @@ Route::controller(AdminController::class)->group(function(){
     
     // insert
     Route::post("/admin/mapel",  "insert_mapel");
-    Route::post("/admin/kelas",  "insert_kelas");
+    Route::post("/admin/grup_kelas",  "insert_grup_kelas");
     Route::post("/admin/tambah_guru",  "tambah_guru");
     
     // edit
     Route::post("/admin/guru/{id}", "edit_guru");
+    Route::post("/admin/grup_kelas/{id}",  "edit_grup_kelas");
+    Route::post("/admin/murid/{id}", "edit_siswa")->middleware("isLoginGuru");
 
     // delete
     Route::get("/admin/mapel/{id}", "delete_mapel")->middleware("isLoginGuru");
     Route::get("/admin/kelas/{id}", "delete_kelas")->middleware("isLoginGuru");
-    Route::get("/admin/guru/{id}", "update_guru")->middleware("isLoginGuru");
+    Route::get("/admin/hapus_guru/{id}", "delete_guru")->middleware("isLoginGuru");
+    Route::get("/admin/hapus_grup_kelas/{id}", "delete_grup_kelas")->middleware("isLoginGuru");
+    Route::get("/admin/hapus_siswa/{id}", "delete_siswa")->middleware("isLoginGuru");
 
 });
 

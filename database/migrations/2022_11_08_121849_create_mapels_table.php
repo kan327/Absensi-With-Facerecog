@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('mapels', function (Blueprint $table) {
             $table->id();
             $table->string("pelajaran");
+            $table->string("status", 5)->default("up");
         });
     }
 

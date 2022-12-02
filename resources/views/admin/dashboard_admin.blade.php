@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <!-- wait for figma -->
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,6 +12,8 @@
     {{-- tailwind --}}
 
     <script src="https://cdn.tailwindcss.com"></script>
+            
+    <script src="{{ asset('assets/JS/jquery.js') }}"></script>
 
     <!-- style css -->
 
@@ -22,18 +25,16 @@
             theme: {
                 extend: {
                     colors: {
-                        'blue-dark': '#1061FF',
-                        'blue-table': '#002C9D',
-                        'blue': '#349DFD',
-                        'tet': '#001458',
-                        'unselect': '#BAC5E7',
-                        'tet-x': '#5A5A5A',
-                        'stroke': '#81B7E9',
-                        'blueside': '#93A2DA',
+                        'bg-blue-dark': '#2C3E50',
+                        'dark-data': '#393939',
+                        'placeholder': '#A0A0A0',
+                        'bg': '#FCFCFF',
                     },
                     boxShadow: {
-                        nav: '2px 2px 50px 1px rgba(179, 185, 191, 0.1);',
+                        nav: '2px 3px 3px 1px rgba(0, 0, 0, 0.1);',
                         side: ' 0px 5px 10px rgba(0, 0, 0, 0.05);',
+                        stable: ' 0px 3px 4px rgba(0, 0, 0, 0.25);',
+                        box: ' 0px 4px 4px rgba(0, 0, 0, 0.25)',
                     }
                 },
             }
@@ -48,160 +49,154 @@
         rel="stylesheet">
 </head>
 
-<body class="text-tet h-[100vh] overflow-y-auto">
-    <!-- navbar top -->
+<body class="text-bg-blue-dark h-[100vh] overflow-y-auto m-5 mt-6">
+    <!-- nav -->
     @include('partials.navbar_admin')
 
-    <!-- content -->
-    <div class="mx-auto w-[81%] flex justify-between">
-        <!-- <div class="mx-auto w-[1102px] flex"> use this when u want responsive design -->
-        <!-- left content -->
-        <div class="w-[65%]">
-            <h1 class="text-3xl text-blue font-bold mt-32 mb-5 font-[Montserrat]">Welcome, {{ auth()->guard('admin')->user()->username }}!</h1>
-            <!-- box -->
-            <div class="flex justify-between" id="box">
-                
-            </div>
-            <!-- table -->
-            <div class="relative">
-                <div class="flex justify-end w-full my-5">
-                    <button class="bg-[#5BB1FF] hover:bg-blue text-white py-2 px-4 rounded-xl  w-fit font-semibold" onclick="location.href='admin/guru'">+ Tambah</button>
-                </div>
-                <div class="border-blue border-[1px] border-solid rounded-xl">
-                    <h1 class="text-blue font-extrabold w-fit mx-auto my-1">Akun Guru</h1>
-                    <div class="h-56 w-full overflow-y-auto overflow-x-hidden">
-                        <table class="w-full" cellpadding="5">
-                            <thead class="table-fixed top-0 sticky z-10 bg-white">
-                                <tr
-                                    class="border-blue-dark border-t-0 border-l-0 border-r-0 border-[1px] border-solid ">
-                                    <th>No</th>
-                                    <th>Name</th>
-                                    <th>NIP</th>
-                                    <th>No.tlp</th>
-                                    <th>Email</th>
-                                    <th>Username</th>
-                                    <th>Password</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($gurus as $guru)
-                                    <tr
-                                        class="border-tet-x text-tet-x border-t-0 border-l-0 border-r-0 border-[1px] text-sm border-solid hover:text-blue hover:border-blue cursor-pointer">
-                                        <th>{{ $no_guru++ }}</th>
-                                        <th class="break-words max-w-[100px]">{{ $guru['name'] }}</th>
-                                        <th class="break-words max-w-[100px]">{{ $guru['nip'] }}</th>
-                                        <th class="break-words max-w-[100px]">0{{ $guru['no_hp'] }}</th>
-                                        <th class="break-words max-w-[100px]">{{ $guru['email'] }}</th>
-                                        <th class="break-words max-w-[100px]">{{ $guru['username'] }}</th>
-                                        <th class="break-words max-w-[100px]">*********</th>
-                                        <th class="break-words max-w-[100px]">
-                                            <a href="admin/guru/{{ $guru->id }}"><span class="material-symbols-outlined">edit</span></a>
-                                            <a href="admin/guru/{{ $guru->id }}"><span class="material-symbols-outlined text-red-600">delete</span></a>
-                                        </th>
-                                    </tr>
-                                @endforeach
-                                
-                            </tbody>
-                        </table>
-                        <img class="absolute bottom-0 right-0 max-w-[25%]" style="z-index: -99;"
-                            src="{{ asset('assets/img/yellow-blue.png') }}" alt="">
+    <!-- head -->
+    <header class="flex justify-between px-10 py-5 max-w-[85rem] mx-auto">
+        <div>
+            <h1
+                class="text-2xl font-black before:absolute before:w-20 before:h-10 before:border-solid before:border-bg-blue-dark before:border-b-2">
+                Attendance STARBHAK</h1>
+            <h2 class="mt-3">Membuat Absensi sekolah menjadi Sistematis dan Efisien</h2>
+        </div>
+        <div>
+            <button
+                class="hover:bg-bg-blue-dark hover:text-white px-7 py-1 mt-5 border-bg-blue-dark border-solid border-2 rounded-md font-bold">Dokumentasi</button>
+        </div>
+    </header>
+    <!-- box -->
+    <div class="grid grid-cols-4 gap-6 shadow-box p-5 rounded-t-none rounded border-bg-blue-dark border-solid border-t-2 max-w-[85rem] mx-auto" id="box">
+
+    {{-- box --}}
+
+    </div>
+    <!-- layout Main -->
+    <main class="mt-10 max-w-[85rem] mx-auto">
+        <!-- container -->
+        <div class="flex justify-between">
+            <!-- table data guru -->
+            <div class="shadow-box p-5 w-[66%] rounded-2xl border-solid border-[0.1px] border-opacity-5 border-black" id="akun_guru">
+                <!-- top table -->
+                <div class="flex items-center justify-between">
+
+                    <div class="w-fit">
+                        <h1 class="font-bold text-2xl font-[Montserrat]">Data Guru</h1>
+                        <p>Kelola akun guru dengan menambah atau mengubah.</p>
+                    </div>
+
+                    <div class="flex">
+                        {{-- search --}}
+                        <form action="">
+                            <input id="search_guru" type="text" class=" border-solid border-2 border-dark-data mr-1 mt-0.5 py-1 px-2 rounded-md"
+                                placeholder="Cari nama guru">
+                        </form>
+                        <button
+                            class=" px-4  w-[40%] py-1 float-right bg-bg-blue-dark rounded-md text-white font-bold" onclick="location.href = 'admin/guru'">+
+                            Guru</button>
                     </div>
                 </div>
-            </div>
-            <!-- how to use? -->
-            <div class="border-blue border-[1px] border-solid rounded-xl my-5 px-5 py-4 relative ">
-                <h1
-                    class="text-xl w-fit border-solid border-b-2 border-blue text-blue font-bold mb-5 font-[Montserrat]">
-                    Apa saja yang bisa Admin lakukan?</h1>
-                <div class="overflow-auto h-40">
-                    <p>Admin bisa membuat 3 hal:</p>
-                    <ol class="ml-5 mb-5">
-                        <li>-Kelas</li>
-                        <li>-Mata Pelajaran</li>
-                        <li>-Akun Guru</li>
-                    </ol>
-                    <p>Cara Menambahkan: Kelas & Mata Pelajaran</p>
-                    <ol class="ml-5 mb-5">
-                        <li>1. Perhatikan field/kolom pada tabel di sebelah kanan</li>
-                        <li>2. Tiap-tiap tabel kanan, memiliki 1 kolom atau form untuk mengisi tabel dibawahnya</li>
-                        <li>3. Form atau data yang dimasukan bisa menjadi Opsi atau Pilihan Guru pada saat memilih studi
-                            apa yang mereka ajarkan.</li>
-                    </ol>
-                    <p>Cara Menambahkan: Akun Guru</p>
-                    <ol class="ml-5 mb-5">
-                        <li>1. Klik button “+Buat” maka anda akan diarahkan ke halaman pengisian data atau Form</li>
-                        <li>2. Dalam form ada 2 Data yang harus terisi di setiap kolom : Data DIri Guru & Akun yang
-                            nantinya digunakan Guru</li>
-                    </ol>
-                </div>
-                <img class="absolute bottom-0 left-0 max-w-[15%]" style="z-index: -99;"
-                    src="{{ asset('assets/img/yellow-blue-r.png') }}" alt="">
-            </div>
-        </div>
-        <!-- right bar -->
-        <div class="w-[33%]">
-            <!-- mapel -->
-            <div class="mt-[11.5rem] border-blueside text-blueside border-2 border-solid w-[90%] p-4 rounded">
-                <h3 class="text-lg font-semibold">Mata Pelajaran</h3>
-                <input type="text" class="border-blueside border-2 border-solid w-[68%] rounded"
-                    placeholder="Tambah Mapel" name="pelajaran" id="pelajaran">
-
-                @error('pelajaran')
-                    <small class="font-bold text-red-500">{{ $message }}</small>
-                @enderror
-
-                <button class="bg-blueside text-white py-0.5 px-3 rounded w-fit font-semibold" onclick="mapel_simpan()">
-                    simpan</button>
-                <div class="border-blueside text-blueside border-2 border-solid rounded-lg mt-5 h-60 overflow-y-auto p-2">
-                    <table class="w-full text-center">
-                        <thead class="table-fixed top-0 sticky z-10 bg-white">
-                            <tr class="border-blueside border-t-0 border-l-0 border-r-0 border-[1px] border-solid">
-                                <th>No</th>
-                                <th>Mapel</th>
-                                <th>Action</th>
+                <!-- table -->
+                <div class="mt-5 h-[50vh] w-full overflow-auto border-bg-blue-dark border-solid border-t-2" >
+                    <table class="w-full " cellpadding="2">
+                        <!-- header table -->
+                        <thead class="font-extrabold bg-white top-0 sticky z-10">
+                            <tr class="text-sm text-placeholder">
+                                <th class="p-3">No</th>
+                                <th class="p-3">Nama</th>
+                                <th class="p-3">NIP</th>
+                                <th class="p-3">Username</th>
+                                <th class="p-3">Password</th>
+                                <th class="p-3">Aksi</th>
                             </tr>
                         </thead>
-                        <tbody id="table_mapel">
-                            {{-- table mapel --}}
+                        <!-- body -->
+                        <tbody class="text-center text-base font-bold cursor-pointer select-none" id="data_guru">
+                            
+                            {{-- table guru --}}
+
                         </tbody>
                     </table>
                 </div>
             </div>
-            <!-- kelas -->
-            <div class="mt-5 border-blueside text-blueside border-2 border-solid w-[90%] p-4 rounded">
-                <h3 class="text-lg font-semibold">Kelas</h3>
-                <input type="text" class="border-blueside border-2 border-solid w-[68%] rounded"
-                    placeholder="Tambah Kelas" name="kelas" id="kelas">
-
-                    @error('kelas')
-                        <small class="font-bold text-red-500">{{ $message }}</small>
-                    @enderror
-
-                <button type="submit" class="bg-blueside text-white py-0.5 px-3 rounded w-fit font-semibold" onclick="kelas_simpan()">
-                    simpan</button>
-                <div class="border-blueside text-blueside border-2 border-solid rounded-lg mt-5 h-60 overflow-y-auto p-2">
-                    <table class="w-full text-center">
-                        <thead class="table-fixed top-0 sticky z-10 bg-white">
-                            <tr class="border-blueside border-t-0 border-l-0 border-r-0 border-[1px] border-solid">
-                                <th>No</th>
-                                <th>Kelas</th>
-                                <th>Action</th>
+            <!-- tabel data mapel -->
+            <div class="w-[33%] shadow-box p-5 rounded-2xl border-solid border-[0.1px] border-opacity-5 border-black" id="data_mapel">
+                <div>
+                    <h1 class="font-bold text-2xl font-[Montserrat]">Mata Pelajaran</h1>
+                    <p>Kelola mata pelajaran untuk guru.</p>
+                </div>
+                <div class="flex">
+                    <form action="" class="mr-20">
+                        <input type="text" id="pelajaran" class="border-solid border-2  border-dark-data mr-2 mt-0.5 py-1 px-2 rounded-md"
+                            placeholder="Mapel baru">
+                    </form>
+                    <button
+                        class=" w-[34%] px-4  py-2 float-right bg-bg-blue-dark rounded-md text-white font-bold" onclick="mapel_simpan()">+
+                        Mapel</button>
+                </div>
+                <!-- table -->
+                <div class="mt-5 h-[50vh] w-full overflow-auto border-bg-blue-dark border-solid border-t-2">
+                    <table class="w-full " cellpadding="2">
+                        <!-- header table -->
+                        <thead class="font-extrabold bg-white top-0 sticky z-10">
+                            <tr class="text-sm text-placeholder">
+                                <th class="p-3">No</th>
+                                <th class="p-3">Mapel</th>
+                                <th class="p-3">Aksi</th>
                             </tr>
                         </thead>
-                        <tbody id="table_kelas">
-                            {{-- table Kelas --}}
+                        <!-- body -->
+                        <tbody class="text-center text-base font-bold cursor-pointer select-none" id="table_mapel">
+                            {{-- table_mapel --}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- tabel data murid -->
+        <div class="shadow-box mt-5 p-5 w-[66%] rounded-2xl border-solid border-[0.1px] border-opacity-5 border-black">
+            <!-- top table -->
+            <div class="flex items-center justify-between">
+                <div class="w-fit">
+                    <h1 class="font-bold text-2xl font-[Montserrat]">Data Siswa</h1>
+                    <p>Kelola data siswa.</p>
+                </div>
+                <div class="flex">
+                    <form action="">
+                        <input id="search_siswa" type="text" class="border-solid border-2 border-dark-data mr-1 mt-0.5 py-1 px-2 rounded-md"
+                            placeholder="Cari nama siswa">
+                    </form>
                     
-                        </tbody>
-                    </table>
                 </div>
             </div>
+            <!-- table -->
+            <div class="mt-5 h-[50vh] w-full overflow-auto border-bg-blue-dark border-solid border-t-2">
+                <table class="w-full " cellpadding="2">
+                    <!-- header table -->
+                    <thead class="font-extrabold bg-white top-0 sticky z-10">
+                        <tr class="text-sm text-placeholder">
+                            <th class="p-3">No</th>
+                            <th class="p-3">Nama</th>
+                            <th class="p-3">Tgl/Lahir</th>
+                            <th class="p-3">Jenis Kelamin</th>
+                            <th class="p-3">Kelas</th>
+                            <th class="p-3">Aksi</th>
+                        </tr>
+                    </thead>
+                    <!-- body -->
+                    <tbody class="text-center text-base font-bold cursor-pointer select-none" id="data_siswa">
+                        
+                        {{-- table siswa --}}
+
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
-    <div class="relative -bottom-2">
-        <img class="absolute -bottom-5 left-0 max-w-[8%] -mr-1" src="{{ asset('assets/img/l-blue.png') }}" alt="">
-        <img class="absolute -bottom-5 right-0 max-w-[8%] -mr-1" src="{{ asset('assets/img/r-blue.png') }}" alt="">
-    </div>
+    </main>
+
+
+
 
     <!-- custom alert -->
     <script src="{{ asset('assets/JS/cstkei.alert.js') }}"></script>
@@ -209,11 +204,11 @@
         @if (Session::has("success"))
             <script>keiAlert("{{ session()->get('success') }}", 'done', 'bg-[#22c55e]')</script>
         @endif
-        
-    <script src="{{ asset('assets/JS/jquery.js') }}"></script>
 
     <script src="{{ asset('assets/JS/admin.js') }}"></script>
-  
+
+
+
 </body>
 
 </html>

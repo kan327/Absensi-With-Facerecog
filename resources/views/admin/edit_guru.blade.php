@@ -1,167 +1,180 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
-        <title>Dashboard</title>
-          
-        {{-- tailwind --}}
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>Edit Guru | Starbhak Absensi</title>
+      
+    {{-- tailwind --}}
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- style css -->
+
+    <link rel="stylesheet" href="{{ asset('assets/CSS/output.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/CSS/suport.css') }}">
     
-        <script src="https://cdn.tailwindcss.com"></script>
-    
-        <!-- style css -->
-    
-        <link rel="stylesheet" href="{{ asset('assets/CSS/output.css') }}">
-        <link rel="stylesheet" href="{{ asset('assets/CSS/suport.css') }}">
-        <!-- config -->
-        <script>
-            tailwind.config = {
-                theme: {
-                    extend: {
-                        colors: {
-                            'blue-dark': '#1061FF',
-                            'blue-table': '#002C9D',
-                            'blue': '#349DFD',
-                            'tet': '#001458',
-                            'unselect': '#BAC5E7',
-                            'tet-x': '#5A5A5A',
-                            'stroke': '#81B7E9',
-                            'blueside': '#93A2DA',
-                        },
-                        boxShadow: {
-                            nav: '2px 2px 50px 1px rgba(179, 185, 191, 0.1);',
-                            side: ' 0px 5px 10px rgba(0, 0, 0, 0.05);',
-                        }
+    <!-- config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'bg-blue-dark': '#2C3E50',
+                        'dark-data': '#393939',
+                        'placeholder': '#A0A0A0',
+                        'bg': '#FCFCFF',
                     },
-                }
+                    boxShadow: {
+                        nav: '2px 3px 3px 1px rgba(0, 0, 0, 0.1);',
+                        side: ' 0px 5px 10px rgba(0, 0, 0, 0.05);',
+                        stable: ' 0px 3px 4px rgba(0, 0, 0, 0.25);',
+                        box: ' 0px 4px 4px rgba(0, 0, 0, 0.25)',
+                    }
+                },
             }
-        </script>
-        <!-- font material ++ -->
-        <link rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;1,500&display=swap"
-            rel="stylesheet">
-    </head>
-<body>
+        }
+    </script>
+    <!-- font material ++ -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;1,500&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="text-bg-blue-dark overflow-y-auto m-5 mt-6">
     {{-- navbar --}}
     @include('partials.navbar_admin')
-    {{-- content --}}
-    <div class="absolute flex justify-center h-[87%] items-center top-12 w-full">
-    
-        <!-- card -->
-        <div class="flex h-[90%] w-[90%] bg-white">
-    
-            <!-- one -->
-            <div class="flex justify-center items-center h-full w-2/5 ">
-                <img src="{{ asset('assets/img/Group 291.png') }}" alt="">
-            </div>
-    
-            <!-- two -->
-            <div class="h-full pl-10 w-3/5">
-                <!-- judul -->
-                <h1
-                    class="w-full flex justify-center h-[10%] items-end text-2xl text-[#1A91FF] font-[montserrat] font-semibold">
-                    Tambah akun Guru
+
+    <!-- content -->
+    <div class="w-[100vw]">
+         <!-- card -->
+        <div style="border: 1px solid rgba(0, 0, 0, 0.1);
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" id="card" 
+        class="w-[60%] h-fit rounded-xl shadow-card my-[4%] p-10 mx-auto bg-white">
+            <!-- judul -->
+            <div class="flex items-center w-full h-[8%]">
+                <h1 class="border-b-[2px] border-[#393939]  font-[montserrat] text-2xl text-[#2C3E50] font-bold">
+                    Edit Akun Guru
                 </h1>
-    
+            </div>
+
+            <!-- subjudul -->
+            <div class="flex mt-2 items-center w-full">
+                <h1 class="capitalize font-[quicksands] text-base text-gray-500 font-medium">
+                    Harap Hati Hati Saat Mengedit Akun Guru.
+                </h1>
+            </div>
+
+             <!-- inputan -->
+            <form class="mt-2 w-full h-1/2" action="/admin/guru/{{ $gurus->id }}" method="POST">
+                @csrf
                 <!-- sub judul 1 -->
-                <h2 class="mt-5 items-end text-xl text-[#1A91FF] font-[montserrat] font-semibold">
+                <h2 class=" items-end text-xl text-[#2C3E50] font-[montserrat] font-semibold mb-2">
                     Data guru
                 </h2>
-    
-                {{-- form --}}
-                <form action="/admin/guru/{{ $gurus->id }}" method="post">
-                    @csrf
-                    <!-- input data guru -->
-                <div class="flex mt-5">
-    
+
+                <!-- input data guru -->
+                <div class="flex">
+
                     <!-- inputan kiri -->
                     <div class="w-1/2 h-fit">
-                        <input type="hidden" name="id" value="{{ $gurus->id }}">
-                        <p class="text-[#1061FF] font-[quicksands] text-lg font-semibold">
+                        <p class="text-[#2C3E50] font-[quicksands] text-lg font-semibold">
                             Nama Guru
                         </p>
-                        <input type="text" name="name" class="font-bold p-2 outline-none w-11/12 h-9 rounded-md border-solid border-[1px] border-[#1061FF]" value="{{ $gurus->name }}"><br>
+                        <input name="name" type="text" class="font-bold pl-3 outline-none w-[90%] h-8 rounded-md border-solid border-[1px] border-[#2C3E50]" value="{{ $gurus->name }}"><br>
                         @error('name')
                             <small class="text-red-500 font-bold">{{ $message }}</small>
                         @enderror
-    
-                        <p class="mt-6 text-[#1061FF] font-[quicksands] text-lg font-semibold">
+
+                        <p class=" text-[#2C3E50] font-[quicksands] mt-1 text-lg font-semibold">
                             Email Guru
                         </p>
-                        <input type="email" name="email" class="font-bold p-2 outline-none w-11/12 h-9 rounded-md border-solid border-[1px] border-[#1061FF]"  value="{{ $gurus->email }}"><br>
+                        <input name="email" type="email" class="font-bold pl-3 outline-none w-[90%] h-8 rounded-md border-solid border-[1px] border-[#2C3E50]" value="{{ $gurus->email }}"><br>
                         @error('email')
                             <small class="text-red-500 font-bold">{{ $message }}</small>
                         @enderror
                     </div>
-    
-    
+
+
                     <!-- inputan kanan -->
                     <div class="w-1/2 h-fit">
-                        <p class="text-[#1061FF] font-[quicksands] text-lg font-semibold">
+                        <p class="text-[#2C3E50] font-[quicksands] text-lg font-semibold">
                             NIP
                         </p>
-                        <input type="number" name="nip" class="font-bold p-2 outline-none w-11/12 h-9 rounded-md border-solid border-[1px] border-[#1061FF]"  value="{{ $gurus->nip }}"><br>
+                        <input name="nip" type="number" class="font-bold pl-3 outline-none w-[90%] h-8 rounded-md border-solid border-[1px] border-[#2C3E50]" value="{{ $gurus->nip }}">
+                        <br>
                         @error('nip')
                             <small class="text-red-500 font-bold">{{ $message }}</small>
                         @enderror
-    
-                        <p class="mt-6 text-[#1061FF] font-[quicksands] text-lg font-semibold">
+
+                        <p class=" text-[#2C3E50] mt-1 font-[quicksands] text-lg font-semibold">
                             No Telepon
                         </p>
-                        <input type="number" name="no_hp" class="font-bold p-2 outline-none w-11/12 h-9 rounded-md border-solid border-[1px] border-[#1061FF]"  value="0{{ $gurus->no_hp }}"><br>
+                        <input name="no_hp" type="number" class="font-bold pl-3 outline-none w-[90%] h-8 rounded-md border-solid border-[1px] border-[#2C3E50]" value="{{ $gurus->no_hp }}"><br>
                         @error('no_hp')
                             <small class="text-red-500 font-bold">{{ $message }}</small>
                         @enderror
                     </div>
                 </div>
-    
+
                 <!-- sub judul 2 -->
-                <h2 class="mt-5 items-end text-xl text-[#1A91FF] font-[montserrat] font-semibold">
+                <h2 class="mt-3 items-end text-xl text-[#2C3E50] font-[montserrat] font-semibold mb-2">
                     Akun guru
                 </h2>
-    
+
                 <!-- input akun guru -->
-                <div class="mt-5 flex">
-    
+                <div class="flex">
+
                     <!-- inputan kiri -->
                     <div class="w-1/2 h-fit">
-                        <p class="text-[#1061FF] font-[quicksands] text-lg font-semibold">
+                        <p class="text-[#2C3E50] font-[quicksands] text-lg font-semibold">
                             Username
                         </p>
-                        <input type="text" name="username" class="font-bold p-2 outline-none w-11/12 h-9 rounded-md border-solid border-[1px] border-[#1061FF]"  value="{{ $gurus->username }}"><br>
+                        <input name="username" type="text" class="font-bold pl-3 outline-none w-[90%] h-8 rounded-md border-solid border-[1px] border-[#2C3E50]"value="{{ $gurus->username }}"><br>
                         @error('username')
                             <small class="text-red-500 font-bold">{{ $message }}</small>
                         @enderror
                     </div>
-    
-    
+
+
                     <!-- inputan kanan -->
                     <div class="w-1/2 h-fit">
-                        <p class="text-[#1061FF] font-[quicksands] text-lg font-semibold">
+                        <p class="text-[#2C3E50] font-[quicksands] text-lg font-semibold">
                             Password
                         </p>
-                        <input type="password" name="password" class="font-bold p-2 outline-none w-11/12 h-9 rounded-md border-solid border-[1px] border-[#1061FF]" value="{{ $gurus->password }}"><br>
+                        <input name="password" type="password" class="font-bold pl-3 outline-none w-[90%] h-8 rounded-md border-solid border-[1px] border-[#2C3E50]" value="{{ $gurus->password }}"><br>
                         @error('password')
                             <small class="text-red-500 font-bold">{{ $message }}</small>
                         @enderror
-    
                     </div>
-                </div>
-                
-                
-                <!-- Button -->
-                <div class="flex justify-between w-full mt-5 pr-7">
-                    <a href="/admin" class="  hover:bg-red-500 text-lg text-white font-bold py-2 px-6 rounded-md bg-red-300  ">Kembali</a>
-                    <button type="submit" class=" hover:bg-blue text-lg text-white font-bold py-2 px-6 rounded-md bg-[#5BB1FF] ">Create Account</button>
+                    
+                    </div>
+                    
+                    <!-- button -->
+                    <div class="w-full mt-5 h-[5vh]">
+                        <a href="{{ url("/admin") }}"
+                            class="font-[quicksands] font-semibold text-[#2C3E50] mr-2 border-[2px] border-[#2C3E50] rounded p-1 px-2">Kembali
+                            </a>
+
+                        <button type="submit"
+                            class="font-[quicksands] font-semibold bg-[#2C3E50] text-white border-[2px] border-[#2C3E50] rounded w-[13%] h-full">Buat
+                            </button>
+                    </div>
+
+                    
                 </form>
-            </div>
-            </div>
-        </div>
-    </div>
+
+            
+
 </body>
+
 </html>
+
+
+<!-- npx tailwindcss -i ./src/input.css -o ./public/assets/css/output.css --watch -->

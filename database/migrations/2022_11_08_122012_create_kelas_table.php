@@ -16,6 +16,10 @@ return new class extends Migration
         Schema::create('kelas', function (Blueprint $table) {
             $table->id();
             $table->string('kelas');
+            $table->string('nama_grup');
+            $table->string('nama_walas');
+            $table->bigInteger('chat_id');
+            $table->string('status', 5)->default("up");
         });
     }
 

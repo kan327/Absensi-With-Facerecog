@@ -6,6 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile | Starbhak Absensi</title>
+
+    {{-- tailwind --}}
+    <script src="https://cdn.tailwindcss.com"></script>
+    {{-- alert --}}
+    <script src="{{ asset('assets/JS/cstkei.alert.js') }}"></script>
+
     <link rel="stylesheet" href="{{ asset('assets/CSS/output.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/CSS/suport.css') }}">
 
@@ -19,7 +25,7 @@
 
             display: inline-block;
             background-color: rgba(255, 255, 255, .9);
-            color: #adadad;
+            color: #A0A0A0;
             border-radius: 8px;
             white-space: nowrap;
             margin: 3px 0px;
@@ -58,9 +64,9 @@
         }
 
         li input[type="checkbox"]:checked+label {
-            border: 2px solid #3B55AA;
+            border: 2px solid #2C3E50;
             background-color: #ffffff;
-            color: #3B55AA;
+            color: #2C3E50;
             transition: all .2s;
         }
 
@@ -78,15 +84,16 @@
             theme: {
                 extend: {
                     colors: {
-                        'blue-dark': '#1061FF',
-                        'blue': '#349DFD',
-                        'tet': '#001458',
-                        'unselect': '#BAC5E7',
-                        'stroke': '#81B7E9',
+                        'bg-blue-dark': '#2C3E50',
+                        'dark-data': '#393939',
+                        'placeholder': '#A0A0A0',
+                        'bg': '#FCFCFF',
                     },
                     boxShadow: {
-                        nav: '2px 2px 50px 1px rgba(179, 185, 191, 0.1);',
+                        nav: '2px 3px 3px 1px rgba(0, 0, 0, 0.1);',
                         side: ' 0px 5px 10px rgba(0, 0, 0, 0.05);',
+                        stable: ' 0px 3px 4px rgba(0, 0, 0, 0.25);',
+                        box: ' 0px 4px 4px rgba(0, 0, 0, 0.25)',
                     }
                 },
             }
@@ -106,10 +113,10 @@
     CSS rules to specify families
 </head>
 
-<body class="text-tet">
+<body class="text-bg-blue-dark">
     <!-- navbar top -->
     @include('partials.navbar')
-
+    
     <!-- Sidebar left -->
     @include('partials.sidebar')
 
@@ -119,7 +126,7 @@
 
         <!-- profile -->
         <div class="w-full">
-            <h1 class="font-[montserrat] text-[#3C55AA] text-3xl font-bold mt-32">
+            <h1 class="font-[montserrat] text-bg-blue-dark text-3xl font-bold mt-32">
                 Profile
             </h1>
 
@@ -128,7 +135,7 @@
                 <!-- one -->
                 <div class="h-full pl-12 pt-5 w-1/2">
                     <!-- judul input -->
-                    <label class="font-[montserrat] text-[#3A3A3A] text-xl font-semibold">
+                    <label class="font-[montserrat] text-xl font-semibold">
                         Your NIP
                     </label>
 
@@ -144,7 +151,7 @@
                     <br></br>
 
                     <!-- judul input -->
-                    <label class="font-[montserrat] text-[#3A3A3A] text-xl font-semibold">
+                    <label class="font-[montserrat] text-xl font-semibold">
                         Fullname
                     </label>
 
@@ -163,7 +170,7 @@
                 <!-- two -->
                 <div class="h-full pl-12 pt-5 w-1/2">
                     <!-- judul input -->
-                    <label class="font-[montserrat] text-[#3A3A3A] text-xl font-semibold">
+                    <label class="font-[montserrat] text-xl font-semibold">
                         Email
                     </label>
 
@@ -173,13 +180,13 @@
                     </p>
 
                     <!-- input -->
-                    <input readonly type="text" value="{{ $data_guru->email }}"
+                    <input readonly value="{{ $data_guru->email }}"
                         class="w-2/3 pl-3 h-[40px] rounded-lg border-2 border-solid border-[#A0A0A0]">
 
                     <br></br>
 
                     <!-- judul input -->
-                    <label class="font-[montserrat] text-[#3A3A3A] text-xl font-semibold">
+                    <label class="font-[montserrat] text-xl font-semibold">
                         No.Telp
                     </label>
 
@@ -189,7 +196,7 @@
                     </p>
 
                     <!-- input -->
-                    <input type="text" readonly value="+62{{ $data_guru->no_hp }}"
+                    <input type="text" readonly value="{{ $data_guru->no_hp }}"
                         class="w-2/3 pl-3 h-[40px] rounded-lg border-2 border-solid border-[#A0A0A0]">
 
                 </div>
@@ -201,7 +208,7 @@
         </div>
         <!-- Choose your class -->
         <div class="w-full">
-            <h1 class="pt-5 pl-5 font-[montserrat] text-[#3C55AA] text-2xl font-bold ">
+            <h1 class="pt-5 pl-5 font-[montserrat] text-bg-blue-dark text-2xl font-bold ">
                 Choose your class
 
             </h1>
@@ -210,81 +217,65 @@
         <!-- bagian bawah -->
         <div class="flex pl-12 pt-5 w-full h-[45%]">
 
-            <form action="/profile" method="post">
-                @csrf
-                <!-- kiri bawah -->
-                <div class="h-full w-1/2 ">
-                    <!-- judul input -->
-                    <label class="font-[montserrat] text-[#3A3A3A] text-xl font-semibold">
-                        Class
-                    </label>
-                    <!-- checkbox -->
+            <!-- kiri bawah -->
+            <div class="h-full w-1/2 ">
+                <!-- judul input -->
+                <label class="font-[montserrat] text-xl font-semibold">
+                    Class
+                </label>
+                <!-- checkbox -->
+                <form action="/profile" method="post">
+                    @csrf
                     <div class="w-4/5 grid grid-cols-2  gap-3">
-
-                        @foreach ($data_kelas as $kelas)
-                            <li>
-                                <input type="checkbox" {{ ($kelas->id == $kelas->id) ? "checked" : '' }} id="checkbox{{ $no_kelas }}" name="kelas[]"
-                                    value="{{ $kelas->id }}">
-                                <label for="checkbox{{ $no_kelas++ }}">{{ $kelas->kelas }}</label>
-                            </li>
-                        @endforeach
-
+                    @foreach ($data_kelas as $kelas)
+                        <li>
+                            <input type="checkbox" @foreach($kelas_gurus as $kelas_guru) @if($kelas_guru->kelas->id == $kelas->id) {{ "checked" }} @endif @endforeach id="checkbox{{ $no_kelas }}" name="kelas[]"
+                                value="{{ $kelas->id }}">
+                            <label for="checkbox{{ $no_kelas++ }}">{{ $kelas->kelas }}</label>
+                        </li>
+                    @endforeach
                     </div>
+                <!-- </form> -->
 
-                </div>
+            </div>
 
-                <!-- kanan bawah -->
-                <div class="h-full w-1/2">
-                    <!-- judul input -->
-                    <label class="font-[montserrat] text-[#3A3A3A] text-xl font-semibold">
-                        Mata Pelajaran
-                    </label>
-                    <!-- checkbox -->
+            <!-- kanan bawah -->
+            <div class="h-full w-1/2">
+                <!-- judul input -->
+                <label class="font-[montserrat] text-xl font-semibold">
+                    Subject
+                </label>
+                <!-- checkbox -->
+                <!-- <form action=""> -->
                     <div class="w-4/5 grid grid-cols-2  gap-2">
                         @foreach ($data_mapels as $mapel)
                             <li>
-                                <input type="checkbox" {{ ($mapel->id) ? "checked" : '' }} id="mapel{{ $no_mapel }}" name="mapel[]" value="{{ $mapel->id }}">
+                                <input type="checkbox" @foreach($mapel_gurus as $mapel_guru) @if($mapel_guru->mapel->id == $mapel->id) {{ "checked" }} @endif @endforeach id="mapel{{ $no_mapel }}" name="mapel[]" value="{{ $mapel->id }}">
                                 <label for="mapel{{ $no_mapel++ }}">{{ $mapel->pelajaran }}</label>
                             </li>
                         @endforeach
-
-                        </li>
                         <!-- button -->
                         <div class="flex justify-center items-center w-5 h-5">
-
+    
                         </div>
-
+    
                     </div>
+                
 
-                </div>
+
+
+
+            </div>
+
 
         </div>
 
         <!-- button -->
-        <div class="w-full flex">
-
-            <div class=" ml-80 w-[30%] h-full">
-
-                <div class="flex w-full h-2/3">
-
-                    <div class="w-1/2 h-full">
-
-                        <a class="py-1 px-3 border-solid border-2 rounded-xl border-tet-x"
-                            onclick="location.href='/'">Cancel</a>
-                    </div>
-
-                    <div class="w-1/2 h-full">
-                        <button class="py-1 px-3 border-solid border-2 rounded-xl border-tet-x">Save</button>
-
-                    </div>
-                    </form>
-
-                </div>
-            </div>
+        <div class="w-full mb-10">
+            <button type="submit" class="px-4 py-1 relative left-[35%] border-bg-blue-dark border-solid border-2 rounded-md font-bold">simpan</button>
         </div>
-        <p class="mx-auto ml-[17.5rem]  font-[quicksand] font-medium text-lg text-[#595959]">Are you sure want to Save
-            it?</p>
-
+    </form>
+    </div>
 </body>
 
 </html>

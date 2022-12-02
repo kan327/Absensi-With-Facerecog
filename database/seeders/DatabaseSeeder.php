@@ -62,13 +62,22 @@ class DatabaseSeeder extends Seeder
 
         // menambah kelas
         DB::table('kelas')->insert([
-            "kelas"=>"XI PPLG 1"
+            "kelas"=>"XI PPLG 1",
+            "nama_grup"=>"PPLG 1 2022",
+            "nama_walas"=> "Shinta Nuralifah",
+            "chat_id"=> 87978979,
         ]);
         DB::table('kelas')->insert([
-            "kelas"=>"XI PPLG 2"
+            "kelas"=>"XI PPLG 2",
+            "nama_grup"=>"PPLG 2 2022",
+            "nama_walas"=> "Shinta Nuralifah",
+            "chat_id"=> 78878787878,
         ]);
         DB::table('kelas')->insert([
-            "kelas"=>"XI PPLG 3"
+            "kelas"=>"XI PPLG 3",
+            "nama_grup"=>"PPLG 3 2022",
+            "nama_walas"=> "Shinta Nuralifah",
+            "chat_id"=> 66768687,
         ]);
 
       

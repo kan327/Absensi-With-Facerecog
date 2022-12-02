@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('email', 25)->unique();
             $table->string('no_hp', 14)->unique();
             $table->string('password');
+            $table->string('status', 6)->default("up");
         });
     }
 

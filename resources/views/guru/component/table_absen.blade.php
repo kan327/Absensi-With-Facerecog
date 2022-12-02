@@ -1,6 +1,7 @@
-<table class="w-full" cellpadding="10">
+ <!-- table_absen -->
+ <table class="w-full" cellpadding="10" >
     <!-- header table -->
-    <thead class="font-extrabold bg-white top-0 sticky z-10">
+    <thead class="font-extrabold bg-white top-0 sticky z-10 bg-bg">
         <tr class="text-sm text-un-tet">
             <th class="p-3 w-32">No</th>
             <th class="p-3">Nama</th>
@@ -11,60 +12,99 @@
         </tr>
     </thead>
     <!-- body -->
-    <tbody class="text-center text-base font-bold text-n-tet-x cursor-pointer select-none">
+    <tbody class="text-center text-base font-bold text-n-tet-x cursor-pointer select-none relative">
 
-        @foreach ($data_absensi as $data_absen)
-            <tr class="text-black" id="dat-s-{{ $i }}" name="row-siswa">
+    @foreach ($data_absensi as $data_absen)
+        <tr class="text-black" id="dat-s-{{ $i }}" name="row-siswa">
+            <td style="border-top-left-radius: 12px; border-bottom-left-radius: 12px;">{{ $no++ }}</td>
 
-                <td style="border-top-left-radius: 12px; border-bottom-left-radius: 12px;">
-                    {{ $no++ }}</td>
+            <input type="hidden" value="{{ $data_absen->id }}" name="id_siswa">
 
-                <input type="hidden" value="{{ $data_absen->id }}" name="id_siswa">
+            <td class="">{{ $data_absen->siswa->nama_siswa }}</td>
+            <td name="jam_masuk">{{  $data_absen->masuk }}</td>
+            <td name="jam_pulang">{{ $data_absen->pulang }}</td>
 
-                <td class="text-left">{{ $data_absen->siswa->nama_siswa }}</td>
-                <td name="jam_masuk">{{  $data_absen->masuk }}</td>
-                <td name="jam_pulang">{{ $data_absen->pulang }}</td>
-                <td class="text-left">
+            <td class="text-center">
+                <!-- select keterangan -->
+                <select
+                    class="block text-center mx-auto py-2.5 px-2 text-sm text-white rounded-md bg-bg-blue-dark border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer" name="keterangan">
 
-                    <select class="custom-select mx-auto" name="keterangan" id="">
+                    <option value="Belum Hadir" {{ $data_absen->keterangan === 'Belum Hadir' ? 'selected' : '' }}>Belum Hadir</option>
 
-                        <option value="Belum Hadir" {{ $data_absen->keterangan === 'Belum Hadir' ? 'selected' : '' }}>
-                            Belum Hadir</option>
-                        <option value="Hadir" {{ $data_absen->keterangan === 'Hadir' ? 'selected' : '' }}>Hadir
-                        </option>
-                        <option value="Alpha" {{ $data_absen->keterangan === 'Alpha' ? 'selected' : '' }}>Alpha
-                        </option>
-                        <option value="Terlambat" {{ $data_absen->keterangan === 'Terlambat' ? 'selected' : '' }}>
-                            Terlambat</option>
-                        <option value="Sakit" {{ $data_absen->keterangan === 'Sakit' ? 'selected' : '' }}>Sakit
-                        </option>
-                        <option value="Izin" {{ $data_absen->keterangan === 'Izin' ? 'selected' : '' }}>Izin
-                        </option>
+                    <option value="Hadir" {{ $data_absen->keterangan === 'Hadir' ? 'selected' : '' }}> Hadir</option>
 
-                    </select>
+                    <option value="Alpha" {{ $data_absen->keterangan === 'Alpha' ? 'selected' : '' }}>Alpha</option>
 
-                </td>
-                <td style="border-top-right-radius: 12px; border-bottom-right-radius: 12px;">
-                    <label class="toggle">
-                        <input class="toggle__input" type="checkbox" onclick="tes('dat-s-{{ $i++ }}')"
-                            name="checkbox">
-                        <span class="toggle__label">
-                        </span>
-                    </label>
-                </td>
-            </tr>
-        @endforeach
+                    <option value="Terlambat" {{ $data_absen->keterangan === 'Terlambat' ? 'selected' : '' }}>Terlambat</option>
+
+                    <option value="Sakit" {{ $data_absen->keterangan === 'Sakit' ? 'selected' : '' }}>Sakit</option>
+
+                    <option value="Izin" {{ $data_absen->keterangan === 'Izin' ? 'selected' : '' }}>Izin
+                    </option>
+
+                </select>
+
+            </td>
+            <td style="border-top-right-radius: 12px; border-bottom-right-radius: 12px;">
+                <label class="toggle">
+                    <input class="toggle__input" type="checkbox"
+                        {{-- onclick="selectRow('dat-s-1', this)"  --}}
+                        onclick = 'tes("dat-s-{{ $i++ }}")' 
+                        name="checkbox">
+                    <span class="toggle__label">
+                    </span>
+                </label>
+            </td>
+        </tr>
+    @endforeach
+        <!-- pilih semua -->
+        <tr class="sticky -bottom-2 z-10 bg-bg">
+            <td colspan="4" ></td>
+            <td class="text-center">Pilih Semua</td>
+            <td>
+                <label class="toggle">
+                    <input class="toggle__input" type="checkbox"
+                        {{-- onclick="selectRow('dat-s-1', this)" --}}
+                         id="select_all">
+                    <span class="toggle__label">
+                    </span>
+                </label>
+            </td>
+        </tr>
 
     </tbody>
 </table>
-<div style="border-top: black solid 2px; padding: 10px 30px; display: flex; justify-content: space-between;">
-    <p>Centang Semua ---</p>
-    <input type="checkbox" onclick="centang(this)"></td>
-</div>
 
 
 
 <script>
+    var date = new Date()
+    var date_now = date.getHours()+":"+date.getMinutes()+":"+date.getSeconds()
+    var select_all = document.getElementById("select_all")
+    var checkbox = document.getElementsByName("checkbox")
+
+    var row_siswa = document.getElementsByName("row_siswa")
+
+    // var id_siswa = document.getElementById("dat-s-1")
+    
+    // id_siswa.classList.toggle("active")
+    
+    select_all.addEventListener("click", function(){
+        if(select_all.checked){
+            
+            for(i = 0; i < checkbox.length; i++){
+                checkbox[i].checked = true
+            }
+            
+        }else{
+            
+            for(i = 0; i < checkbox.length; i++){
+                checkbox[i].checked = false
+            }
+
+        }
+    })
+
     function centang(any) {
         if (any.checked) {
             var checkbox = document.getElementsByName('checkbox')
@@ -158,6 +198,8 @@
                     keiAlert(ress, "done", "bg-[#22c55e]")
                     
                     table_absen()
+
+                    box_absen_ket()
 
                 }
             });

@@ -9,19 +9,33 @@ body{
     font-family: quicksands;
     overflow-x: hidden;
 }
+
+html{
+    scroll-behavior: smooth;
+}
+
 ::-webkit-scrollbar {
     background: #BAC5E7;
     width: 5px;
 }
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
 ::-webkit-scrollbar-thumb {
-    background-color: #349DFD;
+    background-color: #2C3E50;
     border-radius: 10px;
 }
 .web-hover:hover ::-webkit-scrollbar{
     background: white;
 }
 .web-hover:hover ::-webkit-scrollbar-thumb{
-    background-color: #1061FF;
+    border-radius: 0px;
+    background-color: #2C3E50;
 }
 .in-hover-to:hover .this-one{
     color: #FF3939;
@@ -51,14 +65,14 @@ details {
 }
 
 .active{
-    background-color: #E8F4FF;
+    background-color: #F5F5F5;
 }
 .active details summary{
-    background-color: #3F80FF;
+    background-color: #2C3E50;
     color: white;
 }
 .active details summary{
-    background-color: #3F80FF;
+    background-color: #2C3E50;
     color: white;
 }
 
@@ -71,7 +85,7 @@ summary {
     cursor: pointer;
     border-radius: 5px;
     background-color: transparent;
-    border: #3F80FF 2px solid;
+    border: #2C3E50 2px solid;
     list-style: none;
     text-align: center;
 }
@@ -198,7 +212,7 @@ details label span {
 .toggle {
     --uiToggleSize: var(--toggleSize, 1.25rem);
     --uiToggleBorderWidth: var(--toggleBorderWidth, 2px);
-    --uiToggleColor: var(--toggleColor, #3F80FF);
+    --uiToggleColor: var(--toggleColor, #2C3E50);
     margin-top: 5px;
     display: var(--toggleDisplay, inline-flex);
     position: relative;
@@ -326,7 +340,7 @@ details label span {
     width: 20px;
     transition: all 0.15s ease-out 0s;
     background: transparent;
-    border: #1061FF 2px solid;
+    border: #2C3E50 2px solid;
     color: #fff;
     cursor: pointer;
     display: inline-block;
@@ -341,13 +355,13 @@ details label span {
   }
 
   .option-input:checked {
-    background: #1061FF;
+    background: #2C3E50;
   }
   .option-input:checked::after {
     -webkit-animation: click-wave 0.65s;
     -moz-animation: click-wave 0.65s;
     animation: click-wave 0.65s;
-    background: #1061FF;
+    background: #2C3E50;
     content: '';
     display: block;
     position: relative;
