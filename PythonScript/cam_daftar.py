@@ -69,42 +69,14 @@ def generate_dataset(nbr):
                 cap.release()
                 cv2.destroyAllWindows()
 
+
+
 def gen_data():
-    # Video streaming route. Put this in the src attribute of an img tag
-    vari = json.dumps(Response(generate_dataset(nubr), mimetype='multipart/x-mixed-replace; boundary=frame'))
+    # Video streaming method. Put this in the src attribute of an img tag
+    vari = Response(generate_dataset(nubr), mimetype='multipart/x-mixed-replace; boundary=frame')
     return vari
 
-@dataclass
-class GenEncoder:
-    def __init__(self, funcspas):
-        self.funcspas = funcspas
+# saya menemukan errornya, ternyata method Response harus diganti dengan method lain, saya belum tau ganti dari method responsenya, intinya harus diganti oleh method stream lain
 
-ins = GenEncoder(funcspas=gen_data())
-class InsGenEncoder(json.JSONEncoder):
-    def default(self,o):
-        if isinstance(o, GenEncoder):
-            return {'fun1': o.funcspas}
-        return super().default(o)
-
-json_p = json.dumps(ins, cls=InsGenEncoder, indent=4)
-print(json_p)
-
-
-
-
-
-
-################################
-# def gen_data():
-#     # Video streaming route. Put this in the src attribute of an img tag
-#     return json.dumps(Response(generate_dataset(nubr), mimetype='multipart/x-mixed-replace; boundary=frame'))
-    
-# func = {"function1": gen_data()}
-
-# print(json.dumps(func, iterable_as_array=True))
-
-################################
-
-# number = {"dataset" : generate_dataset(nubr)}
-# # print(number)
-# print(json.dumps(number, iterable_as_array=True))
+bisa = {"function1" : gen_data()}
+json_data = json.dumps(bisa)
