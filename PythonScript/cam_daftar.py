@@ -1,15 +1,11 @@
 import mysql.connector
 import cv2
 import sys
-from PIL import Image
-import numpy as np
-import os
-# import chardet
-import simplejson as json
-import time
-import pyttsx3
-from datetime import date, datetime
-  
+from flask import Response
+import json
+# import simplejson as json
+from json import JSONEncoder
+from dataclasses import dataclass
  
 cnt = 0
 pause_cnt = 0
@@ -24,14 +20,8 @@ mydb = mysql.connector.connect(
 
 mycursor = mydb.cursor() 
 
-speech = pyttsx3.init("sapi5")
-rate = speech.getProperty("rate")
-volume = speech.getProperty("volume")
-voices = speech.getProperty("voices")
-speech.setProperty("rate", 170)
-speech.setProperty("volume", 1)
-speech.setProperty("voice", voices[1].id)
 nubr = sys.argv[1]
+# nubr = 10
 
 def generate_dataset(nbr):
     face_classifier = cv2.CascadeClassifier("C:\\laragon\\www\\Absensi-With-Facerecog\\PythonScript\\xmlsrc\\haarcascade_frontalface_default.xml")
@@ -40,7 +30,7 @@ def generate_dataset(nbr):
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         faces = face_classifier.detectMultiScale(gray, 1.3, 5)
  
-        if faces is ():
+        if faces == ():
             return None
         for (x, y, w, h) in faces:
             cropped_face = img[y:y + h, x:x + w]
@@ -79,6 +69,14 @@ def generate_dataset(nbr):
                 cap.release()
                 cv2.destroyAllWindows()
 
-number = {"dataset" : generate_dataset(nubr)}
-# print(number)
-print(json.dumps(number, iterable_as_array=True))
+
+
+def gen_data():
+    # Video streaming method. Put this in the src attribute of an img tag
+    vari = Response(generate_dataset(nubr), mimetype='multipart/x-mixed-replace; boundary=frame')
+    return vari
+
+# saya menemukan errornya, ternyata method Response harus diganti dengan method lain, saya belum tau ganti dari method responsenya, intinya harus diganti oleh method stream lain
+
+bisa = {"function1" : gen_data()}
+json_data = json.dumps(bisa)
