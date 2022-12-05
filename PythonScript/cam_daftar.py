@@ -2,8 +2,10 @@ import mysql.connector
 import cv2
 import sys
 from flask import Response
-import json
-# import simplejson as json
+# import json
+# from json_tricks import dumps
+# from json_tricks import loads
+import simplejson as json
 from json import JSONEncoder
 from dataclasses import dataclass
  
@@ -70,13 +72,6 @@ def generate_dataset(nbr):
                 cv2.destroyAllWindows()
 
 
-
-def gen_data():
-    # Video streaming method. Put this in the src attribute of an img tag
-    vari = Response(generate_dataset(nubr), mimetype='multipart/x-mixed-replace; boundary=frame')
-    return vari
-
-# saya menemukan errornya, ternyata method Response harus diganti dengan method lain, saya belum tau ganti dari method responsenya, intinya harus diganti oleh method stream lain
-
-bisa = {"function1" : gen_data()}
-json_data = json.dumps(bisa)
+if __name__ == '__main__':
+    func = {'fun1' : generate_dataset(nubr)}
+    print(json.dumps(func, iterable_as_array=True))
