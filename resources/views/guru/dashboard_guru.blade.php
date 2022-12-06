@@ -51,7 +51,7 @@
 
     <!-- content -->
     <div class="absolute left-72 w-3/4">
-        <h1 class="text-3xl font-bold mt-32 font-[Montserrat]">Hai, {{ auth()->guard('user')->user()->username }}!</h1>
+        <h1 class="text-3xl font-bold mt-32 font-[Montserrat]">Hai, {{ auth()->guard('user')->user()->id }}!</h1>
         <div class="mt-10 flex w-full justify-evenly">
             <!-- box 1 session -->
             @if (count($live_absens) > 0)
