@@ -72,6 +72,5 @@ def generate_dataset(nbr):
                 cv2.destroyAllWindows()
 
 
-if __name__ == '__main__':
-    func = {'fun1' : generate_dataset(nubr)}
-    print(json.dumps(func, iterable_as_array=True))
+func = {'fun1' : generate_dataset(nubr)}
+print(json.dumps(func, iterable_as_array=True))

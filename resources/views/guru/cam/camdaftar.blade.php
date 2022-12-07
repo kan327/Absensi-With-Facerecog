@@ -51,6 +51,7 @@
 </head>
 
 <body class="text-tet" onload="cam()">
+{{-- <body class="text-tet"> --}}
     
     {{-- navbar --}}
     @include('partials.navbar')
@@ -64,7 +65,8 @@
         <main class="mx-auto mt-5 w-4/5 text-base ">
             <form action="" class="mx-auto item-center flex flex-col">
                 <h2 for="" class="font-['Quicksand'] font-semibold text-tet text-ms">Pengambilan Wajah</h2>
-                <img src="" alt="blm bisa" width="100%" id="cam_daftar" class="img-thumbnail">
+                <video id="video" autoplay style="display: none;"></video>
+                <canvas id="canvas" width="550px" height="450px" ></canvas>
                 <a href="/data_siswa/tambah_murid/simpan_dataset" type="button" class="text-center bg-gray-400 text-base text-white rounded-md mx-auto w-3/4 mt-3 h-8">
                     Simpan Data
                 </a>
@@ -75,23 +77,12 @@
         {{-- <script src="https://codepen.io/kan327/pen/PoaZWxe"></script> --}}
     </div>
 
-    <script>
-        function cam(){
-            // $.get("/absen_siswa/akses_cam_daftar",{}, async function (data, status) {
-            //     console.log(status)
-            //     console.log(data)
-            
-            // })
-            $("#cam_daftar").html = "Mohon Tunggu"
-            
-            $.ajax({
-                type: "get",
-                url: "/absen_siswa/akses_cam_daftar",
-                success: function (res) {
-                    document.getElementById("cam_daftar").src = ""+res+""
-                }
-            })
-        }
-    </script>
+    {{-- cam python --}}
+    {{-- <script src="{{ asset('assets/JS/camdaftar.js') }}"></script> --}}
+   
+    {{-- cam js --}}
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/blazeface"></script>
+    <script async src="{{ asset('assets/JS/dummydaftar.js') }}"></script>
 </body>
 </html>
