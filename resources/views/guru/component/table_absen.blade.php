@@ -195,7 +195,14 @@
                     console.log(ress)
 
                     
-                    keiAlert(ress, "done", "bg-[#22c55e]")
+                    
+                    Noticme.any({
+                        text: ress,
+                        type: 'success',
+                        timer: 3000,
+                        button: true
+                    })
+                      
                     
                     table_absen()
 
@@ -285,7 +292,12 @@
                     console.log(ress)
 
                     
-                    keiAlert(ress, "done", "bg-[#22c55e]")
+                    Noticme.any({
+                        text: ress,
+                        type: 'success',
+                        timer: 3000,
+                        button: true
+                    })
 
                     table_absen()
 
@@ -534,7 +546,12 @@
                 success: function(ress) {
 
                     
-                    keiAlert(ress, "done", "bg-[#22c55e]")
+                    Noticme.any({
+                        text: ress,
+                        type: 'success',
+                        timer: 3000,
+                        button: true
+                    })
 
                     table_absen()
                     

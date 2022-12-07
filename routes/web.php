@@ -8,6 +8,10 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\GuruController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/test', function(){
+    return view('main_guru');
+});
+
 // Guru Route
 Route::controller(GuruController::class)->group(function(){
 

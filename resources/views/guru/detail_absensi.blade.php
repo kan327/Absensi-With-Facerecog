@@ -1,64 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('main_guru')
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Absensi Siswa | Starbhak Absensi</title>
-    <!-- style css -->
-    <link rel="stylesheet" href="{{ asset('assets/CSS/output.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/CSS/suport.css') }}">
-
-    {{-- jquery --}}
-    <script src="{{ asset('assets/JS/jquery.js') }}"></script>
-
-    {{-- tailwind --}}
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- custom alert -->
-    <script src="{{ asset('assets/JS/cstkei.alert.js') }}"></script>
-
-    <!-- config -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'bg-blue-dark': '#2C3E50',
-                        'dark-data': '#393939',
-                        'placeholder': '#A0A0A0',
-                        'bg': '#FCFCFF',
-                    },
-                    boxShadow: {
-                        nav: '2px 3px 3px 1px rgba(0, 0, 0, 0.1);',
-                        side: ' 0px 5px 10px rgba(0, 0, 0, 0.05);',
-                        stable: ' 0px 3px 4px rgba(0, 0, 0, 0.25);',
-                        box: ' 0px 4px 4px rgba(0, 0, 0, 0.25)',
-                    }
-                },
-            }
-        }
-    </script>
-    <!-- font material ++ -->
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;1,500&display=swap"
-        rel="stylesheet">
-
-</head>
-
-<body class="text-bg-blue-dark">
-
-    <!-- navbar top -->
-    @include('partials.navbar')
-
-    <!-- Sidebar left -->
-    @include('partials.sidebar')
-
+@section('content')
     <!-- content -->
     <div class="absolute text-bg-blue-dark left-72 w-3/4 py-5 px-16 pb-20">
 
@@ -223,10 +165,6 @@
                 }
             }
         }
-
-
           
     </script>
-</body>
-
-</html>
+@endsection
