@@ -561,23 +561,8 @@ class GuruController extends Controller
 
     public function cam_masuk($tanggal, $kelas, $mapel)
     {
-        $process = new Process(['python ../../../PythonScript/cam_absen_masuk.py',$kelas]);
-        // $process->setTimeout(3600);
-        $process->run();
-        // $camera = video_feed();
-
-        if(!$process->isSuccessful())
-        {
-            throw new ProcessFailedException($process);
-        }
-
-
-        $data = $process->getOutput();
-        $datas = json_decode($data, true);
-
-        return view("guru.cam.absencam", [
+        return view("guru.cam_absen_masuk", [
             "title"=>"absensi",
-            "proccess"=>$process
         ]);
     }
 
