@@ -39,7 +39,7 @@ class AdminController extends Controller
             "gurus" =>  $guru,
             "mapels" => $mapel,
             "kelas" => $kelas,
-            "siswas"=>$siswa,
+            "siswas"=> $siswa,
             "no_guru" => 1,
             "no_siswa" => 1,
             "no_mapel" => 1,

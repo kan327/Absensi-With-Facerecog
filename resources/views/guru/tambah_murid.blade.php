@@ -107,27 +107,27 @@
                         </div>
 
                          <!-- button -->
-        <div class=" w-full h-1/2 flex">
+                    <div class=" w-full h-1/2 flex">
 
-            <div class=" h-full">
+                        <div class=" h-full">
 
-                <div class="flex w-full h-1/2">
+                            <div class="flex w-full h-1/2">
 
-                    <div class="flex items-center ">
-                        <a href="/data_kelas/{{ $kelas->first()->id }}" class="text-black border-black border-[1px] rounded mr-5 px-5 py-[4%] hover:scale-110 hover:bg-bg-blue-dark hover:text-white">Batal</a>
-                    </div>
+                                <div class="flex items-center ">
+                                    <a href="/data_kelas/{{ $kelas->first()->id }}" class="text-black border-black border-[1px] rounded mr-5 px-5 py-[4%] hover:scale-110 hover:bg-bg-blue-dark hover:text-white">Batal</a>
+                                </div>
 
-                    <div class="flex  items-center w-1/2 h-full ">
-                        <button class="text-black border-black border-[1px] rounded w-[70%] h-3/4 hover:scale-110 hover:bg-bg-blue-dark hover:text-white" type="submit">Simpan</button>
-                        
-                    </div>
-                </div>
+                                <div class="flex  items-center w-1/2 h-full ">
+                                    <button class="text-black border-black border-[1px] rounded w-[70%] h-3/4 hover:scale-110 hover:bg-bg-blue-dark hover:text-white" type="submit">Simpan</button>
+                                    
+                                </div>
+                            </div>
 
-                <div class="flex justify-center  w-full h-1/3">
-                    <p class="font-[quicksands] font-medium text-base text-[#595959]">Apakah anda yakin ingin menambahkan?</p>
-                </div>  
+                            <div class="flex justify-center  w-full h-1/3">
+                                <p class="font-[quicksands] font-medium text-base text-[#595959]">Apakah anda yakin ingin menambahkan?</p>
+                            </div>  
                 
-                        </form>
+            </form>
 
             
 

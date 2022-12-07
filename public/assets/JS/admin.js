@@ -4,6 +4,7 @@ $(document).ready(function () {
     box();
 });
 
+// setup csrf token
 $.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')
@@ -74,6 +75,7 @@ search_guru.addEventListener("keyup", function () {
 
 function live_search_guru(keyword = '') {
 
+    
     $("#data_guru").html("Mohon Tunggu Sebentar...")
 
     $.ajax({
@@ -98,9 +100,7 @@ search_siswa.addEventListener("keyup", function () {
 
 function live_search_siswa(keyword = ''){
 
-    if(keyword != ''){
-        $("#data_siswa").html("Mohon Tunggu Sebentar...")
-    }
+    $("#data_siswa").html("Mohon Tunggu Sebentar...")
 
     $.ajax({
         type: "GET",

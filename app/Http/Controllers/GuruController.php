@@ -438,7 +438,7 @@ class GuruController extends Controller
         ]);
     }
 
-    public function table_absen($tanggal, $kelas, $mapel)
+public function table_absen($tanggal, $kelas, $mapel)
     {
         $id_guru = auth()->guard("user")->user()->id;
         $data_absensi = AbsenSiswa::all()->where("kelas_id", $kelas)->where("tanggal", $tanggal);
