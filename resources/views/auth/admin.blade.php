@@ -76,7 +76,7 @@
                     </div>
 
                     <div class="flex lg:justify-end">
-                        <span class="text-white mt-3 font-[montserrat] text-2xl font-semibold">Selamat Pagi, Admin!</span>
+                        <span class="text-white mt-3 font-[montserrat] text-2xl font-semibold" id="time"></span>
                     </div>
                     
                     <!-- input -->
@@ -118,6 +118,24 @@
         </div>
             
     </div>
+
+    <script>
+        let date = new Date()
+        let time = document.getElementById("time")
+
+        var date_now = date.getHours()
+
+        if(date_now >= 00 && date_now < 10){
+            time.textContent = "Selamat Pagi, Admin";
+        }else if(date_now >= 10 && date_now < 15){
+            time.textContent = "Selamat Siang, Admin";
+        }else if(date_now >= 15 && date_now < 18){
+            time.textContent = "Selamat Sore, Admin";
+        }else if(date_now >= 18 && date_now < 00){
+            time.textContent = "Selamat Malam, Admin";
+        }
+
+    </script>
 </body>
 
 {{-- <!-- Tailwind -->

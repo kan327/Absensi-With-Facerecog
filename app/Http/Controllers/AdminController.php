@@ -86,7 +86,7 @@ class AdminController extends Controller
         mapel::insert([
             "pelajaran"=>$validasi['pelajaran']
         ]);
-
+        
         return redirect("/admin");
     }
 

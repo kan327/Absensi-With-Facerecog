@@ -119,9 +119,9 @@ class GuruController extends Controller
     public function absensi()
     {
         $id_guru = auth()->guard('user')->user()->id;
-        $guru = User::with(['user_kelas'],['user_mapels'])->get()->where("id", $id_guru);
+        $guru = User::with(['user_kelas'],['user_mapels'])->where("id", $id_guru)->get();
 
-        $data = JadwalAbsen::all()->where("user_id", $id_guru)->where("user_id", $id_guru);
+        $data = JadwalAbsen::all()->where("user_id", $id_guru);
         // dd($data);
         return view("guru.absensi", [
             "title" => "absensi",
@@ -149,7 +149,7 @@ class GuruController extends Controller
     public function table_kelas($id)
     {
         $kelas = kelas::all()->where("id", $id)->first();
-        $siswa = Siswa::all()->where("kelas_id", $kelas->id);
+        $siswa = Siswa::all()->where("kelas_id", $kelas->id)->where("status", "up");
         // dd($siswa);
         return view("guru.table_kelas", [
             "title"=>"data_kelas",

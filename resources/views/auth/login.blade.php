@@ -12,7 +12,7 @@
     {{-- tailwind --}}
     <script src="https://cdn.tailwindcss.com"></script>
     {{-- alert --}}
-    <script src="{{ asset('assets/JS/cstkei.alert.js') }}"></script>
+    <script src="{{ asset('assets/JS/noticme.min.js') }}"></script>
     
     <!-- roboto -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
@@ -76,7 +76,7 @@
                     </div>
 
                     <div class="flex lg:justify-end">
-                        <span class="text-white mt-3 font-[montserrat] text-2xl font-semibold">Selamat Pagi,Guru!</span>
+                        <span class="text-white mt-3 font-[montserrat] text-2xl font-semibold" id="time"></span>
                     </div>
 
                     <div class="flex lg:justify-end">
@@ -87,7 +87,7 @@
                     <form action="/login" method="POST">
                         @csrf
                         <div class="h-fit flex lg:justify-end  w-full">
-                            <input placeholder="Masukkan Email" name="email" class="border-b-[1px] placeholder:text-white placeholder:opacity-60 px-2 py-1 lg:w-2/3 w-full mt-5 text-white focus:outline-none bg-transparent" autocomplete="off" type="enail" >
+                            <input placeholder="Masukkan Email" name="email" class="border-b-[1px] placeholder:text-white placeholder:opacity-60 px-2 py-1 lg:w-2/3 w-full mt-5 text-white focus:outline-none bg-transparent" autocomplete="off" value="{{ old('email') }}" type="enail" >
                         </div>
 
                         <div class="h-fit flex lg:justify-end w-full">
@@ -104,18 +104,47 @@
                             <p>Lupa Password?  <span class="font-bold">Hubungi Admin</span></p>
                         </div>
                         @if (Session::has('success'))
-                            <script>keiAlert("{{ Session::get('success') }}", 'done', 'bg-[#22c55e]')</script>
-                            @endif
+                            <script>
+                                Noticme.any({
+                                    text: "{{ Session::get('success') }}",
+                                    type: 'success',
+                                    timer: 3000,
+                                    button: true
+                                })
+                            </script>    
+                        @endif
                             
                         @if (Session::has('wrong'))
-                            <script>keiAlert("{{ Session::get('wrong') }}", 'close', 'bg-red-600')</script>
+                            <script>
+                                Noticme.any({
+                                    text: "Gagal !",
+                                    messege: "{{ Session::get('wrong') }}",
+                                    type: 'danger',
+                                    button: true
+                                })
+                            </script>  
                         @endif
 
                         @error('email')
-                            <script>keiAlert("{{ $message }}", 'close', 'bg-red-600')</script>
+                            <script>
+                                Noticme.any({
+                                    text: "Gagal !",
+                                    messege: "{{ $message }}",
+                                    type: 'danger',
+                                    button: true
+                                })
+                            </script> 
                         @enderror
+
                         @error('password')
-                            <script>keiAlert("{{ $message }}", 'close', 'bg-red-600')</script>
+                            <script>
+                                Noticme.any({
+                                    text: "Gagal !",
+                                    messege: "{{ $message }}",
+                                    type: 'danger',
+                                    button: true
+                                })
+                            </script> 
                         @enderror
                     </form>
                     </div>
@@ -125,6 +154,25 @@
         </div>
             
     </div>
+
+    <script>
+        let date = new Date()
+        let time = document.getElementById("time")
+
+        var date_now = date.getHours()
+
+        if(date_now >= 00 && date_now < 10){
+            time.textContent = "Selamat Pagi, Guru";
+        }else if(date_now >= 10 && date_now <= 15){
+            time.textContent += "Selamat Siang, Guru";
+        }else if(date_now >= 15 && date_now <= 18){
+            time.textContent = "Selamat Sore, Guru";
+        }else if(date_now >= 18 && date_now <= 00){
+            time.textContent = "Selamat Malam, Guru";
+        }
+
+    </script>
+
 </body>
 
 {{-- <!-- Tailwind -->

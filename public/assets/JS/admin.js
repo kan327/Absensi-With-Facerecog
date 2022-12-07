@@ -97,7 +97,10 @@ search_siswa.addEventListener("keyup", function () {
 })
 
 function live_search_siswa(keyword = ''){
-    $("#data_siswa").html("Mohon Tunggu Sebentar...")
+
+    if(keyword != ''){
+        $("#data_siswa").html("Mohon Tunggu Sebentar...")
+    }
 
     $.ajax({
         type: "GET",
