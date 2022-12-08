@@ -284,13 +284,14 @@ class GuruController extends Controller
         $data_jadwal = JadwalAbsen::all()->where("user_id", $id_guru)->where("kelas_id", $kelas)->where("mapel_id", $mapel)->where("tanggal", $tanggal)->first();
         
         $data_siswa = Siswa::all()->where("kelas_id", $kelas);
-
+        $data_kelas = kelas::all()->where("id", $kelas)->where("status", "up");
         // $data_absensi = AbsenSiswa::all()->where("user_id", $id_guru)->where("kelas_id", $kelas)->where("tanggal", $tanggal);
 
         // dd($data_jadwal[0]);
         $belum_hadir = AbsenSiswa::all()->where("keterangan", "Belum Hadir")->where("kelas_id", $kelas)->where("tanggal", $tanggal);
         return view("guru.detail_absensi",[
             "title" => "absensi",
+            "data_kelas" => $data_kelas,
             "kelas" => $kelas,
             "no"=>1,
             "i"=>1,
@@ -516,53 +517,57 @@ public function table_absen($tanggal, $kelas, $mapel)
 
     }
 
-    public function akses_cam_daftar()
-    {
-        $data_siswa = DB::select('SELECT * FROM siswas ORDER BY id DESC LIMIT 1 ')[0]->id;
-        // dd($data_siswa);
-        $nbr = json_encode($data_siswa);
+    // public function akses_cam_daftar()
+    // {
+    //     $data_siswa = DB::select('SELECT * FROM siswas ORDER BY id DESC LIMIT 1 ')[0]->id;
+    //     // dd($data_siswa);
+    //     $nbr = json_encode($data_siswa);
 
-        $process = new Process(["python ../../../PythonScript/cam_daftar.py", $nbr]);
-        $process->setTimeout(0);
-        $process->run();
-        // dd($nbr);
+    //     $process = new Process(["python ../../../PythonScript/cam_daftar.py", $nbr]);
+    //     $process->setTimeout(0);
+    //     $process->run();
+    //     // dd($nbr);
         
-        if(!$process->isSuccessful())
-        {
-            throw new ProcessFailedException($process);
-        }
+    //     if(!$process->isSuccessful())
+    //     {
+    //         throw new ProcessFailedException($process);
+    //     }
         
-        $data = $process->getOutput();
-        $datas = json_decode($data, true);
-        return $datas;
-    }
+    //     $data = $process->getOutput();
+    //     $datas = json_decode($data, true);
+    //     return $datas;
+    // }
 
     public function simpan_dataset()
     {
-        $data_siswa = DB::select('SELECT * FROM siswas ORDER BY id DESC LIMIT 1 ')[0]->id;
-        // dd($data_siswa);
+        // $data_siswa = DB::select('SELECT * FROM siswas ORDER BY id DESC LIMIT 1 ')[0]->id;
+        // // dd($data_siswa);
         
-        $nbr = json_encode($data_siswa);
-        // dd($nbr);
-        $process = new Process(["python ../../../PythonScript/simpan_dataset.py",$nbr]);
-        $process->setTimeout(0);
-        $process->run();
+        // $nbr = json_encode($data_siswa);
+        // // dd($nbr);
+        // $process = new Process(["python ../../../PythonScript/simpan_dataset.py",$nbr]);
+        // $process->setTimeout(0);
+        // $process->run();
         
         
-        if(!$process->isSuccessful())
-        {
-            throw new ProcessFailedException($process);
-        }
+        // if(!$process->isSuccessful())
+        // {
+        //     throw new ProcessFailedException($process);
+        // }
         
-        $data = $process->getOutput();
-        $datas = json_decode($data, true);
+        // $data = $process->getOutput();
+        // $datas = json_decode($data, true);
         return redirect("/data_kelas")->with("success", "Data murid berhasil disimpan!");
     }
 
     public function cam_masuk($tanggal, $kelas, $mapel)
     {
+
         return view("guru.cam_absen_masuk", [
             "title"=>"absensi",
+            "tanggals"=>$tanggal,
+            "kelas"=>$kelas,
+            "mapels"=>$mapel,
         ]);
     }
 

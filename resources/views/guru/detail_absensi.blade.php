@@ -44,7 +44,7 @@
 
         <!-- tag -->
         <div class="flex my-5 justify-between">
-            <h1 class="text-2xl mt-2 font-bold text-blue-normal-19 font-[Montserrat]">Daftar Absensi | XI PPLG 1
+            <h1 class="text-2xl mt-2 font-bold text-blue-normal-19 font-[Montserrat]">Daftar Absensi | {{ $data_kelas->first()->kelas }}
             </h1>
             <button class="px-4 py-3 bg-bg-blue-dark rounded-xl text-white font-bold">Kirim Ke Telegram</button>
         </div>

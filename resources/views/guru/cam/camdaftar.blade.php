@@ -66,7 +66,6 @@
             <form action="" class="mx-auto item-center flex flex-col">
                 <h2 for="" class="font-['Quicksand'] font-semibold text-tet text-ms">Pengambilan Wajah</h2>
                 <video id="video" autoplay style="display: none;"></video>
-                <canvas id="canvas" width="550px" height="450px" ></canvas>
                 <a href="/data_siswa/tambah_murid/simpan_dataset" type="button" class="text-center bg-gray-400 text-base text-white rounded-md mx-auto w-3/4 mt-3 h-8">
                     Simpan Data
                 </a>
@@ -74,15 +73,9 @@
             </form>
         </main>
 
-        {{-- <script src="https://codepen.io/kan327/pen/PoaZWxe"></script> --}}
     </div>
-
-    {{-- cam python --}}
-    {{-- <script src="{{ asset('assets/JS/camdaftar.js') }}"></script> --}}
-   
+    {{-- <script src="https://codepen.io/kan327/pen/PoaZWxe"></script> --}}
     {{-- cam js --}}
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/blazeface"></script>
-    <script async src="{{ asset('assets/JS/dummydaftar.js') }}"></script>
+    
 </body>
 </html>
