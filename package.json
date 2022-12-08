@@ -1,17 +1,35 @@
 {
-    "private": true,
-    "scripts": {
-        "dev": "vite",
-        "build": "vite build"
-    },
-    "devDependencies": {
-        "axios": "^1.1.2",
-        "laravel-vite-plugin": "^0.6.0",
-        "lodash": "^4.17.19",
-        "postcss": "^8.1.14",
-        "vite": "^3.0.0"
-    },
-    "dependencies": {
-        "mysql": "^2.18.1"
-    }
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "devDependencies": {
+    "axios": "^1.1.2",
+    "laravel-vite-plugin": "^0.6.0",
+    "lodash": "^4.17.19",
+    "nodemon": "^2.0.20",
+    "postcss": "^8.1.14",
+    "vite": "^3.0.0"
+  },
+  "dependencies": {
+    "mysql": "^2.18.1"
+  },
+  "name": "absensi-with-facerecog",
+  "description": "<p align=\"center\"><a href=\"https://laravel.com\" target=\"_blank\"><img src=\"https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg\" width=\"400\" alt=\"Laravel Logo\"></a></p>",
+  "version": "1.0.0",
+  "main": "tailwind.config.js",
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZeroneDoo/Absensi-With-Facerecog.git"
+  },
+  "author": "pplg-1",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ZeroneDoo/Absensi-With-Facerecog/issues"
+  },
+  "homepage": "https://github.com/ZeroneDoo/Absensi-With-Facerecog#readme"
 }
