@@ -5,6 +5,7 @@ use App\Models\User;
 use App\Models\kelas;
 use App\Models\mapel;
 use App\Models\Siswa;
+use App\Models\image;
 use App\Models\UserKelas;
 use App\Models\UserMapel;
 use App\Models\AbsenSiswa;
@@ -538,26 +539,22 @@ public function table_absen($tanggal, $kelas, $mapel)
     //     return $datas;
     // }
 
+    public function simpan_gambar(Request $request)
+    {
+      
+        // if($request->hasFile('gambar')){
+        //     $request->file('gambar')->move('cam_js/images/',$request->file('gambar')->getClientOriginalName());
+          
+
+        // }
+        return "hallo";
+    
+        
+    }
+
     public function simpan_dataset()
     {
-        // $data_siswa = DB::select('SELECT * FROM siswas ORDER BY id DESC LIMIT 1 ')[0]->id;
-        // // dd($data_siswa);
-        
-        // $nbr = json_encode($data_siswa);
-        // // dd($nbr);
-        // $process = new Process(["python ../../../PythonScript/simpan_dataset.py",$nbr]);
-        // $process->setTimeout(0);
-        // $process->run();
-        
-        
-        // if(!$process->isSuccessful())
-        // {
-        //     throw new ProcessFailedException($process);
-        // }
-        
-        // $data = $process->getOutput();
-        // $datas = json_decode($data, true);
-        return redirect("/data_kelas")->with("success", "Data murid berhasil disimpan!");
+        return redirect("/data_kelas")->with("success", "Data murid berhasil disimpan");
     }
 
     public function cam_masuk($tanggal, $kelas, $mapel)
