@@ -10,15 +10,15 @@
 
 <body>
 
-    <table>
+    <table cellpadding = "1">
         <!-- header table -->
-        <thead >
-            <tr >
-                <th>No</th>
-                <th>Nama</th>
-                <th>Masuk</th>
-                <th>Pulang</th>
-                <th>Keterangan</th>
+        <thead>
+            <tr>
+                <th align="center"  style="font-weight: bold; height:30px; font-size: 13px; color: white; background-color: #10793F; border:1px solid black ;">No</th>
+                <th align="center" style="width: 200px; font-weight: bold; font-size: 13px; color: white; background-color: #10793F;border:1px solid black ;"><b>Nama</b></th>
+                <th align="center"  style="width: 200px; font-weight: bold; font-size: 13px; color: white; background-color: #10793F;border:1px solid black ;"><b>Masuk</b></th>
+                <th align="center"  style="width: 200px; font-weight: bold; font-size: 13px; color: white; background-color: #10793F;border:1px solid black ;"><b>Pulang</b></th>
+                <th align="center"  style="width: 200px; font-weight: bold; font-size: 13px; color: white; background-color: #10793F;border:1px solid black ;"><b>Keterangan</b></th>
             </tr>
         </thead>
         <!-- body -->
@@ -27,12 +27,12 @@
             @foreach ($data_absens as $data_absen)
                 <tr>
     
-                    <td >{{ $no++ }}</td>
+                    <td style = "border:1px solid black ;" align="center">{{ $no++ }}.</td>
     
-                    <td >{{ $data_absen->siswa->nama_siswa }}</td>
-                    <td >{{ $data_absen->masuk }}</td>
-                    <td >{{ $data_absen->pulang }}</td>
-                    <td >{{ $data_absen->keterangan }}</td>
+                    <td style = "border:1px solid black ;" align="center" >{{ $data_absen->siswa->nama_siswa }}</td>
+                    <td style = "border:1px solid black ;" align="center" >{{ $data_absen->masuk }}</td>
+                    <td style = "border:1px solid black ;" align="center" >{{ $data_absen->pulang }}</td>
+                    <td style = "border:1px solid black ;" align="center" >{{ $data_absen->keterangan }}</td>
 
                 </tr>
             @endforeach
