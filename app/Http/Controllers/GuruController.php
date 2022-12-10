@@ -47,7 +47,7 @@ class GuruController extends Controller
      
         // mengambil data absen
         if(count($live_absen) > 0){
-            $live_sisw_absen = AbsenSiswa::where("guru_id", $id_guru)->where("tanggal", $lives->tanggal)->where("kelas_id", $lives->kelas_id)->get();
+            $live_sisw_absen = AbsenSiswa::where("guru_id", $id_guru)->where("tanggal", $lives->tanggal)->where("kelas_id", $lives->kelas_id)->where("mapel_id",$lives->mapel_id)->get();
         }else{
             $live_sisw_absen = [];
         }
@@ -122,11 +122,18 @@ class GuruController extends Controller
     {
         $id_guru = auth()->user()->id;
         $guru = Guru::with(['guru_kelas', 'guru_mapel'])->where("id", $id_guru)->get();
+        $time_now = Carbon::now("Asia/Jakarta")->format("H:i:s");
+
+        // difforuhmans
+        // dd(Carbon::parse("2022/10/10")->diffForHumans());
+
+        // dd($time_now);
 
         $data = JadwalAbsen::all()->where("guru_id", $id_guru);
         // dd($data);
         return view("guru.absensi", [
             "title" => "absensi",
+            'time_now' => $time_now,
             "jadwal_absens"=>$data,
             'no_jadwal'=>1
         ]);
@@ -247,7 +254,7 @@ class GuruController extends Controller
             "batas_hadir" => $validasi['batas_hadir'],
         ]);
 
-        $data = AbsenSiswa::where("kelas_id", $validasi["kelas"])->where("tanggal", $date_now)->where("guru_id", $id_guru)->get();
+        $data = AbsenSiswa::where("guru_id", $id_guru)->where("kelas_id", $validasi["kelas"])->where("mapel_id", $validasi['mapel'])->where("tanggal", $date_now)->where("guru_id", $id_guru)->get();
         // $data = AbsenSiswa::all()->where("kelas_id", $validasi['kelas'])->where("tanggal", );
         // dd($data);
         if($query == true && count($data) < 1){
@@ -260,6 +267,7 @@ class GuruController extends Controller
                     "guru_id" => $id_guru,
                     "siswa_id" => $siswa[$i]->id,
                     "kelas_id" => $validasi['kelas'],
+                    "mapel_id" => $validasi['mapel'],
                     "tanggal" => Date::today(),
                     "keterangan" => "Belum Hadir",
                 ]);
@@ -274,7 +282,7 @@ class GuruController extends Controller
     public function hapus_jadwal($id, $tanggal, $kelas, $mapel)
     {
         $jadwal = JadwalAbsen::find($id);
-        $absen_siswa = AbsenSiswa::where("guru_id", auth()->user()->id)->where("tanggal", $tanggal)->where("kelas_id", $kelas);
+        $absen_siswa = AbsenSiswa::where("guru_id", auth()->user()->id)->where("tanggal", $tanggal)->where("kelas_id", $kelas)->where("mapel_id", $mapel);
         // dd($absen_siswa);
         $absen_siswa->delete();
         $jadwal->delete();
@@ -294,7 +302,7 @@ class GuruController extends Controller
         // $data_absensi = AbsenSiswa::all()->where("user_id", $id_guru)->where("kelas_id", $kelas)->where("tanggal", $tanggal);
 
         // dd($data_jadwal[0]);
-        $belum_hadir = AbsenSiswa::all()->where("keterangan", "Belum Hadir")->where("kelas_id", $kelas)->where("tanggal", $tanggal);
+        $belum_hadir = AbsenSiswa::all()->where("guru_id", $id_guru)->where("keterangan", "Belum Hadir")->where("kelas_id", $kelas)->where("mapel_id", $mapel)->where("tanggal", $tanggal);
         return view("guru.detail_absensi",[
             "title" => "absensi",
             "data_kelas" => $data_kelas,
@@ -328,7 +336,7 @@ class GuruController extends Controller
         // echo 'loop for';
         for($i = 0; $i < count($request->datas); $i++){
 
-            $absen_siswa = AbsenSiswa::where("tanggal", $tanggal)->where("guru_id", $id_guru)->where('kelas_id', $kelas)->where("id", $request->datas[$i]['id_siswa']);
+            $absen_siswa = AbsenSiswa::where("tanggal", $tanggal)->where("guru_id", $id_guru)->where('kelas_id', $kelas)->where("mapel_id", $mapel)->where("id", $request->datas[$i]['id_siswa']);
 
             $result = "absen ok";
 
@@ -361,7 +369,7 @@ class GuruController extends Controller
 
         for($i = 0; $i < count($request->datas); $i++){
 
-            $absen_siswa = AbsenSiswa::where("tanggal", $tanggal)->where("guru_id", $id_guru)->where('kelas_id', $kelas)->where("id", $request->datas[$i]['id_siswa']);
+            $absen_siswa = AbsenSiswa::where("tanggal", $tanggal)->where("guru_id", $id_guru)->where('kelas_id', $kelas)->where("mapel_id", $mapel)->where("id", $request->datas[$i]['id_siswa']);
 
             $result = "ok";
 
@@ -388,7 +396,7 @@ class GuruController extends Controller
         
         for($i = 0; $i < count($request->datas); $i++){
 
-            $absen_siswa = AbsenSiswa::where("tanggal", $tanggal)->where("guru_id", $id)->where('kelas_id', $kelas)->where("id", $request->datas[$i]['id_siswa']);
+            $absen_siswa = AbsenSiswa::where("tanggal", $tanggal)->where("guru_id", $id)->where('kelas_id', $kelas)->where("mapel_id", $mapel)->where("id", $request->datas[$i]['id_siswa']);
 
             $result = "ok";
 
@@ -407,15 +415,16 @@ class GuruController extends Controller
     // component
     public function box_absen_keterangan($tanggal, $kelas, $mapel)
     {
+        $id_guru = auth()->user()->id;
         $data_jadwal = JadwalAbsen::all()->where("kelas_id", $kelas)->where("mapel_id", $mapel)->where("tanggal", $tanggal)->first();
 
         $data_siswa = Siswa::all()->where("kelas_id", $kelas);
 
-        $data_absensi = AbsenSiswa::all()->where("kelas_id", $kelas)->where("tanggal", $tanggal);
+        $data_absensi = AbsenSiswa::all()->where("guru_id", $id_guru)->where("kelas_id", $kelas)->where("mapel_id", $mapel)->where("tanggal", $tanggal);
 
-        $belum_hadir = AbsenSiswa::all()->where("keterangan", "Belum Hadir")->where("kelas_id", $kelas)->where("tanggal", $tanggal);
+        $belum_hadir = AbsenSiswa::all()->where("guru_id", $id_guru)->where("keterangan", "Belum Hadir")->where("kelas_id", $kelas)->where("mapel_id", $mapel)->where("tanggal", $tanggal);
 
-        $hadir = AbsenSiswa::all()->where("keterangan", "Hadir")->where("kelas_id", $kelas)->where("tanggal", $tanggal);
+        $hadir = AbsenSiswa::all()->where("guru_id", $id_guru)->where("keterangan", "Hadir")->where("kelas_id", $kelas)->where("mapel_id", $mapel)->where("tanggal", $tanggal);
 
         return view("guru.component.box_absen_keterangan",[
             "data_jadwals"=>$data_jadwal,
@@ -428,7 +437,7 @@ class GuruController extends Controller
 public function table_absen($tanggal, $kelas, $mapel)
     {
         $id_guru = auth()->user()->id;
-        $data_absensi = AbsenSiswa::all()->where("kelas_id", $kelas)->where("tanggal", $tanggal);
+        $data_absensi = AbsenSiswa::all()->where("guru_id", $id_guru)->where("kelas_id", $kelas)->where("mapel_id", $mapel)->where("tanggal", $tanggal);
 
         $data_jadwal = JadwalAbsen::all()->where("kelas_id", $kelas)->where("mapel_id", $mapel)->where("tanggal", $tanggal);
 
@@ -517,7 +526,7 @@ public function table_absen($tanggal, $kelas, $mapel)
     public function cam_masuk($tanggal, $kelas, $mapel)
     {
 
-        $data_absen = AbsenSiswa::with(['siswa'])->where("kelas_id", $kelas)->get();
+        $data_absen = AbsenSiswa::with(['siswa'])->where("kelas_id", $kelas)->where("mapel_id", $mapel)->get();
         dd($data_absen->pluck("siswa_id"));
         return view("guru.cam_absen_masuk", [
             "title"=>"absensi",
@@ -543,7 +552,7 @@ public function table_absen($tanggal, $kelas, $mapel)
         $data_mapel = mapel::all()->where("id", $mapel);
         // dd($guru);
         // absen siswa
-        $absen_siswa = AbsenSiswa::with(['kelas', 'guru', 'siswa'])->where('tanggal', $tanggal)->where("guru_id", $id_guru)->where("kelas_id", $kelas)->get();
+        $absen_siswa = AbsenSiswa::with(['kelas', 'guru', 'siswa'])->where('tanggal', $tanggal)->where("guru_id", $id_guru)->where("kelas_id", $kelas)->where("mapel_id", $mapel)->get();
     
         $date = Carbon::createFromFormat('Y-m-d', $tanggal)->format('d F Y');
 

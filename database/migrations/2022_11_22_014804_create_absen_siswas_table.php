@@ -15,6 +15,7 @@ return new class extends Migration
             $table->foreignId("guru_id");
             $table->foreignId("siswa_id");
             $table->foreignId("kelas_id");
+            $table->foreignId("mapel_id");
             $table->date("tanggal");
             $table->string("masuk")->default("--");
             $table->string("pulang")->default("--") ;

@@ -32,7 +32,7 @@
                 <tbody class="text-center text-base font-bold cursor-pointer select-none">
 
                     @foreach ($jadwal_absens as $jadwal_absen)
-                    <tr class="hover:bg-[#F5F5F5] hover:font-bold rounded-full in-hover-to">
+                    <tr name="baris_jadwal" class="hover:bg-[#F5F5F5] hover:font-bold rounded-full in-hover-to">
                         <!-- please delete or reuse this onclick -->
                         <td class="p-3 font-semibold " style="border-top-left-radius: 12px; border-bottom-left-radius: 12px;">{{ $no_jadwal++ }}
                         </td>
@@ -59,13 +59,17 @@
 <script>
     var download_excel = document.getElementsByName("download_excel")
     var jam_pulang = document.getElementsByName("jam_pulang")
+    var baris_jadwal = document.getElementsByName("baris_jadwal")
     var date = new Date()
     var date_now = date.getHours()+":"+date.getMinutes()+":"+date.getSeconds()
 
     for(i=0; i < download_excel.length; i++){
         
-        if(date_now > jam_pulang[i].textContent){
-            // 
+        if("{{ $time_now }}" > jam_pulang[i].textContent){
+            baris_jadwal[i].addEventListener("click", ()=>{
+                location.href = ""
+            })
+            console.log(baris_jadwal)
             console.log(jam_pulang[i].textContent+" Di buka")
         }else{
             download_excel[i].style.pointerEvents = "none";

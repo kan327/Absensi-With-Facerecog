@@ -108,6 +108,10 @@ return [
     |
     */
 
+    // 'timezone' => 'Asia/Jakarta',
+
+    // 'locale' => 'id',
+
     'faker_locale' => env("FAKER_LOCALE",'en_US'),
 
     /*
