@@ -502,7 +502,6 @@ public function table_absen($tanggal, $kelas, $mapel)
 
     public function simpan_dataset()
     {
-        return redirect("/data_kelas")->with("success", "Data murid berhasil disimpan");
         return redirect("/data_kelas")->with("success", "Data murid berhasil disimpan!");
     }
 
