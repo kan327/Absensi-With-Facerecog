@@ -554,7 +554,7 @@ public function table_absen($tanggal, $kelas, $mapel)
         // absen siswa
         $absen_siswa = AbsenSiswa::with(['kelas', 'guru', 'siswa'])->where('tanggal', $tanggal)->where("guru_id", $id_guru)->where("kelas_id", $kelas)->where("mapel_id", $mapel)->get();
     
-        $date = Carbon::createFromFormat('Y-m-d', $tanggal)->format('d F Y');
+        $date = Carbon::parse($tanggal)->translatedFormat('d F Y');
 
         // return (new SiswaExport($absen_siswa->pluck("id"), $tanggal, $kelas, $mapel))->download("Absensi $tanggal Kelas {$data_kelas->first()->kelas} Mata Pelajaran {$data_mapel->first()->pelajaran}.xlsx");
         return Excel::download(new SiswaExport($absen_siswa->pluck("id"), $tanggal, $kelas, $mapel), "Absensi $date Kelas {$data_kelas->first()->kelas} Mata Pelajaran {$data_mapel->first()->pelajaran}.xlsx");

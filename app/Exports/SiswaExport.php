@@ -3,6 +3,9 @@
 namespace App\Exports;
 
 use App\Models\AbsenSiswa;
+use App\Models\kelas;
+use App\Models\mapel;
+use Carbon\Carbon;
 use Illuminate\Contracts\Auth\Access\Authorizable;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\DB;
@@ -42,16 +45,29 @@ class SiswaExport implements FromView
     use Exportable;
 
     protected $data_absensi;
+    protected $data_kelas;
+    protected $data_mapel;
+    protected $tanggal;
 
     public function __construct($id_absen, $tanggal, $kelas, $mapel)
     {
         $absen = AbsenSiswa::whereIn("id", $id_absen)->where("tanggal", $tanggal)->where("kelas_id", $kelas)->get();
+        $data_kelas = kelas::with(['siswas'])->find($kelas);
+        $data_mapel = mapel::find($mapel);
+
         $this->data_absensi = $absen;
+        $this->data_kelas = $data_kelas;
+        $this->data_mapel = $data_mapel;
+        $this->tanggal = $tanggal;
+        // dd(Carbon\Carbon::parse($tanggal)->translatedFormat("d F Y"));
     }
 
     public function view(): View
     {
         return view("guru.excels.table_excel",[
+            "kelas"=>$this->data_kelas,
+            "tanggal" => $this->tanggal,
+            "mapel"=>$this->data_mapel,
             'data_absens'=>$this->data_absensi,
             "no"=>1,
         ]);

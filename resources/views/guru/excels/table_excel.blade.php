@@ -10,11 +10,16 @@
 
 <body>
 
-    <table cellpadding = "1">
+    <div style="margin: 8px auto ;">
+        <h1 style="font-weight: bold; font-size: 14px; ">Data Absensi {{ Carbon\Carbon::parse($tanggal)->translatedFormat("d F Y") }}</h1>
+        <h1 style="font-weight: bold; font-size: 14px;">Kelas {{ $kelas->kelas }}</h1>
+        <h1 style="font-weight: bold; font-size: 14px;">Mata Pelajaran {{ $mapel->pelajaran }}</h1>
+    </div>
+    <table cellpadding = "1" style="margin: 8px auto;">
         <!-- header table -->
         <thead>
             <tr>
-                <th align="center"  style="font-weight: bold; height:30px; font-size: 13px; color: white; background-color: #10793F; border:1px solid black ;">No</th>
+                <th align="center"  style="font-weight: bold; font-size: 13px; color: white; background-color: #10793F; border:1px solid black ;">No</th>
                 <th align="center" style="width: 200px; font-weight: bold; font-size: 13px; color: white; background-color: #10793F;border:1px solid black ;"><b>Nama</b></th>
                 <th align="center"  style="width: 200px; font-weight: bold; font-size: 13px; color: white; background-color: #10793F;border:1px solid black ;"><b>Masuk</b></th>
                 <th align="center"  style="width: 200px; font-weight: bold; font-size: 13px; color: white; background-color: #10793F;border:1px solid black ;"><b>Pulang</b></th>
@@ -28,7 +33,6 @@
                 <tr>
     
                     <td style = "border:1px solid black ;" align="center">{{ $no++ }}.</td>
-    
                     <td style = "border:1px solid black ;" align="center" >{{ $data_absen->siswa->nama_siswa }}</td>
                     <td style = "border:1px solid black ;" align="center" >{{ $data_absen->masuk }}</td>
                     <td style = "border:1px solid black ;" align="center" >{{ $data_absen->pulang }}</td>
