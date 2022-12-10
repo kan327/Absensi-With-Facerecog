@@ -489,14 +489,21 @@ public function table_absen($tanggal, $kelas, $mapel)
 
     public function simpan_gambar(Request $request)
     {
-      
-        // if($request->hasFile('gambar')){
-        //     $request->file('gambar')->move('cam_js/images/',$request->file('gambar')->getClientOriginalName());
-          
-
-        // }
-        return "hallo";
-    
+        if(isset($_POST['photoStore'])) {
+            $encoded_data = $_POST['photoStore'];
+            $binary_data = base64_decode($encoded_data);
+        
+            $photoname = uniqid().'.jpg';
+        
+            $result = file_put_contents('uploadPhoto/'.$photoname, $binary_data);
+        
+            if($result) {
+                echo 'success';
+            } else {
+                echo die('Could not save image! check file permission.');
+            }
+        }
+        // return redirect();
         
     }
 

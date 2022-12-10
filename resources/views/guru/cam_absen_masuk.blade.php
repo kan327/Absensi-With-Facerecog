@@ -1,9 +1,10 @@
 @extends('main_guru')
 @section('content')
     <div class="absolute left-72 w-3/4">
-        <div
-            class="shadow-box mt-32 p-8 w-5/6 mx-auto rounded-2xl border-solid border-[0.1px] border-opacity-5 border-black" id="card_cam">
-            <video id="videoInput" width="700" height="500" muted controls class="mx-auto mt-4"></video>
+        <div class="shadow-box mt-32 p-8 w-5/6 mx-auto rounded-2xl border-solid border-[0.1px] border-opacity-5 border-black">
+            <div id="card_cam" class="relative">
+                <video id="videoInput" width="700" height="500" muted controls class="mx-auto mt-4"></video>
+            </div>
             <div class="button flex justify-center">
                 <button class="px-12 py-3 bg-bg-blue-dark rounded-xl text-white font-bold mt-8 flex mx-auto mb-2"
                     onclick="location.href = '/absen_siswa/{{ $tanggals }}/{{ $kelas }}/{{ $mapels }}'">Kembali</button>
@@ -16,6 +17,7 @@
 
     <script>
         const video = document.getElementById('videoInput')
+        const divSpesial = document.getElementById('card_cam')
         // document.getElementById("card_cam").innerHTML = "<center><h1>Mohon Tunggu...</h1></center>"
         Promise.all([
             faceapi.nets.faceRecognitionNet.loadFromUri("{{ asset('cam_js/models') }}"),
@@ -48,15 +50,15 @@
             video.addEventListener('play', async () => {
                 console.log('Playing')
                 const canvas = faceapi.createCanvasFromMedia(video)
-                document.body.append(canvas)
+
+                // document.body.append(canvas)
+                divSpesial.append(canvas)
 
                 const displaySize = {
                     width: video.width,
                     height: video.height
                 }
                 faceapi.matchDimensions(canvas, displaySize)
-
-
 
                 setInterval(async () => {
                     const detections = await faceapi.detectAllFaces(video).withFaceLandmarks()
@@ -76,7 +78,7 @@
                         })
                         drawBox.draw(canvas)
                     })
-                }, 100)
+                }, 10)
 
 
 

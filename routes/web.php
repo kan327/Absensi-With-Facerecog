@@ -48,7 +48,7 @@ Route::controller(GuruController::class)->group(function(){
 
     // Camera
     Route::get("/data_siswa/tambah_murid/cam_daftar", "cam_daftar")->middleware("isLoginGuru");
-    Route::get("/data_siswa/simpan", "simpan_gambar")->middleware("isLoginGuru")->name("gambar");
+    Route::post("/data_siswa/tambah_murid/simpan", "simpan_gambar");
     Route::get("/absen_siswa/akses_cam_daftar", "akses_cam_daftar");
     Route::get("/absen_siswa/{tanggal}/{kelas}/{mapel}/cam_masuk", "cam_masuk")->middleware("isLoginGuru");
     Route::get("/absen_siswa/{tanggal}/{kelas}/{mapel}/cam_pulang", "cam_pulang")->middleware("isLoginGuru");
