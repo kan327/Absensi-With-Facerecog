@@ -24,7 +24,7 @@
     <!-- Quicksand -->
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
     <script>
-        tailwind.config = {
+        tailwind.config = { 
             theme: {
                 extend: {
                     colors: {
