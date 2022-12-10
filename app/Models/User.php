@@ -8,10 +8,11 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -49,12 +50,12 @@ class User extends Authenticatable
         return $this->belongsTo(kelas::class);
     }
 
-    public function user_mapels()
+    public function guru_mapel()
     {
         return $this->belongsToMany(mapel::class, UserMapel::class);
     }
 
-    public function user_kelas()
+    public function guru_kelas()
     {
         return $this->belongsToMany(kelas::class, UserKelas::class);
     }

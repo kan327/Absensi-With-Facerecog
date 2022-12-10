@@ -17,7 +17,7 @@ class isGuru
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::guard("user")->check()){
+        if(Auth::check()){
             return redirect("/");
         }else if(Auth::guard("admin")->check()){
             return redirect("/admin");

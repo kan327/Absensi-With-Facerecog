@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class JadwalAbsen extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $guarded = ['id'];
 
@@ -21,8 +22,8 @@ class JadwalAbsen extends Model
         return $this->belongsTo(mapel::class);
     }
 
-    public function user()
+    public function guru()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Guru::class);
     }
 }

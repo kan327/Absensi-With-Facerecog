@@ -3,7 +3,7 @@
 @section('content')
 <!-- content -->
 <div class="absolute left-72 w-3/4">
-    <h1 class="text-3xl font-bold mt-32 font-[Montserrat]">Hai, {{ auth()->guard('user')->user()->username }}!</h1>
+    <h1 class="text-3xl font-bold mt-32 font-[Montserrat]">Hai, {{ auth()->user()->username }}!</h1>
     <div class="mt-10 flex w-full justify-evenly">
         <!-- box 1 session -->
         @if (count($live_absens) > 0)
@@ -47,7 +47,7 @@
             </div>
             <int class="font-bold text-sm mt-2 h-10 w-[80px] overflow-y-auto overflow-x-hidden">
                 @foreach ($gurus as $guru)
-                    @foreach ($guru->user_kelas as $kelas_guru)
+                    @foreach ($guru->guru_kelas as $kelas_guru)
                         {{ $kelas_guru->kelas }}<br>
                     @endforeach
                 @endforeach</int>
@@ -59,13 +59,13 @@
         <!-- box 1 bio -->
         <div
             class="shadow-box w-[28%] border-solid border-[0.1px] border-opacity-5 p-5 text-center border-black rounded-md text-dark-data">
-            <h1 class="font-bold text-xl font-[Montserrat]">{{ auth()->guard('user')->user()->name }}</h1>
+            <h1 class="font-bold text-xl font-[Montserrat]">{{ auth()->user()->name }}</h1>
             <p>GURU</p>
             <h2 class="mt-5 font-semibold font-[Montserrat]">Mata Pelajaran</h2>
             <p class="text-placeholder">
 
                 @foreach ($gurus as $guru)
-                    @foreach ($guru->user_mapels as $mapel_guru)
+                    @foreach ($guru->guru_mapel as $mapel_guru)
                         {{ $mapel_guru->pelajaran }}<br>
                     @endforeach
                 @endforeach

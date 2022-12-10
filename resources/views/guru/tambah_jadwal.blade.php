@@ -18,7 +18,7 @@
 
             <!-- sub judul -->
             <div class="flex items-center pl-5  h-1/5 w-full">
-                <p class="capitalize font-[montserrat] text-[#001458]">Hai {{ auth()->guard("user")->user()->username }} ! , mau mengajar apa hari ini?</p>
+                <p class="capitalize font-[montserrat] text-[#001458]">Hai {{ auth()->user()->username }} ! , mau mengajar apa hari ini?</p>
             </div>
 
             <!-- inputan 1 -->
@@ -32,7 +32,7 @@
                                 <summary class="radios" style="padding: 10px 10px; text-align: left;  border: #999bba solid 2px;">
 
                                     @foreach ($data_gurus as $data_guru)
-                                        @foreach ($data_guru->user_mapels as $mapel_guru)
+                                        @foreach ($data_guru->guru_mapel as $mapel_guru)
                                             <input type="radio" name="mapel" title="{{ $mapel_guru->pelajaran }}" id="{{ $mapel_guru->pelajaran }}" value="{{ $mapel_guru->id }}" checked>
                                         @endforeach
                                     @endforeach
@@ -41,7 +41,7 @@
                                 <ul class="list">
                                     
                                     @foreach ($data_gurus as $data_guru)
-                                        @foreach ($data_guru->user_mapels as $mapel_guru)
+                                        @foreach ($data_guru->guru_mapel as $mapel_guru)
                                             <li>
                                                 <label for="{{  $mapel_guru->pelajaran }}">
                                                     {{  $mapel_guru->pelajaran }}
@@ -60,7 +60,7 @@
                             <summary class="radios" style="padding: 10px 10px; text-align: left;  border: #999bba solid 2px;">
 
                                 @foreach($data_gurus as $data_guru)
-                                    @foreach($data_guru->user_kelas as $kelas_guru)
+                                    @foreach($data_guru->guru_kelas as $kelas_guru)
                                         <input type="radio" name="kelas" value="{{ $kelas_guru->id }}" id="{{ $kelas_guru->kelas }}" title="{{ $kelas_guru->kelas }}" checked>
                                     @endforeach
                                 @endforeach
@@ -68,7 +68,7 @@
                             </summary>
                             <ul class="list">
                                 @foreach ($data_gurus as $data_guru)
-                                    @foreach ($data_guru->user_kelas as $kelas_guru)
+                                    @foreach ($data_guru->guru_kelas as $kelas_guru)
                                         
                                     <li>
                                         <label for="{{ $kelas_guru->kelas }}">

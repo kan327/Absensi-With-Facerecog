@@ -68,6 +68,7 @@ Route::controller(AdminController::class)->group(function(){
     Route::get("/admin/grup_kelas", "grup_kelas")->middleware("isLoginGuru");
     Route::get("/admin/grup_kelas/{id}", "update_grup_kelas")->middleware("isLoginGuru");
     Route::get("/admin/murid/{id}", "update_siswa")->middleware("isLoginGuru");
+    // Route::get("/admin/mapel_update/{id}",  "update_mapel");
     
     // search
     Route::get("/admin/pino_bot/search", "search_grup_kelas")->middleware("isLoginGuru");
@@ -86,6 +87,7 @@ Route::controller(AdminController::class)->group(function(){
     
     // edit
     Route::post("/admin/guru/{id}", "edit_guru");
+    Route::post("/admin/mapel_update/{id}",  "edit_mapel");
     Route::post("/admin/grup_kelas/{id}",  "edit_grup_kelas");
     Route::post("/admin/murid/{id}", "edit_siswa")->middleware("isLoginGuru");
 
@@ -108,34 +110,3 @@ Route::controller(LoginController::class)->group(function(){
     Route::post('/logout', "logout");
 
 });
-
-
-// // Guru 
-// Route::get('/test', [DataPersonController::class, 'test']);
-// Route::get('/absensi', [GuruController::class, 'index'])->middleware('isLoginGuru');
-// Route::get("/absensi/siswa_masuk/{kelas}/{mapel}", [GuruController::class, "absen_siswa"]);
-// Route::get("/absensi/siswa_masuk/cam_masuk", [GuruController::class, "cam_masuk"]);
-// Route::get("/absensi/siswa_keluar/{kelas}/{mapel}", [GuruController::class, "absen_keluar_siswa"]);
-
-// // Admin
-// Route::controller(AdminController::class)->group(function(){
-//     Route::get("/admin/read_mapel", "read_mapel");
-//     Route::get("/admin/tambah_guru", "tambah_guru_view");
-//     Route::post("/admin/tambah_guru", "tambah_guru");
-//     Route::post("/admin/tambah_kelas", "tambah_kelas");
-//     Route::post("/admin/tambah_mapel", "tambah_mapel");
-// });
-
-// // Tampilan data siswa dan form tambah siswa
-// Route::controller(DataPersonController::class)->group(function(){
-//     Route::get("/siswa", "index");
-//     Route::get("/siswa/tambah", "form");
-//     Route::post("/siswa/tambah", "tambah_siswa");
-// });
-
-// Route::controller(AttendanceDatamasterController::class)->group(function(){
-//     Route::get("/absen_masuk", "absen_masuk");
-//     Route::get("/absen_pulang", "absen_pulang");
-//     Route::get("/cam_masuk", "absen_cam_masuk");
-//     Route::get("/cam_pulang", "absen_cam_pulang");
-// });

@@ -10,15 +10,16 @@ return new class extends Migration
     use SoftDeletes;
     public function up()
     {
-        Schema::create('absen_siswas', function (Blueprint $table) {
+        Schema::create('gurus', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("guru_id");
-            $table->foreignId("siswa_id");
-            $table->foreignId("kelas_id");
-            $table->date("tanggal");
-            $table->string("masuk")->default("--");
-            $table->string("pulang")->default("--") ;
-            $table->string("keterangan")->default("Belum Hadir");
+            $table->string('nip');
+            $table->string('name', 30);
+            $table->string('username', 20);
+            $table->string('email')->unique();
+            $table->string('no_hp')->unique();
+            $table->enum("jenis_kelamin", ['Laki-Laki', "Perempuan"]);
+            $table->string('password');
+            // $table->string('status', 6)->default("up");
             $table->softDeletes();
             $table->timestamps();
         });
@@ -31,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('absen_siswas');
+        Schema::dropIfExists('gurus');
     }
 };

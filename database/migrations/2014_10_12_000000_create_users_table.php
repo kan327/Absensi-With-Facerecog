@@ -1,16 +1,13 @@
 <?php
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
+    use SoftDeletes;
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
@@ -21,7 +18,9 @@ return new class extends Migration
             $table->string('email', 25)->unique();
             $table->string('no_hp', 14)->unique();
             $table->string('password');
-            $table->string('status', 6)->default("up");
+            // $table->string('status', 6)->default("up");
+            $table->softDeletes();
+            $table->timestamps();
         });
     }
 

@@ -1,16 +1,13 @@
 <?php
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
+    use SoftDeletes;
     public function up()
     {
         Schema::create('siswas', function (Blueprint $table) {
@@ -19,7 +16,9 @@ return new class extends Migration
             $table->foreignId("kelas_id");
             $table->enum("jenis_kelamin", ['Laki-laki','Perempuan']);
             $table->date("tgl_lahir");
-            $table->string("status",5)->default("up");
+            // $table->string("status",5)->default("up");
+            $table->softDeletes();
+            $table->timestamps();
         });
     }
 

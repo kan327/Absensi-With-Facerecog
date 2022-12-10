@@ -6,15 +6,16 @@ use App\Models\kelas;
 use App\Models\mapel;
 use App\Models\Siswa;
 use App\Models\UserKelas;
-use App\Models\UserMapel;
+use App\Models\GuruMapel;
 use App\Models\AbsenSiswa;
-use App\Models\AbsenExcel;
 use App\Models\JadwalAbsen;
 use App\Exports\SiswaExport;
 // use Maatwebsite\Excel\Excel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\Guru;
+use App\Models\GuruKelas;
 use Illuminate\Support\Facades\Date;
 use Maatwebsite\Excel\Facades\Excel;
 use Symfony\Component\Process\Process;
@@ -26,11 +27,11 @@ class GuruController extends Controller
     public function index()
     {
 
-        $id_guru = auth()->guard('user')->user()->id;
+        $id_guru = auth()->user()->id;
         
-        $data_guru = User::with(['user_mapels', 'user_kelas'])->where("id", $id_guru)->where("status", "up")->get();
+        $data_guru = Guru::with(['guru_mapel', 'guru_kelas'])->where("id", $id_guru)->get();
         
-        $live_absen = JadwalAbsen::with(['user', 'kelas', 'mapel'])->where('user_id', $id_guru)->where("status", "live")->orderBy('id', 'desc')->limit(1)->get();
+        $live_absen = JadwalAbsen::with(['guru', 'kelas', 'mapel'])->where('guru_id', $id_guru)->where("status", "live")->orderBy('id', 'desc')->limit(1)->get();
         
         // format tanggal
         $date = Date::today();
@@ -45,7 +46,7 @@ class GuruController extends Controller
      
         // mengambil data absen
         if(count($live_absen) > 0){
-            $live_sisw_absen = AbsenSiswa::where("user_id", $id_guru)->where("tanggal", $lives->tanggal)->where("kelas_id", $lives->kelas_id)->get();
+            $live_sisw_absen = AbsenSiswa::where("guru_id", $id_guru)->where("tanggal", $lives->tanggal)->where("kelas_id", $lives->kelas_id)->get();
         }else{
             $live_sisw_absen = [];
         }
@@ -63,19 +64,19 @@ class GuruController extends Controller
 
     public function profile()
     {
-        $id_guru = auth()->guard('user')->user()->id;
+        $id_guru = auth()->user()->id;
         // data master kelas
-        $kelas = kelas::all()->where("status", "up");
+        $kelas = kelas::all();
         // data master mapel
-        $mapel = mapel::all()->where("status", "up");
+        $mapel = mapel::all();
         // data master guru
-        $guru = User::all()->where('id', $id_guru)->where("status", "up")->first();
+        $guru = Guru::all()->where('id', $id_guru)->first();
 
         // kelas guru
-        $kelas_guru = UserKelas::with(['kelas', 'user'])->where("user_id", $id_guru)->get();
+        $kelas_guru = GuruKelas::with(['kelas', 'guru'])->where("guru_id", $id_guru)->get();
 
         // mapel guru
-        $mapel_guru = UserMapel::with(["user", "mapel"])->where("user_id", $id_guru)->get();
+        $mapel_guru = GuruMapel::with(["guru", "mapel"])->where("guru_id", $id_guru)->get();
 
         return view("guru.profile", [
             "title" => "profile_guru",
@@ -91,15 +92,15 @@ class GuruController extends Controller
 
     public function insert_profile(Request $request)
     {
-        $id_guru = auth()->guard('user')->user()->id;
+        $id_guru = auth()->user()->id;
         $req_kelas = $request->kelas;
         $req_mapel = $request->mapel;
 
         for($i = 0; $i < count($req_kelas); $i++){
             // dump($req_kelas[$i]);
                 
-            UserKelas::insert([
-                "user_id"=> $id_guru,
+            GuruKelas::create([
+                "guru_id"=> $id_guru,
                 "kelas_id"=> $req_kelas[$i],
             ]);
 
@@ -107,8 +108,8 @@ class GuruController extends Controller
 
         for($i = 0; $i < count($req_mapel); $i++){
             
-            UserMapel::insert([
-                "user_id"=> $id_guru,
+            GuruMapel::create([
+                "guru_id"=> $id_guru,
                 "mapel_id"=> $req_mapel[$i],
             ]);
         }
@@ -118,10 +119,10 @@ class GuruController extends Controller
 
     public function absensi()
     {
-        $id_guru = auth()->guard('user')->user()->id;
-        $guru = User::with(['user_kelas'],['user_mapels'])->where("id", $id_guru)->get();
+        $id_guru = auth()->user()->id;
+        $guru = Guru::with(['guru_kelas', 'guru_mapel'])->where("id", $id_guru)->get();
 
-        $data = JadwalAbsen::all()->where("user_id", $id_guru);
+        $data = JadwalAbsen::all()->where("guru_id", $id_guru);
         // dd($data);
         return view("guru.absensi", [
             "title" => "absensi",
@@ -132,10 +133,10 @@ class GuruController extends Controller
 
     public function data_kelas()
     {
-        $id_guru = auth()->guard('user')->user()->id;
+        $id_guru = auth()->user()->id;
         // data_guru
-        $data_guru = User::with(['user_mapels','user_kelas'])->where("id", $id_guru)->get()->first;
-        $kelas_guru = UserKelas::with(['user','kelas'])->where("user_id", $id_guru)->get();
+        $data_guru = Guru::with(['guru_mapel','guru_kelas'])->where("id", $id_guru)->get()->first;
+        $kelas_guru = GuruKelas::with(['guru','kelas'])->where("guru_id", $id_guru)->get();
         // dd($kelas_guru);
         
         return view("guru.data_kelas", [
@@ -149,7 +150,7 @@ class GuruController extends Controller
     public function table_kelas($id)
     {
         $kelas = kelas::all()->where("id", $id)->first();
-        $siswa = Siswa::all()->where("kelas_id", $kelas->id)->where("status", "up");
+        $siswa = Siswa::where("kelas_id", $kelas->id)->orderBy("nama_siswa", "ASC")->get();
         // dd($siswa);
         return view("guru.table_kelas", [
             "title"=>"data_kelas",
@@ -164,8 +165,8 @@ class GuruController extends Controller
         // $id_siswa = DB::select('SELECT ifnull(max(id) + 1 , 1) FROM siswas ');
         // dd($id_siswa);
 
-        $data_guru = User::with(['user_mapels', "user_kelas"])->get()->where("id", auth()->guard('user')->user()->id)->first();
-        // dd($data_guru->first()->user_mapels);
+        $data_guru = Guru::with(['guru_mapel', "guru_kelas"])->get()->where("id", auth()->user()->id)->first();
+        // dd($data_guru->first()->guru_mapel);
         $kelas = kelas::all()->where('id', $id); 
         $mapel = mapel::all();
         return view("guru.tambah_murid",[
@@ -180,7 +181,7 @@ class GuruController extends Controller
 
     public function insert_murid(Request $request)
     {
-        Siswa::insert([
+        Siswa::create([
             'nama_siswa'=>$request->nama,
             "kelas_id"=>$request->kelas,
             "jenis_kelamin" => $request->jeniskelamin,
@@ -195,7 +196,7 @@ class GuruController extends Controller
     // menampilkan tampilan tambah jadwal
     public function tambah_jadwal()
     {
-        $data_gurus = User::with(['user_mapels', "user_kelas"])->get()->where("id", auth()->guard('user')->user()->id);
+        $data_gurus = Guru::with(['guru_mapel', "guru_kelas"])->get()->where("id", auth()->user()->id);
             
         // $kelas = kelas::all(); 
         return view("guru.tambah_jadwal",[
@@ -209,7 +210,7 @@ class GuruController extends Controller
     // menambahkan data ke jadwal database
     public function insert_jadwal(Request $request)
     {
-        $id_guru = auth()->guard('user')->user()->id;
+        $id_guru = auth()->user()->id;
 
         // validasi
         $validasi = $request->validate([
@@ -227,14 +228,16 @@ class GuruController extends Controller
         ]);
 
         // checking jadwal absen
-        $jadwal = DB::select("SELECT * FROM jadwal_absens WHERE user_id = $id_guru AND kelas_id = $validasi[kelas] AND mapel_id = $validasi[mapel] AND tanggal = curdate()");
-        // dd(count($jadwal));
+        $date_now = Carbon::now()->format("Y-m-d");
+        // dd($date_now);
+        $jadwal = JadwalAbsen::all()->where('guru_id', $id_guru)->where("kelas_id",$validasi['kelas'])->where("mapel_id",$validasi['mapel'])->where("tanggal", $date_now);
+        // dd($jadwal);
         if(count($jadwal) > 0){
              return redirect("/absensi")->with("wrong", "Jadwal tersebut sudah tersedia!");
         }
 
-        $query = JadwalAbsen::insert([
-            "user_id" => auth()->guard('user')->user()->id,
+        $query = JadwalAbsen::create([
+            "guru_id" => auth()->user()->id,
             "tanggal" => Date::today(),
             "mapel_id" => $validasi['mapel'],
             "kelas_id" => $validasi['kelas'],
@@ -243,17 +246,17 @@ class GuruController extends Controller
             "batas_hadir" => $validasi['batas_hadir'],
         ]);
 
-        $data = DB::select("SELECT * FROM absen_siswas WHERE kelas_id = $validasi[kelas] AND tanggal = curdate() AND user_id = $id_guru");
+        $data = DB::select("SELECT * FROM absen_siswas WHERE kelas_id = $validasi[kelas] AND tanggal = curdate() AND guru_id = $id_guru");
         // $data = AbsenSiswa::all()->where("kelas_id", $validasi['kelas'])->where("tanggal", );
         // dd($data);
         if($query == true && count($data) < 1){
 
-            $siswa = DB::select("SELECT * FROM siswas WHERE status = 'up' AND kelas_id = $validasi[kelas] ORDER BY nama_siswa ASC");
+            $siswa = DB::select("SELECT * FROM siswas WHERE  kelas_id = $validasi[kelas] ORDER BY nama_siswa ASC");
             // dd($siswa);
             for($i = 0; $i < count($siswa); $i++){
 
-                AbsenSiswa::insert([
-                    "user_id" => $id_guru,
+                AbsenSiswa::create([
+                    "guru_id" => $id_guru,
                     "siswa_id" => $siswa[$i]->id,
                     "kelas_id" => $validasi['kelas'],
                     "tanggal" => Date::today(),
@@ -279,12 +282,12 @@ class GuruController extends Controller
     public function absen_siswa($tanggal, $kelas, $mapel)
     {   
         // $data_jadwal = DB::select("SELECT * FROM jadwal_absens WHERE kelas_id = $kelas AND mapel_id = $mapel AND tanggal = curdate()");
-        $id_guru = auth()->guard("user")->user()->id;
+        $id_guru = auth()->user()->id;
 
-        $data_jadwal = JadwalAbsen::all()->where("user_id", $id_guru)->where("kelas_id", $kelas)->where("mapel_id", $mapel)->where("tanggal", $tanggal)->first();
+        $data_jadwal = JadwalAbsen::all()->where("guru_id", $id_guru)->where("kelas_id", $kelas)->where("mapel_id", $mapel)->where("tanggal", $tanggal)->first();
         
         $data_siswa = Siswa::all()->where("kelas_id", $kelas);
-        $data_kelas = kelas::all()->where("id", $kelas)->where("status", "up");
+        $data_kelas = kelas::all()->where("id", $kelas);
         // $data_absensi = AbsenSiswa::all()->where("user_id", $id_guru)->where("kelas_id", $kelas)->where("tanggal", $tanggal);
 
         // dd($data_jadwal[0]);
@@ -311,10 +314,10 @@ class GuruController extends Controller
     {
         $result = "Data Gagal di update";
 
-        $id_guru = auth()->guard('user')->user()->id;
+        $id_guru = auth()->user()->id;
 
         // guru
-        $guru = User::all()->where("id", $id_guru);
+        $guru = Guru::all()->where("id", $id_guru);
 
         // kelas
         $data_kelas = kelas::all()->where("id", $kelas);
@@ -322,18 +325,11 @@ class GuruController extends Controller
         // echo 'loop for';
         for($i = 0; $i < count($request->datas); $i++){
 
-            $absen_siswa = DB::table("absen_siswas")->where("tanggal", $tanggal)->where("user_id", $id_guru)->where('kelas_id', $kelas)->where("id", $request->datas[$i]['id_siswa']);
-
-            $absen_excel = DB::table('absen_excels')->where('tanggal', $tanggal)->where("nama_guru", $guru->first()->name)->where("nama_kelas", $data_kelas->first()->kelas)->where("id", $request->datas[$i]['id_siswa']);
+            $absen_siswa = DB::table("absen_siswas")->where("tanggal", $tanggal)->where("guru_id", $id_guru)->where('kelas_id', $kelas)->where("id", $request->datas[$i]['id_siswa']);
 
             $result = "absen ok";
 
             $absen_siswa->update([
-                "masuk" => $request->datas[$i]['mulai'],
-                "keterangan" => $request->datas[$i]['check']
-            ]);
-
-            $absen_excel->update([
                 "masuk" => $request->datas[$i]['mulai'],
                 "keterangan" => $request->datas[$i]['check']
             ]);
@@ -352,29 +348,23 @@ class GuruController extends Controller
     {
         $result = "";
 
-        $id_guru = auth()->guard('user')->user()->id;
+        $id_guru = auth()->user()->id;
 
         // guru
-        $guru = User::all()->where("id", $id_guru);
+        $guru = Guru::all()->where("id", $id_guru);
         
         // kelas
         $data_kelas = kelas::all()->where("id", $kelas);
 
         for($i = 0; $i < count($request->datas); $i++){
 
-            $absen_siswa = DB::table("absen_siswas")->where("tanggal", $tanggal)->where("user_id", $id_guru)->where('kelas_id', $kelas)->where("id", $request->datas[$i]['id_siswa']);
-
-            // $absen_excel = DB::table('absen_excels')->where('tanggal', $tanggal)->where("nama_guru", $guru->first()->name)->where("nama_kelas", $data_kelas->first()->kelas)->where("id", $request->datas[$i]['id_siswa']);
+            $absen_siswa = DB::table("absen_siswas")->where("tanggal", $tanggal)->where("guru_id", $id_guru)->where('kelas_id', $kelas)->where("id", $request->datas[$i]['id_siswa']);
 
             $result = "ok";
 
             $absen_siswa->update([
                 "pulang" => $request->datas[$i]['data_pulang']
             ]);
-
-            // $absen_excel->update([
-            //     "pulang" => $request->datas[$i]['data_pulang']
-            // ]);
 
             $result = "Siswa berhasil di pulangkan" ;
         }
@@ -386,18 +376,16 @@ class GuruController extends Controller
         $result = "gagal";
 
         // id guru
-        $id = auth()->guard('user')->user()->id;
+        $id = auth()->user()->id;
 
-        DB::table("jadwal_absens")->where("user_id", $id)->where('tanggal', $tanggal)->where('kelas_id', $kelas)->where('mapel_id', $mapel)->update([
+        DB::table("jadwal_absens")->where("guru_id", $id)->where('tanggal', $tanggal)->where('kelas_id', $kelas)->where('mapel_id', $mapel)->update([
             "status"=>"down"
         ]);
 
         
         for($i = 0; $i < count($request->datas); $i++){
 
-            $absen_siswa = DB::table("absen_siswas")->where("tanggal", $tanggal)->where("user_id", $id)->where('kelas_id', $kelas)->where("id", $request->datas[$i]['id_siswa']);
-
-            // $absen_excel = DB::table('absen_excels')->where('tanggal', $tanggal)->where("nama_guru", $guru->first()->name)->where("nama_kelas", $data_kelas->first()->kelas)->where("id", $request->datas[$i]['id_siswa']);
+            $absen_siswa = DB::table("absen_siswas")->where("tanggal", $tanggal)->where("guru_id", $id)->where('kelas_id', $kelas)->where("id", $request->datas[$i]['id_siswa']);
 
             $result = "ok";
 
@@ -405,11 +393,6 @@ class GuruController extends Controller
                 "masuk" => $request->datas[$i]['jam_masuk'],
                 "keterangan" => $request->datas[$i]['keterangan']
             ]);
-
-            // $absen_excel->update([
-            //     "masuk" => $request->datas[$i]['jam_masuk'],
-            //     "keterangan" => $request->datas[$i]['keterangan']
-            // ]);
 
             $result = "Sesi Absen Telah Di Tutup";
 
@@ -441,7 +424,7 @@ class GuruController extends Controller
 
 public function table_absen($tanggal, $kelas, $mapel)
     {
-        $id_guru = auth()->guard("user")->user()->id;
+        $id_guru = auth()->user()->id;
         $data_absensi = AbsenSiswa::all()->where("kelas_id", $kelas)->where("tanggal", $tanggal);
 
         $data_jadwal = JadwalAbsen::all()->where("kelas_id", $kelas)->where("mapel_id", $mapel)->where("tanggal", $tanggal);
@@ -468,7 +451,6 @@ public function table_absen($tanggal, $kelas, $mapel)
 
     public function absen_keluar_siswa($jadwal ,$mapel, $kelas)
     {
-        // require "C:\laragon\www\Absensi-With-Facerecog\app\cam_absen_masuk.py";
 
         $process = new Process(['python ../../../app/absen_pulang.py']);
         // $process->setTimeout(0);
@@ -492,24 +474,6 @@ public function table_absen($tanggal, $kelas, $mapel)
 
     public function cam_daftar()
     {
-        // $data_siswa = DB::select('SELECT * FROM siswas ORDER BY id DESC LIMIT 1 ')[0]->id;
-        // // dd($data_siswa);
-        // $nbr = json_encode($data_siswa);
-
-        // $process = new Process(["python ../../../PythonScript/cam_daftar.py",$nbr]);
-        // $process->setTimeout(0);
-        // $process->run();
-        // // dd($nbr);
-        
-        // if(!$process->isSuccessful())
-        // {
-        //     throw new ProcessFailedException($process);
-        // }
-        
-        // $data = $process->getOutput();
-        // $datas = json_decode($data, true);
-        // dd($datas);
-        
         
         return view("guru.cam.camdaftar", [
             "title"=>"data_kelas",
@@ -519,44 +483,11 @@ public function table_absen($tanggal, $kelas, $mapel)
 
     // public function akses_cam_daftar()
     // {
-    //     $data_siswa = DB::select('SELECT * FROM siswas ORDER BY id DESC LIMIT 1 ')[0]->id;
-    //     // dd($data_siswa);
-    //     $nbr = json_encode($data_siswa);
 
-    //     $process = new Process(["python ../../../PythonScript/cam_daftar.py", $nbr]);
-    //     $process->setTimeout(0);
-    //     $process->run();
-    //     // dd($nbr);
-        
-    //     if(!$process->isSuccessful())
-    //     {
-    //         throw new ProcessFailedException($process);
-    //     }
-        
-    //     $data = $process->getOutput();
-    //     $datas = json_decode($data, true);
-    //     return $datas;
     // }
 
     public function simpan_dataset()
     {
-        // $data_siswa = DB::select('SELECT * FROM siswas ORDER BY id DESC LIMIT 1 ')[0]->id;
-        // // dd($data_siswa);
-        
-        // $nbr = json_encode($data_siswa);
-        // // dd($nbr);
-        // $process = new Process(["python ../../../PythonScript/simpan_dataset.py",$nbr]);
-        // $process->setTimeout(0);
-        // $process->run();
-        
-        
-        // if(!$process->isSuccessful())
-        // {
-        //     throw new ProcessFailedException($process);
-        // }
-        
-        // $data = $process->getOutput();
-        // $datas = json_decode($data, true);
         return redirect("/data_kelas")->with("success", "Data murid berhasil disimpan!");
     }
 
@@ -575,18 +506,18 @@ public function table_absen($tanggal, $kelas, $mapel)
     public function excel($tanggal, $kelas, $mapel){
         
         // id guru
-        $id_guru = auth()->guard('user')->user()->id;
+        $id_guru = auth()->user()->id;
         
         // kelas
         $data_kelas = kelas::all()->where("id", $kelas);
 
         // guru
-        $guru = User::all()->where('id', $id_guru);
+        $guru = Guru::all()->where('id', $id_guru);
 
         $data_mapel = mapel::all()->where("id", $mapel);
         // dd($guru);
         // absen siswa
-        $absen_siswa = AbsenSiswa::with(['kelas', 'user', 'siswa'])->where('tanggal', $tanggal)->where("user_id", $id_guru)->where("kelas_id", $kelas)->get();
+        $absen_siswa = AbsenSiswa::with(['kelas', 'guru', 'siswa'])->where('tanggal', $tanggal)->where("guru_id", $id_guru)->where("kelas_id", $kelas)->get();
     
         $date = Carbon::createFromFormat('Y-m-d', $tanggal)->format('d F Y');
 

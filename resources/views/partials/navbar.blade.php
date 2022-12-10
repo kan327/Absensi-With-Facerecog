@@ -7,7 +7,7 @@
     </div>
     <div class="flex">
         <p class="py-1 mr-2 font-semibold">
-            {{ auth()->guard("user")->user()->username }} |</p>
+            {{ auth()->user()->username }} |</p>
         <form action="/logout", method="post">
             @csrf
             <button type="submit" class="bg-bg-blue-dark text-white px-2 py-1 rounded-md ">

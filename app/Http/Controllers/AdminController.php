@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Admin;
+use App\Models\Guru;
 use App\Models\JadwalAbsen;
 use App\Models\kelas;
 use App\Models\mapel;
@@ -22,7 +23,7 @@ class AdminController extends Controller
     public function index_admin()
     {
         // mengambil data guru
-        $guru = User::all()->where("status", "up");
+        $guru = Guru::all();
 
         // mengambil data mapel
         $mapel = mapel::all();
@@ -38,6 +39,7 @@ class AdminController extends Controller
             "title" => "dashboard_admin",
             "gurus" =>  $guru,
             "mapels" => $mapel,
+            "mapel" => [],
             "kelas" => $kelas,
             "siswas"=> $siswa,
             "no_guru" => 1,
@@ -50,10 +52,10 @@ class AdminController extends Controller
     // menampilkan box
     public function box()
     {
-        $siswa = Siswa::all()->where("status", "up");
-        $kelas = kelas::all()->where("status", "up");
-        $guru = User::all()->where("status", "up");
-        $mapel = mapel::all()->where("status", "up");
+        $siswa = Siswa::all();
+        $kelas = kelas::all();
+        $guru = Guru::all();
+        $mapel = mapel::all();
 
         return view("admin.component.box", [
             "kelas"=>$kelas,
@@ -66,7 +68,7 @@ class AdminController extends Controller
     // menampilkan data dari table mapel
     public function table_mapel()
     {
-        $data = mapel::all()->where("status", "up");
+        $data = mapel::all();
 
         return view("admin.component.table_mapel", [
             "mapels"=>$data,
@@ -83,21 +85,26 @@ class AdminController extends Controller
             "pelajaran.required"=> "Pelajaran tidak boleh kosong!"
         ]);
 
-        mapel::insert([
+        mapel::create([
             "pelajaran"=>$validasi['pelajaran']
         ]);
         
-        return redirect("/admin");
+        return "Mata Pelajaran Baru Berhasil Dibuat";
+    }
+
+    public function update_mapel($id)
+    {
+        $mapel = mapel::find($id);
+        dd($mapel);
+        return redirect("/admin")->with("mapel", $mapel);
     }
 
     // menghapus data mapel
 
     public function delete_mapel($id)
     {
-        $mapel = DB::table("mapels")->where("id", $id)->where("status", "up");
-        $mapel->update([
-            "status"=>"down",
-        ]);
+        $mapel = mapel::find($id);
+        $mapel->delete();
 
         return redirect("/admin")->with("success", "Mapel berhasil di hapus");
 
@@ -136,25 +143,26 @@ class AdminController extends Controller
     {
         $validasi = $request->validate([
             "name" => "required",
-            "nip" => "required",
+            "nip" => "required|unique:gurus",
             "email" => "required|email:dns",
             "no_hp" => "required|max:13",
             "username" => "required|max:12",
             "password" => "required|min:5",
         ],[
-            "name.required" => "Nama guru wajib di isi!",
-            "nip.required" => "Nomer Induk Pegawai wajib di isi!",
-            "email.required" => "Email wajib di isi!",
-            "email.email" => "Email harus valid!",
-            "no_hp.required" => "Nomor handphone wajib di isi!",
-            "no_hp.max" => "Nomor handphone maximal 13 karakter!",
-            "username.required" => "Username wajib di isi!",
-            "username.max" => "Username maximal 12 karakter!",
+            "name.required" => "Nama Guru Wajib di Isi!",
+            "nip.required" => "Nomer Induk Pegawai Wajib di Wsi!",
+            "nip.unique" => "Nomer Induk Pegawai Sudah Terpakai!",
+            "email.required" => "Email Wajib di Isi!",
+            "email.email" => "Email Harus Valid!",
+            "no_hp.required" => "Nomor Handphone Wajib di Isi!",
+            "no_hp.max" => "Nomor Handphone Maximal 13 Karakter!",
+            "username.required" => "Username Wajib di Isi!",
+            "username.max" => "Username Maximal 12 Karakter!",
             "password.required" => "Password wajib di isi!",
-            "password.min" => "Password minimal 5 karakter!",
+            "password.min" => "Password Minimal 5 Karakter!",
         ]);
 
-        $data = User::insert([
+        $data = Guru::create([
             "nip" => $validasi['nip'],
             "name" => $validasi['name'],
             "username" => $validasi['username'],
@@ -169,18 +177,16 @@ class AdminController extends Controller
     public function delete_guru($id)
     {
 
-        $guru = DB::table("users")->where("id", $id);
-        $guru->update([
-            "status"=>"down"
-        ]);
+        $guru = Guru::find($id);
+        $guru->delete();
 
-        return redirect('/admin')->with("success", "Data guru berhasil di hapus");
+        return redirect('/admin')->with("success", "Data Guru Berhasil di Hapus");
     }
 
     // view guru update
     public function update_guru($id)
     {
-        $guru = User::find($id);
+        $guru = Guru::find($id);
 
         return view("admin.edit_guru",[
             "title"=>"dashboard_admin",
@@ -199,19 +205,20 @@ class AdminController extends Controller
             "username" => "required|max:12",
             "password" => "required|min:5",
         ],[
-            "name.required" => "Nama guru wajib di isi!",
-            "nip.required" => "Nomer Induk Pegawai wajib di isi!",
-            "email.required" => "Email wajib di isi!",
-            "email.email" => "Email harus valid!",
-            "no_hp.required" => "Nomor handphone wajib di isi!",
-            "no_hp.max" => "Nomor handphone maximal 13 karakter!",
-            "username.required" => "Username wajib di isi!",
-            "username.max" => "Username maximal 12 karakter!",
+            "name.required" => "Nama Guru Wajib di Isi!",
+            "nip.required" => "Nomer Induk Pegawai Wajib di Wsi!",
+            "nip.unique" => "Nomer Induk Pegawai Sudah Terpakai!",
+            "email.required" => "Email Wajib di Isi!",
+            "email.email" => "Email Harus Valid!",
+            "no_hp.required" => "Nomor Handphone Wajib di Isi!",
+            "no_hp.max" => "Nomor Handphone Maximal 13 Karakter!",
+            "username.required" => "Username Wajib di Isi!",
+            "username.max" => "Username Maximal 12 Karakter!",
             "password.required" => "Password wajib di isi!",
-            "password.min" => "Password minimal 5 karakter!",
+            "password.min" => "Password Minimal 5 Karakter!",
         ]);
 
-        $data = DB::table("users")->where("id", $id);
+        $data = Guru::find($id);
 
         $data->update([
             "nip" => $validasi['nip'],
@@ -224,7 +231,7 @@ class AdminController extends Controller
 
         // $data->save();
 
-        return redirect("/admin")->with("success", "Data guru berhasil di ubah");
+        return redirect("/admin")->with("success", "Data Guru Berhasil di Ubah");
     }
     
 
@@ -238,7 +245,7 @@ class AdminController extends Controller
             "pelajaran.unique"=>"Mata pelajaran tersebut sudah ada!"
         ]);
 
-        mapel::insert([
+        mapel::dcreate([
             "pelajaran"=> $validasi['pelajaran']
         ]);
 
@@ -248,7 +255,7 @@ class AdminController extends Controller
     // pino bot
     public function pino_bot()
     {
-        $kelas = kelas::all()->where("status", "up");
+        $kelas = kelas::all();
         return view("admin.pino_bot", [
             "sub_title"=> "list_grup",
             "no_grup"=> 1,
@@ -281,7 +288,7 @@ class AdminController extends Controller
             "chat_id.unique"=>"Chat ID grup kelas tidak boleh sama!",
         ]);
 
-        kelas::insert([
+        kelas::create([
             "kelas"=>$validasi['kelas'],
             "nama_grup"=>$validasi['nama_grup'],
             "nama_walas"=>$validasi['nama_walas'],
@@ -316,7 +323,7 @@ class AdminController extends Controller
             "chat_id.unique"=>"Chat ID grup kelas tidak boleh sama!",
         ]);
 
-        $kelas = DB::table("kelas")->where("id", $id);
+        $kelas = kelas::find($id);
 
         $kelas->update([
             "kelas"=>$validasi['kelas'],
@@ -331,11 +338,9 @@ class AdminController extends Controller
     // menghapus data grup kelas
     public function delete_grup_kelas($id)
     {
-        $kelas = DB::table("kelas")->where("id",$id);
+        $kelas = kelas::find($id);
 
-        $kelas->update([
-            "status"=> "down"
-        ]);
+        $kelas->delete();
 
         return redirect("/admin/pino_bot")->with("success", "Grup kelas berhasil di hapus");
     }
@@ -349,10 +354,10 @@ class AdminController extends Controller
         // validasi 
         if($keyword != ''){
 
-            $data = DB::table("kelas")->where("kelas", "like", "%".$keyword."%")->where("status", "up")->get();
+            $data = kelas::where("kelas", "like", "%".$keyword."%")->get();
 
         }else{
-            $data = DB::table("kelas")->where("status", "up")->get();
+            $data = kelas::get();
         }
 
         $total_data = count($data);
@@ -375,11 +380,11 @@ class AdminController extends Controller
 
         if($keyword != ''){
 
-            $data = DB::table("users")->where("name", "like", "%".$keyword."%")->where("status", "up")->get();
+            $data = Guru::where("name", "like", "".$keyword."%")->orderBy("name", "ASC")->get();
 
         }else{
 
-            $data = DB::table("users")->where("status", "up")->get();
+            $data = Guru::orderBy("name", "ASC")->get();
 
         }
 
@@ -402,11 +407,11 @@ class AdminController extends Controller
         
         if($keyword != ''){
 
-            $data = Siswa::with(['kelas'])->where("nama_siswa", "like", "".$keyword."%")->where("status", "up")->get();
+            $data = Siswa::with(['kelas'])->where("nama_siswa", "like", "".$keyword."%")->get();
 
         }else{
 
-            $data = Siswa::with(['kelas'])->where("status", "up")->get();
+            $data = Siswa::with(['kelas'])->get();
 
         }
 
@@ -452,7 +457,7 @@ class AdminController extends Controller
             "tgllahir.required"=>"Tanggal Lahir tidak boleh kosong !",
         ]);
 
-        $siswa = DB::table('siswas')->where("id", $id);
+        $siswa = Siswa::find($id);
 
         $siswa->update([
             "nama_siswa" => $validasi['nama'],
@@ -466,11 +471,9 @@ class AdminController extends Controller
     // menghapus data siswa
     public function delete_siswa($id)
     {
-        $siswa = DB::table('siswas')->where("id", $id);
+        $siswa = Siswa::find($id);
 
-        $siswa->update([
-            "status"=>"down"
-        ]);
+        $siswa->delete();
 
         return redirect("/admin")->with("success", "Data Siswa Berhasil Di Hapus");
     }

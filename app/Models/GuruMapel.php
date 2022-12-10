@@ -4,16 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class UserMapel extends Model
+class GuruMapel extends Model
 {
-    use HasFactory;
-
+    use HasFactory, SoftDeletes;
     protected $guarded = [];
 
-    public function user()
+    public function guru()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Guru::class);
     }
 
     public function mapel()

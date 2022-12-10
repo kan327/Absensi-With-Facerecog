@@ -35,11 +35,10 @@ class LoginController extends Controller
             "password.required"=>"Password wajib di isi!",
             "password.min"=>"Password minimal terdiri dari 5 karakter!"
         ]);
+
+        // dd(Auth::attempt($validasi));
         
-        if(Auth::guard("user")->attempt([
-            "email" => $validasi['email'],
-            "password" => $validasi['password'],
-        ])){
+        if(Auth::attempt($validasi)){
             return redirect("/")->with("success", 'Anda berhasil login');
         }
         
@@ -73,9 +72,9 @@ class LoginController extends Controller
 
     public function logout()
     {
-        if(Auth::guard("user")->check()){
+        if(Auth::check()){
             
-            Auth::guard("user")->logout();
+            Auth::logout();
 
             return redirect("/login")->with("success", "Anda Berhasil Logout");
             
