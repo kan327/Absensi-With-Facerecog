@@ -51,8 +51,8 @@
                 console.log('Playing')
                 const canvas = faceapi.createCanvasFromMedia(video)
 
-                // document.body.append(canvas)
-                divSpesial.append(canvas)
+                document.body.append(canvas)
+                // divSpesial.append(canvas)
 
                 const displaySize = {
                     width: video.width,
@@ -87,7 +87,8 @@
 
 
         function loadLabeledImages() {
-            const labels = ['Prashant Kumar','Orang Baik'] // for WebCam
+            const labels = "{{ $data_siswa }}" // for WebCam
+            // console.log(labels)
             return Promise.all(
                 labels.map(async (label) => {
                     const descriptions = []

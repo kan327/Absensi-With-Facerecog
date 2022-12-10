@@ -41,7 +41,7 @@ Route::controller(GuruController::class)->group(function(){
     Route::post("/absen_siswa/{tanggal}/{kelas}/{mapel}/tutup_absen", "tutup_absen");
     
     // delete
-    Route::get("/absensi/hapus/{id}",  "hapus_jadwal")->middleware("isLoginGuru");
+    Route::get("/absensi/hapus/{id}/{tanggal}/{kelas}/{mapel}",  "hapus_jadwal")->middleware("isLoginGuru");
     
     // MaatWebsite
     Route::get("/absensi/excel/{tanggal}/{kelas}/{mapel}", "excel")->middleware("isLoginGuru");
