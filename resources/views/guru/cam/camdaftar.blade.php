@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {{-- <meta name="csrf-token" content="{{ csrf_token() }}"> --}}
     <title>Scan Wajah | Starbhak Absensi</title>
     <!-- css link -->
     <link rel="stylesheet" href="{{ asset('assets/CSS/output.css') }}">
@@ -50,7 +51,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
 </head>
 
-<body class="text-tet" onload="cam()">
+<body class="text-tet" onload="configure()">
 {{-- <body class="text-tet"> --}}
     
     {{-- navbar --}}
@@ -60,22 +61,62 @@
     @include('partials.sidebar')
 
     <div class="absolute left-64 w-3/5 bg-white h-fit mt-32 ml-32 rounded-xl shadow-bxsd pb-12  ">
-        <h1 class="text-xl ml-24 text-h1 font-bold mt-10 mb-2 font-['Montserrat']">Tambah Data Siswa</h1>
-        <div class="border-b-blue border-2 w-10/12 mx-auto"></div>
-        <main class="mx-auto mt-5 w-4/5 text-base ">
-            <form action="" class="mx-auto item-center flex flex-col">
-                <h2 for="" class="font-['Quicksand'] font-semibold text-tet text-ms">Pengambilan Wajah</h2>
-                <video id="video" autoplay style="display: none;"></video>
-                <a href="/data_siswa/tambah_murid/simpan_dataset" type="button" class="text-center bg-gray-400 text-base text-white rounded-md mx-auto w-3/4 mt-3 h-8">
-                    Simpan Data
-                </a>
-               
-            </form>
-        </main>
-
+        <div class="border-b-blue border-2 w-10/12 mx-auto">
+            <h1 class="text-xl ml-24 text-h1 font-bold mt-10 mb-2 font-['Montserrat']">Pengambilan Wajah Siswa</h1>
+            <main class="mx-auto mt-5 w-4/5 text-base ">
+                <form action="" class="mx-auto item-center flex flex-col">
+                    {{-- @csrf --}}
+                    <div class="mx-auto">
+                        <div id="mycam" class="mx-auto"></div>
+                        <div id="results" style="visibility: hidden; position: absolute;" name="gambar"></div>
+                    </div>
+                    <br><button onclick="saveSnap()" class="text-center bg-gray-600 text-base text-white rounded-md mx-auto w-3/4 mt-3 h-8">save</button>
+                    <a href="/data_siswa/tambah_murid/simpan_dataset" type="button" class="text-center bg-gray-400 text-base text-white rounded-md mx-auto w-3/4 mt-3 h-8 mb-8">
+                        Simpan Data
+                    </a>
+                   
+                </form>
+            </main>
+        </div>
     </div>
     {{-- <script src="https://codepen.io/kan327/pen/PoaZWxe"></script> --}}
     {{-- cam js --}}
-    
+    <script src="{{ asset('cam_js/js/webcam.min.js') }}"></script>
+    <script src="{{ asset('assets/JS/noticme.min.js') }}"></script>
+    <script>
+        function configure(){
+            Webcam.set({
+                width: 520,
+                height: 380,
+                image_format: 'jpeg',
+                jpeg_quality: 90,
+                // force_flash: true,
+            })
+
+            Webcam.attach("#mycam")
+        }
+
+        function saveSnap() {
+            Webcam.snap(function (data_uri) {
+                document.getElementById("results").innerHTML = '<img id ="webcam" src = " '+ data_uri +' ">'
+            })
+            
+            Webcam.reset()
+
+            // var csrf = document.getElementsByName("csrf-token")
+            
+            var base64image = document.getElementById("webcam").src
+            Webcam.upload(base64image, '/data_siswa/simpan', function (code, text){
+                // Noticme.any({
+                // text: "Wajah Berhasil Disimpan",
+                // type: "success",
+                // timer: 3000,
+                // })
+                console.log(text)
+                alert(code)
+            })
+        }
+        </script>
 </body>
 </html>
+      

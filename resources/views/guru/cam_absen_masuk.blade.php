@@ -3,7 +3,7 @@
     <div class="absolute left-72 w-3/4">
         <div
             class="shadow-box mt-32 p-8 w-5/6 mx-auto rounded-2xl border-solid border-[0.1px] border-opacity-5 border-black" id="card_cam">
-            <video id="videoInput" width="720" muted autoplay loop playsinline class="mx-auto mt-4"></video>
+            <video id="videoInput" width="700" height="500" muted controls class="mx-auto mt-4"></video>
             <div class="button flex justify-center">
                 <button class="px-12 py-3 bg-bg-blue-dark rounded-xl text-white font-bold mt-8 flex mx-auto mb-2"
                     onclick="location.href = '/absen_siswa/{{ $tanggals }}/{{ $kelas }}/{{ $mapels }}'">Kembali</button>
@@ -85,20 +85,18 @@
 
 
         function loadLabeledImages() {
-            const mysql = 1 //querysql
-            const assoc = mysql
-            const labels = ['Prashant Kumar'] // for WebCam
+            const labels = ['Prashant Kumar','Orang Baik'] // for WebCam
             return Promise.all(
                 labels.map(async (label) => {
                     const descriptions = []
                     for (let i = 1; i <= 2; i++) {
-                        const img = await faceapi.fetchImage("{{ asset('cam_js/labeled_images') }}"+`/${label}/${i}.jpg`)
+                        const img = await faceapi.fetchImage("{{ asset('cam_js/images') }}"+`/${label}.${i}.jpg`)
                         const detections = await faceapi.detectSingleFace(img).withFaceLandmarks()
                             .withFaceDescriptor()
-                        console.log(label + i + JSON.stringify(detections))
+                        // console.log(label + i + JSON.stringify(detections))
                         descriptions.push(detections.descriptor)
                     }
-                    console.log(label + ' Faces Loaded | ')
+                    console.log(label + '| Faces Loaded ')
                     return new faceapi.LabeledFaceDescriptors(label, descriptions)
                 })
             )

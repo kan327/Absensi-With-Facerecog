@@ -85,6 +85,14 @@
             position: absolute;
             opacity: 0;
         }
+
+        canvas{
+            position: absolute;
+        }
+
+        video{
+            position: relative;
+        }
     </style>
 
     <!-- config -->

@@ -5,6 +5,7 @@ use App\Models\User;
 use App\Models\kelas;
 use App\Models\mapel;
 use App\Models\Siswa;
+use App\Models\image;
 use App\Models\UserKelas;
 use App\Models\GuruMapel;
 use App\Models\AbsenSiswa;
@@ -486,8 +487,22 @@ public function table_absen($tanggal, $kelas, $mapel)
 
     // }
 
+    public function simpan_gambar(Request $request)
+    {
+      
+        // if($request->hasFile('gambar')){
+        //     $request->file('gambar')->move('cam_js/images/',$request->file('gambar')->getClientOriginalName());
+          
+
+        // }
+        return "hallo";
+    
+        
+    }
+
     public function simpan_dataset()
     {
+        return redirect("/data_kelas")->with("success", "Data murid berhasil disimpan");
         return redirect("/data_kelas")->with("success", "Data murid berhasil disimpan!");
     }
 
