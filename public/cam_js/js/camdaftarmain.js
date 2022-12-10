@@ -72,8 +72,11 @@ $(document).ready(function() {
                         buttons: false,
                         closeOnClickOutside: false,
                         closeOnEsc: false,
-                        timer: 2000
+                        timer: 5000
                     })
+                    setTimeout( () => {
+                        location.reload()
+                    }, 5000)
                 }
                 else {
                     swal({
