@@ -1,6 +1,6 @@
-@extends('main_guru')
+@extends('guru.no_sidebar')
 @section('content')
-    <div class="absolute left-72 w-3/4">
+    <div class="mx-auto w-3/4">
         <div class="shadow-box mt-32 p-8 w-5/6 mx-auto rounded-2xl border-solid border-[0.1px] border-opacity-5 border-black">
             <div id="card_cam" class="relative">
                 <video id="videoInput" width="700" height="500" muted controls class="mx-auto mt-4"></video>
