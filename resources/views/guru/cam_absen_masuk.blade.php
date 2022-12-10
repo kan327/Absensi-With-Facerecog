@@ -6,8 +6,7 @@
                 <video id="videoInput" width="700" height="500" muted controls class="mx-auto mt-4"></video>
             </div>
             <div class="button flex justify-center">
-                <button class="px-12 py-3 bg-bg-blue-dark rounded-xl text-white font-bold mt-8 flex mx-auto mb-2"
-                    onclick="location.href = '/absen_siswa/{{ $tanggals }}/{{ $kelas }}/{{ $mapels }}'">Kembali</button>
+                <button class="px-12 py-3 bg-bg-blue-dark rounded-xl text-white font-bold mt-8 flex mx-auto mb-2 cursor-pointer" onclick="location.href = '/absen_siswa/{{ $tanggals }}/{{ $kelas }}/{{ $mapels }}'">Kembali</button>
             </div>
         </div>
         {{-- autoplay loop playsinline --}}
