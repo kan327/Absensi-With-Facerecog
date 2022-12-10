@@ -247,12 +247,12 @@ class GuruController extends Controller
             "batas_hadir" => $validasi['batas_hadir'],
         ]);
 
-        $data = DB::select("SELECT * FROM absen_siswas WHERE kelas_id = $validasi[kelas] AND tanggal = curdate() AND guru_id = $id_guru");
+        $data = AbsenSiswa::where("kelas_id", $validasi["kelas"])->where("tanggal", $date_now)->where("guru_id", $id_guru)->get();
         // $data = AbsenSiswa::all()->where("kelas_id", $validasi['kelas'])->where("tanggal", );
         // dd($data);
         if($query == true && count($data) < 1){
 
-            $siswa = DB::select("SELECT * FROM siswas WHERE  kelas_id = $validasi[kelas] ORDER BY nama_siswa ASC");
+            $siswa = Siswa::with(['kelas'])->where("kelas_id", $validasi["kelas"])->orderBy("nama_siswa","ASC")->get();
             // dd($siswa);
             for($i = 0; $i < count($siswa); $i++){
 
@@ -271,10 +271,12 @@ class GuruController extends Controller
     }
 
     // menghapus jadwal
-    public function hapus_jadwal($id)
+    public function hapus_jadwal($id, $tanggal, $kelas, $mapel)
     {
         $jadwal = JadwalAbsen::find($id);
-        // dd($jadwal);
+        $absen_siswa = AbsenSiswa::where("guru_id", auth()->user()->id)->where("tanggal", $tanggal)->where("kelas_id", $kelas);
+        // dd($absen_siswa);
+        $absen_siswa->delete();
         $jadwal->delete();
 
         return redirect("/absensi")->with("success", "Jadwal berhasil di hapus");
@@ -326,7 +328,7 @@ class GuruController extends Controller
         // echo 'loop for';
         for($i = 0; $i < count($request->datas); $i++){
 
-            $absen_siswa = DB::table("absen_siswas")->where("tanggal", $tanggal)->where("guru_id", $id_guru)->where('kelas_id', $kelas)->where("id", $request->datas[$i]['id_siswa']);
+            $absen_siswa = AbsenSiswa::where("tanggal", $tanggal)->where("guru_id", $id_guru)->where('kelas_id', $kelas)->where("id", $request->datas[$i]['id_siswa']);
 
             $result = "absen ok";
 
@@ -359,7 +361,7 @@ class GuruController extends Controller
 
         for($i = 0; $i < count($request->datas); $i++){
 
-            $absen_siswa = DB::table("absen_siswas")->where("tanggal", $tanggal)->where("guru_id", $id_guru)->where('kelas_id', $kelas)->where("id", $request->datas[$i]['id_siswa']);
+            $absen_siswa = AbsenSiswa::where("tanggal", $tanggal)->where("guru_id", $id_guru)->where('kelas_id', $kelas)->where("id", $request->datas[$i]['id_siswa']);
 
             $result = "ok";
 
@@ -379,14 +381,14 @@ class GuruController extends Controller
         // id guru
         $id = auth()->user()->id;
 
-        DB::table("jadwal_absens")->where("guru_id", $id)->where('tanggal', $tanggal)->where('kelas_id', $kelas)->where('mapel_id', $mapel)->update([
+        JadwalAbsen::where("guru_id", $id)->where('tanggal', $tanggal)->where('kelas_id', $kelas)->where('mapel_id', $mapel)->update([
             "status"=>"down"
         ]);
 
         
         for($i = 0; $i < count($request->datas); $i++){
 
-            $absen_siswa = DB::table("absen_siswas")->where("tanggal", $tanggal)->where("guru_id", $id)->where('kelas_id', $kelas)->where("id", $request->datas[$i]['id_siswa']);
+            $absen_siswa = AbsenSiswa::where("tanggal", $tanggal)->where("guru_id", $id)->where('kelas_id', $kelas)->where("id", $request->datas[$i]['id_siswa']);
 
             $result = "ok";
 
@@ -489,14 +491,21 @@ public function table_absen($tanggal, $kelas, $mapel)
 
     public function simpan_gambar(Request $request)
     {
-      
-        // if($request->hasFile('gambar')){
-        //     $request->file('gambar')->move('cam_js/images/',$request->file('gambar')->getClientOriginalName());
-          
-
-        // }
-        return "hallo";
-    
+        if(isset($_POST['photoStore'])) {
+            $encoded_data = $_POST['photoStore'];
+            $binary_data = base64_decode($encoded_data);
+        
+            $photoname = uniqid().'.jpg';
+        
+            $result = file_put_contents('uploadPhoto/'.$photoname, $binary_data);
+        
+            if($result) {
+                echo 'success';
+            } else {
+                echo die('Could not save image! check file permission.');
+            }
+        }
+        // return redirect();
         
     }
 
@@ -508,8 +517,11 @@ public function table_absen($tanggal, $kelas, $mapel)
     public function cam_masuk($tanggal, $kelas, $mapel)
     {
 
+        $data_absen = AbsenSiswa::with(['siswa'])->where("kelas_id", $kelas)->get();
+        dd($data_absen->pluck("siswa_id"));
         return view("guru.cam_absen_masuk", [
             "title"=>"absensi",
+            "data_siswa"=> $data_absen,
             "tanggals"=>$tanggal,
             "kelas"=>$kelas,
             "mapels"=>$mapel,

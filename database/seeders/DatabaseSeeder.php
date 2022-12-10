@@ -15,6 +15,7 @@ use App\Models\User;
 use App\Models\UserKelas;
 use App\Models\UserMapel;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -74,6 +75,27 @@ class DatabaseSeeder extends Seeder
             "nama_grup"=>"PPLG 3 2022",
             "nama_walas"=> "Shinta Nuralifah",
             "chat_id"=> 66768687,
+        ]);
+
+        kelas::create([
+            "kelas"=>"XI TJKT 1",
+            "nama_grup"=>"TJKT 3 2022",
+            "nama_walas"=> "Siapa Aja",
+            "chat_id"=> 6676868317,
+        ]);
+
+        Siswa::create([
+            "nama_siswa"=> "Nana",
+            "kelas_id"=> Arr::random([1, 2, 3]),
+            "jenis_kelamin" => Arr::random(['Laki-Laki', "Perempuan"]),
+            "tgl_lahir" => "2006-01-01",
+        ]);
+
+        Siswa::create([
+            "nama_siswa"=> "Udin",
+            "kelas_id"=> Arr::random([1, 2, 3]),
+            "jenis_kelamin" => Arr::random(['Laki-Laki', "Perempuan"]),
+            "tgl_lahir" => "2006-01-01",
         ]);
 
         Siswa::factory(30)->create();
