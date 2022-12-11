@@ -1,25 +1,26 @@
 <?php
 namespace App\Http\Controllers;
 use Carbon\Carbon;
+use App\Models\Guru;
 use App\Models\User;
+use App\Models\image;
 use App\Models\kelas;
 use App\Models\mapel;
 use App\Models\Siswa;
-use App\Models\image;
-use App\Models\UserKelas;
+use App\Models\GuruKelas;
 use App\Models\GuruMapel;
+use App\Models\UserKelas;
 use App\Models\AbsenSiswa;
+// use Maatwebsite\Excel\Excel;
 use App\Models\JadwalAbsen;
 use App\Exports\SiswaExport;
-// use Maatwebsite\Excel\Excel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\Guru;
-use App\Models\GuruKelas;
 use Illuminate\Support\Facades\Date;
 use Maatwebsite\Excel\Facades\Excel;
 use Symfony\Component\Process\Process;
+use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 
@@ -493,28 +494,23 @@ public function table_absen($tanggal, $kelas, $mapel)
 
     }
 
-    // public function akses_cam_daftar()
-    // {
-
-    // }
 
     public function simpan_gambar(Request $request)
     {
-        if(isset($_POST['photoStore'])) {
-            $encoded_data = $_POST['photoStore'];
-            $binary_data = base64_decode($encoded_data);
+        $img = $request->image;
+        $folderPath = "images/";
         
-            $photoname = uniqid().'.jpg';
+        $image_parts = explode(";base64,", $img);
+        $image_type_aux = explode("image/", $image_parts[0]);
+        $image_type = $image_type_aux[1];
         
-            $result = file_put_contents('uploadPhoto/'.$photoname, $binary_data);
+        $image_base64 = base64_decode($image_parts[1]);
+        $fileName = uniqid() . '.png';
         
-            if($result) {
-                echo 'success';
-            } else {
-                echo die('Could not save image! check file permission.');
-            }
-        }
-        // return redirect();
+        $file = $folderPath . $fileName;
+        Storage::put($file, $image_base64);
+        
+        dd('Image uploaded successfully: '.$fileName);
         
     }
 
@@ -527,7 +523,7 @@ public function table_absen($tanggal, $kelas, $mapel)
     {
 
         $data_absen = AbsenSiswa::with(['siswa'])->where("kelas_id", $kelas)->where("mapel_id", $mapel)->get();
-        dd($data_absen->pluck("siswa_id"));
+        // dd($data_absen->pluck("siswa_id"));
         return view("guru.cam_absen_masuk", [
             "title"=>"absensi",
             "data_siswa"=> $data_absen,

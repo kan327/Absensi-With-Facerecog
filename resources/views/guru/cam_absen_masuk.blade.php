@@ -34,24 +34,20 @@
                 err => console.error(err)
             )
 
-            //video.src = '../videos/speech.mp4'
             console.log('video added')
             recognizeFaces()
         }
 
         async function recognizeFaces() {
-
             const labeledDescriptors = await loadLabeledImages()
             console.log(labeledDescriptors)
             const faceMatcher = new faceapi.FaceMatcher(labeledDescriptors, 0.7)
 
-
-            video.addEventListener('play', async () => {
+            video.addEventListener('load', async () => {
                 console.log('Playing')
                 const canvas = faceapi.createCanvasFromMedia(video)
 
                 document.body.append(canvas)
-                // divSpesial.append(canvas)
 
                 const displaySize = {
                     width: video.width,
@@ -77,17 +73,15 @@
                         })
                         drawBox.draw(canvas)
                     })
-                }, 10)
+                }, 100)
 
 
 
             })
         }
 
-
         function loadLabeledImages() {
-            const labels = "{{ $data_siswa }}" // for WebCam
-            // console.log(labels)
+            const labels = ['Nana']
             return Promise.all(
                 labels.map(async (label) => {
                     const descriptions = []
