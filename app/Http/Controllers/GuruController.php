@@ -533,6 +533,20 @@ public function table_absen($tanggal, $kelas, $mapel)
         ]);
     }
 
+    public function cam_pulang($tanggal, $kelas, $mapel)
+    {
+
+        $data_absen = AbsenSiswa::with(['siswa'])->where("kelas_id", $kelas)->where("mapel_id", $mapel)->get();
+        // dd($data_absen->pluck("siswa_id"));
+        return view("guru.cam_absen_pulang", [
+            "title"=>"absensi",
+            "data_siswa"=> $data_absen,
+            "tanggals"=>$tanggal,
+            "kelas"=>$kelas,
+            "mapels"=>$mapel,
+        ]);
+    }
+
     // export excel 
     public function excel($tanggal, $kelas, $mapel){
         
