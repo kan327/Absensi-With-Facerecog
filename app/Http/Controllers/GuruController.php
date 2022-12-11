@@ -502,7 +502,7 @@ public function table_absen($tanggal, $kelas, $mapel)
     {
         $i = 1;
         $img = $request->image;
-        $folderPath = "images/";
+        $folderPath = "cam_js/images/";
         
         $image_parts = explode(";base64,", $img);
         $image_type_aux = explode("image/", $image_parts[0]);
@@ -513,15 +513,15 @@ public function table_absen($tanggal, $kelas, $mapel)
         
         $file = $folderPath . $fileName;
         Storage::put($file, $image_base64);
-        
+       
         // dd('Image uploaded successfully: '.$fileName);
-        return redirect('/data_siswa/tambah_murid/cam_daftar');
+        return redirect('/data_siswa/tambah_murid/cam_daftar')->with("success", "Data murid berhasil disimpan!");
         
     }
 
     public function simpan_dataset()
     {
-        return redirect("/data_kelas")->with("success", "Data murid berhasil disimpan!");
+        return redirect("/data_kelas")->with("success", "Wajah berhasil ditambahkan!");
     }
 
     public function cam_masuk($tanggal, $kelas, $mapel)
