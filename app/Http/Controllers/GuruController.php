@@ -500,6 +500,7 @@ public function table_absen($tanggal, $kelas, $mapel)
 
     public function simpan_gambar(Request $request)
     {
+        $i = 1;
         $img = $request->image;
         $folderPath = "images/";
         
@@ -513,7 +514,8 @@ public function table_absen($tanggal, $kelas, $mapel)
         $file = $folderPath . $fileName;
         Storage::put($file, $image_base64);
         
-        dd('Image uploaded successfully: '.$fileName);
+        // dd('Image uploaded successfully: '.$fileName);
+        return redirect('/data_siswa/tambah_murid/cam_daftar');
         
     }
 
