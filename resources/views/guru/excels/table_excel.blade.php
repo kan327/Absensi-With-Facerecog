@@ -11,19 +11,19 @@
 <body>
 
     <div style="margin: 8px auto ;">
-        <h1 style="font-weight: bold; font-size: 14px; ">Data Absensi {{ Carbon\Carbon::parse($tanggal)->translatedFormat("d F Y") }}</h1>
-        <h1 style="font-weight: bold; font-size: 14px;">Kelas {{ $kelas->kelas }}</h1>
-        <h1 style="font-weight: bold; font-size: 14px;">Mata Pelajaran {{ $mapel->pelajaran }}</h1>
+        <h2 style="font-weight: bold; font-size: 10px; ">Data Absensi {{ Carbon\Carbon::parse($tanggal)->translatedFormat("d F Y") }}</h2>
+        <h2 style="font-weight: bold; font-size: 10px;">Kelas {{ $kelas->kelas }}</h2>
+        <h2 style="font-weight: bold; font-size: 10px;">Mata Pelajaran {{ $mapel->pelajaran }}</h2>
     </div>
     <table cellpadding = "1" style="margin: 8px auto;">
         <!-- header table -->
         <thead>
             <tr>
-                <th align="center"  style="font-weight: bold; font-size: 13px; color: white; background-color: #10793F; border:1px solid black ;">No</th>
-                <th align="center" style="width: 200px; font-weight: bold; font-size: 13px; color: white; background-color: #10793F;border:1px solid black ;"><b>Nama</b></th>
-                <th align="center"  style="width: 200px; font-weight: bold; font-size: 13px; color: white; background-color: #10793F;border:1px solid black ;"><b>Masuk</b></th>
-                <th align="center"  style="width: 200px; font-weight: bold; font-size: 13px; color: white; background-color: #10793F;border:1px solid black ;"><b>Pulang</b></th>
-                <th align="center"  style="width: 200px; font-weight: bold; font-size: 13px; color: white; background-color: #10793F;border:1px solid black ;"><b>Keterangan</b></th>
+                <th align="center"  style="font-weight: bold; font-size: 13px; color: white; background-color: #2C3E50; border:1px solid black ;">No</th>
+                <th align="center" style="width: 200px; font-weight: bold; font-size: 13px; color: white; background-color: #2C3E50;border:1px solid black ;"><b>Nama</b></th>
+                <th align="center"  style="width: 200px; font-weight: bold; font-size: 13px; color: white; background-color: #2C3E50;border:1px solid black ;"><b>Masuk</b></th>
+                <th align="center"  style="width: 200px; font-weight: bold; font-size: 13px; color: white; background-color: #2C3E50;border:1px solid black ;"><b>Pulang</b></th>
+                <th align="center"  style="width: 200px; font-weight: bold; font-size: 13px; color: white; background-color: #2C3E50;border:1px solid black ;"><b>Keterangan</b></th>
             </tr>
         </thead>
         <!-- body -->

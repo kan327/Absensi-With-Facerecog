@@ -131,7 +131,7 @@
             time.textContent = "Selamat Siang, Admin";
         }else if(date_now >= 15 && date_now < 18){
             time.textContent = "Selamat Sore, Admin";
-        }else if(date_now >= 18 && date_now < 00){
+        }else{
             time.textContent = "Selamat Malam, Admin";
         }
 
