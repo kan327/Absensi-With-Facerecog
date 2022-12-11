@@ -42,10 +42,10 @@ class AdminController extends Controller
             "mapel" => [],
             "kelas" => $kelas,
             "siswas"=> $siswa,
-            "no_guru" => 1,
-            "no_siswa" => 1,
-            "no_mapel" => 1,
-            "no_kelas" => 1
+            // "no_guru" => 1,
+            // "no_siswa" => 1,
+            // "no_mapel" => 1,
+            // "no_kelas" => 1
         ]);
     }
 
