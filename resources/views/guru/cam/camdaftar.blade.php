@@ -83,6 +83,18 @@
             </form>
         </div>
     </div>
+    {{-- alert --}}
+    <script src="{{ asset('assets/JS/noticme.min.js') }}"></script>
+    @if (Session::has("success"))
+        <script>
+            Noticme.any({
+                text: "{{ Session::get('success') }}",
+                type: 'success',
+                timer: 2000,
+                button: false
+            })
+        </script>
+    @endif
     {{-- cam js --}}
     <script src="{{ asset('assets/JS/noticme.min.js') }}"></script>
     <script>
@@ -98,7 +110,7 @@
         function take_snapshot() {
             Webcam.snap( function(data_uri) {
                 $(".image-tag").val(data_uri);
-                document.getElementById('results').innerHTML = '<img src="'+data_uri+'"/>';
+                document.getElementById('results').innerHTML = '<img src="'+data_uri+'" name="image"/>';
             } );
         }
     </script>
