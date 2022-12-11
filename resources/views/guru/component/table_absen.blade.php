@@ -43,6 +43,7 @@
                     </option>
 
                 </select>
+                <input type="hidden" name="keterangan_absen">
 
             </td>
             <td style="border-top-right-radius: 12px; border-bottom-right-radius: 12px;">
@@ -353,11 +354,15 @@
         // keterangan option dan checkbox
         var keterangan = document.getElementsByName("keterangan") //keterangan 
 
+        var keterangan_absen = document.getElementsByName("keterangan_absen")
+
         var check = document.getElementsByName("checkbox") // checkbox
 
         // console.log(check[0].value)
 
         var checks = []
+
+        var checks_absen = []
 
         for (j = 0; j < check.length; j++) {
 
@@ -365,6 +370,7 @@
                 // box_absen_ket()
 
                 checks.push(keterangan[j].value)
+                
 
                 if (checks[j] === "Belum Hadir") {
                     keterangan[j][0].setAttribute('selected', true)
@@ -377,6 +383,8 @@
                     keterangan[j][1].setAttribute('selected', true)
 
                     if (mulais[j] == "--") {
+                        mulais[j] = "{{ $data_mulai }}"
+                    }else{
                         mulais[j] = "{{ $data_mulai }}"
                     }
 
@@ -399,17 +407,60 @@
 
                 if (checks[j] === "Sakit") {
                     keterangan[j][4].setAttribute('selected', true)
+
+                    // ketika sudah ada jam masuk
                     if (mulais[j] != "--") {
-                        mulais[j] = "--"
+
+                        // ketika hadir
+                        if(mulais[j] >= "{{ $data_mulai }}" && mulais[j] < "{{ $batas_hadir }}"){
+
+                            mulais[j] = mulais[j]
+                            keterangan_absen[j].value = "Hadir"
+                            console.log(mulais[j])
+
+                        }else if(mulais[j] >= "{{ $batas_hadir }}"){ //ketika terlambat
+
+                            keterangan_absen[j].value = "Tidak Hadir"
+                            mulais[j] = mulais[j]
+
+                        }
+
+                    }else{ //ketika tidak ada jam masuk
+
+                        keterangan_absen[j].value = "Tidak Hadir"
+                        mulais[j] = "{{ $batas_hadir }}"
+
                     }
                 }
 
                 if (checks[j] === "Izin") {
                     keterangan[j][5].setAttribute('selected', true)
+
                     if (mulais[j] != "--") {
-                        mulais[j] = "--"
+                        // ketika hadir
+                        if(mulais[j] >= "{{ $data_mulai }}" && mulais[j] < "{{ $batas_hadir }}"){
+
+                            mulais[j] = mulais[j]
+                            keterangan_absen[j].value = "Hadir"
+                            console.log(mulais[j])
+
+                        }else if(mulais[j] >= "{{ $batas_hadir }}"){ //ketika terlambat
+
+                            keterangan_absen[j].value = "Tidak Hadir"
+                            mulais[j] = mulais[j]
+
+                        }
+
+                    }else{
+
+                        keterangan_absen[j].value = "Tidak Hadir"
+                        mulais[j] = "{{ $batas_hadir }}"
+
                     }
+
                 }
+
+                checks_absen.push(keterangan_absen[j].value)
 
             } else if (check[j].checked) {
                 // box_absen_ket()
@@ -438,6 +489,8 @@
 
                     if (mulais[j] == "--") {
                         mulais[j] = "{{ $data_mulai }}"
+                    }else{
+                        mulais[j] = "{{ $data_mulai }}"
                     }
                 }
 
@@ -450,17 +503,60 @@
 
                 if (checks[j] === "Sakit") {
                     keterangan[j][4].setAttribute('selected', true)
+
+                    // ketika sudah ada jam masuk
                     if (mulais[j] != "--") {
-                        mulais[j] = "--"
+
+                        // ketika hadir
+                        if(mulais[j] >= "{{ $data_mulai }}" && mulais[j] < "{{ $batas_hadir }}"){
+
+                            mulais[j] = mulais[j]
+                            keterangan_absen[j].value = "Hadir"
+                            console.log(mulais[j])
+
+                        }else if(mulais[j] >= "{{ $batas_hadir }}"){ //ketika terlambat
+
+                            keterangan_absen[j].value = "Tidak Hadir"
+                            mulais[j] = mulais[j]
+
+                        }
+
+                    }else{ //ketika tidak ada jam masuk
+
+                        keterangan_absen[j].value = "Tidak Hadir"
+                        mulais[j] = "{{ $batas_hadir }}"
+
                     }
+
                 }
 
                 if (checks[j] === "Izin") {
                     keterangan[j][5].setAttribute('selected', true)
                     if (mulais[j] != "--") {
-                        mulais[j] = "--"
+
+                        // ketika hadir
+                        if(mulais[j] >= "{{ $data_mulai }}" && mulais[j] < "{{ $batas_hadir }}"){
+
+                            mulais[j] = mulais[j]
+                            keterangan_absen[j].value = "Hadir"
+                            console.log(mulais[j])
+
+                        }else if(mulais[j] >= "{{ $batas_hadir }}"){ //ketika terlambat
+
+                            keterangan_absen[j].value = "Tidak Hadir"
+                            mulais[j] = mulais[j]
+
+                        }
+
+                    }else{ //ketika tidak ada jam masuk
+
+                        keterangan_absen[j].value = "Tidak Hadir"
+                        mulais[j] = "{{ $batas_hadir }}"
+
                     }
                 }
+
+                checks_absen.push(keterangan_absen[j].value)
 
             } else {
                 // box_absen_ket()
@@ -485,6 +581,8 @@
 
                     if (mulais[j] == "--") {
                         mulais[j] = "{{ $data_mulai }}"
+                    }else{
+                        mulais[j] = "{{ $data_mulai }}"
                     }
                 }
 
@@ -498,19 +596,60 @@
                 if (checks[j] === "Sakit") {
                     keterangan[j][4].setAttribute('selected', true)
                     if (mulais[j] != "--") {
-                        mulais[j] = "--"
+
+                        // ketika hadir
+                        if(mulais[j] >= "{{ $data_mulai }}" && mulais[j] < "{{ $batas_hadir }}"){
+
+                            mulais[j] = mulais[j]
+                            keterangan_absen[j].value = "Hadir"
+                            console.log(mulais[j])
+
+                        }else if(mulais[j] >= "{{ $batas_hadir }}"){ //ketika terlambat
+
+                            keterangan_absen[j].value = "Tidak Hadir"
+                            mulais[j] = mulais[j]
+
+                        }
+
+                    }else{ //ketika tidak ada jam masuk
+
+                        keterangan_absen[j].value = "Tidak Hadir"
+                        mulais[j] = "{{ $batas_hadir }}"
+
                     }
                 }
 
                 if (checks[j] === "Izin") {
                     keterangan[j][5].setAttribute('selected', true)
                     if (mulais[j] != "--") {
-                        mulais[j] = "--"
+
+                        // ketika hadir
+                        if(mulais[j] >= "{{ $data_mulai }}" && mulais[j] < "{{ $batas_hadir }}"){
+
+                            mulais[j] = mulais[j]
+                            keterangan_absen[j].value = "Hadir"
+                            console.log(mulais[j])
+
+                        }else if(mulais[j] >= "{{ $batas_hadir }}"){ //ketika terlambat
+
+                            keterangan_absen[j].value = "Tidak Hadir"
+                            mulais[j] = mulais[j]
+
+                        }
+
+                    }else{ //ketika tidak ada jam masuk
+
+                        keterangan_absen[j].value = "Tidak Hadir"
+                        mulais[j] = "{{ $batas_hadir }}"
+
                     }
                 }
 
+                checks_absen.push(keterangan_absen[j].value)
+
             }
-            // console.log(checks)
+            console.log(checks)
+            console.log(checks_absen)
             // table_absen()
         }
 
@@ -522,7 +661,8 @@
             all.push({
                 id_siswa: id_siswas[i],
                 mulai: mulais[i],
-                check: checks[i]
+                check: checks[i],
+                check_absen : checks_absen[i]
             })
 
         }

@@ -342,11 +342,12 @@ class GuruController extends Controller
 
             $absen_siswa->update([
                 "masuk" => $request->datas[$i]['mulai'],
-                "keterangan" => $request->datas[$i]['check']
+                "keterangan" => $request->datas[$i]['check'],
+                "keterangan_absensi" => $request->datas[$i]['check_absen'],
             ]);
 
 
-            $result = "Data berhasil di update ";
+            $result = "Data Berhasil di Ubah ";
             // $absen_siswa->save();
 
             
@@ -439,6 +440,7 @@ public function table_absen($tanggal, $kelas, $mapel)
         $id_guru = auth()->user()->id;
         $data_absensi = AbsenSiswa::all()->where("guru_id", $id_guru)->where("kelas_id", $kelas)->where("mapel_id", $mapel)->where("tanggal", $tanggal);
 
+        $time_now = Carbon::now("Asia/Jakarta")->format("H:i:s");
         $data_jadwal = JadwalAbsen::all()->where("kelas_id", $kelas)->where("mapel_id", $mapel)->where("tanggal", $tanggal);
 
         foreach($data_jadwal as $data_jadwa){
@@ -450,6 +452,7 @@ public function table_absen($tanggal, $kelas, $mapel)
 
         return view("guru.component.table_absen",[
             "data_absensi"=>$data_absensi,
+            "time_now" => $time_now,
             "data_selesai"=>$data_selesai,
             "batas_hadir"=>$batas_hadir,
             "data_mulai"=>$data_masuk,

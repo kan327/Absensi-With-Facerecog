@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string("masuk")->default("--");
             $table->string("pulang")->default("--") ;
             $table->string("keterangan")->default("Belum Hadir");
+            $table->string("keterangan_absensi")->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

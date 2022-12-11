@@ -36,7 +36,7 @@
                     <td style = "border:1px solid black ;" align="center" >{{ $data_absen->siswa->nama_siswa }}</td>
                     <td style = "border:1px solid black ;" align="center" >{{ $data_absen->masuk }}</td>
                     <td style = "border:1px solid black ;" align="center" >{{ $data_absen->pulang }}</td>
-                    <td style = "border:1px solid black ;" align="center" >{{ $data_absen->keterangan }}</td>
+                    <td style = "border:1px solid black ;" align="center" >{{ $data_absen->keterangan }}-{{ $data_absen->keterangan_absensi }}</td>
 
                 </tr>
             @endforeach
