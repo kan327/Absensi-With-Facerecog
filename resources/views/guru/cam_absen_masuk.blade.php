@@ -1,7 +1,8 @@
 @extends('guru.no_sidebar')
 @section('content')
     <div class="mx-auto w-3/4">
-        <div class="shadow-box mt-32 p-8 w-5/6 mx-auto rounded-2xl border-solid border-[0.1px] border-opacity-5 border-black">
+        <div class="shadow-box mt-32 mb-4 p-8 w-5/6 mx-auto rounded-2xl border-solid border-[0.1px] border-opacity-5 border-black">
+            <h1 class="text-2xl mt-2 font-bold text-blue-normal-19 font-[Montserrat]">Absen Masuk Kelas</h1>
             <div id="card_cam" class="relative">
                 <video id="videoInput" width="700" height="500" muted controls class="mx-auto mt-4"></video>
             </div>
@@ -34,24 +35,20 @@
                 err => console.error(err)
             )
 
-            //video.src = '../videos/speech.mp4'
             console.log('video added')
             recognizeFaces()
         }
 
         async function recognizeFaces() {
-
             const labeledDescriptors = await loadLabeledImages()
             console.log(labeledDescriptors)
             const faceMatcher = new faceapi.FaceMatcher(labeledDescriptors, 0.7)
-
 
             video.addEventListener('play', async () => {
                 console.log('Playing')
                 const canvas = faceapi.createCanvasFromMedia(video)
 
                 document.body.append(canvas)
-                // divSpesial.append(canvas)
 
                 const displaySize = {
                     width: video.width,
@@ -77,17 +74,15 @@
                         })
                         drawBox.draw(canvas)
                     })
-                }, 10)
+                }, 100)
 
 
 
             })
         }
 
-
         function loadLabeledImages() {
-            const labels = "{{ $data_siswa }}" // for WebCam
-            // console.log(labels)
+            const labels = ['Nana']
             return Promise.all(
                 labels.map(async (label) => {
                     const descriptions = []

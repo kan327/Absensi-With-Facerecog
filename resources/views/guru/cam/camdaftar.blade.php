@@ -15,7 +15,9 @@
     {{-- tailwind --}}
     <script src="https://cdn.tailwindcss.com"></script>
     {{-- jquery --}}
-    <script src="{{ asset('assets/JS/jquery.js') }}"></script>
+    {{-- <script src="{{ asset('assets/JS/jquery.js') }}"></script> --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.25/webcam.min.js"></script>
     <!-- font montserrat -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;1,500&display=swap"
         rel="stylesheet">
@@ -59,133 +61,47 @@
     {{-- sidebar --}}
     @include('partials.sidebar')
 
-    <div class="absolute left-64 w-3/5 bg-white h-fit mt-32 ml-32 rounded-xl shadow-bxsd pb-12  ">
-        <div class="border-b-blue border-2 w-10/12 mx-auto pb-14">
+    <div class="absolute left-64 w-3/4 bg-white h-fit mt-32 ml-12 rounded-xl shadow-bxsd pb-12  ">
+        <div class="border-b-blue border-2 w-10/12 mx-auto pb-4">
             <h1 class="text-xl ml-24 text-h1 font-bold mt-10 mb-2 font-['Montserrat']">Pengambilan Wajah Siswa</h1>
-            <div class="mx-auto">
-                <div class="mt-5">
-                    <div id="my_camera" class="block mx-auto"></div>
+            <form method="POST" action="/data_siswa/tambah_murid/simpan">
+                @csrf
+                <div class="row">
+                    <div class="flex justify-evenly" id="photo">
+                        <div id="my_camera"></div>
+                        <div id="results"></div>
+                    </div>
+                    <div class="flex justify-content flex-col">  
+                        <input type=button value="Ambil Wajah" onClick="take_snapshot()" class="text-center bg-green-400 text-base text-white rounded-md mx-auto w-1/4 mt-3 h-8 mb-8">
+                        <input type="hidden" name="image" class="image-tag">
+                        <button class="text-center bg-red-400 text-base text-white rounded-md mx-auto w-1/4 h-8 mb-8">Simpan Wajah</button>
+                        <a href="/data_siswa/tambah_murid/simpan_dataset" type="button" class="text-center bg-gray-400 text-base text-white rounded-md mx-auto w-1/4 h-8 mb-8">
+                            Selesai
+                        </a>
+                    </div>
                 </div>
-                <div id="results" class="none"></div>
-                <form method="post" id="photoForm">
-                    <input type="hidden" id="photoStore" name="photoStore" value="">
-                </form>
-            </div>
-            <div class="flex justify-evenly mt-8">
-                <button type="button" class="px-4 py-3 bg-bg-blue-dark rounded-xl text-white font-bold" id="takephoto">Ambil Gambar</button>
-                <button type="submit" class="px-4 py-3 bg-bg-blue-dark rounded-xl text-white font-bold" id="uploadphoto" form="photoForm">Upload</button>
-            </div>
-            <div class="flex justify-content">  
-                <a href="/data_siswa/tambah_murid/simpan_dataset" type="button" class="text-center bg-gray-400 text-base text-white rounded-md mx-auto w-3/4 mt-3 h-8 mb-8">
-                    Simpan Data
-                </a>
-            </div>
+            </form>
         </div>
     </div>
     {{-- cam js --}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="{{ asset('assets/JS/noticme.min.js') }}"></script>
-    <script src="{{ asset('cam_js/plugin/webcamjs/webcam.min.js') }}"></script>
     <script>
-        $(document).ready(function() {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')
-                }
-            });
-            Webcam.set({
-                width: 320,
-                height: 240,
-                image_format: 'jpeg',
-                jpeg_quality: 90
-            });
+        Webcam.set({
+            width: 360,
+            height: 270,
+            image_format: 'jpeg',
+            jpeg_quality: 900
+        });
         
-            Webcam.reset();
-            Webcam.on('error', function() {
-                $('#photoModal').modal('hide');
-                Noticme.any({
-                    text: "Data Berhasil Ditambahkan",
-                    type: 'success',
-                    timer: 5000,
-                })
-            });
-            Webcam.attach('#my_camera');
+        Webcam.attach( '#my_camera' );
         
-            $('#takephoto').on('click', take_snapshot);
-        
-        
-            $('#photoForm').on('submit', function(e) {
-                e.preventDefault();
-                $.ajax({
-                    url: '/data_siswa/tambah_murid/simpan',
-                    type: 'POST',
-                    data: new FormData(this),
-                    contentType: false,
-                    processData: false,
-                    success: function(data) {
-                        console.log(data)
-                        if(data == 'success') {
-                            Webcam.reset();
-        
-                            $('#my_camera').addClass('d-block');
-                            $('#my_camera').removeClass('d-none');
-        
-                            $('#results').addClass('d-none');
-        
-                            $('#takephoto').addClass('d-block');
-                            $('#takephoto').removeClass('d-none');
-    
-                            $('#uploadphoto').addClass('d-none');
-                            $('#uploadphoto').removeClass('d-block');
-        
-                            Noticme.any({
-                                text: "Sukses !",
-                                messege: "Photo uploaded successfully",
-                                type: 'success',
-                                timer: 5000,
-                            })
-                            setTimeout( () => {
-                                location.reload()
-                            }, 5000)
-                        }
-                        else {
-                            Noticme.any({
-                                text: "Gagal !",
-                                messege: "Terjadi Suatu Masalah",
-                                type: 'danger',
-                                timer: 5000,
-                                button: true
-                            })
-                        }
-                    }
-                })
-            })
-        })
-        
-        function take_snapshot()
-        {
-            //take snapshot and get image data
-            Webcam.snap(function(data_uri) {
-                //display result image
-                $('#results').html('<img src="' + data_uri + '" class="d-block mx-auto rounded"/>');
-        
-                var raw_image_data = data_uri.replace(/^data\:image\/\w+\;base64\,/, '');
-                $('#photoStore').val(raw_image_data);
-            });
-        
-            $('#my_camera').removeClass('block');
-            $('#my_camera').addClass('hidden');
-        
-            $('#results').removeClass('none');
-        
-            $('#takephoto').removeClass('d-block');
-            $('#takephoto').addClass('d-none');
-        
-            $('#uploadphoto').removeClass('d-none');
-            $('#uploadphoto').addClass('d-block');
+        function take_snapshot() {
+            Webcam.snap( function(data_uri) {
+                $(".image-tag").val(data_uri);
+                document.getElementById('results').innerHTML = '<img src="'+data_uri+'"/>';
+            } );
         }
     </script>
-    
 </body>
 </html>
       

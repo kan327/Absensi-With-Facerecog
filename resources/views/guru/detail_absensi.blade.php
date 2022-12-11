@@ -28,8 +28,7 @@
                         </div>
                     </div>
                     <button onclick="location.href = '/absen_siswa/{{ $tanggals }}/{{ $kelas }}/{{ $mapels }}/cam_masuk'" class="py-1.5 px-3.5 bg-bg-blue-dark rounded-md text-white">Masuk</button>
-                    <button
-                        class="py-1 px-3 border-bg-blue-dark border-solid border-2 box-border rounded-md">Pulang</button>
+                    <button onclick="location.href = '/absen_siswa/{{ $tanggals }}/{{ $kelas }}/{{ $mapels }}/cam_pulang'" class="py-1 px-3 border-bg-blue-dark border-solid border-2 box-border rounded-md">Pulang</button>
                     <p class="mt-4">Mohon ubah sesi sesuai pada waktunya.</p>
                 </div>
             </div>
