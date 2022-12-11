@@ -3,7 +3,7 @@
 <tr class="hover:bg-[#F5F5F5] hover:font-bold rounded-full in-hover-to">
     <!-- please delete or reuse this onclick -->
     <td class="p-3 font-semibold"
-        style="border-top-left-radius: 12px; border-bottom-left-radius: 12px;">{{ $no_siswa++ }}
+        style="border-top-left-radius: 12px; border-bottom-left-radius: 12px;">{{ $loop->iteration }}
     </td>
     <td class="p-3 font-semibold">{{ $siswa->nama_siswa }}</td>
     <td class="p-3 font-semibold">{{ Carbon\Carbon::createFromFormat('Y-m-d', $siswa->tgl_lahir)->format('d F Y') }}</td>

@@ -2,7 +2,7 @@
     <tr class="hover:bg-[#F5F5F5] hover:font-bold rounded-full in-hover-to">
     <!-- please delete or reuse this onclick -->
         <td class="p-3 font-semibold"
-            style="border-top-left-radius: 12px; border-bottom-left-radius: 12px;">{{ $no_guru++ }}
+            style="border-top-left-radius: 12px; border-bottom-left-radius: 12px;">{{ $loop->iteration }}
         </td>
         <td class="p-3 font-semibold" name="">{{ $akun_guru->name }}</td>
         <td class="p-3 font-semibold" name="">{{ $akun_guru->nip }}</td>
