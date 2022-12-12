@@ -171,7 +171,7 @@ class GuruController extends Controller
 
     public function tambah_murid($id)
     {
-        $id_siswa = DB::select('SELECT ifnull(max(id) + 1 , 1) FROM siswas ');
+        $id_siswa = DB::select('SELECT ifnull(max(id) + 1 , 1) as id_siswas FROM siswas');
         // dd($id_siswa);
 
         $data_guru = Guru::with(['guru_mapel', "guru_kelas"])->get()->where("id", auth()->user()->id)->first();
@@ -183,8 +183,7 @@ class GuruController extends Controller
             "kelas"=>$kelas,
             "mapels"=>$mapel,
             "data_guru"=>$data_guru,
-            // "id_siswa" => 
-            // "nbr"=>$id_siswa,
+            "id_siswa"=>$id_siswa,
             
         ]);
     }
@@ -192,13 +191,14 @@ class GuruController extends Controller
     public function insert_murid(Request $request)
     {
         Siswa::create([
+            "id"=> $request->id_siswas,
             'nama_siswa'=>$request->nama,
             "kelas_id"=>$request->kelas,
             "jenis_kelamin" => $request->jeniskelamin,
             "tgl_lahir" => $request->tgllahir
         ]);
        
-        return redirect("/data_siswa/tambah_murid/cam_daftar")->with("success", "Data siswa berhasil di buat");
+        return redirect("/data_siswa/tambah_murid/cam_daftar/$request->id_siswas");
 
 
     }
@@ -471,32 +471,21 @@ public function table_absen($tanggal, $kelas, $mapel)
 
     public function absen_keluar_siswa($jadwal ,$mapel, $kelas)
     {
-
-        $process = new Process(['python ../../../app/absen_pulang.py']);
-        // $process->setTimeout(0);
-        $process->run();
-
-        if(!$process->isSuccessful())
-        {
-            throw new ProcessFailedException($process);
-        }
-
-        $data = $process->getOutput();
-        // dd(json_decode($data, true));
-        $datas = json_decode($data, true);
         return view("guru.absensiswapulang",[
             "kelas" => $kelas,
             "no"=>1,
-            "mapel" => $mapel,
-            "datas"=> $datas
+            "mapel" => $mapel
         ]);
     }
 
-    public function cam_daftar()
+    public function cam_daftar($id)
     {
-        
+        $data_siswa = Siswa::find($id);
+        // dd($data_siswa->nama_siswa);
         return view("guru.cam.camdaftar", [
             "title"=>"data_kelas",
+            "nama_siswa" => $data_siswa->nama_siswa,
+            "id_siswa" => $id,
         ]);
 
     }
@@ -506,36 +495,40 @@ public function table_absen($tanggal, $kelas, $mapel)
     {
         $i = 1;
         $img = $request->image;
-        $folderPath = "cam_js/images/";
+        $folderPath = "public/cam_js/images/";
         
         $image_parts = explode(";base64,", $img);
         $image_type_aux = explode("image/", $image_parts[0]);
         $image_type = $image_type_aux[1];
         
         $image_base64 = base64_decode($image_parts[1]);
-        $fileName = uniqid() . '.png';
+        while($i < 11) {
+            $fileName = $request->nama_siswa . '.' . $i . '.jpg';
+            $i++;
+            $file = $folderPath . $fileName;
+            Storage::put($file, $image_base64);
+        }
         
-        $file = $folderPath . $fileName;
-        Storage::put($file, $image_base64);
        
         // dd('Image uploaded successfully: '.$fileName);
-        return redirect('/data_siswa/tambah_murid/cam_daftar')->with("success", "Data murid berhasil disimpan!");
+        return redirect("/data_siswa/tambah_murid/cam_daftar/$request->id_siswa")->with("success", "Data murid berhasil disimpan!");
         
     }
 
     public function simpan_dataset()
     {
-        return redirect("/data_kelas")->with("success", "Wajah berhasil ditambahkan!");
+        return redirect("/data_kelas")->with("success", "Data berhasil ditambahkan!");
     }
 
     public function cam_masuk($tanggal, $kelas, $mapel)
     {
 
-        $data_absen = AbsenSiswa::with(['siswa'])->where("kelas_id", $kelas)->where("mapel_id", $mapel)->get();
-        // dd($data_absen->pluck("siswa_id"));
+        $data_absen = Siswa::with(['kelas'])->where("kelas_id", $kelas)->get();
+
+        // dd($data_siswas);
         return view("guru.cam_absen_masuk", [
             "title"=>"absensi",
-            "data_siswa"=> $data_absen,
+            "data_siswa" => $data_absen,
             "tanggals"=>$tanggal,
             "kelas"=>$kelas,
             "mapels"=>$mapel,
@@ -555,6 +548,13 @@ public function table_absen($tanggal, $kelas, $mapel)
             "mapels"=>$mapel,
         ]);
     }
+
+    // storage file
+    // public function storage_masuk($file)
+    // {
+    //     // dd($file);
+    //     return storage_path('/app/cam_js/images'. $file);
+    // }
 
     // export excel 
     public function excel($tanggal, $kelas, $mapel){
