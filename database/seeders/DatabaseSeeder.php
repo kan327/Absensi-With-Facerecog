@@ -84,19 +84,19 @@ class DatabaseSeeder extends Seeder
             "chat_id"=> 6676868317,
         ]);
 
-        Siswa::create([
-            "nama_siswa"=> "Nana",
-            "kelas_id"=> 4,
-            "jenis_kelamin" => Arr::random(['Laki-Laki', "Perempuan"]),
-            "tgl_lahir" => "2006-01-01",
-        ]);
+        // Siswa::create([
+        //     "nama_siswa"=> "Nana",
+        //     "kelas_id"=> 4,
+        //     "jenis_kelamin" => Arr::random(['Laki-Laki', "Perempuan"]),
+        //     "tgl_lahir" => "2006-01-01",
+        // ]);
 
-        Siswa::create([
-            "nama_siswa"=> "Udin",
-            "kelas_id"=> 4,
-            "jenis_kelamin" => Arr::random(['Laki-Laki', "Perempuan"]),
-            "tgl_lahir" => "2006-01-01",
-        ]);
+        // Siswa::create([
+        //     "nama_siswa"=> "Udin",
+        //     "kelas_id"=> 4,
+        //     "jenis_kelamin" => Arr::random(['Laki-Laki', "Perempuan"]),
+        //     "tgl_lahir" => "2006-01-01",
+        // ]);
 
         Siswa::factory(30)->create();
 
