@@ -5,7 +5,7 @@
         <div class="shadow-box mt-32 mb-4 p-8 w-5/6 mx-auto rounded-2xl border-solid border-[0.1px] border-opacity-5 border-black">
             <h1 class="text-2xl mt-2 font-bold text-blue-normal-19 font-[Montserrat]">Absen Masuk Kelas</h1>
             <div id="card_cam" class="relative">
-                <video id="videoInput" width="700" height="500" muted controls class="mx-auto mt-4"></video>
+                <video id="videoInput" width="700" height="500" muted autoplay loop playsinline class="mx-auto mt-4"></video>
             </div>
             <div class="button flex justify-center">
                 <button class="px-12 py-3 bg-bg-blue-dark rounded-xl text-white font-bold mt-8 flex mx-auto mb-2 cursor-pointer" onclick="location.href = '/absen_siswa/{{ $tanggals }}/{{ $kelas }}/{{ $mapels }}'">Kembali</button>
@@ -45,7 +45,7 @@
             console.log(labeledDescriptors)
             const faceMatcher = new faceapi.FaceMatcher(labeledDescriptors, 0.7)
 
-            video.addEventListener('play', async () => {
+            video.addEventListener('click', async () => {
                 console.log('Playing')
                 const canvas = faceapi.createCanvasFromMedia(video)
 
@@ -83,8 +83,8 @@
         }
 
         function loadLabeledImages() {
-            const labels = ['hari']
-            console.log("{{ $data_siswa }}")
+            const labels = ['unai']
+            // console.log("{{ $data_siswa }}")
             return Promise.all(
                 labels.map(async (label) => {
                     const descriptions = []
@@ -92,7 +92,7 @@
                         const img = await faceapi.fetchImage("{{ asset('storage/cam_js/images') }}"+`/${label}.${i}.jpg`)
                         const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor()
                         descriptions.push(detections.descriptor)
-                        console.log(descriptions)
+                        // console.log(descriptions)
                         // if (label && descriptions >= 0.20) {
                         //     alert("hello")
                         // }
