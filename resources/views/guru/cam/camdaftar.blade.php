@@ -50,6 +50,18 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
+
+    {{-- video style
+    <style>
+        video{
+            -webkit-filter: grayscale(100%);
+            filter: grayscale(100%);
+        }
+        #image{
+            -webkit-filter: grayscale(100%);
+            filter: grayscale(100%);
+        }
+    </style> --}}
 </head>
 
 <body class="text-tet">
@@ -66,15 +78,17 @@
             <h1 class="text-xl ml-24 text-h1 font-bold mt-10 mb-2 font-['Montserrat']">Pengambilan Wajah Siswa</h1>
             <form method="POST" action="/data_siswa/tambah_murid/simpan">
                 @csrf
+                <input type="hidden" name="id_siswa" value="{{ $id_siswa }}">
+                <input type="hidden" name="nama_siswa" value="{{ $nama_siswa }}">
                 <div class="row">
-                    <div class="flex justify-evenly" id="photo">
-                        <div id="my_camera"></div>
-                        <div id="results"></div>
+                    <div class="block" id="photo">
+                        <div id="my_camera" class="mx-auto"></div>
+                        <div id="results" class="mx-auto"></div>
                     </div>
                     <div class="flex justify-content flex-col">  
-                        <input type=button value="Ambil Wajah" onClick="take_snapshot()" class="text-center bg-green-400 text-base text-white rounded-md mx-auto w-1/4 mt-3 h-8 mb-8">
+                        <input type=button value="Ambil Wajah" onClick="take_snapshot()" class="text-center bg-green-400 text-base text-white rounded-md mx-auto w-1/4 mt-3 h-8 mb-8" style="display: block;" id="button1">
                         <input type="hidden" name="image" class="image-tag">
-                        <button class="text-center bg-red-400 text-base text-white rounded-md mx-auto w-1/4 h-8 mb-8">Simpan Wajah</button>
+                        <button class="text-center bg-red-400 text-base text-white rounded-md mx-auto w-1/4 h-8 mb-8" style="display: none;" id="button2">Simpan Wajah</button>
                         <a href="/data_siswa/tambah_murid/simpan_dataset" type="button" class="text-center bg-gray-400 text-base text-white rounded-md mx-auto w-1/4 h-8 mb-8">
                             Selesai
                         </a>
@@ -98,19 +112,27 @@
     {{-- cam js --}}
     <script src="{{ asset('assets/JS/noticme.min.js') }}"></script>
     <script>
+        var button1 = document.getElementById("button1")
+        var button2 = document.getElementById("button2")
+        var results = document.getElementById("results")
+        var video = document.getElementById("my_camera")
         Webcam.set({
-            width: 360,
-            height: 270,
-            image_format: 'jpeg',
-            jpeg_quality: 900
+            width: 600,
+            height: 450,
+            image_format:'jpg',
+            jpeg_quality: 1200
         });
         
-        Webcam.attach( '#my_camera' );
+        Webcam.attach('#my_camera');
         
         function take_snapshot() {
+            button1.style.display = "none"
+            button2.style.display = "block"
+            video.style.display = "none"
+
             Webcam.snap( function(data_uri) {
                 $(".image-tag").val(data_uri);
-                document.getElementById('results').innerHTML = '<img src="'+data_uri+'" name="image"/>';
+                results.innerHTML = '<img src="'+data_uri+'" name="image" id="image" class="mx-auto"/>';
             } );
         }
     </script>
