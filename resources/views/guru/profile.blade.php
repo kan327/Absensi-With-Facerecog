@@ -152,7 +152,9 @@
     <!-- button -->
     <div class="w-full mb-10">
         <button type="submit" class="px-4 py-1 relative left-[35%] border-bg-blue-dark border-solid border-2 rounded-md font-bold">simpan</button>
+        <a onclick="location.href='/profile/hapus/{{ auth()->user()->id }}/reset_profile'" class="px-4 py-[5.5px] relative left-[35%] border-bg-blue-dark border-solid border-2 rounded-md font-bold">Reset</a>
     </div>
-</form>
+   
+   </form>
 </div>
 @endsection

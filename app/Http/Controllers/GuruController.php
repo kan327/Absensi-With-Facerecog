@@ -292,6 +292,18 @@ class GuruController extends Controller
         return redirect("/absensi")->with("success", "Jadwal berhasil di hapus");
     }
 
+    public function reset_profile($id){
+        // $id_guru = auth()->user()->id;
+        $guru_kelas = GuruKelas::where("guru_id", $id);
+        $guru_mapel = GuruMapel::where("guru_id", $id);
+
+        $guru_kelas->delete();
+        $guru_mapel->delete();
+
+        return redirect("/")->with("success", "Profile Berhasil Di Reset");
+    }
+
+
     public function absen_siswa($tanggal, $kelas, $mapel)
     {   
         // $data_jadwal = DB::select("SELECT * FROM jadwal_absens WHERE kelas_id = $kelas AND mapel_id = $mapel AND tanggal = curdate()");

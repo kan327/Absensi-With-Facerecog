@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DataPersonController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\GuruController;
+use App\Http\Controllers\Reset_profile;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/test', function(){
@@ -42,6 +43,8 @@ Route::controller(GuruController::class)->group(function(){
     
     // delete
     Route::get("/absensi/hapus/{id}/{tanggal}/{kelas}/{mapel}",  "hapus_jadwal")->middleware("isLoginGuru");
+    Route::get('/profile/hapus/{id}/reset_profile', 'reset_profile');
+
     
     // MaatWebsite
     Route::get("/absensi/excel/{tanggal}/{kelas}/{mapel}", "excel")->middleware("isLoginGuru");
@@ -59,6 +62,7 @@ Route::controller(GuruController::class)->group(function(){
     Route::get("/data_siswa/tambah_murid/simpan_dataset", "simpan_dataset")->middleware("isLoginGuru");
     
 });
+
 
 // Admin Route
 Route::controller(AdminController::class)->group(function(){
