@@ -46,7 +46,7 @@
                     </div>
                 </div>
                 <!-- table -->
-                <div class="mt-5 h-[50vh] w-full overflow-auto border-bg-blue-dark border-solid border-t-2" >
+                <div class="mt-5 h-[50vh] w-full relative overflow-auto border-bg-blue-dark border-solid border-t-2" >
                     <table class="w-full " cellpadding="2">
                         <!-- header table -->
                         <thead class="font-extrabold bg-white top-0 sticky z-10">
@@ -119,8 +119,8 @@
                 </div>
             </div>
             <!-- table -->
-            <div class="mt-5 h-[50vh] w-full overflow-auto border-bg-blue-dark border-solid border-t-2">
-                <table class="w-full " cellpadding="2">
+            <div class="mt-5 h-[50vh] relative w-full overflow-auto border-bg-blue-dark border-solid border-t-2">
+                <table class="w-full" cellpadding="2">
                     <!-- header table -->
                     <thead class="font-extrabold bg-white top-0 sticky z-10">
                         <tr class="text-sm text-placeholder">

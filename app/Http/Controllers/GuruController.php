@@ -171,7 +171,7 @@ class GuruController extends Controller
 
     public function tambah_murid($id)
     {
-        // $id_siswa = DB::select('SELECT ifnull(max(id) + 1 , 1) FROM siswas ');
+        $id_siswa = DB::select('SELECT ifnull(max(id) + 1 , 1) FROM siswas ');
         // dd($id_siswa);
 
         $data_guru = Guru::with(['guru_mapel', "guru_kelas"])->get()->where("id", auth()->user()->id)->first();
@@ -182,7 +182,8 @@ class GuruController extends Controller
             "title"=>"data_kelas",
             "kelas"=>$kelas,
             "mapels"=>$mapel,
-            "data_guru"=>$data_guru
+            "data_guru"=>$data_guru,
+            // "id_siswa" => 
             // "nbr"=>$id_siswa,
             
         ]);
@@ -354,6 +355,7 @@ class GuruController extends Controller
             
         }
         return $result;
+
         
     }
 

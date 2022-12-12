@@ -12,7 +12,7 @@
     {{-- tailwind --}}
     <script src="https://cdn.tailwindcss.com"></script>
     {{-- alert --}}
-    <script src="{{ asset('assets/JS/cstkei.alert.js') }}"></script>
+    <script src="{{ asset('assets/JS/noticme.min.js') }}"></script>
     
     <!-- roboto -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
@@ -97,18 +97,43 @@
                             </button>
                         </div>
                         @if (Session::has('success'))
-                            <script>keiAlert("{{ Session::get('success') }}", 'done', 'bg-[#22c55e]')</script>
-                            @endif
+                            <script>
+                                Noticme.any({
+                                    text: "{{ Session::get('success') }}",
+                                    type: 'success',
+                                    timer: 3000,
+                                    button: true
+                                })
+                            </script>
+                        @endif
                             
                         @if (Session::has('wrong'))
-                            <script>keiAlert("{{ Session::get('wrong') }}", 'close', 'bg-red-600')</script>
+                            <script>
+                                Noticme.any({
+                                    text: "{{ Session::get('wrong') }}",
+                                    type: 'danger',
+                                    button: true
+                                })
+                            </script>
                         @endif
 
                         @error('username')
-                            <script>keiAlert("{{ $message }}", 'close', 'bg-red-600')</script>
+                            <script>
+                                Noticme.any({
+                                    text: "{{ $message }}",
+                                    type: 'danger',
+                                    button: true
+                                })
+                            </script>
                         @enderror
                         @error('password')
-                            <script>keiAlert("{{ $message }}", 'close', 'bg-red-600')</script>
+                            <script>
+                                Noticme.any({
+                                    text: "{{ $message }}",
+                                    type: 'danger',
+                                    button: true
+                                })
+                            </script>
                         @enderror
                     </form>
                     </div>

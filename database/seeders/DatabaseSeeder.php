@@ -86,14 +86,14 @@ class DatabaseSeeder extends Seeder
 
         Siswa::create([
             "nama_siswa"=> "Nana",
-            "kelas_id"=> Arr::random([1, 2, 3]),
+            "kelas_id"=> 4,
             "jenis_kelamin" => Arr::random(['Laki-Laki', "Perempuan"]),
             "tgl_lahir" => "2006-01-01",
         ]);
 
         Siswa::create([
             "nama_siswa"=> "Udin",
-            "kelas_id"=> Arr::random([1, 2, 3]),
+            "kelas_id"=> 4,
             "jenis_kelamin" => Arr::random(['Laki-Laki', "Perempuan"]),
             "tgl_lahir" => "2006-01-01",
         ]);
