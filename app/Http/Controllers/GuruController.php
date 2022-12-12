@@ -494,7 +494,7 @@ public function table_absen($tanggal, $kelas, $mapel)
     {
         $i = 1;
         $img = $request->image;
-        $folderPath = "cam_js/images/";
+        $folderPath = "public/cam_js/images/";
         
         $image_parts = explode(";base64,", $img);
         $image_type_aux = explode("image/", $image_parts[0]);
@@ -522,11 +522,12 @@ public function table_absen($tanggal, $kelas, $mapel)
     public function cam_masuk($tanggal, $kelas, $mapel)
     {
 
-        $data_absen = AbsenSiswa::with(['siswa'])->where("kelas_id", $kelas)->where("mapel_id", $mapel)->get();
-        // dd($data_absen->pluck("siswa_id"));
+        $data_absen = Siswa::with(['kelas'])->where("kelas_id", $kelas)->get();
+
+        // dd($data_siswas);
         return view("guru.cam_absen_masuk", [
             "title"=>"absensi",
-            "data_siswa"=> $data_absen,
+            "data_siswa" => $data_absen,
             "tanggals"=>$tanggal,
             "kelas"=>$kelas,
             "mapels"=>$mapel,
@@ -546,6 +547,13 @@ public function table_absen($tanggal, $kelas, $mapel)
             "mapels"=>$mapel,
         ]);
     }
+
+    // storage file
+    // public function storage_masuk($file)
+    // {
+    //     // dd($file);
+    //     return storage_path('/app/cam_js/images'. $file);
+    // }
 
     // export excel 
     public function excel($tanggal, $kelas, $mapel){
