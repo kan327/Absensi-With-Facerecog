@@ -24,6 +24,7 @@
             <!-- inputan -->
            <form class="my-4 w-full h-1/2" action="/data_siswa/tambah_murid" method="POST" enctype="multipart/form-data">
                @csrf
+               <input type="hidden" name="id_siswas" value="{{ $id_siswa[0]->id_siswas }}">
                <input type="hidden" name="kelas" value="{{ $kelas->first()->id }}">
                <label class="font-bold font-[montserrat] text-base text-black" for="name">
                    Nama
