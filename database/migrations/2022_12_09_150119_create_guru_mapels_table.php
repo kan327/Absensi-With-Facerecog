@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    use SoftDeletes;
+    // use SoftDeletes;
     public function up()
     {
         Schema::create('guru_mapels', function (Blueprint $table) {
@@ -15,7 +15,7 @@ return new class extends Migration
             $table->foreign('guru_id')->references("id")->on("gurus");
             $table->unsignedBigInteger('mapel_id');
             $table->foreign('mapel_id')->references("id")->on("mapels"); 
-            $table->softDeletes();
+            // $table->softDeletes();
             $table->timestamps();
         });
     }

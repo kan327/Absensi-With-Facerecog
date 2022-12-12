@@ -1,9 +1,8 @@
 @extends('guru.no_sidebar')
 @section('content')
-{{ $data_siswa }}
-    <div class="mx-auto w-3/4">
-        <div class="shadow-box mt-32 mb-4 p-8 w-5/6 mx-auto rounded-2xl border-solid border-[0.1px] border-opacity-5 border-black">
-            <h1 class="text-2xl mt-2 font-bold text-blue-normal-19 font-[Montserrat]">Absen Masuk Kelas</h1>
+<div class="mx-auto w-3/4">
+    <div class="shadow-box mt-32 mb-4 p-8 w-5/6 mx-auto rounded-2xl border-solid border-[0.1px] border-opacity-5 border-black">
+        <h1 class="text-2xl mt-2 font-bold text-blue-normal-19 font-[Montserrat]">Absen Masuk Kelas</h1>
             <div id="card_cam" class="relative">
                 <video id="videoInput" width="700" height="500" muted autoplay loop playsinline class="mx-auto mt-4"></video>
             </div>
