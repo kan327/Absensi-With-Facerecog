@@ -116,7 +116,7 @@ class GuruController extends Controller
             ]);
         }
 
-        return redirect("/")->with("success", "Profile berhasil di update");
+        return redirect("/")->with("success", "Profile Berhasil Di Ubah");
     }
 
     public function absensi()
@@ -377,7 +377,9 @@ class GuruController extends Controller
             $result = "ok";
 
             $absen_siswa->update([
-                "pulang" => $request->datas[$i]['data_pulang']
+                "pulang" => $request->datas[$i]['data_pulang'],
+                "keterangan" => $request->datas[$i]['set_keterangans'],
+                "keterangan_absensi"=> $request->datas[$i]['keterangan_absens']
             ]);
 
             $result = "Siswa berhasil di pulangkan" ;

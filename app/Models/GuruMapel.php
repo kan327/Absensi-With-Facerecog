@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class GuruMapel extends Model
 {
     use HasFactory, SoftDeletes;
-    protected $guarded = [];
+    protected $guarded = ['id'];
 
     public function guru()
     {

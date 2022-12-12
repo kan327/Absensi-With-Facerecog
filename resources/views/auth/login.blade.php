@@ -167,7 +167,7 @@
             time.textContent += "Selamat Siang, Guru";
         }else if(date_now >= 15 && date_now <= 18){
             time.textContent = "Selamat Sore, Guru";
-        }else if(date_now >= 18 && date_now <= 00){
+        }else{
             time.textContent = "Selamat Malam, Guru";
         }
 

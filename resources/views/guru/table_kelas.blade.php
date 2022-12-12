@@ -32,7 +32,7 @@
 
                         @foreach ($data_siswa as $siswa)
                             <tr class="hover:bg-[#F5F5F5] rounded-full in-hover-to">
-                                <td class="p-3" style="border-top-left-radius: 12px; border-bottom-left-radius: 12px;">{{ $no++ }}
+                                <td class="p-3" style="border-top-left-radius: 12px; border-bottom-left-radius: 12px;">{{ $loop->iteration }}
                                 </td>
                                 <td class="p-3">{{ $siswa->nama_siswa }}</td>
                                 <td class="p-3">{{ $siswa->tgl_lahir }}</td>
