@@ -537,19 +537,12 @@ public function table_absen($tanggal, $kelas, $mapel)
 
         $data_absen = Siswa::with(['kelas'])->where("kelas_id", $kelas)->get();
         // $data_absen = DB::select("SELECT nama_siswa FROM siswas WHERE kelas_id = $kelas AND deleted_at IS NULL");
-        // dd(str_replace('"', "'", $data_absen->pluck("nama_siswa")));
-        
-        $data_siswa = [];
-        foreach($data_absen as $siswa){
-            $data_siswa[] = $siswa->nama_siswa;
-            // dump($data_siswa);
-        }
+        // dd(str_replace('"', "", $data_absen->pluck("nama_siswa")));
 
         
         return view("guru.cam_absen_masuk", [
             "title"=>"absensi",
-            // "data_siswa" => str_replace('"', "'", $data_absen->pluck("nama_siswa")),
-            "data_siswa" => json_encode($data_siswa),
+            "data_siswa" => str_replace('"', '"', $data_absen->pluck("nama_siswa")),
             "tanggals"=>$tanggal,
             "kelas"=>$kelas,
             "mapels"=>$mapel,

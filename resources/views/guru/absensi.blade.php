@@ -44,7 +44,7 @@
                         <td  class=""
                         style="border-top-right-radius: 12px; border-bottom-right-radius: 12px;">
 
-                            <a href="/absensi/edit"><span class="material-symbols-outlined">edit</span></a>
+                            {{-- <a href="/absensi/edit"><span class="material-symbols-outlined">edit</span></a> --}}
                             <a href="/absensi/hapus/{{ $jadwal_absen->id }}/{{ $jadwal_absen->tanggal }}/{{ $jadwal_absen->kelas_id }}/{{ $jadwal_absen->mapel_id }}"><span class="material-symbols-outlined this-one">delete</span></a>
                             <a href="/absensi/excel/{{ $jadwal_absen->tanggal }}/{{ $jadwal_absen->kelas_id }}/{{ $jadwal_absen->mapel_id }}" name="download_excel"><span class="material-symbols-outlined">file_download</span></a></td>
                     </tr>

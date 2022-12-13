@@ -391,6 +391,8 @@
 
                     table_absen()
 
+                    box_absen_ket()
+
                 }
             });
 
@@ -822,4 +824,19 @@
             });
         }
     }
+
+    
+
+    // console.log("{{ $time_now }}")
+
+    // var otomatis_tutup_absen = setInterval(() => {
+    //     if("{{ $time_now }}" >= "{{ $batas_hadir }}"){
+    //         tutup_absen()
+    //         // dine
+    //     }
+    //     clearInterval(this.otomatis_tutup_absen)
+
+    //     console.log("{{ $time_now }}")
+    // }, 1000);
+ 
 </script>

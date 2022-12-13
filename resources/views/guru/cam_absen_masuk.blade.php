@@ -1,5 +1,6 @@
 @extends('guru.no_sidebar')
 @section('content')
+<input type="hidden" id="data_siswa" value="{{ $data_siswa }}">
 <div class="mx-auto w-3/4">
     <div class="shadow-box mt-32 mb-4 p-8 w-5/6 mx-auto rounded-2xl border-solid border-[0.1px] border-opacity-5 border-black">
         <h1 class="text-2xl mt-2 font-bold text-blue-normal-19 font-[Montserrat]">Absen Masuk Kelas</h1>
@@ -11,6 +12,10 @@
             </div>
         </div>
         {{-- autoplay loop playsinline --}}
+    </div>
+
+    <div id="data">
+        {{ $data_siswa }}
     </div>
 
     <script src="{{ asset('cam_js/js/face-api.min.js') }}"></script>
@@ -82,9 +87,16 @@
         }
 
         function loadLabeledImages() {
-            const labels = ["Ridho Rizqi", "Rudi Tabuti"]
+            // var quot = 
+            // var arr_to_string = quot.split("&quot;").join('"')
+            // var arr_to_string_2 =arr_to_string.split("[").join("")
+            // var arr_to_string_3 =arr_to_string_2.split("]").join("")
+            var data_siswa = document.getElementById("data_siswa")
+
+            const labels = [@json($data_siswa)]
             
-            console.log({{-- json_decode($data_siswa,true) --}})
+            // console.log(labels.replace("&quot;", '"'))
+            console.log( labels)
             return Promise.all(
                 labels.map(async (label) => {
                     const descriptions = []
