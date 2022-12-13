@@ -289,7 +289,7 @@ class GuruController extends Controller
         $absen_siswa->delete();
         $jadwal->delete();
 
-        return redirect("/absensi")->with("success", "Jadwal berhasil di hapus");
+        return redirect("/absensi")->with("success", "Jadwal Berhasil Di Hapus");
     }
 
     public function reset_profile($id){
@@ -452,7 +452,7 @@ class GuruController extends Controller
         ]);
     }
 
-public function table_absen($tanggal, $kelas, $mapel)
+    public function table_absen($tanggal, $kelas, $mapel)
     {
         $id_guru = auth()->user()->id;
         $data_absensi = AbsenSiswa::all()->where("guru_id", $id_guru)->where("kelas_id", $kelas)->where("mapel_id", $mapel)->where("tanggal", $tanggal);
@@ -523,37 +523,42 @@ public function table_absen($tanggal, $kelas, $mapel)
         
        
         // dd('Image uploaded successfully: '.$fileName);
-        return redirect("/data_siswa/tambah_murid/cam_daftar/$request->id_siswa")->with("success", "Data murid berhasil disimpan!");
+        return redirect("/data_kelas")->with("success", "Data Murid Berhasil Disimpan");
         
-    }
-
-    public function simpan_dataset()
-    {
-        return redirect("/data_kelas")->with("success", "Data berhasil ditambahkan!");
     }
 
     public function cam_masuk($tanggal, $kelas, $mapel)
     {
 
         $data_absen = Siswa::with(['kelas'])->where("kelas_id", $kelas)->get();
-        // $data_absen = DB::select("SELECT nama_siswa FROM siswas WHERE kelas_id = $kelas AND deleted_at IS NULL");
-        // dd(str_replace('"', "", $data_absen->pluck("nama_siswa")));
-
         
         return view("guru.cam_absen_masuk", [
             "title"=>"absensi",
-            "data_siswa" => str_replace('"', '"', $data_absen->pluck("nama_siswa")),
+            "data_siswa" => $data_absen,
             "tanggals"=>$tanggal,
             "kelas"=>$kelas,
             "mapels"=>$mapel,
         ]);
     }
 
+    public function update_cam_masuk($tanggal, $kelas, $mapel, $data_siswa)
+    {
+        $data_siswas = Siswa::where("nama_siswa", $data_siswa)->get();
+        $jadwal_absen = JadwalAbsen::where("tanggal", $tanggal)->where("kelas_id", $kelas)->where("mapel_id", $mapel)->where("guru_id", auth()->user()->id)->get();
+        $data_absen = AbsenSiswa::where("siswa_id", $data_siswas->first()->id);
+
+        $data_absen->update([
+            "masuk" => Carbon::now("Asia/Jakarta")->format("H:i:s"),
+            "keterangan" => "Hadir"
+        ]);
+        return "$data_siswa Berhasil Melakukan Absen";
+    }
+
     public function cam_pulang($tanggal, $kelas, $mapel)
     {
 
-        $data_absen = AbsenSiswa::with(['siswa'])->where("kelas_id", $kelas)->where("mapel_id", $mapel)->get();
-        // dd($data_absen->pluck("siswa_id"));
+        $data_absen = Siswa::with(['kelas'])->where("kelas_id", $kelas)->get();
+
         return view("guru.cam_absen_pulang", [
             "title"=>"absensi",
             "data_siswa"=> $data_absen,
@@ -563,12 +568,18 @@ public function table_absen($tanggal, $kelas, $mapel)
         ]);
     }
 
-    // storage file
-    // public function storage_masuk($file)
-    // {
-    //     // dd($file);
-    //     return storage_path('/app/cam_js/images'. $file);
-    // }
+    public function update_cam_pulang($tanggal, $kelas, $mapel, $data_siswa)
+    {
+        $data_siswas = Siswa::where("nama_siswa", $data_siswa)->get();
+        $jadwal_absen = JadwalAbsen::where("tanggal", $tanggal)->where("kelas_id", $kelas)->where("mapel_id", $mapel)->where("guru_id", auth()->user()->id)->get();
+        $data_absen = AbsenSiswa::where("siswa_id", $data_siswas->first()->id);
+
+        $data_absen->update([
+            "pulang" => $time_now = Carbon::now("Asia/Jakarta")->format("H:i:s"),
+            "keterangan_absensi" => "Hadir"
+        ]);
+        return "$data_siswa Berhasil Di Pulangkan";
+    }
 
     // export excel 
     public function excel($tanggal, $kelas, $mapel){

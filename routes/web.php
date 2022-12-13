@@ -54,6 +54,9 @@ Route::controller(GuruController::class)->group(function(){
     Route::post("/data_siswa/tambah_murid/simpan", "simpan_gambar")->middleware("isLoginGuru");
     Route::get("/absen_siswa/{tanggal}/{kelas}/{mapel}/cam_masuk", "cam_masuk")->middleware("isLoginGuru");
     Route::get("/absen_siswa/{tanggal}/{kelas}/{mapel}/cam_pulang", "cam_pulang")->middleware("isLoginGuru");
+
+    Route::get("/absen_siswa/{tanggal}/{kelas}/{mapel}/cam_absen_masuk/{data_siswa}", "update_cam_masuk")->middleware("isLoginGuru");
+    Route::get("/absen_siswa/{tanggal}/{kelas}/{mapel}/cam_absen_pulang/{data_siswa}", "update_cam_pulang")->middleware("isLoginGuru");
     
     // storage
     // Route::get("/storage/{file}", "storage_file");
@@ -104,7 +107,6 @@ Route::controller(AdminController::class)->group(function(){
     Route::get("/admin/hapus_guru/{id}", "delete_guru")->middleware("isLoginGuru");
     Route::get("/admin/hapus_grup_kelas/{id}", "delete_grup_kelas")->middleware("isLoginGuru");
     Route::get("/admin/hapus_siswa/{id}", "delete_siswa")->middleware("isLoginGuru");
-
 });
 
 // Login

@@ -14,10 +14,6 @@
         {{-- autoplay loop playsinline --}}
     </div>
 
-    <div id="data">
-        {{ $data_siswa }}
-    </div>
-
     <script src="{{ asset('cam_js/js/face-api.min.js') }}"></script>
 
     <script>
@@ -31,7 +27,7 @@
         ]).then(start)
         
         function start() {
-            console.log('Models Loaded')
+           
 
             navigator.getUserMedia({
                     video: {}
@@ -40,15 +36,17 @@
                 err => console.error(err)
             )
 
-            console.log('video added')
+            
             recognizeFaces()
         }
 
+        var labels =  {{ Js::from($data_siswa->pluck("nama_siswa")) }} //['Ridho']
+        
         async function recognizeFaces() {
             const labeledDescriptors = await loadLabeledImages()
-            console.log(labeledDescriptors)
+            // console.log(labeledDescriptors)
             const faceMatcher = new faceapi.FaceMatcher(labeledDescriptors, 0.7)
-
+            console.log(faceMatcher)
             video.addEventListener('click', async () => {
                 console.log('Playing')
                 const canvas = faceapi.createCanvasFromMedia(video)
@@ -60,13 +58,13 @@
                     height: video.height
                 }
                 faceapi.matchDimensions(canvas, displaySize)
+                var no = 0
 
                 setInterval(async () => {
                     const detections = await faceapi.detectAllFaces(video).withFaceLandmarks()
                         .withFaceDescriptors()
 
                     const resizedDetections = faceapi.resizeResults(detections, displaySize)
-
                     canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
 
                     const results = resizedDetections.map((d) => {
@@ -79,13 +77,33 @@
                         })
                         drawBox.draw(canvas)
                     })
+
+                    // simpan !!!!!!!!
+                    console.log(results)
+
+                    results.forEach(result => {
+                        labels.forEach(nama => {
+                            if(result._label === nama){
+                                $.ajax({
+                                    type: "GET",
+                                    url: "cam_absen_masuk/"+ result._label,
+                                    success: function (ress) {
+                                        
+                                    }   
+                                });
+                            }
+                        })
+                    })
+
+
                 }, 100)
 
 
 
             })
         }
-
+        // 
+        
         function loadLabeledImages() {
             // var quot = 
             // var arr_to_string = quot.split("&quot;").join('"')
@@ -93,7 +111,6 @@
             // var arr_to_string_3 =arr_to_string_2.split("]").join("")
             var data_siswa = document.getElementById("data_siswa")
 
-            const labels = [@json($data_siswa)]
             
             // console.log(labels.replace("&quot;", '"'))
             console.log( labels)
@@ -105,9 +122,7 @@
                         const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor()
                         descriptions.push(detections.descriptor)
                         // console.log(descriptions)
-                        // if (label && descriptions >= 0.20) {
-                        //     alert("hello")
-                        // }
+                        
                     }
                     console.log(label + '| Faces Loaded ')
                     return new faceapi.LabeledFaceDescriptors(label, descriptions)

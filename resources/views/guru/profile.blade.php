@@ -108,7 +108,7 @@
                 <div class="w-4/5 grid grid-cols-2  gap-3">
                 @foreach ($data_kelas as $kelas)
                     <li>
-                        <input type="checkbox" @foreach($kelas_gurus as $kelas_guru) @if($kelas_guru->kelas->id == $kelas->id) {{ "checked" }} @endif @endforeach id="checkbox{{ $no_kelas }}" name="kelas[]"
+                        <input type="checkbox" @foreach($kelas_gurus as $kelas_guru) @if($kelas_guru->kelas->id == $kelas->id) {{ "checked disabled" }} @endif @endforeach id="checkbox{{ $no_kelas }}" name="kelas[]"
                             value="{{ $kelas->id }}">
                         <label for="checkbox{{ $no_kelas++ }}" class="w-full">{{ $kelas->kelas }}</label>
                     </li>
@@ -129,7 +129,7 @@
                 <div class="w-4/5 grid grid-cols-2  gap-2">
                     @foreach ($data_mapels as $mapel)
                         <li>
-                            <input type="checkbox" @foreach($mapel_gurus as $mapel_guru) @if($mapel_guru->mapel->id == $mapel->id) {{ "checked" }} @endif @endforeach id="mapel{{ $no_mapel }}" name="mapel[]" value="{{ $mapel->id }}">
+                            <input type="checkbox" @foreach($mapel_gurus as $mapel_guru) @if($mapel_guru->mapel->id == $mapel->id) {{ "checked disabled" }} @endif @endforeach id="mapel{{ $no_mapel }}" name="mapel[]" value="{{ $mapel->id }}">
                             <label for="mapel{{ $no_mapel++ }}" class="w-full">{{ $mapel->pelajaran }}</label>
                         </li>
                     @endforeach

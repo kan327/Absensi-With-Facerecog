@@ -51,21 +51,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
 
-    {{-- video style
-    <style>
-        video{
-            -webkit-filter: grayscale(100%);
-            filter: grayscale(100%);
-        }
-        #image{
-            -webkit-filter: grayscale(100%);
-            filter: grayscale(100%);
-        }
-    </style> --}}
 </head>
 
 <body class="text-tet">
-{{-- <body class="text-tet"> --}}
     
     {{-- navbar --}}
     @include('partials.navbar')
