@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ asset('assets/img/title_logo.png') }}">
     <title>Login Guru | Starbhak Absensi</title>
 
     {{-- <link rel="stylesheet" href="{{ asset('assets/CSS/login.css') }}"> --}}
@@ -48,11 +49,11 @@
         <!-- kiri -->
         <div class="w-2/3  h-full hidden lg:block">
             <!-- nav -->
-            <nav class="w-full lg:flex items-center font-bold text-bg-blue-dark justify-evenly h-[10%] sticky top-0 hidden">
-                <!-- links -->
-                <a class="hover:border-b-[3px] text-sm transition-all border-bg-blue-dark bor font-[montserrat]" class="" href="">Dokumentasi</a>
+            <nav class="w-full lg:flex items-center font-bold text-bg-blue-dark justify-evenly h-[8vh] sticky top-0 hidden">
+                {{-- <!-- links -->
+                <a class="hover:border-b-[3px] text-sm transition-all border-bg-blue-dark bor font-[montserrat]" class="" href="/dokumentasi">Dokumentasi</a>
                 <a class="hover:border-b-[3px] text-sm transition-all border-bg-blue-dark font-[montserrat]" href="">Peraturan</a>
-                <a class="hover:border-b-[3px] text-sm transition-all border-bg-blue-dark font-[montserrat]" href="">Contact</a>
+                <a class="hover:border-b-[3px] text-sm transition-all border-bg-blue-dark font-[montserrat]" href="">Contact</a> --}}
             </nav>
             <!-- mid text -->
             <div class="h-4/5 lg:flex items-center justify-center text-bg-blue-dark w-full m-0 md:mx-10 md:w-4/5">
@@ -118,7 +119,7 @@
                             <script>
                                 Noticme.any({
                                     text: "Gagal !",
-                                    messege: "{{ Session::get('wrong') }}",
+                                    message: "{{ Session::get('wrong') }}",
                                     type: 'danger',
                                     button: true
                                 })
@@ -129,7 +130,7 @@
                             <script>
                                 Noticme.any({
                                     text: "Gagal !",
-                                    messege: "{{ $message }}",
+                                    message: "{{ $message }}",
                                     type: 'danger',
                                     button: true
                                 })
@@ -140,7 +141,7 @@
                             <script>
                                 Noticme.any({
                                     text: "Gagal !",
-                                    messege: "{{ $message }}",
+                                    message: "{{ $message }}",
                                     type: 'danger',
                                     button: true
                                 })
@@ -160,7 +161,7 @@
         let time = document.getElementById("time")
 
         var date_now = date.getHours()
-
+        
         if(date_now >= 00 && date_now < 10){
             time.textContent = "Selamat Pagi, Guru";
         }else if(date_now >= 10 && date_now <= 15){

@@ -79,15 +79,15 @@ class DatabaseSeeder extends Seeder
 
         kelas::create([
             "kelas"=>"XI TJKT 1",
-            "nama_grup"=>"TJKT 3 2022",
-            "nama_walas"=> "Siapa Aja",
+            "nama_grup"=>"TJKT 1 2022",
+            "nama_walas"=> "Kanny Indira",
             "chat_id"=> 6676868317,
         ]);
 
         kelas::create([
             "kelas"=>"XI TJKT 2",
-            "nama_grup"=>"TJKT 4 2022",
-            "nama_walas"=> "Siapa Aja",
+            "nama_grup"=>"TJKT 2 2022",
+            "nama_walas"=> "Tsaqif",
             "chat_id"=> 66768683178,
         ]);
 

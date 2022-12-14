@@ -27,7 +27,7 @@
         </div>
     </div>
 </header>
-<div class="grid grid-cols-4 gap-4 shadow-box p-5 relative border-bg-blue-dark border-solid border-t-2 max-w-[85rem] mx-auto" id="data_grup_kelas">
+<div class="grid grid-cols-4 min-h-[20vh] gap-4 shadow-box p-5 relative border-bg-blue-dark border-solid border-t-2 max-w-[85rem] mx-auto" id="data_grup_kelas">
     <!-- box 1 -->
 
     <!-- foreach -->

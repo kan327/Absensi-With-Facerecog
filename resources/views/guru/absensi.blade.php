@@ -45,7 +45,7 @@
                         style="border-top-right-radius: 12px; border-bottom-right-radius: 12px;">
 
                             {{-- <a href="/absensi/edit"><span class="material-symbols-outlined">edit</span></a> --}}
-                            <a href="/absensi/hapus/{{ $jadwal_absen->id }}/{{ $jadwal_absen->tanggal }}/{{ $jadwal_absen->kelas_id }}/{{ $jadwal_absen->mapel_id }}"><span class="material-symbols-outlined this-one">delete</span></a>
+                            <a onclick="return Noticme.any({text: 'Hapus!', message: 'Apakah Anda Yakin Ingin Menghapus Data Berikut?', confirm:true}).then(result => { if(result){ location.href='/absensi/hapus/{{ $jadwal_absen->id }}/{{ $jadwal_absen->tanggal }}/{{ $jadwal_absen->kelas_id }}/{{ $jadwal_absen->mapel_id }}' } })"><span class="material-symbols-outlined this-one">delete</span></a>
                             <a href="/absensi/excel/{{ $jadwal_absen->tanggal }}/{{ $jadwal_absen->kelas_id }}/{{ $jadwal_absen->mapel_id }}" name="download_excel"><span class="material-symbols-outlined">file_download</span></a></td>
                     </tr>
                 @endforeach
@@ -68,6 +68,9 @@
         if("{{ $time_now }}" > jam_pulang[i].textContent){
             baris_jadwal[i].addEventListener("click", ()=>{
                 location.href = ""
+                Noticme.any({
+                    text: ""
+                })
             })
             console.log(baris_jadwal)
             console.log(jam_pulang[i].textContent+" Di buka")

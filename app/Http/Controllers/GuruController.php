@@ -130,10 +130,7 @@ class GuruController extends Controller
         // difforuhmans
         // dd(Carbon::parse("2022/10/10")->diffForHumans());
 
-        // dd($time_now);
-
         $data = JadwalAbsen::all()->where("guru_id", $id_guru);
-        // dd($data);
         return view("guru.absensi", [
             "title" => "absensi",
             'time_now' => $time_now,
@@ -148,7 +145,6 @@ class GuruController extends Controller
         // data_guru
         $data_guru = Guru::with(['guru_mapel','guru_kelas'])->where("id", $id_guru)->get()->first;
         $kelas_guru = GuruKelas::with(['guru','kelas'])->where("guru_id", $id_guru)->get();
-        // dd($kelas_guru);
         
         return view("guru.data_kelas", [
             "title" => "data_kelas",
@@ -245,7 +241,7 @@ class GuruController extends Controller
         $jadwal = JadwalAbsen::all()->where('guru_id', $id_guru)->where("kelas_id",$validasi['kelas'])->where("mapel_id",$validasi['mapel'])->where("tanggal", $date_now);
         // dd($jadwal);
         if(count($jadwal) > 0){
-             return redirect("/absensi")->with("wrong", "Jadwal tersebut sudah tersedia!");
+             return redirect("/absensi")->with("wrong", "Jadwal Tersebut Sudah Tersedia!");
         }
 
         $query = JadwalAbsen::create([
@@ -278,7 +274,7 @@ class GuruController extends Controller
             }
 
         }
-        return redirect("/absensi")->with("success", "Jadwal Absen berhasil di buat");
+        return redirect("/absensi")->with("success", "Jadwal Absen Berhasil Di Buat");
 
     }
 
@@ -397,7 +393,7 @@ class GuruController extends Controller
                 "keterangan_absensi"=> $request->datas[$i]['keterangan_absens']
             ]);
 
-            $result = "Siswa berhasil di pulangkan" ;
+            $result = "Siswa Berhasil Di Pulangkan" ;
         }
         return $result;
     }
@@ -578,7 +574,7 @@ class GuruController extends Controller
 
     public function view_kirim_telegram($tanggal, $kelas, $mapel)
     {
-        $data_absen = AbsenSiswa::with(['siswa', 'kelas', 'guru'])->where("tanggal", $tanggal)->where("kelas_id", $kelas)->where("mapel_id", $mapel)->where("keterangan_absensi", "Tidak Hadir")->get();
+        $data_absen = AbsenSiswa::with(['siswa', 'mapel','kelas', 'guru'])->where("tanggal", $tanggal)->where("kelas_id", $kelas)->where("mapel_id", $mapel)->whereNotIn('keterangan', ['Hadir', 'Terlambat'])->get();
         $data_kelas = kelas::all()->where("id", $kelas);
 
         return view("guru.kirim_telegram",[
@@ -590,6 +586,27 @@ class GuruController extends Controller
             "id_kelas" => $kelas,
             "id_mapels" => $mapel
         ]);
+    }
+
+    public function kirim_telegram(Request $request, $tanggal, $kelas, $mapel)
+    {
+        $url = "https://api.telegram.org/bot5819520124:AAEivrJQBC61xDmrFRGzj0SQ35fAwxt5gG8/sendMessage?parse_mode=markdown&chat_id=" . $request->chat_id. "&text=". urlencode($request->message);
+    $ch = curl_init();
+    $optArray = array(
+            CURLOPT_URL => $url,
+            CURLOPT_RETURNTRANSFER => true
+    );
+    curl_setopt_array($ch, $optArray);
+    $result = curl_exec($ch);
+    $err = curl_error($ch);
+    curl_close($ch);
+
+    if ($err) {
+       echo 'Pesan gagal terkirim, error :' . $err;
+    }else{
+        return redirect("/absen_siswa/$tanggal/$kelas/$mapel/");
+    }
+
     }
 
     public function update_cam_pulang($tanggal, $kelas, $mapel, $data_siswa)
@@ -606,6 +623,14 @@ class GuruController extends Controller
         <p class='bg-green-600 w-full flex align-middle justify-between py-[2%] px-[2%] rounded-md text-white font-bold'>$data_siswa Berhasil Dipulangkan <span class='material-symbols-outlined'>check_circle</span></p>
 
         ";
+    }
+
+    // dokumentasi
+    public function dokumentasi()
+    {
+        return view("guru.dokumentasi", [
+            "title" => "dokumentasi",
+        ]);
     }
 
     // export excel 

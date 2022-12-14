@@ -12,7 +12,8 @@
             <div class="w-1/2 h-full p-10">
 
                 <!-- inputan -->
-                <form action="" method="POST">
+                <form action="/absen_siswa/{{ $tanggals }}/{{ $id_kelas }}/{{ $id_mapels }}/kirim_telegram" method="POST">
+                    @csrf
                     <table>
                         <tr>
                             <td>
@@ -20,13 +21,13 @@
                                     <label
                                         class="border-r-[2px] w-full border-[#2C3E50] pr-1 font-[quicksands] font-bold text-lg"
                                         for="x">ID</label>
-                                    <input readonly value="@foreach($data_kelas as $kelas) {{ $kelas->chat_id }} @endforeach" id="x" class="w-[10vw] text-center outline-none font-bold font-[quicksands]" type="text">
+                                    <input readonly value="@foreach($data_kelas as $kelas) {{ $kelas->chat_id }} @endforeach" id="x" class="w-[10vw] text-center outline-none font-bold font-[quicksands]" type="text" name="chat_id">
                                 </div>
                             </td>
                             <td>
                                 <input id="x" readonly value="@foreach($data_kelas as $kelas) {{ $kelas->kelas }} @endforeach"
                                 class="ml-2 rounded-md border-[2px] h-[5vh] text-center border-[#2C3E50] w-[10vw] outline-none font-bold font-[quicksands]"
-                                type="text">
+                                type="text" name="kelas">
                             </td>
                         </tr>
 
@@ -38,7 +39,14 @@
 
 
                     <label for="y" class="font-[quicksands] text-xl font-medium">Pesan :</label> <br>
-                    <textarea cols="37.9%" rows="9%" class="p-1 border-[2px] rounded-md border-[#2C3E50]" id="y">@foreach ($data_absen as $absen_siswa)- {{ $absen_siswa->siswa->nama_siswa }} {{ $absen_siswa->kelas->kelas }} {{ $absen_siswa->keterangan }}
+                    <textarea cols="37.9%" rows="9%" name="message" class="p-1 border-[2px] rounded-md border-[#2C3E50]" id="y">@foreach ($data_absen as $absen_siswa)
+Detail Absensi 
+
+Tanggal : {{ $tanggals }}
+Guru : {{ $absen_siswa->guru->name }}
+Mata Pelajaran : {{ $absen_siswa->mapel->pelajaran }}
+Kelas : {{ $absen_siswa->kelas->kelas }}
+{{ $loop->itteration }} {{ $absen_siswa->siswa->nama_siswa }} {{ $absen_siswa->kelas->kelas }} {{ $absen_siswa->keterangan }}
 
                     @endforeach</textarea>
 
@@ -52,9 +60,9 @@
                         <a href= "/absen_siswa/{{ $tanggals }}/{{ $id_kelas }}/{{ $id_mapels }}"
                             class="font-[quicksands] font-semibold text-[#2C3E50] mr-5 border-[1px] hover:bg-bg-blue-dark hover:text-white border-[#2C3E50] rounded px-[7%] py-[1%]">Batal
                             Kirim</a>
-                        <a href="https://api.telegram.org/bot5819520124:AAEivrJQBC61xDmrFRGzj0SQ35fAwxt5gG8/sendMessage?chat_id=1156428344 &parse_mode=HTML&text="
+                        <button
                             class="font-[quicksands] font-semibold text-[#2C3E50] mr-5 hover:bg-bg-blue-dark hover:text-white border-[1px] border-[#2C3E50] rounded px-[7%] py-[1%]">Kirim
-                            Sekarang!</a>
+                            Sekarang!</button>
                     </div>
                 </form>
 

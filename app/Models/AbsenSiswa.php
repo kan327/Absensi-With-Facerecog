@@ -23,6 +23,11 @@ class AbsenSiswa extends Model
         return $this->belongsTo(kelas::class);
     }
 
+    public function mapel()
+    {
+        return $this->belongsTo(mapel::class);
+    }
+
     public function guru()
     {
         return $this->belongsTo(Guru::class);

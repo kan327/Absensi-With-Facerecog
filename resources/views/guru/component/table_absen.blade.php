@@ -92,15 +92,19 @@
     
     select_all.addEventListener("click", function(){
         if(select_all.checked){
-            
-            for(i = 0; i < checkbox.length; i++){
+            var number = 1
+            for(i = 0; i <= checkbox.length; i++){
                 checkbox[i].checked = true
+                document.getElementsByTagName('tr')[number].classList.add("active")
+                number++
             }
             
         }else{
-            
+            var number = 1
             for(i = 0; i < checkbox.length; i++){
                 checkbox[i].checked = false
+                document.getElementsByTagName('tr')[number].classList.remove("active")
+                number++
             }
 
         }

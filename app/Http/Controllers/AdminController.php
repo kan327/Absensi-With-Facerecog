@@ -42,10 +42,6 @@ class AdminController extends Controller
             "mapel" => [],
             "kelas" => $kelas,
             "siswas"=> $siswa,
-            // "no_guru" => 1,
-            // "no_siswa" => 1,
-            // "no_mapel" => 1,
-            // "no_kelas" => 1
         ]);
     }
 
@@ -515,5 +511,12 @@ class AdminController extends Controller
         $siswa->delete();
 
         return redirect("/admin")->with("success", "Data Siswa Berhasil Di Hapus");
+    }
+
+    public function dokumentasi()
+    {
+        return view("admin.dokumentasi", [
+            "title" => "dashboard_admin",
+        ]);
     }
 }

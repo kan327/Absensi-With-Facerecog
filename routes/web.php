@@ -26,24 +26,25 @@ Route::controller(GuruController::class)->group(function(){
     Route::get("/data_kelas/tambah_murid/{id}",  "tambah_murid")->middleware("isLoginGuru");
     Route::get("/absen_siswa/{tanggal}/{kelas}/{mapel}",  "absen_siswa")->middleware("isLoginGuru");
     Route::get("/absen_siswa/{tanggal}/{kelas}/{mapel}/cam_masuk",  "cam_masuk")->middleware("isLoginGuru");
+    Route::get("/dokumentasi", "dokumentasi");
     
     // View Component
     Route::get("/absen_siswa/{tanggal}/{kelas}/{mapel}/box_ket", "box_absen_keterangan")->middleware("isLoginGuru");
     Route::get("/absen_siswa/{tanggal}/{kelas}/{mapel}/table_absen", "table_absen")->middleware("isLoginGuru");
     
     // insert
-    Route::post("/profile",  "insert_profile");
-    Route::post("/absensi/tambah_jadwal", "insert_jadwal");
-    Route::post("/data_siswa/tambah_murid",  "insert_murid");
+    Route::post("/profile",  "insert_profile")->middleware("isLoginGuru");
+    Route::post("/absensi/tambah_jadwal", "insert_jadwal")->middleware("isLoginGuru");
+    Route::post("/data_siswa/tambah_murid",  "insert_murid")->middleware("isLoginGuru");
     
     // edit
-    Route::post("/absen_siswa/{tanggal}/{kelas}/{mapel}",  "manual_absen_masuk");
-    Route::post("/absen_siswa/{tanggal}/{kelas}/{mapel}/manual_pulang", "manual_absen_pulang");
-    Route::post("/absen_siswa/{tanggal}/{kelas}/{mapel}/tutup_absen", "tutup_absen");
+    Route::post("/absen_siswa/{tanggal}/{kelas}/{mapel}",  "manual_absen_masuk")->middleware("isLoginGuru");
+    Route::post("/absen_siswa/{tanggal}/{kelas}/{mapel}/manual_pulang", "manual_absen_pulang")->middleware("isLoginGuru");
+    Route::post("/absen_siswa/{tanggal}/{kelas}/{mapel}/tutup_absen", "tutup_absen")->middleware("isLoginGuru");
     
     // delete
     Route::get("/absensi/hapus/{id}/{tanggal}/{kelas}/{mapel}",  "hapus_jadwal")->middleware("isLoginGuru");
-    Route::get('/profile/hapus/{id}/reset_profile', 'reset_profile');
+    Route::get('/profile/hapus/{id}/reset_profile', 'reset_profile')->middleware("isLoginGuru");
 
     
     // MaatWebsite
@@ -59,11 +60,9 @@ Route::controller(GuruController::class)->group(function(){
     Route::get("/absen_siswa/{tanggal}/{kelas}/{mapel}/cam_absen_pulang/{data_siswa}", "update_cam_pulang")->middleware("isLoginGuru");
     
     // Bot Pino Telegram
-    Route::get("/absen_siswa/{tanggal}/{kelas}/{mapel}/kirim_telegram", "view_kirim_telegram");
-    
-    // simpan dataset
-    Route::get("/data_siswa/tambah_murid/simpan_dataset", "simpan_dataset")->middleware("isLoginGuru");
-    
+    Route::get("/absen_siswa/{tanggal}/{kelas}/{mapel}/kirim_telegram", "view_kirim_telegram")->middleware("isLoginGuru");
+    Route::post("/absen_siswa/{tanggal}/{kelas}/{mapel}/kirim_telegram", "kirim_telegram")->middleware("isLoginGuru");
+
 });
 
 
@@ -78,8 +77,7 @@ Route::controller(AdminController::class)->group(function(){
     Route::get("/admin/grup_kelas", "grup_kelas")->middleware("isLoginGuru");
     Route::get("/admin/grup_kelas/{id}", "update_grup_kelas")->middleware("isLoginGuru");
     Route::get("/admin/murid/{id}", "update_siswa")->middleware("isLoginGuru");
-    // Route::get("/admin/mapel_update/{id}",  "update_mapel");
-    
+    Route::get("/dokumentasi/admin", "dokumentasi");
     // search
     Route::get("/admin/pino_bot/search", "search_grup_kelas")->middleware("isLoginGuru");
     Route::get("/admin/search/", "search_guru")->middleware("isLoginGuru");
@@ -119,20 +117,3 @@ Route::controller(LoginController::class)->group(function(){
     Route::post('/logout', "logout");
 
 });
-
-// Route::get('storage/{filename}', function ($filename)
-// {
-//     $path = storage_path('public/' . $filename);
- 
-//     if (!File::exists($path)) {
-//         abort(404);
-//     }
- 
-//     $file = File::get($path);
-//     $type = File::mimeType($path);
- 
-//     $response = Response::make($file, 200);
-//     $response->header("Content-Type", $type);
- 
-//     return $response;
-// });
