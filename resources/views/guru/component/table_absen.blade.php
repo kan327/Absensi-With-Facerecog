@@ -330,8 +330,10 @@
                 if(masuk[p].textContent == "--"){
 
                     data_pulang.push(pulang[p].textContent)
-                }else{
+                }else if(pulang[p] != "--" ){
+                    data_pulang.push(pulang[p].textContent)
 
+                }else{
                     data_pulang.push("{{ $data_selesai }}")
                 }
                 // data_pulang.push(date.getHours()+":"+date.getMinutes()+":"+date.getSeconds())
@@ -480,7 +482,7 @@
                         mulais[j] = "{{ $data_mulai }}"
                         keterangan_absen[j].value = "Hadir"
                     }else{
-                        mulais[j] = "{{ $data_mulai }}"
+                        mulais[j] = mulais[j]
                         keterangan_absen[j].value = "Hadir"
                     }
 

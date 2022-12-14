@@ -1,15 +1,28 @@
 @extends('guru.no_sidebar')
 @section('content')
-<input type="hidden" id="data_siswa" value="{{ $data_siswa }}">
+<input type="hidden" onpl id="data_siswa" value="{{ $data_siswa }}">
 <div class="mx-auto w-3/4">
     <div class="shadow-box mt-32 mb-4 p-8 w-5/6 mx-auto rounded-2xl border-solid border-[0.1px] border-opacity-5 border-black">
-        <h1 class="text-2xl mt-2 font-bold text-blue-normal-19 font-[Montserrat]">Absen Masuk Kelas</h1>
+        <h1 class="text-2xl mt-2 font-bold text-blue-normal-19 font-[Montserrat]">Absen Pulang | {{ $data_kelas->kelas }}</h1>
             <div id="card_cam" class="relative">
+
+                <div id="loading" class="absolute w-full h-[100%] bg-white z-10 flex flex-col" >
+                    <div class="left-1/2 top-1/2 absolute items-center" style="transform: translate(-50%, -50%);">
+                        <img class="mx-auto" src="{{ asset('assets/img/progress.gif') }}" alt="">
+                        <p class="font-semibold text-placeholder">Mohon Tunggu Sebentar</p>
+                    </div>
+                </div>
+
                 <video id="videoInput" width="700" height="500" muted autoplay loop playsinline class="mx-auto mt-4"></video>
-                <h1 id="text_result" class="mx-auto "></h1>
+
+                {{-- result --}}
+                <div id="text_result" class="mt-[3%]">
+                    
+                </div>
+
             </div>
             <div class="button flex justify-center">
-                <button class="px-12 py-3 bg-bg-blue-dark rounded-xl text-white font-bold mt-8 flex mx-auto mb-2 cursor-pointer" onclick="location.href = '/absen_siswa/{{ $tanggals }}/{{ $kelas }}/{{ $mapels }}'">Kembali</button>
+                <button class="px-[20%] py-2 cursor-pointer bg-white hover:bg-bg-blue-dark text-bg-blue-dark hover:text-white border border-bg-blue-dark rounded-md font-bold mt-8 flex mx-auto mb-2" onclick="location.href = '/absen_siswa/{{ $tanggals }}/{{ $kelas }}/{{ $mapels }}'">Kembali</button>
             </div>
         </div>
         {{-- autoplay loop playsinline --}}
@@ -48,7 +61,9 @@
             // console.log(labeledDescriptors)
             const faceMatcher = new faceapi.FaceMatcher(labeledDescriptors, 0.5)
             console.log(faceMatcher)
-            video.addEventListener('loadeddata', async () => {
+            document.getElementById("loading").style.display = "none"
+            document.getElementById("loading").style.marginTop = "176px"
+            video.addEventListener('click', async () => {
                 console.log('Playing')
                 const canvas = faceapi.createCanvasFromMedia(video)
 
@@ -89,7 +104,7 @@
                                     type: "GET",
                                     url: "cam_absen_pulang/"+ result._label,
                                     success: function (ress) {
-
+                                        $("#text_result").html(ress)
                                     }
                                 });
                             }
@@ -118,7 +133,7 @@
             return Promise.all(
                 labels.map(async (label) => {
                     const descriptions = []
-                    for (let i = 1; i <= 10; i++) {
+                    for (let i = 1; i <= 15; i++) {
                         const img = await faceapi.fetchImage("{{ asset('storage/cam_js/images') }}"+`/${label}.${i}.jpg`)
                         const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor()
                         descriptions.push(detections.descriptor)

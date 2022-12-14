@@ -23,3 +23,14 @@
         laporan
     </div>
 </div>
+
+<script>
+    function validate(){
+        Noticme.Any({
+            text: "Anda Harus Memiliki Kelas Dan Mapel !",
+            type: "danger",
+            timer: 5000,
+            button: false
+        })
+    }
+</script>

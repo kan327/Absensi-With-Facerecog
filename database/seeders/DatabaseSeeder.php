@@ -84,6 +84,13 @@ class DatabaseSeeder extends Seeder
             "chat_id"=> 6676868317,
         ]);
 
+        kelas::create([
+            "kelas"=>"XI TJKT 2",
+            "nama_grup"=>"TJKT 4 2022",
+            "nama_walas"=> "Siapa Aja",
+            "chat_id"=> 66768683178,
+        ]);
+
         // Siswa::create([
         //     "nama_siswa"=> "Nana",
         //     "kelas_id"=> 4,

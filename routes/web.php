@@ -58,9 +58,9 @@ Route::controller(GuruController::class)->group(function(){
     Route::get("/absen_siswa/{tanggal}/{kelas}/{mapel}/cam_absen_masuk/{data_siswa}", "update_cam_masuk")->middleware("isLoginGuru");
     Route::get("/absen_siswa/{tanggal}/{kelas}/{mapel}/cam_absen_pulang/{data_siswa}", "update_cam_pulang")->middleware("isLoginGuru");
     
-    // storage
-    // Route::get("/storage/{file}", "storage_file");
-
+    // Bot Pino Telegram
+    Route::get("/absen_siswa/{tanggal}/{kelas}/{mapel}/kirim_telegram", "view_kirim_telegram");
+    
     // simpan dataset
     Route::get("/data_siswa/tambah_murid/simpan_dataset", "simpan_dataset")->middleware("isLoginGuru");
     

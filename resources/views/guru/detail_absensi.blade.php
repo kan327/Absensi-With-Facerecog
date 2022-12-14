@@ -27,8 +27,8 @@
                             <int>{{ \Carbon\Carbon::createFromFormat('G:i:s', $data_jadwals->selesai)->format('g:i A') }}</int>
                         </div>
                     </div>
-                    <button onclick="location.href = '/absen_siswa/{{ $tanggals }}/{{ $kelas }}/{{ $mapels }}/cam_masuk'" class="py-1.5 px-3.5 bg-bg-blue-dark rounded-md text-white">Masuk</button>
-                    <button onclick="location.href = '/absen_siswa/{{ $tanggals }}/{{ $kelas }}/{{ $mapels }}/cam_pulang'" class="py-1 px-3 border-bg-blue-dark border-solid border-2 box-border rounded-md">Pulang</button>
+                    <button onclick="location.href = '/absen_siswa/{{ $tanggals }}/{{ $kelas }}/{{ $mapels }}/cam_masuk'" class="py-1 px-3 border-bg-blue-dark border-solid border-2 box-border rounded-md hover:bg-bg-blue-dark hover:text-white" id="btn_masuk">Masuk</button>
+                    <button onclick="location.href = '/absen_siswa/{{ $tanggals }}/{{ $kelas }}/{{ $mapels }}/cam_pulang'" class="py-1 px-3 border-bg-blue-dark border-solid border-2 box-border rounded-md hover:bg-bg-blue-dark hover:text-white" id="btn_pulang">Pulang</button>
                     <p class="mt-4">Mohon ubah sesi sesuai pada waktunya.</p>
                 </div>
             </div>
@@ -45,7 +45,7 @@
         <div class="flex my-5 justify-between">
             <h1 class="text-2xl mt-2 font-bold text-blue-normal-19 font-[Montserrat]">Daftar Absensi | {{ $data_kelas->first()->kelas }}
             </h1>
-            <button class="px-4 py-3 bg-bg-blue-dark rounded-xl text-white font-bold">Kirim Ke Telegram</button>
+            <button class="px-4 py-3 bg-bg-blue-dark rounded-xl text-white font-bold" onclick="location.href = '/absen_siswa/{{ $tanggals }}/{{ $kelas }}/{{ $mapels }}/kirim_telegram'">Kirim Ke Telegram</button>
         </div>
         <!-- main -->
         <div
@@ -135,6 +135,11 @@
             table_absen()
         })
 
+        // disabled camera
+        var btn_masuk = document.getElementById("btn_masuk")
+        var btn_pulang = document.getElementById("btn_pulang")
+            
+ 
         // menampilkan live status siswa
         function box_absen_ket() {
             $.get("/absen_siswa/{{ $tanggals }}/{{ $kelas }}/{{ $mapels }}/box_ket", {}, function(data,

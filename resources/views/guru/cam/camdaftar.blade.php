@@ -74,12 +74,10 @@
                         <div id="results" class="mx-auto"></div>
                     </div>
                     <div class="flex justify-content flex-col">  
-                        <input type=button value="Ambil Wajah" onClick="take_snapshot()" class="text-center bg-green-400 text-base text-white rounded-md mx-auto w-1/4 mt-3 h-8 mb-8" style="display: block;" id="button1">
+                        <input type=button value="Ambil Wajah" onClick="take_snapshot()" class="text-center px-[20%] py-2 cursor-pointer bg-white hover:bg-bg-blue-dark text-bg-blue-dark hover:text-white border border-bg-blue-dark rounded-md font-bold mt-8 flex mx-auto mb-2" style="display: block;" id="button1">
                         <input type="hidden" name="image" class="image-tag">
-                        <button class="text-center bg-red-400 text-base text-white rounded-md mx-auto w-1/4 h-8 mb-8" style="display: none;" id="button2">Simpan Wajah</button>
-                        <a href="/data_siswa/tambah_murid/simpan_dataset" type="button" class="text-center bg-gray-400 text-base text-white rounded-md mx-auto w-1/4 h-8 mb-8">
-                            Selesai
-                        </a>
+                        <button class="px-[20%] py-2 cursor-pointer bg-white hover:bg-bg-blue-dark text-bg-blue-dark hover:text-white border border-bg-blue-dark rounded-md font-bold mt-8 flex mx-auto mb-2" style="display: none;" id="button2">Simpan Wajah</button>
+                        
                     </div>
                 </div>
             </form>

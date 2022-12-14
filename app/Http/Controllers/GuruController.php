@@ -58,6 +58,8 @@ class GuruController extends Controller
             "title" => "dashboard_guru",
             "tanggal" => $tanggal,
             "gurus"=>$data_guru,
+            "kelas_guru" => count($data_guru->first()->guru_kelas),
+            "mapel_guru" => count($data_guru->first()->guru_mapel),
             "live_absens"=>$live_absen,
             "live_siswa_absens"=>$live_sisw_absen,
             "no_absen"=>1,
@@ -306,30 +308,30 @@ class GuruController extends Controller
 
     public function absen_siswa($tanggal, $kelas, $mapel)
     {   
-        // $data_jadwal = DB::select("SELECT * FROM jadwal_absens WHERE kelas_id = $kelas AND mapel_id = $mapel AND tanggal = curdate()");
         $id_guru = auth()->user()->id;
 
         $data_jadwal = JadwalAbsen::all()->where("guru_id", $id_guru)->where("kelas_id", $kelas)->where("mapel_id", $mapel)->where("tanggal", $tanggal)->first();
         
         $data_siswa = Siswa::all()->where("kelas_id", $kelas);
         $data_kelas = kelas::all()->where("id", $kelas);
-        // $data_absensi = AbsenSiswa::all()->where("user_id", $id_guru)->where("kelas_id", $kelas)->where("tanggal", $tanggal);
 
-        // dd($data_jadwal[0]);
         $belum_hadir = AbsenSiswa::all()->where("guru_id", $id_guru)->where("keterangan", "Belum Hadir")->where("kelas_id", $kelas)->where("mapel_id", $mapel)->where("tanggal", $tanggal);
+
+        $time_now = Carbon::now("Asia/Jakarta")->format("H:i:s");
+
         return view("guru.detail_absensi",[
             "title" => "absensi",
             "data_kelas" => $data_kelas,
             "kelas" => $kelas,
+            "batas_hadir" => $data_jadwal->first()->batas_hadir,
             "no"=>1,
             "i"=>1,
             "mapels" => $mapel,
             "tanggals"=>$tanggal,
+            "time_now" => $time_now,
             "data_jadwals" => $data_jadwal,
             "data_siswas" => $data_siswa,
             "belum_hadir" => $belum_hadir,
-            // "data_absensi" => $data_absensi,
-            // "data"=> $datas
         ]);
     }
      
@@ -514,7 +516,7 @@ class GuruController extends Controller
         $image_type = $image_type_aux[1];
         
         $image_base64 = base64_decode($image_parts[1]);
-        while($i < 11) {
+        while($i < 16) {
             $fileName = $request->nama_siswa . '.' . $i . '.jpg';
             $i++;
             $file = $folderPath . $fileName;
@@ -531,9 +533,11 @@ class GuruController extends Controller
     {
 
         $data_absen = Siswa::with(['kelas'])->where("kelas_id", $kelas)->get();
+        $data_kelas = kelas::find($kelas);
         
         return view("guru.cam_absen_masuk", [
             "title"=>"absensi",
+            "data_kelas" => $data_kelas,
             "data_siswa" => $data_absen,
             "tanggals"=>$tanggal,
             "kelas"=>$kelas,
@@ -551,20 +555,40 @@ class GuruController extends Controller
             "masuk" => Carbon::now("Asia/Jakarta")->format("H:i:s"),
             "keterangan" => "Hadir"
         ]);
-        return "$data_siswa Berhasil Melakukan Absen";
+        return "
+        <p class='bg-green-600 w-full flex align-middle justify-between py-[2%] px-[2%] rounded-md text-white font-bold'>$data_siswa Berhasil Melakukan Absensi <span class='material-symbols-outlined'>check_circle</span></p>
+        ";
     }
 
     public function cam_pulang($tanggal, $kelas, $mapel)
     {
 
         $data_absen = Siswa::with(['kelas'])->where("kelas_id", $kelas)->get();
+        $data_kelas = kelas::find($kelas);
 
         return view("guru.cam_absen_pulang", [
             "title"=>"absensi",
+            "data_kelas" => $data_kelas,
             "data_siswa"=> $data_absen,
             "tanggals"=>$tanggal,
             "kelas"=>$kelas,
             "mapels"=>$mapel,
+        ]);
+    }
+
+    public function view_kirim_telegram($tanggal, $kelas, $mapel)
+    {
+        $data_absen = AbsenSiswa::with(['siswa', 'kelas', 'guru'])->where("tanggal", $tanggal)->where("kelas_id", $kelas)->where("mapel_id", $mapel)->where("keterangan_absensi", "Tidak Hadir")->get();
+        $data_kelas = kelas::all()->where("id", $kelas);
+
+        return view("guru.kirim_telegram",[
+            "title" => "absensi",
+            "sub_title" => "kirim_telegram",
+            "data_absen" => $data_absen,
+            "data_kelas" => $data_kelas,
+            "tanggals" =>$tanggal,
+            "id_kelas" => $kelas,
+            "id_mapels" => $mapel
         ]);
     }
 
@@ -575,10 +599,13 @@ class GuruController extends Controller
         $data_absen = AbsenSiswa::where("siswa_id", $data_siswas->first()->id);
 
         $data_absen->update([
-            "pulang" => $time_now = Carbon::now("Asia/Jakarta")->format("H:i:s"),
+            "pulang" => Carbon::now("Asia/Jakarta")->format("H:i:s"),
             "keterangan_absensi" => "Hadir"
         ]);
-        return "$data_siswa Berhasil Di Pulangkan";
+        return "
+        <p class='bg-green-600 w-full flex align-middle justify-between py-[2%] px-[2%] rounded-md text-white font-bold'>$data_siswa Berhasil Dipulangkan <span class='material-symbols-outlined'>check_circle</span></p>
+
+        ";
     }
 
     // export excel 
