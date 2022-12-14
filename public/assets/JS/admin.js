@@ -111,3 +111,28 @@ function live_search_siswa(keyword = ''){
         }
     });
 }
+
+
+// search jadwal absen
+
+var search_jadwal = document.getElementById("search_jadwal")
+
+live_search_jadwal('')
+
+search_jadwal.addEventListener("keyup", function () { 
+    live_search_jadwal(search_jadwal.value)
+})
+
+function live_search_jadwal(keyword = ''){
+
+    $("#data_jadwal").html("Mohon Tunggu Sebentar...")
+
+    $.ajax({
+        type: "GET",
+        url: "/admin/jadwal/search",
+        data: "search_jadwal="+keyword,
+        success: function (ress) {
+            $("#table_jadwal").html(ress)
+        }
+    });
+}

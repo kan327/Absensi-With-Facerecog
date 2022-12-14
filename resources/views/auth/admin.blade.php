@@ -102,8 +102,7 @@
                                 Noticme.any({
                                     text: "{{ Session::get('success') }}",
                                     type: 'success',
-                                    timer: 3000,
-                                    button: true
+                                    timer: 5000,
                                 })
                             </script>
                         @endif

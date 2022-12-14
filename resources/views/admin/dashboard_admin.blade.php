@@ -143,17 +143,13 @@
             </div>
             <div class="w-[33%] shadow-box p-5 rounded-2xl border-solid border-[0.1px] border-opacity-5 border-black" id="data_mapel">
                 <div>
-                    <h1 class="font-bold text-2xl font-[Montserrat]">Mata Pelajaran</h1>
-                    <p>Kelola mata pelajaran untuk guru.</p>
+                    <h1 class="font-bold text-2xl font-[Montserrat] mb-3">Jadwal Absen</h1>
                 </div>
-                <div class="flex">
+                <div class="flex ">
                     <form action="" class="mr-20">
-                        <input type="text" id="pelajaran" class="border-solid border-2  border-dark-data mr-2 mt-0.5 py-1 px-2 rounded-md"
-                            placeholder="Mapel baru">
+                        <input type="text" id="search_jadwal" class="border-solid border-2  border-dark-data mr-2 mt-0.5 py-1 px-2 rounded-md"
+                            placeholder="Cari Jadwal Absen">
                     </form>
-                    <button
-                        class=" w-[34%] px-4  py-2 float-right bg-bg-blue-dark rounded-md text-white font-bold" onclick="mapel_simpan()">+
-                        Mapel</button>
                 </div>
                 <!-- table -->
                 <div class="mt-5 h-[50vh] w-full overflow-auto border-bg-blue-dark border-solid border-t-2">
@@ -162,12 +158,12 @@
                         <thead class="font-extrabold bg-white top-0 sticky z-10">
                             <tr class="text-sm text-placeholder">
                                 <th class="p-3">No</th>
-                                <th class="p-3">Mapel</th>
-                                <th class="p-3">Aksi</th>
+                                <th class="p-3">Pelajaran</th>
+                                <th class="p-3">Tanggal</th>
                             </tr>
                         </thead>
                         <!-- body -->
-                        <tbody class="text-center text-base font-bold cursor-pointer select-none" id="table_mapel">
+                        <tbody class="text-center text-base font-bold cursor-pointer select-none" id="table_jadwal">
                             {{-- table_mapel --}}
                         </tbody>
                     </table>

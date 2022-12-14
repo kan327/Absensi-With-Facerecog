@@ -253,6 +253,7 @@
 
                     keterangan_absensi = "Hadir"
 
+
                 }else if(keterangan[i].value == "Alpha"){
 
                     keterangan_absensi = "Tidak Hadir"
@@ -334,22 +335,16 @@
                 if(masuk[p].textContent == "--"){
 
                     data_pulang.push(pulang[p].textContent)
-                }else if(pulang[p] != "--" ){
+                }else if(pulang[p].textContent != "--" && masuk[p].textContent != "--"){
                     data_pulang.push(pulang[p].textContent)
 
                 }else{
                     data_pulang.push("{{ $data_selesai }}")
                 }
-                // data_pulang.push(date.getHours()+":"+date.getMinutes()+":"+date.getSeconds())
-    
-                // data_pulang.push(masuk[p].textContent)
                     
-            
-
 
             } else {
                 data_pulang.push(pulang[p].textContent)
-                // keiAlert("Tidak ada yang di pilih!", "close", "bg-red-600");
             }
 
         }

@@ -82,6 +82,7 @@ Route::controller(AdminController::class)->group(function(){
     Route::get("/admin/pino_bot/search", "search_grup_kelas")->middleware("isLoginGuru");
     Route::get("/admin/search/", "search_guru")->middleware("isLoginGuru");
     Route::get("/admin/siswa/search", "search_siswa")->middleware("isLoginGuru");
+    Route::get("/admin/jadwal/search", "search_jadwal")->middleware("isLoginGuru");
     
     // View Component 
     Route::get("/admin/box",  "box")->middleware("isLoginGuru");
