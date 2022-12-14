@@ -129,11 +129,13 @@ class GuruController extends Controller
 
         // difforuhmans
         // dd(Carbon::parse("2022/10/10")->diffForHumans());
+        $date_now = Carbon::now()->format("d/m/Y");
 
         $data = JadwalAbsen::all()->where("guru_id", $id_guru);
         return view("guru.absensi", [
             "title" => "absensi",
             'time_now' => $time_now,
+            "date_now" => $date_now,
             "jadwal_absens"=>$data,
             'no_jadwal'=>1
         ]);
@@ -604,7 +606,7 @@ class GuruController extends Controller
     if ($err) {
        echo 'Pesan gagal terkirim, error :' . $err;
     }else{
-        return redirect("/absen_siswa/$tanggal/$kelas/$mapel/");
+        return redirect("/absen_siswa/$tanggal/$kelas/$mapel/")->with("success", "Pesan Berhasil Terkirim");
     }
 
     }

@@ -36,11 +36,11 @@
                         <!-- please delete or reuse this onclick -->
                         <td class="p-3 font-semibold " style="border-top-left-radius: 12px; border-bottom-left-radius: 12px;">{{ $no_jadwal++ }}
                         </td>
-                        <td onclick="location.href = '/absen_siswa/{{ $jadwal_absen->tanggal }}/{{ $jadwal_absen->kelas_id }}/{{ $jadwal_absen->mapel_id }}'" class="p-3 font-semibold">{{ \Carbon\Carbon::parse($jadwal_absen->tanggal)->format("d/m/Y") }}</td>
-                        <td onclick="location.href = '/absen_siswa/{{ $jadwal_absen->tanggal }}/{{ $jadwal_absen->kelas_id }}/{{ $jadwal_absen->mapel_id }}'" class="p-3 font-semibold">{{ $jadwal_absen->kelas->kelas }}</td>
-                        <td onclick="location.href = '/absen_siswa/{{ $jadwal_absen->tanggal }}/{{ $jadwal_absen->kelas_id }}/{{ $jadwal_absen->mapel_id }}'" class="p-3 font-semibold">{{ $jadwal_absen->mapel->pelajaran }}</td>
-                        <td onclick="location.href = '/absen_siswa/{{ $jadwal_absen->tanggal }}/{{ $jadwal_absen->kelas_id }}/{{ $jadwal_absen->mapel_id }}'" class="p-3 font-semibold">{{ $jadwal_absen->mulai }}</td>
-                        <td onclick="location.href = '/absen_siswa/{{ $jadwal_absen->tanggal }}/{{ $jadwal_absen->kelas_id }}/{{ $jadwal_absen->mapel_id }}'" class="p-3 font-semibold" name="jam_pulang">{{ $jadwal_absen->selesai }}</td>
+                        <td @if($date_now <= $jadwal_absen->tanggal) onclick="location.href = '/absen_siswa/{{ $jadwal_absen->tanggal }}/{{ $jadwal_absen->kelas_id }}/{{ $jadwal_absen->mapel_id }}'" @endif class="p-3 font-semibold">{{ \Carbon\Carbon::parse($jadwal_absen->tanggal)->format("d/m/Y") }}</td>
+                        <td @if($date_now <= $jadwal_absen->tanggal) onclick="location.href = '/absen_siswa/{{ $jadwal_absen->tanggal }}/{{ $jadwal_absen->kelas_id }}/{{ $jadwal_absen->mapel_id }}'" @endif  class="p-3 font-semibold">{{ $jadwal_absen->kelas->kelas }}</td>
+                        <td @if($date_now <= $jadwal_absen->tanggal) onclick="location.href = '/absen_siswa/{{ $jadwal_absen->tanggal }}/{{ $jadwal_absen->kelas_id }}/{{ $jadwal_absen->mapel_id }}'" @endif  class="p-3 font-semibold">{{ $jadwal_absen->mapel->pelajaran }}</td>
+                        <td @if($date_now <= $jadwal_absen->tanggal) onclick="location.href = '/absen_siswa/{{ $jadwal_absen->tanggal }}/{{ $jadwal_absen->kelas_id }}/{{ $jadwal_absen->mapel_id }}'" @endif  class="p-3 font-semibold">{{ $jadwal_absen->mulai }}</td>
+                        <td @if($date_now <= $jadwal_absen->tanggal) onclick="location.href = '/absen_siswa/{{ $jadwal_absen->tanggal }}/{{ $jadwal_absen->kelas_id }}/{{ $jadwal_absen->mapel_id }}'" @endif  class="p-3 font-semibold" name="jam_pulang">{{ $jadwal_absen->selesai }}</td>
                         <td  class=""
                         style="border-top-right-radius: 12px; border-bottom-right-radius: 12px;">
 
@@ -63,23 +63,6 @@
     var date = new Date()
     var date_now = date.getHours()+":"+date.getMinutes()+":"+date.getSeconds()
 
-    for(i=0; i < download_excel.length; i++){
-        
-        if("{{ $time_now }}" > jam_pulang[i].textContent){
-            baris_jadwal[i].addEventListener("click", ()=>{
-                location.href = ""
-                Noticme.any({
-                    text: ""
-                })
-            })
-            console.log(baris_jadwal)
-            console.log(jam_pulang[i].textContent+" Di buka")
-        }else{
-            download_excel[i].style.pointerEvents = "none";
-            console.log(jam_pulang[i].textContent+" Di tutup")
-        }    
-        console.log(date_now)
-    }
 </script>
 @endsection
 
