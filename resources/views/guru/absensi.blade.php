@@ -57,11 +57,6 @@
 </div>
 
 <script>
-    var download_excel = document.getElementsByName("download_excel")
-    var jam_pulang = document.getElementsByName("jam_pulang")
-    var baris_jadwal = document.getElementsByName("baris_jadwal")
-    var date = new Date()
-    var date_now = date.getHours()+":"+date.getMinutes()+":"+date.getSeconds()
 
 </script>
 @endsection
