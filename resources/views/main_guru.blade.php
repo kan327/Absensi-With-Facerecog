@@ -145,6 +145,7 @@
                 text: "{{ Session::get('success') }}",
                 type: 'success',
                 timer: 5000,
+                button: false
             })
         </script>
     @endif

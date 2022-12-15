@@ -206,7 +206,7 @@
                         text: ress,
                         type: 'success',
                         timer: 3000,
-                        button: true
+                        button: false
                     })
                       
                     
@@ -387,7 +387,7 @@
                         text: ress,
                         type: 'success',
                         timer: 3000,
-                        button: true
+                        button: false
                     })
 
                     table_absen()
@@ -815,7 +815,7 @@
                         text: ress,
                         type: 'success',
                         timer: 3000,
-                        button: true
+                        button: false
                     })
 
                     table_absen()

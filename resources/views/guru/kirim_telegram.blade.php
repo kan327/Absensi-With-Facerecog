@@ -47,7 +47,7 @@ Guru : {{ $absen_siswa->guru->name }}
 Mata Pelajaran : {{ $absen_siswa->mapel->pelajaran }}
 Kelas : {{ $absen_siswa->kelas->kelas }}
 
-{{ $loop->iteration }}. {{ $absen_siswa->siswa->nama_siswa }} {{ $absen_siswa->kelas->kelas }} {{ $absen_siswa->keterangan }}
+{{ $loop->iteration }}. {{ $absen_siswa->siswa->nama_siswa }} - {{ $absen_siswa->keterangan }}
 
                     @endforeach</textarea>
 
