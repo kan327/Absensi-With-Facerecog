@@ -140,6 +140,7 @@
             $.get("/absen_siswa/{{ $tanggals }}/{{ $kelas }}/{{ $mapels }}/box_ket", {}, function(data,
                 status) {
                 $("#box_absen_keterangan").html(data)
+                console.log(data)
             })
         }
 

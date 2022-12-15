@@ -165,6 +165,7 @@
                             reloadTable();
                         }
                         lastcnt = cnt;
+                        console.log('hello')
                     },
                     error: function (result) {
                         console.log('no result!')
