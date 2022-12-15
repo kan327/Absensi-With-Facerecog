@@ -58,6 +58,8 @@ class GuruController extends Controller
             "title" => "dashboard_guru",
             "tanggal" => $tanggal,
             "gurus"=>$data_guru,
+            "kelas_guru" => count($data_guru->first()->guru_kelas),
+            "mapel_guru" => count($data_guru->first()->guru_mapel),
             "live_absens"=>$live_absen,
             "live_siswa_absens"=>$live_sisw_absen,
             "no_absen"=>1,
@@ -116,7 +118,7 @@ class GuruController extends Controller
             ]);
         }
 
-        return redirect("/")->with("success", "Profile berhasil di update");
+        return redirect("/")->with("success", "Profile Berhasil Di Ubah");
     }
 
     public function absensi()
@@ -127,14 +129,13 @@ class GuruController extends Controller
 
         // difforuhmans
         // dd(Carbon::parse("2022/10/10")->diffForHumans());
-
-        // dd($time_now);
+        $date_now = Carbon::now()->format("d/m/Y");
 
         $data = JadwalAbsen::all()->where("guru_id", $id_guru);
-        // dd($data);
         return view("guru.absensi", [
             "title" => "absensi",
             'time_now' => $time_now,
+            "date_now" => $date_now,
             "jadwal_absens"=>$data,
             'no_jadwal'=>1
         ]);
@@ -146,7 +147,6 @@ class GuruController extends Controller
         // data_guru
         $data_guru = Guru::with(['guru_mapel','guru_kelas'])->where("id", $id_guru)->get()->first;
         $kelas_guru = GuruKelas::with(['guru','kelas'])->where("guru_id", $id_guru)->get();
-        // dd($kelas_guru);
         
         return view("guru.data_kelas", [
             "title" => "data_kelas",
@@ -171,7 +171,7 @@ class GuruController extends Controller
 
     public function tambah_murid($id)
     {
-        // $id_siswa = DB::select('SELECT ifnull(max(id) + 1 , 1) FROM siswas ');
+        $id_siswa = DB::select('SELECT ifnull(max(id) + 1 , 1) as id_siswas FROM siswas');
         // dd($id_siswa);
 
         $data_guru = Guru::with(['guru_mapel', "guru_kelas"])->get()->where("id", auth()->user()->id)->first();
@@ -182,8 +182,8 @@ class GuruController extends Controller
             "title"=>"data_kelas",
             "kelas"=>$kelas,
             "mapels"=>$mapel,
-            "data_guru"=>$data_guru
-            // "nbr"=>$id_siswa,
+            "data_guru"=>$data_guru,
+            "id_siswa"=>$id_siswa,
             
         ]);
     }
@@ -191,13 +191,14 @@ class GuruController extends Controller
     public function insert_murid(Request $request)
     {
         Siswa::create([
+            "id"=> $request->id_siswas,
             'nama_siswa'=>$request->nama,
             "kelas_id"=>$request->kelas,
             "jenis_kelamin" => $request->jeniskelamin,
             "tgl_lahir" => $request->tgllahir
         ]);
        
-        return redirect("/data_siswa/tambah_murid/cam_daftar")->with("success", "Data siswa berhasil di buat");
+        return redirect("/data_siswa/tambah_murid/cam_daftar/$request->id_siswas");
 
 
     }
@@ -242,7 +243,7 @@ class GuruController extends Controller
         $jadwal = JadwalAbsen::all()->where('guru_id', $id_guru)->where("kelas_id",$validasi['kelas'])->where("mapel_id",$validasi['mapel'])->where("tanggal", $date_now);
         // dd($jadwal);
         if(count($jadwal) > 0){
-             return redirect("/absensi")->with("wrong", "Jadwal tersebut sudah tersedia!");
+             return redirect("/absensi")->with("wrong", "Jadwal Tersebut Sudah Tersedia!");
         }
 
         $query = JadwalAbsen::create([
@@ -275,7 +276,7 @@ class GuruController extends Controller
             }
 
         }
-        return redirect("/absensi")->with("success", "Jadwal Absen berhasil di buat");
+        return redirect("/absensi")->with("success", "Jadwal Absen Berhasil Di Buat");
 
     }
 
@@ -288,35 +289,47 @@ class GuruController extends Controller
         $absen_siswa->delete();
         $jadwal->delete();
 
-        return redirect("/absensi")->with("success", "Jadwal berhasil di hapus");
+        return redirect("/absensi")->with("success", "Jadwal Berhasil Di Hapus");
     }
+
+    public function reset_profile($id){
+        // $id_guru = auth()->user()->id;
+        $guru_kelas = GuruKelas::where("guru_id", $id);
+        $guru_mapel = GuruMapel::where("guru_id", $id);
+
+        $guru_kelas->delete();
+        $guru_mapel->delete();
+
+        return redirect("/")->with("success", "Profile Berhasil Di Reset");
+    }
+
 
     public function absen_siswa($tanggal, $kelas, $mapel)
     {   
-        // $data_jadwal = DB::select("SELECT * FROM jadwal_absens WHERE kelas_id = $kelas AND mapel_id = $mapel AND tanggal = curdate()");
         $id_guru = auth()->user()->id;
 
         $data_jadwal = JadwalAbsen::all()->where("guru_id", $id_guru)->where("kelas_id", $kelas)->where("mapel_id", $mapel)->where("tanggal", $tanggal)->first();
         
         $data_siswa = Siswa::all()->where("kelas_id", $kelas);
         $data_kelas = kelas::all()->where("id", $kelas);
-        // $data_absensi = AbsenSiswa::all()->where("user_id", $id_guru)->where("kelas_id", $kelas)->where("tanggal", $tanggal);
 
-        // dd($data_jadwal[0]);
         $belum_hadir = AbsenSiswa::all()->where("guru_id", $id_guru)->where("keterangan", "Belum Hadir")->where("kelas_id", $kelas)->where("mapel_id", $mapel)->where("tanggal", $tanggal);
+
+        $time_now = Carbon::now("Asia/Jakarta")->format("H:i:s");
+
         return view("guru.detail_absensi",[
             "title" => "absensi",
             "data_kelas" => $data_kelas,
             "kelas" => $kelas,
+            "batas_hadir" => $data_jadwal->first()->batas_hadir,
             "no"=>1,
             "i"=>1,
             "mapels" => $mapel,
             "tanggals"=>$tanggal,
+            "time_now" => $time_now,
             "data_jadwals" => $data_jadwal,
             "data_siswas" => $data_siswa,
             "belum_hadir" => $belum_hadir,
-            // "data_absensi" => $data_absensi,
-            // "data"=> $datas
         ]);
     }
      
@@ -354,6 +367,7 @@ class GuruController extends Controller
             
         }
         return $result;
+
         
     }
 
@@ -376,10 +390,12 @@ class GuruController extends Controller
             $result = "ok";
 
             $absen_siswa->update([
-                "pulang" => $request->datas[$i]['data_pulang']
+                "pulang" => $request->datas[$i]['data_pulang'],
+                "keterangan" => $request->datas[$i]['set_keterangans'],
+                "keterangan_absensi"=> $request->datas[$i]['keterangan_absens']
             ]);
 
-            $result = "Siswa berhasil di pulangkan" ;
+            $result = "Siswa Berhasil Di Pulangkan" ;
         }
         return $result;
     }
@@ -436,7 +452,7 @@ class GuruController extends Controller
         ]);
     }
 
-public function table_absen($tanggal, $kelas, $mapel)
+    public function table_absen($tanggal, $kelas, $mapel)
     {
         $id_guru = auth()->user()->id;
         $data_absensi = AbsenSiswa::all()->where("guru_id", $id_guru)->where("kelas_id", $kelas)->where("mapel_id", $mapel)->where("tanggal", $tanggal);
@@ -467,32 +483,21 @@ public function table_absen($tanggal, $kelas, $mapel)
 
     public function absen_keluar_siswa($jadwal ,$mapel, $kelas)
     {
-
-        $process = new Process(['python ../../../app/absen_pulang.py']);
-        // $process->setTimeout(0);
-        $process->run();
-
-        if(!$process->isSuccessful())
-        {
-            throw new ProcessFailedException($process);
-        }
-
-        $data = $process->getOutput();
-        // dd(json_decode($data, true));
-        $datas = json_decode($data, true);
         return view("guru.absensiswapulang",[
             "kelas" => $kelas,
             "no"=>1,
-            "mapel" => $mapel,
-            "datas"=> $datas
+            "mapel" => $mapel
         ]);
     }
 
-    public function cam_daftar()
+    public function cam_daftar($id)
     {
-        
+        $data_siswa = Siswa::find($id);
+        // dd($data_siswa->nama_siswa);
         return view("guru.cam.camdaftar", [
             "title"=>"data_kelas",
+            "nama_siswa" => $data_siswa->nama_siswa,
+            "id_siswa" => $id,
         ]);
 
     }
@@ -502,35 +507,66 @@ public function table_absen($tanggal, $kelas, $mapel)
     {
         $i = 1;
         $img = $request->image;
-        $folderPath = "cam_js/images/";
+        $folderPath = "public/cam_js/images/";
         
         $image_parts = explode(";base64,", $img);
         $image_type_aux = explode("image/", $image_parts[0]);
         $image_type = $image_type_aux[1];
         
         $image_base64 = base64_decode($image_parts[1]);
-        $fileName = uniqid() . '.png';
+        while($i < 16) {
+            $fileName = $request->nama_siswa . '.' . $i . '.jpg';
+            $i++;
+            $file = $folderPath . $fileName;
+            Storage::put($file, $image_base64);
+        }
         
-        $file = $folderPath . $fileName;
-        Storage::put($file, $image_base64);
        
         // dd('Image uploaded successfully: '.$fileName);
-        return redirect('/data_siswa/tambah_murid/cam_daftar')->with("success", "Data murid berhasil disimpan!");
+        return redirect("/data_kelas")->with("success", "Data Murid Berhasil Disimpan");
         
-    }
-
-    public function simpan_dataset()
-    {
-        return redirect("/data_kelas")->with("success", "Wajah berhasil ditambahkan!");
     }
 
     public function cam_masuk($tanggal, $kelas, $mapel)
     {
 
-        $data_absen = AbsenSiswa::with(['siswa'])->where("kelas_id", $kelas)->where("mapel_id", $mapel)->get();
-        // dd($data_absen->pluck("siswa_id"));
+        $data_absen = Siswa::with(['kelas'])->where("kelas_id", $kelas)->get();
+        $data_kelas = kelas::find($kelas);
+        
         return view("guru.cam_absen_masuk", [
             "title"=>"absensi",
+            "data_kelas" => $data_kelas,
+            "data_siswa" => $data_absen,
+            "tanggals"=>$tanggal,
+            "kelas"=>$kelas,
+            "mapels"=>$mapel,
+        ]);
+    }
+
+    public function update_cam_masuk($tanggal, $kelas, $mapel, $data_siswa)
+    {
+        $data_siswas = Siswa::where("nama_siswa", $data_siswa)->get();
+        $jadwal_absen = JadwalAbsen::where("tanggal", $tanggal)->where("kelas_id", $kelas)->where("mapel_id", $mapel)->where("guru_id", auth()->user()->id)->get();
+        $data_absen = AbsenSiswa::where("siswa_id", $data_siswas->first()->id);
+
+        $data_absen->update([
+            "masuk" => Carbon::now("Asia/Jakarta")->format("H:i:s"),
+            "keterangan" => "Hadir"
+        ]);
+        return "
+        <p class='bg-green-600 w-full flex align-middle justify-between py-[2%] px-[2%] rounded-md text-white font-bold'>$data_siswa Berhasil Melakukan Absensi <span class='material-symbols-outlined'>check_circle</span></p>
+        ";
+    }
+
+    public function cam_pulang($tanggal, $kelas, $mapel)
+    {
+
+        $data_absen = Siswa::with(['kelas'])->where("kelas_id", $kelas)->get();
+        $data_kelas = kelas::find($kelas);
+
+        return view("guru.cam_absen_pulang", [
+            "title"=>"absensi",
+            "data_kelas" => $data_kelas,
             "data_siswa"=> $data_absen,
             "tanggals"=>$tanggal,
             "kelas"=>$kelas,
@@ -538,17 +574,64 @@ public function table_absen($tanggal, $kelas, $mapel)
         ]);
     }
 
-    public function cam_pulang($tanggal, $kelas, $mapel)
+    public function view_kirim_telegram($tanggal, $kelas, $mapel)
     {
+        $data_absen = AbsenSiswa::with(['siswa', 'mapel','kelas', 'guru'])->where("tanggal", $tanggal)->where("kelas_id", $kelas)->where("mapel_id", $mapel)->whereNotIn('keterangan', ['Hadir', 'Terlambat'])->get();
+        $data_kelas = kelas::all()->where("id", $kelas);
 
-        $data_absen = AbsenSiswa::with(['siswa'])->where("kelas_id", $kelas)->where("mapel_id", $mapel)->get();
-        // dd($data_absen->pluck("siswa_id"));
-        return view("guru.cam_absen_pulang", [
-            "title"=>"absensi",
-            "data_siswa"=> $data_absen,
-            "tanggals"=>$tanggal,
-            "kelas"=>$kelas,
-            "mapels"=>$mapel,
+        return view("guru.kirim_telegram",[
+            "title" => "absensi",
+            "sub_title" => "kirim_telegram",
+            "data_absen" => $data_absen,
+            "data_kelas" => $data_kelas,
+            "tanggals" =>$tanggal,
+            "id_kelas" => $kelas,
+            "id_mapels" => $mapel
+        ]);
+    }
+
+    public function kirim_telegram(Request $request, $tanggal, $kelas, $mapel)
+    {
+        $url = "https://api.telegram.org/bot5819520124:AAEivrJQBC61xDmrFRGzj0SQ35fAwxt5gG8/sendMessage?parse_mode=markdown&chat_id=" . $request->chat_id. "&text=". urlencode($request->message);
+    $ch = curl_init();
+    $optArray = array(
+            CURLOPT_URL => $url,
+            CURLOPT_RETURNTRANSFER => true
+    );
+    curl_setopt_array($ch, $optArray);
+    $result = curl_exec($ch);
+    $err = curl_error($ch);
+    curl_close($ch);
+
+    if ($err) {
+       echo 'Pesan gagal terkirim, error :' . $err;
+    }else{
+        return redirect("/absen_siswa/$tanggal/$kelas/$mapel/")->with("success", "Pesan Berhasil Terkirim");
+    }
+
+    }
+
+    public function update_cam_pulang($tanggal, $kelas, $mapel, $data_siswa)
+    {
+        $data_siswas = Siswa::where("nama_siswa", $data_siswa)->get();
+        $jadwal_absen = JadwalAbsen::where("tanggal", $tanggal)->where("kelas_id", $kelas)->where("mapel_id", $mapel)->where("guru_id", auth()->user()->id)->get();
+        $data_absen = AbsenSiswa::where("siswa_id", $data_siswas->first()->id);
+
+        $data_absen->update([
+            "pulang" => Carbon::now("Asia/Jakarta")->format("H:i:s"),
+            "keterangan_absensi" => "Hadir"
+        ]);
+        return "
+        <p class='bg-green-600 w-full flex align-middle justify-between py-[2%] px-[2%] rounded-md text-white font-bold'>$data_siswa Berhasil Dipulangkan <span class='material-symbols-outlined'>check_circle</span></p>
+
+        ";
+    }
+
+    // dokumentasi
+    public function dokumentasi()
+    {
+        return view("guru.dokumentasi", [
+            "title" => "dokumentasi",
         ]);
     }
 

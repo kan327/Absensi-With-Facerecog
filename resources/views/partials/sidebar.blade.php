@@ -19,7 +19,20 @@
             Data Kelas
         </div>
     </a>
-    <div class="mt-10 text-dark-data"><span class="material-symbols-outlined -mb-3 mr-5">sms_failed</span>
-        laporan
-    </div>
+    <a href="/dokumentasi">
+        <div class="mt-10 text-dark-data"><span class="material-symbols-outlined -mb-3 mr-5">sms_failed</span>
+            Dokumentasi
+        </div>
+    </a>
 </div>
+
+<script>
+    function validate(){
+        Noticme.Any({
+            text: "Anda Harus Memiliki Kelas Dan Mapel !",
+            type: "danger",
+            timer: 5000,
+            button: false
+        })
+    }
+</script>

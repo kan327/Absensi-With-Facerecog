@@ -36,16 +36,16 @@
                         <!-- please delete or reuse this onclick -->
                         <td class="p-3 font-semibold " style="border-top-left-radius: 12px; border-bottom-left-radius: 12px;">{{ $no_jadwal++ }}
                         </td>
-                        <td onclick="location.href = '/absen_siswa/{{ $jadwal_absen->tanggal }}/{{ $jadwal_absen->kelas_id }}/{{ $jadwal_absen->mapel_id }}'" class="p-3 font-semibold">{{ \Carbon\Carbon::parse($jadwal_absen->tanggal)->format("d/m/Y") }}</td>
-                        <td onclick="location.href = '/absen_siswa/{{ $jadwal_absen->tanggal }}/{{ $jadwal_absen->kelas_id }}/{{ $jadwal_absen->mapel_id }}'" class="p-3 font-semibold">{{ $jadwal_absen->kelas->kelas }}</td>
-                        <td onclick="location.href = '/absen_siswa/{{ $jadwal_absen->tanggal }}/{{ $jadwal_absen->kelas_id }}/{{ $jadwal_absen->mapel_id }}'" class="p-3 font-semibold">{{ $jadwal_absen->mapel->pelajaran }}</td>
-                        <td onclick="location.href = '/absen_siswa/{{ $jadwal_absen->tanggal }}/{{ $jadwal_absen->kelas_id }}/{{ $jadwal_absen->mapel_id }}'" class="p-3 font-semibold">{{ $jadwal_absen->mulai }}</td>
-                        <td onclick="location.href = '/absen_siswa/{{ $jadwal_absen->tanggal }}/{{ $jadwal_absen->kelas_id }}/{{ $jadwal_absen->mapel_id }}'" class="p-3 font-semibold" name="jam_pulang">{{ $jadwal_absen->selesai }}</td>
+                        <td @if($date_now <= $jadwal_absen->tanggal) onclick="location.href = '/absen_siswa/{{ $jadwal_absen->tanggal }}/{{ $jadwal_absen->kelas_id }}/{{ $jadwal_absen->mapel_id }}'" @endif class="p-3 font-semibold">{{ \Carbon\Carbon::parse($jadwal_absen->tanggal)->format("d/m/Y") }}</td>
+                        <td @if($date_now <= $jadwal_absen->tanggal) onclick="location.href = '/absen_siswa/{{ $jadwal_absen->tanggal }}/{{ $jadwal_absen->kelas_id }}/{{ $jadwal_absen->mapel_id }}'" @endif  class="p-3 font-semibold">{{ $jadwal_absen->kelas->kelas }}</td>
+                        <td @if($date_now <= $jadwal_absen->tanggal) onclick="location.href = '/absen_siswa/{{ $jadwal_absen->tanggal }}/{{ $jadwal_absen->kelas_id }}/{{ $jadwal_absen->mapel_id }}'" @endif  class="p-3 font-semibold">{{ $jadwal_absen->mapel->pelajaran }}</td>
+                        <td @if($date_now <= $jadwal_absen->tanggal) onclick="location.href = '/absen_siswa/{{ $jadwal_absen->tanggal }}/{{ $jadwal_absen->kelas_id }}/{{ $jadwal_absen->mapel_id }}'" @endif  class="p-3 font-semibold">{{ $jadwal_absen->mulai }}</td>
+                        <td @if($date_now <= $jadwal_absen->tanggal) onclick="location.href = '/absen_siswa/{{ $jadwal_absen->tanggal }}/{{ $jadwal_absen->kelas_id }}/{{ $jadwal_absen->mapel_id }}'" @endif  class="p-3 font-semibold" name="jam_pulang">{{ $jadwal_absen->selesai }}</td>
                         <td  class=""
                         style="border-top-right-radius: 12px; border-bottom-right-radius: 12px;">
 
-                            <a href="/absensi/edit"><span class="material-symbols-outlined">edit</span></a>
-                            <a href="/absensi/hapus/{{ $jadwal_absen->id }}/{{ $jadwal_absen->tanggal }}/{{ $jadwal_absen->kelas_id }}/{{ $jadwal_absen->mapel_id }}"><span class="material-symbols-outlined this-one">delete</span></a>
+                            {{-- <a href="/absensi/edit"><span class="material-symbols-outlined">edit</span></a> --}}
+                            <a onclick="return Noticme.any({text: 'Hapus!', message: 'Apakah Anda Yakin Ingin Menghapus Data Berikut?', confirm:true}).then(result => { if(result){ location.href='/absensi/hapus/{{ $jadwal_absen->id }}/{{ $jadwal_absen->tanggal }}/{{ $jadwal_absen->kelas_id }}/{{ $jadwal_absen->mapel_id }}' } })"><span class="material-symbols-outlined this-one">delete</span></a>
                             <a href="/absensi/excel/{{ $jadwal_absen->tanggal }}/{{ $jadwal_absen->kelas_id }}/{{ $jadwal_absen->mapel_id }}" name="download_excel"><span class="material-symbols-outlined">file_download</span></a></td>
                     </tr>
                 @endforeach
@@ -57,26 +57,7 @@
 </div>
 
 <script>
-    var download_excel = document.getElementsByName("download_excel")
-    var jam_pulang = document.getElementsByName("jam_pulang")
-    var baris_jadwal = document.getElementsByName("baris_jadwal")
-    var date = new Date()
-    var date_now = date.getHours()+":"+date.getMinutes()+":"+date.getSeconds()
 
-    for(i=0; i < download_excel.length; i++){
-        
-        if("{{ $time_now }}" > jam_pulang[i].textContent){
-            baris_jadwal[i].addEventListener("click", ()=>{
-                location.href = ""
-            })
-            console.log(baris_jadwal)
-            console.log(jam_pulang[i].textContent+" Di buka")
-        }else{
-            download_excel[i].style.pointerEvents = "none";
-            console.log(jam_pulang[i].textContent+" Di tutup")
-        }    
-        console.log(date_now)
-    }
 </script>
 @endsection
 

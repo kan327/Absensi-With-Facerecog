@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class GuruMapel extends Model
 {
-    use HasFactory, SoftDeletes;
-    protected $guarded = [];
+    use HasFactory; //, SoftDeletes;
+    protected $guarded = ['id'];
 
     public function guru()
     {

@@ -94,10 +94,10 @@
     </div>
 
     <!-- bagian bawah -->
-    <div class="flex pl-12 pt-5 w-full h-[45%]">
+    <div class="flex justify-evenly pl-12 pt-5 w-full h-[45%]">
 
         <!-- kiri bawah -->
-        <div class="h-full w-1/2 ">
+        <div class="h-full  w-1/2 ">
             <!-- judul input -->
             <label class="font-[montserrat] text-xl font-semibold">
                 Class
@@ -108,9 +108,9 @@
                 <div class="w-4/5 grid grid-cols-2  gap-3">
                 @foreach ($data_kelas as $kelas)
                     <li>
-                        <input type="checkbox" @foreach($kelas_gurus as $kelas_guru) @if($kelas_guru->kelas->id == $kelas->id) {{ "checked" }} @endif @endforeach id="checkbox{{ $no_kelas }}" name="kelas[]"
+                        <input type="checkbox" @foreach($kelas_gurus as $kelas_guru) @if($kelas_guru->kelas->id == $kelas->id) {{ "checked disabled" }} @endif @endforeach id="checkbox{{ $no_kelas }}" name="kelas[]"
                             value="{{ $kelas->id }}">
-                        <label for="checkbox{{ $no_kelas++ }}">{{ $kelas->kelas }}</label>
+                        <label for="checkbox{{ $no_kelas++ }}" class="w-full">{{ $kelas->kelas }}</label>
                     </li>
                 @endforeach
                 </div>
@@ -129,14 +129,10 @@
                 <div class="w-4/5 grid grid-cols-2  gap-2">
                     @foreach ($data_mapels as $mapel)
                         <li>
-                            <input type="checkbox" @foreach($mapel_gurus as $mapel_guru) @if($mapel_guru->mapel->id == $mapel->id) {{ "checked" }} @endif @endforeach id="mapel{{ $no_mapel }}" name="mapel[]" value="{{ $mapel->id }}">
-                            <label for="mapel{{ $no_mapel++ }}">{{ $mapel->pelajaran }}</label>
+                            <input type="checkbox" @foreach($mapel_gurus as $mapel_guru) @if($mapel_guru->mapel->id == $mapel->id) {{ "checked disabled" }} @endif @endforeach id="mapel{{ $no_mapel }}" name="mapel[]" value="{{ $mapel->id }}">
+                            <label for="mapel{{ $no_mapel++ }}" class="w-full">{{ $mapel->pelajaran }}</label>
                         </li>
                     @endforeach
-                    <!-- button -->
-                    <div class="flex justify-center items-center w-5 h-5">
-
-                    </div>
 
                 </div>
             
@@ -150,9 +146,24 @@
     </div>
 
     <!-- button -->
-    <div class="w-full mb-10">
-        <button type="submit" class="px-4 py-1 relative left-[35%] border-bg-blue-dark border-solid border-2 rounded-md font-bold">simpan</button>
+    <div class="w-full grid place-center mt-10 mb-10">
+        <button type="submit" id="simpan" class="px-[25vw] py-1 mx-auto hover:scale-105 hover:bg-bg-blue-dark hover:text-white  border-bg-blue-dark border-solid border-2 rounded-md font-bold">Simpan</button>
+        <a id="reset" onclick="location.href='/profile/hapus/{{ auth()->user()->id }}/reset_profile'" class="px-[25vw] cursor-pointer py-[5.8px] mx-auto  border-bg-blue-dark border-solid border-2 rounded-md font-bold hover:scale-105 hover:bg-bg-blue-dark hover:text-white">Reset</a>
     </div>
-</form>
+   
+   </form>
+
+   
 </div>
+
+    <script>
+        var btn_simpan = document.getElementById("simpan")
+        var btn_reset = document.getElementById("reset")
+        
+        if( {{ count($mapel_gurus) }} > 0){
+            btn_simpan.style.display = "none"
+        }else{
+            btn_reset.style.display = "none"
+        }
+    </script>
 @endsection

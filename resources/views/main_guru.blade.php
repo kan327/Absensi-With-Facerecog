@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="icon" href="{{ asset('assets/img/title_logo.png') }}">
     <title>@if($title == "dashboard_guru") Dashboard @endif @if($title == "profile_guru") Profile @endif @if($title == "absensi") Absensi @endif @if($title == "data_kelas") Data Kelas @endif| Starbhak Absensi</title>
 
     <!-- style css -->
@@ -144,7 +145,7 @@
                 text: "{{ Session::get('success') }}",
                 type: 'success',
                 timer: 5000,
-                button: true
+                button: false
             })
         </script>
     @endif

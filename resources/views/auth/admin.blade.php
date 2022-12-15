@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ asset('assets/img/title_logo.png') }}">
     <title>Login Admin | Starbhak Absensi</title>
 
     {{-- <link rel="stylesheet" href="{{ asset('assets/CSS/login.css') }}"> --}}
@@ -12,7 +13,7 @@
     {{-- tailwind --}}
     <script src="https://cdn.tailwindcss.com"></script>
     {{-- alert --}}
-    <script src="{{ asset('assets/JS/cstkei.alert.js') }}"></script>
+    <script src="{{ asset('assets/JS/noticme.min.js') }}"></script>
     
     <!-- roboto -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
@@ -48,11 +49,11 @@
         <!-- kiri -->
         <div class="w-2/3  h-full hidden lg:block">
             <!-- nav -->
-            <nav class="w-full lg:flex items-center font-bold text-bg-blue-dark justify-evenly h-[10%] sticky top-0 hidden">
+            <nav class="w-full lg:flex items-center font-bold text-bg-blue-dark justify-evenly h-[8vh] sticky top-0 hidden">
                 <!-- links -->
-                <a class="hover:border-b-[3px] text-sm transition-all border-bg-blue-dark bor font-[montserrat]" class="" href="">Dokumentasi</a>
+                {{-- <a class="hover:border-b-[3px] text-sm transition-all border-bg-blue-dark bor font-[montserrat]" class="" href="">Dokumentasi</a>
                 <a class="hover:border-b-[3px] text-sm transition-all border-bg-blue-dark font-[montserrat]" href="">Peraturan</a>
-                <a class="hover:border-b-[3px] text-sm transition-all border-bg-blue-dark font-[montserrat]" href="">Contact</a>
+                <a class="hover:border-b-[3px] text-sm transition-all border-bg-blue-dark font-[montserrat]" href="">Contact</a> --}}
             </nav>
             <!-- mid text -->
             <div class="h-4/5 lg:flex items-center justify-center text-bg-blue-dark w-full m-0 md:mx-10 md:w-4/5">
@@ -97,18 +98,42 @@
                             </button>
                         </div>
                         @if (Session::has('success'))
-                            <script>keiAlert("{{ Session::get('success') }}", 'done', 'bg-[#22c55e]')</script>
-                            @endif
+                            <script>
+                                Noticme.any({
+                                    text: "{{ Session::get('success') }}",
+                                    type: 'success',
+                                    timer: 5000,
+                                })
+                            </script>
+                        @endif
                             
                         @if (Session::has('wrong'))
-                            <script>keiAlert("{{ Session::get('wrong') }}", 'close', 'bg-red-600')</script>
+                            <script>
+                                Noticme.any({
+                                    text: "{{ Session::get('wrong') }}",
+                                    type: 'danger',
+                                    button: true
+                                })
+                            </script>
                         @endif
 
                         @error('username')
-                            <script>keiAlert("{{ $message }}", 'close', 'bg-red-600')</script>
+                            <script>
+                                Noticme.any({
+                                    text: "{{ $message }}",
+                                    type: 'danger',
+                                    button: true
+                                })
+                            </script>
                         @enderror
                         @error('password')
-                            <script>keiAlert("{{ $message }}", 'close', 'bg-red-600')</script>
+                            <script>
+                                Noticme.any({
+                                    text: "{{ $message }}",
+                                    type: 'danger',
+                                    button: true
+                                })
+                            </script>
                         @enderror
                     </form>
                     </div>
@@ -131,7 +156,7 @@
             time.textContent = "Selamat Siang, Admin";
         }else if(date_now >= 15 && date_now < 18){
             time.textContent = "Selamat Sore, Admin";
-        }else if(date_now >= 18 && date_now < 00){
+        }else{
             time.textContent = "Selamat Malam, Admin";
         }
 

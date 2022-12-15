@@ -39,10 +39,10 @@ class LoginController extends Controller
         // dd(Auth::attempt($validasi));
         
         if(Auth::attempt($validasi)){
-            return redirect("/")->with("success", 'Anda berhasil login');
+            return redirect("/")->with("success", 'Anda Berhasil Login');
         }
         
-        return redirect('/login')->with("wrong", "Email atau password tidak cocok!");
+        return redirect('/login')->with("wrong", "Email Atau Password Tidak Cocok!");
         
     }
 
@@ -67,7 +67,7 @@ class LoginController extends Controller
             
         }
         
-        return redirect("/login_admin")->with("wrong", "Username atau password tidak cocok ! ");
+        return redirect("/login_admin")->with("wrong", "Username Atau Password Tidak Cocok ! ");
     }
 
     public function logout()
