@@ -64,3 +64,131 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Telegram Bot With Python
+<h4>Administrator Pino Bot</h4>
+<p>Administrator Pino Bot adalah Bagian yang mengatur History dan Hak Akses dari Pino Bot</p>
+<p>Fitur :</p>
+
+- 💬 Daftar Sebagai Admin Pino Bot 
+<p>Pendaftaran dilakukan oleh guru dengan tujuan mendapatkan akses sebagai "Admin"</p>
+<p>Command Format</p>
+
+```sh
+/daftar [Nama-Lengkap] [ID-Telegram] [Status]
+```
+
+<p>Example</p>
+
+```sh
+/daftar Lumi-Novry-M 0987654321 Guru
+```
+
+<br>
+<br>
+
+
+- 💬 Cek History (Developer)
+<p>Menampilkan "History" Pemakaian Pino Bot</p>
+<p>Command Format</p>
+
+```sh
+/history
+```
+
+<br>
+<br>
+
+- 💬 Cek Daftar Admin Pino Bot (Developer)
+<p>Menampilkan daftar "Admin" Pino Bot</p>
+<p>Command Format</p>
+
+```sh 
+/admin-list
+```
+
+<br>
+<br>
+
+- 💬 Add, Delete, Change Admin (Developer)
+<p>Developer memiliki akses untuk mengubah status "Admin" Pino Bot</>
+
+<br>
+<br>
+<br>
+
+<h4>Pino Bot</h4>
+<p>Pino Bot adalah bot yang akan membantu kegiatan layanan informasi pendidikan SMK Taruna Bhakti</p>
+<p>Fitur :</p>
+
+
+- 💬 Start (Normal User, Admin)
+<p>Memulai Bot</p>
+<p>Command Format</p>
+
+```sh 
+/start
+```
+
+<br>
+<br>
+
+- 💬 Profile (Normal User, Admin)
+<p>Melihat informasi profile telegram pengguna</p>
+<p>Command Format</p>
+
+```sh 
+/profile
+```
+
+<br>
+<br>
+
+- 💬 Time (Normal User, Admin)
+<p>Melihat waktu</p>
+<p>Command Format</p>
+
+```sh 
+/date
+```
+
+<br>
+<br>
+
+- 💬 Check Absensi (Admin)
+<p>Untuk mengecek absensi kelas</p>
+<p>Command Format</p>
+
+```sh 
+/check-absesi [Tanggal] [Mata-Pelajaran] [Kelas]
+```
+
+<p>Example</p>
+
+```sh
+/check-absesi 2022-12-12 Basis-Data XI-PPLG-1
+```
+
+<br>
+<br>
+
+- 💬 Check Absensi Berdasarkan Status Kehadiran (Admin)
+<p>Untuk mengecek absensi kelas berdasarkan status kehadiran</p>
+<p>Command Format</p>
+
+```sh 
+/kehadiran-by-alpha 
+```
+
+```sh 
+/kehadiran-by-sakit 
+```
+
+```sh 
+/kehadiran-by-hadir
+```
+
+```sh 
+/kehadiran-by-izin 
+```
+
