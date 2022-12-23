@@ -192,3 +192,31 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 /kehadiran-by-izin 
 ```
 
+# Laravel Setup In Ubuntu 22.04.1 LTS
+
+## Quick Start
+
+- Install Composer 
+```sh
+composer install --ignore-platform-reqs
+```
+
+-Update Composer 
+```sh
+composer update --ignore-platform-reqs
+```
+
+- Run 
+```sh
+cp .env.example .env
+```
+
+- Run 
+```sh
+php artisan key:generate
+```
+
+- Run 
+```sh
+php artisan serve
+```
