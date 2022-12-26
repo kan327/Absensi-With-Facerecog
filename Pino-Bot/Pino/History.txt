@@ -1,9 +1,0 @@
-Tanggal : 13-December-2022, Nama : Lumi Novry M None, ID : 1789786125, Command / Perintah  : start 
-Tanggal : 13-December-2022, Nama : Lumi Novry M None, ID : 1789786125, Command / Perintah  : myid 
-Tanggal : 13-December-2022, Nama : Lumi Novry M None, ID : 1789786125, Command / Perintah  : whoami 
-Tanggal : 13-December-2022, Nama : Lumi Novry M None, ID : 1789786125, Command / Perintah  : whoami 
-Tanggal : 13-December-2022, Nama : Lumi Novry M None, ID : 1789786125, Command / Perintah  : profile 
-Tanggal : 13-December-2022, Nama : Lumi Novry M None, ID : 1789786125, Command / Perintah  : time 
-Tanggal : 13-December-2022, Nama : Lumi Novry M None, ID : 1789786125, Command / Perintah  : <function checkabsensi at 0x0000025C5E8E1E40> 
-Tanggal : 13-December-2022, Nama : Lumi Novry M None, ID : 1789786125, Command / Perintah  : <function checkabsensi at 0x0000025C5E8E1E40> 
-Tanggal : 13-December-2022, Nama : Lumi Novry M None, ID : 1789786125, Command / Perintah  : <function checkabsensi at 0x0000025C5E8E1E40> 
