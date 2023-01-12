@@ -24,7 +24,7 @@
 </div>
 
 <script>
-    var card_kelas = document.getElementById("card_kelas")
+    var card_kelas = document.getElementsByName("card_kelas")
     for(i = 0; i < card_kelas.length; i++){
         if(card_kelas[i].textContent === '0 Siswa'){
             card_kelas[i].textContent = "Belum Ada Siswa"

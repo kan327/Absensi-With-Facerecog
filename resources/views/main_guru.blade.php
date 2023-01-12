@@ -18,6 +18,8 @@
     
     {{-- alert --}}
     <script src="{{ asset('assets/JS/noticme.min.js') }}"></script>
+
+    <script src="{{ asset('assets/JS/guru.js') }}"></script>
     
     {{-- jquery --}}
     <script src="{{ asset('assets/JS/jquery.js') }}"></script>

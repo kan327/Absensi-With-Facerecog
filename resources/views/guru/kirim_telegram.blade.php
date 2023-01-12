@@ -39,17 +39,20 @@
 
 
                     <label for="y" class="font-[quicksands] text-xl font-medium">Pesan :</label> <br>
-                    <textarea cols="37.9%" rows="9%" name="message" class="p-1 border-[2px] rounded-md border-[#2C3E50]" id="y">@foreach ($data_absen as $absen_siswa)
+                    <textarea cols="37.9%" rows="9%" name="message" class="p-1 border-[2px] rounded-md border-[#2C3E50]" id="y">
 Detail Absensi 
 
-Tanggal : {{ $tanggals }}
-Guru : {{ $absen_siswa->guru->name }}
-Mata Pelajaran : {{ $absen_siswa->mapel->pelajaran }}
-Kelas : {{ $absen_siswa->kelas->kelas }}
+Tanggal : {{ Carbon\Carbon::parse($tanggals)->translatedFormat('d F Y') }}
+Guru : {{ auth()->user()->name }}
+Mata Pelajaran : {{ $data_jadwal->first()->mapel->pelajaran }}
+Kelas : {{ $data_jadwal->first()->kelas->kelas }}
+Hadir : {{ count($hadir) }} Murid
+Tidak Hadir : {{ count($tidak_hadir) }} Murid
 
-{{ $loop->iteration }}. {{ $absen_siswa->siswa->nama_siswa }} - {{ $absen_siswa->keterangan }}
-
-                    @endforeach</textarea>
+@if (count($data_absen) > 0)
+@foreach ($data_absen as $absen_siswa)
+{{ $loop->iteration }}. {{ $absen_siswa->siswa->nama_siswa }} - {{ $absen_siswa->keterangan }}  
+@endforeach @else - @endif</textarea>
 
                     <div class="mt-3 font-[quicksands] font-medium w-[110%]">
                         Mohon periksa kembali data yang ingin dikirimkan ! Jika ada keterangan yang salah anda bisa

@@ -27,7 +27,7 @@
                             <int>{{ \Carbon\Carbon::createFromFormat('G:i:s', $data_jadwals->selesai)->format('g:i A') }}</int>
                         </div>
                     </div>
-                    <button onclick="location.href = '/absen_siswa/{{ $tanggals }}/{{ $kelas }}/{{ $mapels }}/cam_masuk'" class="py-1 px-3 border-bg-blue-dark border-solid border-2 box-border rounded-md hover:bg-bg-blue-dark hover:text-white" id="btn_masuk">Masuk</button>
+                    <button @if($data_jadwals->batas_hadir > $time_now) onclick="location.href = '/absen_siswa/{{ $tanggals }}/{{ $kelas }}/{{ $mapels }}/cam_masuk'"@else onclick="validate('Kamera Masuk Sudah Ditutup!')" @endif class="py-1 px-3 border-bg-blue-dark border-solid border-2 box-border rounded-md hover:bg-bg-blue-dark hover:text-white" id="btn_masuk">Masuk</button>
                     <button onclick="location.href = '/absen_siswa/{{ $tanggals }}/{{ $kelas }}/{{ $mapels }}/cam_pulang'" class="py-1 px-3 border-bg-blue-dark border-solid border-2 box-border rounded-md hover:bg-bg-blue-dark hover:text-white" id="btn_pulang">Pulang</button>
                     <p class="mt-4">Mohon ubah sesi sesuai pada waktunya.</p>
                 </div>
@@ -129,7 +129,20 @@
         }
     </script> -->
 
+    <script src="{{ asset('assets/JS/guru.js') }}"></script>
+
     <script>
+        var batas_hadir = {{ Js::from($data_jadwals->batas_hadir) }}
+        var time_now = {{ Js::from($time_now) }}       
+            
+        var tutup = setInterval(() => {
+
+            if(batas_hadir <= time_now){
+                tutup_absen()
+                clearInterval(tutup)
+            }
+        }, 100);
+
         $(document).ready(function() {
             box_absen_ket()
             table_absen()
@@ -145,7 +158,6 @@
             $.get("/absen_siswa/{{ $tanggals }}/{{ $kelas }}/{{ $mapels }}/box_ket", {}, function(data,
                 status) {
                 $("#box_absen_keterangan").html(data)
-                console.log(data)
             })
         }
 

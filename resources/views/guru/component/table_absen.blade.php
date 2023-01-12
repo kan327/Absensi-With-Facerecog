@@ -129,7 +129,6 @@
     }
 
     function tutup_absen() {
-
         var id_siswa = document.getElementsByName("id_siswa")
 
         var id_siswas = []
@@ -158,7 +157,7 @@
             if(masuk[k].textContent == "--"){
                 // jam_masuk[k] = "{{ $batas_hadir }}"
                 // keterangan[k][3].setAttribute('selected', true)
-                keterangans.push(keterangan[k][0].value)
+                keterangans.push(keterangan[k][2].value)
             }else{
                 jam_masuk[k] = jam_masuk[k]
                 keterangans.push(keterangan[k].value)

@@ -29,7 +29,7 @@
             </div>
         @endif
         <!-- box 2 -->
-        <div onclick = "location.href= '/absensi/tambah_jadwal'"
+        <div @if($jum_kelas > 0 && $jum_mapel > 0)onclick = "location.href= '/absensi/tambah_jadwal'"@else onclick="validate('Anda Harus Memilih Kelas Dan Mapel')"@endif
             class="cursor-pointer hover:bg-bg-blue-dark hover:text-white shadow-box border-solid border-[0.1px] border-opacity-5 border-black p-6 rounded-md w-[28%] flex justify-between">
             <div>
                 <h3 class="font-semibold text-sm">Jadwal</h3>
