@@ -15,6 +15,63 @@
         </div>
         <!-- table -->
         <div class="mt-20 h-[50vh] w-full overflow-auto border-bg-blue-dark border-solid border-t-2">
+            <form action="">
+                <div class="flex justify-between items-center mt-1">
+                    <div class="flex my-2 align-middle">
+                        {{-- select tahun --}}
+                        <select name="tahun" id="tahun" class="border-solid border-2 border-placeholder mt-0.5 p-1 rounded-md mr-3">
+                            <option value="{{ $year_now }}">Tahun Saat Ini</option>
+                            <option value="{{ $year_now - 1 }}">1 Tahun Yang Lalu</option>
+                            <option value="{{ $year_now - 2 }}">2 Tahun Yang Lalu</option>
+                            <option value="{{ $year_now - 3 }}">3 Tahun Yang Lalu</option>
+                        </select>
+                        {{-- select bulan --}}
+                        <select name="bulan" id="bulan" class="border-solid border-2 border-placeholder mt-0.5 p-1 rounded-md mr-3">
+                            @for ($i = 0; $i < count($nama_bulan); $i++)
+                                <option value="{{ $format_bulan[$i] }}">{{ $nama_bulan[$i] }}</option>
+                            @endfor
+                        </select>
+                        {{-- select tanggal --}}
+                        <select name="tgl" id="tgl" class="border-solid border-2 border-placeholder mt-0.5 p-1 rounded-md mr-3">
+                            <option value="" selected>Pilih Tanggal</option>
+                            @foreach ($tanggals as $tanggal)
+                                <option value="{{ $tanggal }}">{{ $tanggal }}</option>
+                            @endforeach
+                        </select>
+
+                        <div onclick="search()" class="relative ml-2">
+                            <span class="cursor-pointer material-symbols-outlined absolute top-1.5 left-1 text-placeholder">search</span>
+                        </div>
+                        {{-- search --}}
+                        {{-- <div class="relative ml-2">
+                            <span onclick="opensrc('search_01', this)" class="cursor-pointer material-symbols-outlined absolute top-2.5 left-2 text-placeholder">search</span>
+                            <input type="text" placeholder="cari jadwal mapel" class="select-none cursor-default w-0 opacity-0 indent-10 placeholder:text-placeholder border-solid border-2 border-placeholder mr-1 mt-0.5 p-1.5 rounded-md" name="" id="search_01">
+                            <script>
+                                function opensrc(where, __self){
+                                    let inp = document.getElementById(where)
+                                    if(inp.classList.contains('opacity-0')){
+                                        __self.classList.add('text-black')
+                                        inp.classList.add('opacity-100')
+                                        inp.classList.add('w-full')
+                                        inp.classList.remove('select-none')
+                                        inp.classList.remove('cursor-default')
+                                        inp.classList.remove('w-0')
+                                        inp.classList.remove('opacity-0')
+                                    }else{
+                                        __self.classList.remove ('text-black')
+                                        inp.classList.remove('opacity-100')
+                                        inp.classList.remove('w-full')
+                                        inp.classList.add('w-0')
+                                        inp.classList.add('cursor-default')
+                                        inp.classList.add('select-none')
+                                        inp.classList.add('opacity-0')
+                                    }
+                                }
+                            </script>
+                        </div> --}}
+                    </div>
+                </div>
+            </form>
             <table class="w-full font-[quicksands]" cellpadding="2">
                 <!-- header table -->
                 <thead class="font-extrabold bg-white top-0 sticky z-10">
@@ -29,26 +86,9 @@
                     </tr>
                 </thead>
                 <!-- body -->
-                <tbody class="text-center text-base font-bold cursor-pointer select-none">
+                <tbody class="text-center text-base font-bold cursor-pointer select-none" id="table_jadwal">
 
-                    @foreach ($jadwal_absens as $jadwal_absen)
-                    <tr name="baris_jadwal" class="hover:bg-[#F5F5F5] hover:font-bold rounded-full in-hover-to">
-                        <!-- please delete or reuse this onclick -->
-                        <td class="p-3 font-semibold " style="border-top-left-radius: 12px; border-bottom-left-radius: 12px;">{{ $loop->iteration }} .
-                        </td>
-                        <td @if($jadwal_absen->tanggal >= $date_now) onclick="location.href = '/absen_siswa/{{ $jadwal_absen->tanggal }}/{{ $jadwal_absen->kelas_id }}/{{ $jadwal_absen->mapel_id }}'" @else onclick="validate('Jadwal Absen Telah Tertutup!')" @endif class="p-3 font-semibold">{{ \Carbon\Carbon::parse($jadwal_absen->tanggal)->format("d/m/Y") }}</td>
-                        <td @if($jadwal_absen->tanggal >= $date_now) onclick="location.href = '/absen_siswa/{{ $jadwal_absen->tanggal }}/{{ $jadwal_absen->kelas_id }}/{{ $jadwal_absen->mapel_id }}'" @else onclick="validate('Jadwal Absen Telah Tertutup!')" @endif  class="p-3 font-semibold">{{ $jadwal_absen->kelas->kelas }}</td>
-                        <td @if($jadwal_absen->tanggal >= $date_now) onclick="location.href = '/absen_siswa/{{ $jadwal_absen->tanggal }}/{{ $jadwal_absen->kelas_id }}/{{ $jadwal_absen->mapel_id }}'" @else onclick="validate('Jadwal Absen Telah Tertutup!')" @endif  class="p-3 font-semibold">{{ $jadwal_absen->mapel->pelajaran }}</td>
-                        <td @if($jadwal_absen->tanggal >= $date_now) onclick="location.href = '/absen_siswa/{{ $jadwal_absen->tanggal }}/{{ $jadwal_absen->kelas_id }}/{{ $jadwal_absen->mapel_id }}'" @else onclick="validate('Jadwal Absen Telah Tertutup!')" @endif  class="p-3 font-semibold">{{ $jadwal_absen->mulai }}</td>
-                        <td @if($jadwal_absen->tanggal >= $date_now) onclick="location.href = '/absen_siswa/{{ $jadwal_absen->tanggal }}/{{ $jadwal_absen->kelas_id }}/{{ $jadwal_absen->mapel_id }}'" @else onclick="validate('Jadwal Absen Telah Tertutup!')" @endif  class="p-3 font-semibold" name="jam_pulang">{{ $jadwal_absen->selesai }}</td>
-                        <td  class=""
-                        style="border-top-right-radius: 12px; border-bottom-right-radius: 12px;">
-
-                            {{-- <a href="/absensi/edit"><span class="material-symbols-outlined">edit</span></a> --}}
-                            <a onclick="return Noticme.any({text: 'Hapus!', message: 'Apakah Anda Yakin Ingin Menghapus Data Berikut?', confirm:true}).then(result => { if(result){ location.href='/absensi/hapus/{{ $jadwal_absen->id }}/{{ $jadwal_absen->tanggal }}/{{ $jadwal_absen->kelas_id }}/{{ $jadwal_absen->mapel_id }}' } })"><span class="material-symbols-outlined this-one">delete</span></a>
-                            <a @if($time_now >= $jadwal_absen->selesai && $jadwal_absen->tanggal <= $date_now) href="/absensi/excel/{{ $jadwal_absen->tanggal }}/{{ $jadwal_absen->kelas_id }}/{{ $jadwal_absen->mapel_id }}" @else onclick="validate('Sesi Absen Belum Berakhir!')" @endif name="download_excel"><span class="material-symbols-outlined">file_download</span></a></td>
-                    </tr>
-                @endforeach
+                    
 
                 </tbody>
             </table>
@@ -57,5 +97,6 @@
 </div>
 
 <script src="{{ asset('assets/JS/guru.js') }}"></script>
+<script src="{{ asset('assets/JS/filter_date.js') }}"></script>
 @endsection
 

@@ -29,6 +29,7 @@ Route::controller(GuruController::class)->group(function(){
     Route::get("/dokumentasi", "dokumentasi");
     
     // View Component
+    Route::get("/absensi/table_jadwal",  "table_jadwal")->middleware("isLoginGuru");// sidebar
     Route::get("/absen_siswa/{tanggal}/{kelas}/{mapel}/box_ket", "box_absen_keterangan")->middleware("isLoginGuru");
     Route::get("/absen_siswa/{tanggal}/{kelas}/{mapel}/table_absen", "table_absen")->middleware("isLoginGuru");
     
@@ -46,6 +47,9 @@ Route::controller(GuruController::class)->group(function(){
     Route::get("/absensi/hapus/{id}/{tanggal}/{kelas}/{mapel}",  "hapus_jadwal")->middleware("isLoginGuru");
     Route::get('/profile/hapus/{id}/reset_profile', 'reset_profile')->middleware("isLoginGuru");
 
+    // search
+    Route::get("/absensi/{tahun}/{bulan}", "filter_date");
+    Route::get("/absensi/{tahun}/{bulan}/{tanggal}", "filter_tanggal");
     
     // MaatWebsite
     Route::get("/absensi/excel/{tanggal}/{kelas}/{mapel}", "excel")->middleware("isLoginGuru");
@@ -82,7 +86,9 @@ Route::controller(AdminController::class)->group(function(){
     Route::get("/admin/pino_bot/search", "search_grup_kelas")->middleware("isLoginGuru");
     Route::get("/admin/search/", "search_guru")->middleware("isLoginGuru");
     Route::get("/admin/siswa/search", "search_siswa")->middleware("isLoginGuru");
-    Route::get("/admin/jadwal/search", "search_jadwal")->middleware("isLoginGuru");
+    Route::get("/admin/table_jadwal", "table_jadwal")->middleware("isLoginGuru");
+    Route::get("/admin/table_jadwal/{tahun}/{bulan}", "filter_date")->middleware("isLoginGuru");
+    Route::get("/admin/table_jadwal/{tahun}/{bulan}/{tanggal}", "filter_tanggal")->middleware("isLoginGuru");
     
     // View Component 
     Route::get("/admin/box",  "box")->middleware("isLoginGuru");

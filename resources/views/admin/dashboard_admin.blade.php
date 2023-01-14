@@ -146,13 +146,70 @@
                     <h1 class="font-bold text-2xl font-[Montserrat] mb-3">Jadwal Absen</h1>
                 </div>
                 <div class="flex ">
-                    <form action="" class="mr-20">
+                    {{-- <form action="" class="mr-20">
                         <input type="text" id="search_jadwal" class="border-solid border-2  border-dark-data mr-2 mt-0.5 py-1 px-2 rounded-md"
                             placeholder="Cari Jadwal Absen">
-                    </form>
+                    </form> --}}
                 </div>
                 <!-- table -->
                 <div class="mt-5 h-[50vh] w-full overflow-auto border-bg-blue-dark border-solid border-t-2">
+                    <form action="">
+                        <div class="flex justify-between items-center mt-1">
+                            <div class="flex my-2 align-middle">
+                                {{-- select tahun --}}
+                                <select name="tahun" id="tahun" class="border-solid border-2 border-placeholder mt-0.5 p-1 rounded-md mr-3">
+                                    <option value="{{ $year_now }}">Tahun Saat Ini</option>
+                                    <option value="{{ $year_now - 1 }}">1 Tahun Yang Lalu</option>
+                                    <option value="{{ $year_now - 2 }}">2 Tahun Yang Lalu</option>
+                                    <option value="{{ $year_now - 3 }}">3 Tahun Yang Lalu</option>
+                                </select>
+                                {{-- select bulan --}}
+                                <select name="bulan" id="bulan" class="border-solid border-2 border-placeholder mt-0.5 p-1 rounded-md mr-3">
+                                    @for ($i = 0; $i < count($nama_bulan); $i++)
+                                        <option value="{{ $format_bulan[$i] }}">{{ $nama_bulan[$i] }}</option>
+                                    @endfor
+                                </select>
+                                {{-- select tanggal --}}
+                                <select name="tgl" id="tgl" class="border-solid border-2 border-placeholder mt-0.5 p-1 rounded-md mr-3">
+                                    <option value="" selected>Pilih Tanggal</option>
+                                    @foreach ($tanggals as $tanggal)
+                                        <option value="{{ $tanggal }}">{{ $tanggal }}</option>
+                                    @endforeach
+                                </select>
+        
+                                <div onclick="search()" class="relative ml-2">
+                                    <span class="cursor-pointer material-symbols-outlined absolute top-1.5 left-1 text-placeholder">search</span>
+                                </div>
+                                {{-- search --}}
+                                {{-- <div class="relative ml-2">
+                                    <span onclick="opensrc('search_01', this)" class="cursor-pointer material-symbols-outlined absolute top-2.5 left-2 text-placeholder">search</span>
+                                    <input type="text" placeholder="cari jadwal mapel" class="select-none cursor-default w-0 opacity-0 indent-10 placeholder:text-placeholder border-solid border-2 border-placeholder mr-1 mt-0.5 p-1.5 rounded-md" name="" id="search_01">
+                                    <script>
+                                        function opensrc(where, __self){
+                                            let inp = document.getElementById(where)
+                                            if(inp.classList.contains('opacity-0')){
+                                                __self.classList.add('text-black')
+                                                inp.classList.add('opacity-100')
+                                                inp.classList.add('w-full')
+                                                inp.classList.remove('select-none')
+                                                inp.classList.remove('cursor-default')
+                                                inp.classList.remove('w-0')
+                                                inp.classList.remove('opacity-0')
+                                            }else{
+                                                __self.classList.remove ('text-black')
+                                                inp.classList.remove('opacity-100')
+                                                inp.classList.remove('w-full')
+                                                inp.classList.add('w-0')
+                                                inp.classList.add('cursor-default')
+                                                inp.classList.add('select-none')
+                                                inp.classList.add('opacity-0')
+                                            }
+                                        }
+                                    </script>
+                                </div> --}}
+                            </div>
+                        </div>
+                    </form>
                     <table class="w-full " cellpadding="2">
                         <!-- header table -->
                         <thead class="font-extrabold bg-white top-0 sticky z-10">
@@ -164,11 +221,12 @@
                         </thead>
                         <!-- body -->
                         <tbody class="text-center text-base font-bold cursor-pointer select-none" id="table_jadwal">
-                            {{-- table_mapel --}}
+                            {{-- table_jadwal --}}
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </main>
+    <script src="{{ asset('assets/js/filter_date_admin.js') }}"></script>
 @endsection

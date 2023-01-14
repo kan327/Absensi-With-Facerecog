@@ -7,7 +7,7 @@
     <div class="mt-10 flex w-full justify-evenly">
         <!-- box 1 session -->
         @if (count($live_absens) > 0)
-            @foreach ($live_absens as $live_absen)
+        @foreach ($live_absens as $live_absen)
                 <div onclick="location.href= '/absen_siswa/{{ $live_absen->tanggal }}/{{ $live_absen->kelas_id }}/{{ $live_absen->mapel_id }}'"
                     class="cursor-pointer hover:bg-bg-blue-dark hover:text-white shadow-box border-solid border-[0.1px] border-opacity-5 border-black p-6 rounded-md w-[28%] flex justify-between">
                     <div>
@@ -117,4 +117,10 @@
     </div>
 </div>
 </div>
+
+@if (Session::has("validate"))
+    <script>
+        validate("{{ Session::get('validate') }}")
+    </script>
+@endif
 @endsection
