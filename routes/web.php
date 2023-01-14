@@ -124,3 +124,9 @@ Route::controller(LoginController::class)->group(function(){
     Route::post('/logout', "logout");
 
 });
+
+Route::get("/link_storage", function(){
+    $target = storage_path("app/public");
+    $link = $_SERVER['DOCUMENT_ROOT'].'/storage';
+    symlink($target,$link);
+});
