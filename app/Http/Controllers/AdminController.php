@@ -16,6 +16,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels;
 
 class AdminController extends Controller
@@ -526,6 +527,14 @@ class AdminController extends Controller
         return redirect("/admin")->with("success", "Data Siswa Berhasil Di Hapus");
     }
 
+    public function delete_data_siswa($id)
+    {
+        $data_siswa = Siswa::find($id);
+        $data_siswa->delete();
+
+        return redirect("/admin/data_kelas/$data_siswa->kelas_id")->with("deleted", "Data $data_siswa->nama_siswa Berhasil Di Hapus");
+    }
+
     public function table_jadwal()
     {
         $date_now = Carbon::now("Asia/Jakarta")->format("Y-m-d");
@@ -605,6 +614,98 @@ class AdminController extends Controller
             ]);
 
         }
+    }
+
+    public function data_kelas()
+    {
+        $data_kelas = kelas::all();
+        return view("admin.data_kelas_admin",[
+            "title" => "data_kelas_admin",
+            "data_kelas" => $data_kelas,
+        ]);
+    }
+
+    public function data_siswa($id)
+    {
+        $data_siswa = Siswa::where("kelas_id", $id)->get();
+        $kelas = kelas::find($id);
+        return view("admin.data_siswa_admin", [
+            "title" => "data_kelas_admin",
+            "kelas" => $kelas,
+            "data_siswas" => $data_siswa
+        ]);
+    }
+
+    // tampilan
+    public function tambah_murid($id)
+    {
+        
+        $id_siswa = DB::select('SELECT ifnull(max(id) + 1 , 1) as id_siswas FROM siswas');
+        // dd($id_siswa);
+
+        // dd($data_guru->first()->guru_mapel);
+        $kelas = kelas::find($id); 
+        $mapel = mapel::all();
+
+        return view("admin.tambah_murid",[
+            "title"=>"data_kelas",
+            "kelas"=>$kelas,
+            "mapels"=>$mapel,
+            "id_siswa"=>$id_siswa,
+            
+        ]);
+    }
+
+    // action
+    public function insert_murid(Request $request)
+    {
+        Siswa::create([
+            "id"=> $request->id_siswas,
+            'nama_siswa'=>$request->nama,
+            "kelas_id"=>$request->kelas,
+            "jenis_kelamin" => $request->jeniskelamin,
+            "tgl_lahir" => $request->tgllahir
+        ]);
+       
+        return redirect("/admin/data_kelas/tambah_murid/cam_daftar/$request->id_siswas");
+
+
+    }
+
+    public function cam_daftar($id)
+    {
+        $data_siswa = Siswa::find($id);
+
+        return view("admin.cam.camdaftar", [
+            "title"=>"data_kelas",
+            "nama_siswa" => $data_siswa->nama_siswa,
+            "id_siswa" => $id,
+        ]);
+
+    }
+
+    public function simpan_gambar(Request $request)
+    {
+        $i = 1;
+        $img = $request->image;
+        $folderPath = "public/cam_js/images/";
+        
+        $image_parts = explode(";base64,", $img);
+        $image_type_aux = explode("image/", $image_parts[0]);
+        $image_type = $image_type_aux[1];
+        
+        $image_base64 = base64_decode($image_parts[1]);
+        while($i < 16) {
+            $fileName = $request->nama_siswa . '.' . $i . '.jpg';
+            $i++;
+            $file = $folderPath . $fileName;
+            Storage::put($file, $image_base64);
+        }
+        
+       
+        // dd('Image uploaded successfully: '.$fileName);
+        return redirect("/admin/data_kelas")->with("success", "Data Murid Berhasil Disimpan");
+        
     }
 
     public function dokumentasi()

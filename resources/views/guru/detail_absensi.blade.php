@@ -3,9 +3,12 @@
 @section('content')
     <!-- content -->
     <div class="absolute text-bg-blue-dark left-72 w-3/4 py-5 px-16 pb-20">
-
+        <div class="relative w-[100%] rounded-md top-20 sm:p-5 p-3 bg-green-300">
+            <h1 class="text-lg md:text-xl font-black font-[Montserrat]">Your message here</h1>
+            <p>and here some warning or something else</p>
+        </div>
         <!-- head -->
-        <div class="flex mt-32 mb-20 mx-auto">
+        <div class="flex mt-28  mb-10 mx-auto">
 
             <!-- left side -->
             <div
@@ -50,7 +53,7 @@
         <!-- main -->
         <div
             class="shadow-box p-8 mx-auto rounded-2xl border-solid border-[0.1px] border-opacity-5 border-[#81B7E980]">
-
+        
             <!-- table -->
             <div class="h-[50vh] w-full overflow-auto" id="table_absen">
 

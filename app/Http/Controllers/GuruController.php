@@ -409,7 +409,7 @@ class GuruController extends Controller
         ]);
 
         // checking jadwal absen
-        $date_now = Carbon::now()->format("Y-m-d");
+        $date_now = Carbon::now("Asia/Jakarta")->format("Y-m-d");
         // dd($date_now);
         $jadwal = JadwalAbsen::where('guru_id', $id_guru)->where("kelas_id",$validasi['kelas'])->where("mapel_id",$validasi['mapel'])->where("tanggal", $date_now)->get();
         // dd($jadwal);
@@ -599,7 +599,8 @@ class GuruController extends Controller
 
             $absen_siswa->update([
                 "masuk" => $request->datas[$i]['jam_masuk'],
-                "keterangan" => $request->datas[$i]['keterangan']
+                "keterangan" => $request->datas[$i]['keterangan'],
+                "keterangan_absensi" => $request->datas[$i]['kehadiran']
             ]);
 
             $result = "Sesi Absen Telah Di Tutup";

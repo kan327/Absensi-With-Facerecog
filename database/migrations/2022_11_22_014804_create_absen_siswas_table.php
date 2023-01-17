@@ -19,7 +19,7 @@ return new class extends Migration
             $table->date("tanggal");
             $table->string("masuk")->default("--");
             $table->string("pulang")->default("--") ;
-            $table->string("keterangan")->default("Belum Hadir");
+            $table->string("keterangan")->default("Alpha");
             $table->string("keterangan_absensi")->nullable();
             $table->softDeletes();
             $table->timestamps();

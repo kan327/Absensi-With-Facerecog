@@ -6,7 +6,7 @@
         style="border-top-left-radius: 12px; border-bottom-left-radius: 12px;">{{ $loop->iteration }}
     </td>
     <td class="p-3 font-semibold">{{ $siswa->nama_siswa }}</td>
-    <td class="p-3 font-semibold">{{ Carbon\Carbon::createFromFormat('Y-m-d', $siswa->tgl_lahir)->format('d F Y') }}</td>
+    <td class="p-3 font-semibold">{{ Carbon\Carbon::parse($siswa->tgl_lahir)->translatedFormat('d F Y') }}</td>
     <td class="p-3 font-semibold">{{ $siswa->jenis_kelamin }}</td>
     <td class="p-3 font-semibold">{{ $siswa->kelas->kelas }}</td>
     

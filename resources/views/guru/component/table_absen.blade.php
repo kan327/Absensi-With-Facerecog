@@ -149,20 +149,63 @@
         // console.log(jam_masuk)
         
         var keterangan = document.getElementsByName("keterangan")
+        var keterangan_absen = document.getElementsByName("keterangan_absen")
 
         var keterangans = []
+        var checks_absen = []
+        var kehadiran
 
         for(k = 0; k < id_siswa.length; k++){
 
-            if(masuk[k].textContent == "--"){
+            if(masuk[k].textContent == "--" && keterangan[k].value == "Belum Hadir"){
                 // jam_masuk[k] = "{{ $batas_hadir }}"
                 // keterangan[k][3].setAttribute('selected', true)
                 keterangans.push(keterangan[k][2].value)
+                keterangan_absen[k].value = "Tidak Hadir"
             }else{
                 jam_masuk[k] = jam_masuk[k]
                 keterangans.push(keterangan[k].value)
-            }
 
+                if (keterangans[k] === "Hadir") {
+
+                    keterangan_absen[k].value = "Hadir"
+                        
+                }
+
+                if (keterangans[k] === "Alpha") {
+    
+                    keterangan_absen[k].value = "Tidak Hadir"
+
+                }
+
+                if (keterangans[k] === "Terlambat") {
+                    
+                    keterangan_absen[k].value = "Hadir"
+                
+                }
+
+                if (keterangans[k] === "Sakit") {
+
+                    if(masuk[k].textContent == "--"){
+                        keterangan_absen[k].value = "Tidak Hadir"
+                    }else{
+                        keterangan_absen[k].value = "Hadir"
+                    }
+
+                  
+                }
+
+                if (keterangans[k] === "Izin") {
+                    
+                    if(masuk[k].textContent == "--"){
+                        keterangan_absen[k].value = "Tidak Hadir"
+                    }else{
+                        keterangan_absen[k].value = "Hadir"
+                    }
+
+                }
+            }
+            checks_absen.push(keterangan_absen[k].value)
         }
 
         var data_keterlambatan = []
@@ -171,7 +214,8 @@
             data_keterlambatan.push({
                 id_siswa : id_siswas[a],
                 jam_masuk : jam_masuk[a],
-                keterangan : keterangans[a]
+                keterangan : keterangans[a],
+                kehadiran : checks_absen[a]
             })
         }
 
@@ -282,7 +326,7 @@
                     }else{ //ketika tidak ada jam masuk
 
                         keterangan_absensi = "Tidak Hadir"
-                        masuk[i].textContent = "{{ $batas_hadir }}"
+                        // masuk[i].textContent = "{{ $batas_hadir }}"
 
                     }
                     
@@ -307,7 +351,7 @@
                     }else{ //ketika tidak ada jam masuk
 
                         keterangan_absensi = "Tidak Hadir"
-                        masuk[i].textContent = "{{ $batas_hadir }}"
+                        // masuk[i].textContent = "{{ $batas_hadir }}"
 
                     }
 
@@ -321,7 +365,7 @@
 
         }
         // console.log(set_keterangan)
-        console.log(keterangan_absen)
+        // console.log(keterangan_absen)
         
         var data_pulang = []
         var date = new Date()
@@ -531,8 +575,16 @@
 
                     }else{ //ketika tidak ada jam masuk
 
+                        let time_now = {{ Js::from($time_now) }}
+
+                        if(time_now <= "{{ $batas_hadir }}"){ //ketika terlambat
+
+                            keterangan_absen[j].value = "Tidak Hadir"
+                            mulais[j] = mulais[j]
+                        }
                         keterangan_absen[j].value = "Tidak Hadir"
-                        mulais[j] = "{{ $batas_hadir }}"
+                        // // mulais[j] = "{{ $batas_hadir }}"
+                        // mulais[j] = "--"
 
                     }
                 }
@@ -556,9 +608,15 @@
                         }
 
                     }else{
+                        let time_now = {{ Js::from($time_now) }}
 
+                        if(time_now <= "{{ $batas_hadir }}"){ //ketika terlambat
+
+                            keterangan_absen[j].value = "Tidak Hadir"
+                            mulais[j] = mulais[j]
+                        }
                         keterangan_absen[j].value = "Tidak Hadir"
-                        mulais[j] = "{{ $batas_hadir }}"
+                        // mulais[j] = "{{ $batas_hadir }}"
 
                     }
 
@@ -636,10 +694,14 @@
                         }
 
                     }else{ //ketika tidak ada jam masuk
+                        let time_now = {{ Js::from($time_now) }}
 
+                        if(time_now <= "{{ $batas_hadir }}"){ //ketika terlambat
+
+                            keterangan_absen[j].value = "Tidak Hadir"
+                            mulais[j] = mulais[j]
+                        }
                         keterangan_absen[j].value = "Tidak Hadir"
-                        mulais[j] = "{{ $batas_hadir }}"
-
                     }
 
                 }
@@ -664,8 +726,14 @@
 
                     }else{ //ketika tidak ada jam masuk
 
+                        let time_now = {{ Js::from($time_now) }}
+
+                        if(time_now <= "{{ $batas_hadir }}"){ //ketika terlambat
+
+                            keterangan_absen[j].value = "Tidak Hadir"
+                            mulais[j] = mulais[j]
+                        }
                         keterangan_absen[j].value = "Tidak Hadir"
-                        mulais[j] = "{{ $batas_hadir }}"
 
                     }
                 }
@@ -737,8 +805,14 @@
 
                     }else{ //ketika tidak ada jam masuk
 
+                        let time_now = {{ Js::from($time_now) }}
+
+                        if(time_now <= "{{ $batas_hadir }}"){ //ketika terlambat
+
+                            keterangan_absen[j].value = "Tidak Hadir"
+                            mulais[j] = mulais[j]
+                        }
                         keterangan_absen[j].value = "Tidak Hadir"
-                        mulais[j] = "{{ $batas_hadir }}"
 
                     }
                 }
@@ -763,8 +837,14 @@
 
                     }else{ //ketika tidak ada jam masuk
 
+                        let time_now = {{ Js::from($time_now) }}
+
+                        if(time_now <= "{{ $batas_hadir }}"){ //ketika terlambat
+
+                            keterangan_absen[j].value = "Tidak Hadir"
+                            mulais[j] = mulais[j]
+                        }
                         keterangan_absen[j].value = "Tidak Hadir"
-                        mulais[j] = "{{ $batas_hadir }}"
 
                     }
                 }

@@ -12,8 +12,8 @@
                     <h1 class="text-bg-blue-dark font-bold font-[Montserrat] text-2xl">Daftar Siswa | {{ $data_kelas->kelas }}</h1>
                     <p>Lihat dan Periksa kembali murid anda</p>
                 </div>
-                <button onclick="location.href='/data_kelas/tambah_murid/{{ $data_kelas->id }}'" class="px-4 py-2 float-right bg-bg-blue-dark rounded-xl text-white font-bold">+ Tambahkan
-                    Murid</button>
+                {{-- <button onclick="location.href='/data_kelas/tambah_murid/{{ $data_kelas->id }}'" class="px-4 py-2 float-right bg-bg-blue-dark rounded-xl text-white font-bold">+ Tambahkan
+                    Murid</button> --}}
             </div>
 
             <!-- table -->
@@ -35,7 +35,7 @@
                                 <td class="p-3" style="border-top-left-radius: 12px; border-bottom-left-radius: 12px;">{{ $loop->iteration }}
                                 </td>
                                 <td class="p-3">{{ $siswa->nama_siswa }}</td>
-                                <td class="p-3">{{ $siswa->tgl_lahir }}</td>
+                                <td class="p-3">{{ Carbon\Carbon::parse($siswa->tgl_lahir)->translatedFormat('d F Y') }}</td>
                                 <td class="p-3">{{ $siswa->jenis_kelamin }}</td>
                                 <td class="p-3" style="border-top-right-radius: 12px; border-bottom-right-radius: 12px;">
                                     {{ $siswa->kelas->kelas }}</td>
