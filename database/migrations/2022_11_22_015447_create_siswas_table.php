@@ -14,7 +14,7 @@ return new class extends Migration
             $table->id();
             $table->string("nama_siswa");
             $table->foreignId("kelas_id");
-            $table->enum("jenis_kelamin", ['Laki-laki','Perempuan']);
+            $table->enum("jenis_kelamin", ['L','P']);
             $table->date("tgl_lahir");
             // $table->string("status",5)->default("up");
             $table->softDeletes();

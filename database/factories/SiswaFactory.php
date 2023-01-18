@@ -20,7 +20,7 @@ class SiswaFactory extends Factory
         return [
             "nama_siswa"=> $this->faker->name(),
             "kelas_id"=> Arr::random([1, 2, 3]),
-            "jenis_kelamin" => Arr::random(['Laki-Laki', "Perempuan"]),
+            "jenis_kelamin" => Arr::random(['L', "P"]),
             "tgl_lahir" => $this->faker->dateTimeBetween("2005-01-01", "2006-12-31")->format("Y-m-d"),
         ];
     }

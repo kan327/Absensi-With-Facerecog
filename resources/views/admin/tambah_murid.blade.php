@@ -42,8 +42,8 @@
                                </label><br>
                                <select name="jeniskelamin" class=" rounded w-[90%] h-1/3   border-[1px] border-[#999bba] ">
                                    <option value="" disabled selected hidden>Pilih jenis kelamin</option>
-                                   <option value="Laki-Laki">Laki-Laki</option>
-                                   <option value="Perempuan">Perempuan</option>
+                                   <option value="L">Laki-Laki</option>
+                                   <option value="P">Perempuan</option>
                                </select>
    
                            </div>

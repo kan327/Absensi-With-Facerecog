@@ -36,7 +36,7 @@
                 <p class="text-[#2C3E50] font-[quicksands] text-lg font-semibold">
                     Nama Guru
                 </p>
-                <input name="name" placeholder="Nama Guru" type="text" class="font-bold pl-3 outline-none w-full h-8 rounded-md border-solid border-[1px] border-[#2C3E50]" value="{{ old('name') }}"><br>
+                <input name="name" placeholder="Nama.." type="text" class="font-bold pl-3 outline-none w-full h-8 rounded-md border-solid border-[1px] border-[#2C3E50]" value="{{ old('name') }}"><br>
                 @error('name')
                     <small class="text-red-500 font-bold">{{ $message }}</small>
                 @enderror
@@ -44,7 +44,7 @@
                 <p class=" text-[#2C3E50] font-[quicksands] mt-1 text-lg font-semibold">
                     Email Guru
                 </p>
-                <input name="email" placeholder="Email Guru" type="email" class="font-bold pl-3 outline-none w-full h-8 rounded-md border-solid border-[1px] border-[#2C3E50]" value="{{ old('email') }}"><br>
+                <input name="email" placeholder="Email.." type="email" class="font-bold pl-3 outline-none w-full h-8 rounded-md border-solid border-[1px] border-[#2C3E50]" value="{{ old('email') }}"><br>
                 @error('email')
                     <small class="text-red-500 font-bold">{{ $message }}</small>
                 @enderror
@@ -56,7 +56,7 @@
                 <p class="text-[#2C3E50] font-[quicksands] text-lg font-semibold">
                     NIP
                 </p>
-                <input name="nip" type="number" placeholder="NIP Guru" class="font-bold pl-3 outline-none w-full h-8 rounded-md border-solid border-[1px] border-[#2C3E50]" value="{{ old('nip') }}">
+                <input name="nip" type="number" placeholder="NIP.." class="font-bold pl-3 outline-none w-full h-8 rounded-md border-solid border-[1px] border-[#2C3E50]" value="{{ old('nip') }}">
                 <br>
                 @error('nip')
                     <small class="text-red-500 font-bold">{{ $message }}</small>
@@ -65,7 +65,7 @@
                 <p class=" text-[#2C3E50] mt-1 font-[quicksands] text-lg font-semibold">
                     No Telepon
                 </p>
-                <input name="no_hp" placeholder="No Telepon Guru" type="number" class="font-bold pl-3 outline-none w-full h-8 rounded-md border-solid border-[1px] border-[#2C3E50]" value="{{ old('no_hp') }}"><br>
+                <input name="no_hp" placeholder="No Telepon.." type="number" class="font-bold pl-3 outline-none w-full h-8 rounded-md border-solid border-[1px] border-[#2C3E50]" value="{{ old('no_hp') }}"><br>
                 @error('no_hp')
                     <small class="text-red-500 font-bold">{{ $message }}</small>
                 @enderror
@@ -85,7 +85,7 @@
                 <p class="text-[#2C3E50] font-[quicksands] text-lg font-semibold">
                     Username
                 </p>
-                <input name="username" placeholder="Username Guru" type="text" class="font-bold pl-3 outline-none w-full h-8 rounded-md border-solid border-[1px] border-[#2C3E50]"value="{{ old('username') }}"><br>
+                <input name="username" placeholder="Username.." type="text" class="font-bold pl-3 outline-none w-full h-8 rounded-md border-solid border-[1px] border-[#2C3E50]"value="{{ old('username') }}"><br>
                 @error('username')
                     <small class="text-red-500 font-bold">{{ $message }}</small>
                 @enderror
@@ -97,7 +97,7 @@
                 <p class="text-[#2C3E50] font-[quicksands] text-lg font-semibold">
                     Password
                 </p>
-                <input name="password" type="password" placeholder="Password Guru" class="font-bold pl-3 outline-none w-full h-8 rounded-md border-solid border-[1px] border-[#2C3E50]"><br>
+                <input name="password" type="password" placeholder="Password.." class="font-bold pl-3 outline-none w-full h-8 rounded-md border-solid border-[1px] border-[#2C3E50]"><br>
                 @error('password')
                     <small class="text-red-500 font-bold">{{ $message }}</small>
                 @enderror

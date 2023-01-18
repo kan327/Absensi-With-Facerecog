@@ -23,7 +23,7 @@ Route::controller(GuruController::class)->group(function(){
     Route::get("/absensi/tambah_jadwal", "tambah_jadwal")->middleware("isLoginGuru");
     Route::get("/data_kelas",  "data_kelas")->middleware("isLoginGuru"); //sidebaar
     Route::get("/data_kelas/{id}",  "table_kelas")->middleware("isLoginGuru"); //sidebaar
-    Route::get("/data_kelas/tambah_murid/{id}", "tambah_murid")->middleware("isLoginGuru");
+    // Route::get("/data_kelas/tambah_murid/{id}", "tambah_murid")->middleware("isLoginGuru");
     Route::get("/absen_siswa/{tanggal}/{kelas}/{mapel}",  "absen_siswa")->middleware("isLoginGuru");
     Route::get("/absen_siswa/{tanggal}/{kelas}/{mapel}/cam_masuk",  "cam_masuk")->middleware("isLoginGuru");
     Route::get("/dokumentasi", "dokumentasi");
@@ -36,7 +36,7 @@ Route::controller(GuruController::class)->group(function(){
     // insert
     Route::post("/profile",  "insert_profile")->middleware("isLoginGuru");
     Route::post("/absensi/tambah_jadwal", "insert_jadwal")->middleware("isLoginGuru");
-    Route::post("/data_siswa/tambah_murid",  "insert_murid")->middleware("isLoginGuru");
+    // Route::post("/data_siswa/tambah_murid",  "insert_murid")->middleware("isLoginGuru");
     
     // edit
     Route::post("/absen_siswa/{tanggal}/{kelas}/{mapel}",  "manual_absen_masuk")->middleware("isLoginGuru");
@@ -55,8 +55,8 @@ Route::controller(GuruController::class)->group(function(){
     Route::get("/absensi/excel/{tanggal}/{kelas}/{mapel}", "excel")->middleware("isLoginGuru");
 
     // Camera
-    Route::get("/data_siswa/tambah_murid/cam_daftar/{id}", "cam_daftar")->middleware("isLoginGuru");
-    Route::post("/data_siswa/tambah_murid/simpan", "simpan_gambar")->middleware("isLoginGuru");
+    // Route::get("/data_siswa/tambah_murid/cam_daftar/{id}", "cam_daftar")->middleware("isLoginGuru");
+    // Route::post("/data_siswa/tambah_murid/simpan", "simpan_gambar")->middleware("isLoginGuru");
     Route::get("/absen_siswa/{tanggal}/{kelas}/{mapel}/cam_masuk", "cam_masuk")->middleware("isLoginGuru");
     Route::get("/absen_siswa/{tanggal}/{kelas}/{mapel}/cam_pulang", "cam_pulang")->middleware("isLoginGuru");
 

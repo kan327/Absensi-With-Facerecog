@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('username', 20);
             $table->string('email')->unique();
             $table->string('no_hp')->unique();
-            $table->enum("jenis_kelamin", ['Laki-Laki', "Perempuan"]);
+            $table->enum("jenis_kelamin", ['L', "P"]);
             $table->string('password');
             // $table->string('status', 6)->default("up");
             $table->softDeletes();

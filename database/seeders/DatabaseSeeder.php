@@ -160,7 +160,7 @@ class DatabaseSeeder extends Seeder
             "username"=>"Patir",
             "email"=>"patir@gmail.com",
             "no_hp"=> "82125662178",
-            "jenis_kelamin"=> "Laki-Laki",
+            "jenis_kelamin"=> "L",
             "password"=>Hash::make('123456')
         ]);
 
@@ -170,7 +170,7 @@ class DatabaseSeeder extends Seeder
             "username"=>"Ridho",
             "email"=>"ridho@gmail.com",
             "no_hp"=> "822342342",
-            "jenis_kelamin"=> "Laki-Laki",
+            "jenis_kelamin"=> "L",
             "password"=>Hash::make('123456')
         ]);
     }

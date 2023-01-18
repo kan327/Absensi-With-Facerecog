@@ -25,7 +25,7 @@ class GuruFactory extends Factory
             "email"=> $this->faker->unique()->safeEmail(),
             "no_hp" => $this->faker->phoneNumber(),
             "password" => Hash::make("123456"),
-            "jenis_kelamin"=> Arr::random(['Laki-Laki', "Perempuan"]),
+            "jenis_kelamin"=> Arr::random(['L', "P"]),
         ];
     }
 }
