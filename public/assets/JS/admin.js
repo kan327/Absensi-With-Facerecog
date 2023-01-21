@@ -13,6 +13,7 @@ $.ajaxSetup({
 
 // untuk menampilkan box
 function box() {
+    $("#box").html("Mohon Tunggu Sebentar...")
     
     $.get("/admin/box", {}, function (data, status) {
         $("#box").html(data);
@@ -21,6 +22,8 @@ function box() {
 
 // menampilkan data table mapel
 function table_mapel() {
+    $("#table_mapel").html("Mohon Tunggu Sebentar...")
+    
     $.get("/admin/table_mapel", {}, function (data, status) {
         $("#table_mapel").html(data)
     })
@@ -135,4 +138,37 @@ function live_search_jadwal(keyword = ''){
             $("#table_jadwal").html(ress)
         }
     });
+}
+function openfc(any, display='block'){
+    var close_state = document.getElementsByClassName(any)
+    for (let i = 0; i < close_state.length; i++) {
+        const element = close_state[i];
+        if(element.classList.contains('hidden')){
+            element.classList.remove('hidden')
+            element.classList.add(display)
+        }else{
+            element.classList.remove(display)
+            element.classList.add('hidden')
+        }
+    }
+}
+function opensrcadmin(where, __self, size){
+    let inp = document.getElementById(where)
+    if(inp.classList.contains('opacity-0')){
+        __self.classList.add('text-black')
+        inp.classList.add('opacity-100')
+        inp.classList.add('w-['+size+'%]')
+        inp.classList.remove('select-none')
+        inp.classList.remove('cursor-default')
+        inp.classList.remove('w-[10%]')
+        inp.classList.remove('opacity-0')
+    }else{
+        __self.classList.remove ('text-black')
+        inp.classList.remove('opacity-100')
+        inp.classList.remove('w-['+size+'%]')
+        inp.classList.add('w-[10%]')
+        inp.classList.add('cursor-default')
+        inp.classList.add('select-none')
+        inp.classList.add('opacity-0')
+    }
 }

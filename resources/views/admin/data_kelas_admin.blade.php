@@ -16,7 +16,7 @@
 </header>
 <!-- box -->
 <div style="box-sizing: content-box !important;"
-    class="grid md:grid-cols-4 gap-y-5 md:gap-y-0 xl:gap-6 md:gap-[45%] max-h-[100vh] mds:gap-[40%] lg:gap-[30%] lgs:gap-[15.5%] shadow-box p-1 md:p-5 border-bg-blue-dark border-solid border-t-2 max-w-[85rem] mx-auto overflow-auto scroll-m-0">
+        class="grid xl:grid-cols-4 md:grid-cols-2 lg:grid-cols-3 gap-3 shadow-box p-1 md:p-5 border-bg-blue-dark border-solid border-t-2 max-w-[85rem] max-h-[100vh] mx-auto overflow-auto scroll-m-0">
     <!-- box 1 -->
     @foreach ($data_kelas as $kelas)
     <div
@@ -43,6 +43,7 @@
 </div>
 <!-- layout Main min-w-[80vh] -->
 <main class="mt-10 max-w-[85rem] mx-auto">
+
 </main>
 
 
@@ -60,8 +61,6 @@
             }
         }
     }
-</script>
-<script>
     function opensrcadmin(where, __self, size) {
         let inp = document.getElementById(where)
         if (inp.classList.contains('opacity-0')) {

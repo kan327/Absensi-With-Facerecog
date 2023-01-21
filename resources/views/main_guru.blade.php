@@ -6,7 +6,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="icon" href="{{ asset('assets/img/title_logo.png') }}">
+    <script>
+        const runColorMode = (fn) => {
+            if (!window.matchMedia) {
+                return;
+            }
+            
+            const query = window.matchMedia('(prefers-color-scheme: dark)');
+
+            fn(query.matches);
+
+            query.addEventListener('change', (event) => fn(event.matches));
+        }
+
+        runColorMode((isDarkMode) => {
+            if (isDarkMode) {
+                document.head.innerHTML = '<link rel="icon" href="{{ asset('assets/img/title_logo_light.png') }}">'
+            } else {
+                document.head.innerHTML = '<link rel="icon" href="{{ asset('assets/img/title_logo_dark.png') }}">'
+            }
+        })
+    </script>
     <title>@if($title == "dashboard_guru") Dashboard @endif @if($title == "profile_guru") Profile @endif @if($title == "absensi") Absensi @endif @if($title == "data_kelas") Data Kelas @endif| Starbhak Absensi</title>
 
     <!-- style css -->

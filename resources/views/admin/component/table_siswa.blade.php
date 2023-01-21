@@ -11,7 +11,7 @@
     <td class="p-3 font-semibold">{{ $siswa->kelas->kelas }}</td>
     
     <td class="" style="border-top-right-radius: 12px; border-bottom-right-radius: 12px;">
-        <a href="/admin/murid/{{ $siswa->id }}"><span class="material-symbols-outlined">edit</span></a>
+        <a href="/admin/murid/{{ $siswa->id }}/admin"><span class="material-symbols-outlined">edit</span></a>
         <a href="/admin/hapus_siswa/{{ $siswa->id }}"><span class="material-symbols-outlined this-one">delete</span></a><span>
 </tr>
 

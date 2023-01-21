@@ -7,7 +7,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="icon" href="{{ asset('assets/img/title_logo.png') }}">
+    <script>
+        const runColorMode = (fn) => {
+            if (!window.matchMedia) {
+                return;
+            }
+            
+            const query = window.matchMedia('(prefers-color-scheme: dark)');
+
+            fn(query.matches);
+
+            query.addEventListener('change', (event) => fn(event.matches));
+        }
+
+        runColorMode((isDarkMode) => {
+            if (isDarkMode) {
+                document.head.innerHTML = '<link rel="icon" href="{{ asset('assets/img/title_logo_light.png') }}">'
+            } else {
+                document.head.innerHTML = '<link rel="icon" href="{{ asset('assets/img/title_logo_dark.png') }}">'
+            }
+        })
+    </script>
     <title>@if($title == "dashboard_admin") Dashboard @endif @if($title == "pino_bot") Pino Bot @endif @if($title === "data_kelas_admin") Data Kelas @endif| Admin </title>
       
     {{-- tailwind --}}
@@ -39,7 +59,12 @@
                         side: ' 0px 5px 10px rgba(0, 0, 0, 0.05);',
                         stable: ' 0px 3px 4px rgba(0, 0, 0, 0.25);',
                         box: ' 0px 4px 4px rgba(0, 0, 0, 0.25)',
-                    }
+                    },
+                    screens: {
+                        'lgs': '1150px',
+                        'mds': '833px',
+                        'vp-860': '860px'
+                    },
                 },
             }
         }
@@ -53,7 +78,7 @@
         rel="stylesheet">
 </head>
 
-<body class="text-bg-blue-dark h-[100vh] overflow-y-auto m-5 mt-6">
+<body class="text-bg-blue-dark h-[100vh] overflow-y-auto m-5 mt-6 bg-white pb-10 mb-10 text-sm md:text-base">
     <!-- nav -->
     @include('partials.navbar_admin')
 

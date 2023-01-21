@@ -5,7 +5,7 @@
 <main class="max-w-[85rem] mx-auto">
     <!-- card -->
     <div
-        class="shadow-box mt-10 p-8 w-3/4 mx-auto rounded-2xl border-solid border-[0.1px] border-opacity-5 border-black">
+        class="shadow-box mt-10 p-8 md:w-3/4 mx-auto rounded-2xl border-solid border-[0.1px] border-opacity-5 border-black">
         <div class="flex sm:items-center sm:flex-row flex-col w-full justify-between">
             <div class="sm:w-1/2">
                 <h1 class="font-bold  text-lg sm:text-xl md:text-2xl font-[Montserrat]">Daftar Siswa | {{ $kelas->kelas }}</h1>
@@ -18,7 +18,7 @@
         </div>
         <!-- table -->
         <div class="mt-5 h-[50vh] font-[quicksands] w-full overflow-auto border-bg-blue-dark border-solid border-t-2">
-            <table class="w-full min-w-[555px]" cellpadding="2">
+            <table class="w-full min-w-[617px]" cellpadding="2">
                 <thead class="text-[#8C8C8C] font-extrabold bg-white top-0 sticky z-10">
                     <tr class="text-sm text-un-tet">
                         <th class="p-3">No</th>
@@ -38,7 +38,8 @@
                             <td class="p-3">
                                 Laki-laki</td>
                             <td class="" style="border-top-right-radius: 12px; border-bottom-right-radius: 12px;">
-                                <span class="material-symbols-outlined">edit</span><span
+                                <span class="material-symbols-outlined" onclick="location.href=`/admin/murid/{{ $data_siswa->id }}/{{ $data_siswa->kelas->id }}/kelas`">edit</span>
+                                <span
                                     class="material-symbols-outlined this-one ml-2" onclick="hapusSiswa({{ $data_siswa->id }})">delete</span></td>
                         </tr>
                     @endforeach
@@ -63,11 +64,12 @@
     function hapusSiswa(id){
         Noticme.any({
             text: 'Hapus!', 
+            type: 'info',
             message: 'Apakah Anda Yakin Ingin Menghapus Data Berikut?', 
             confirm:true
         }).then(result => { 
             if(result){ 
-                location.href=`/admin/hapus_data_siswa/${id}` 
+                location.href=`/admin/hapus_siswa/${id}/kelas` 
             } 
         })
     }
@@ -84,8 +86,6 @@
             }
         }
     }
-</script>
-<script>
     function opensrcadmin(where, __self, size) {
         let inp = document.getElementById(where)
         if (inp.classList.contains('opacity-0')) {

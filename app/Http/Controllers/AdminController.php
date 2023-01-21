@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels;
 
+use function PHPSTORM_META\type;
+
 class AdminController extends Controller
 {
 
@@ -484,11 +486,17 @@ class AdminController extends Controller
     }
 
     // tampilan edit
-    public function update_siswa($id)
+    public function update_siswa($id, $previous_page, $type = 'admin')
     {
         $siswa = Siswa::all()->where("id", $id);
+        if($type == 'kelas'){
+            $url = 'admin/data_kelas/'.$previous_page;
+        }else{
+            $url = $previous_page;
+        }
         return view("admin.edit_siswa",[
             "title"=>"dashboard_admin",
+            "previous_page"=>$url,
             "siswa"=>$siswa
         ]);
     }
@@ -518,21 +526,16 @@ class AdminController extends Controller
     }
 
     // menghapus data siswa
-    public function delete_siswa($id)
+    public function delete_siswa($id, $type = 'admin')
     {
         $siswa = Siswa::find($id);
 
         $siswa->delete();
-
-        return redirect("/admin")->with("success", "Data Siswa Berhasil Di Hapus");
-    }
-
-    public function delete_data_siswa($id)
-    {
-        $data_siswa = Siswa::find($id);
-        $data_siswa->delete();
-
-        return redirect("/admin/data_kelas/$data_siswa->kelas_id")->with("deleted", "Data $data_siswa->nama_siswa Berhasil Di Hapus");
+        if($type == 'admin'){
+            return redirect("/admin")->with("success", "Data Siswa Berhasil Di Hapus");
+        }else{
+            return redirect("/admin/data_kelas/$siswa->kelas_id")->with("deleted", "Data $siswa->nama_siswa Berhasil Di Hapus");
+        }
     }
 
     public function table_jadwal()

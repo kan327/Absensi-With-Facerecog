@@ -2,51 +2,78 @@
 
 @section('content')
     <!-- head -->
-    <header class="flex justify-between px-10 py-5 max-w-[85rem] mx-auto">
+    <header class="flex justify-between flex-col md:flex-row md:px-10 py-5 max-w-[85rem] mx-auto">
         <div>
             <h1
-                class="text-2xl font-black before:absolute before:w-20 before:h-10 before:border-solid before:border-bg-blue-dark before:border-b-2">
+                class="text-2xl font-black md:before:absolute md:before:w-20 md:before:h-10 md:before:border-solid md:before:border-bg-blue-dark md:before:border-b-2">
                 Attendance STARBHAK</h1>
             <h2 class="mt-3">Membuat Absensi sekolah menjadi Sistematis dan Efisien</h2>
         </div>
-        <div>
-            <button onclick="location.href='/dokumentasi/admin'" class="hover:bg-bg-blue-dark hover:text-white px-7 py-1 mt-5 border-bg-blue-dark border-solid border-2 rounded-md font-bold">Dokumentasi</button>
+        <div class="grid items-center">
+            <button
+            onclick="location.href='/dokumentasi/admin'" class="px-7 py-1 mt-5 border-bg-blue-dark border-solid border-2 rounded-md font-bold">Dokumentasi</button>
         </div>
     </header>
     <!-- box -->
-    <div class="grid grid-cols-4 gap-6 shadow-box p-5 rounded-t-none rounded border-bg-blue-dark border-solid border-t-2 max-w-[85rem] mx-auto" id="box">
-
+    <div id="box" style="box-sizing: content-box !important;"
+        class="grid md:grid-cols-4 gap-y-5 md:gap-y-0 xl:gap-6 md:gap-[45%] mds:gap-[40%] lg:gap-[30%] lgs:gap-[15.5%] shadow-box p-1 md:p-5 border-bg-blue-dark border-solid border-t-2 max-w-[85rem] mx-auto overflow-auto scroll-m-0">
+    
     {{-- box --}}
 
     </div>
     <!-- layout Main -->
-    <main class="my-10 max-w-[85rem] mx-auto pb-10">
+    <main class="mt-10 max-w-[85rem] mx-auto">
         <!-- container -->
-        <div class="flex justify-between">
+        <div class="flex justify-between lg:flex-row flex-col">
             <!-- table data guru -->
-            <div class="shadow-box p-5 w-[66%] rounded-2xl border-solid border-[0.1px] border-opacity-5 border-black" id="akun_guru">
+            <div class="shadow-box p-5 lg:w-[66%] w-full rounded-2xl border-solid border-[0.1px] border-opacity-5 border-black">
                 <!-- top table -->
-                <div class="flex items-center justify-between">
-
-                    <div class="w-fit">
+                <div class="flex sm:items-center justify-between sm:flex-row flex-col items-start">
+                    <div class="sm:w-1/2">
                         <h1 class="font-bold text-2xl font-[Montserrat]">Data Guru</h1>
                         <p>Kelola akun guru dengan menambah atau mengubah.</p>
                     </div>
-
-                    <div class="flex">
+                    <div class="flex sm:flex-row flex-col sm:w-fit w-full">
                         {{-- search --}}
                         <form action="">
-                            <input id="search_guru" type="text" class=" border-solid border-2 border-dark-data mr-1 mt-0.5 py-1 px-2 rounded-md"
-                                placeholder="Cari nama guru">
+                            <div class="relative w-full">
+                                <i class="hidden sm:block"><span onclick="opensrcadmin('search_guru', this, 90)" class="z-40 cursor-pointer material-symbols-outlined absolute top-2 left-2 text-placeholder">search</span></i>
+                                <i class="sm:hidden"><span onclick="opensrcadmin('search_guru', this, 100)" class="z-40 cursor-pointer material-symbols-outlined absolute top-2 left-2 text-placeholder">search</span></i>
+                                <input placeholder="cari" class="select-none cursor-default w-[10%] opacity-0 indent-10 placeholder:text-placeholder border-solid border-2 border-dark-data mr-1 mt-0.5 p-1 rounded-md" name="" id="search_guru" type="text">
+                            </div>
                         </form>
                         <button
-                            class=" px-4  w-[40%] py-1 float-right bg-bg-blue-dark rounded-md text-white font-bold" onclick="location.href = 'admin/guru'">Tambah
+                            class="px-4 sm:w-[35%] sm:mt-0 mt-2 py-2 float-right bg-bg-blue-dark rounded-md text-white font-bold" onclick="location.href = 'admin/guru'">+
                             Guru</button>
+                        {{-- PLEASE FIX THS PRBLM, UNDEFINED WHEN I PUT IN ADMIN JS --}}
+                        <script>
+                            function opensrcadmin(where, __self, size){
+                                let inp = document.getElementById(where)
+                                if(inp.classList.contains('opacity-0')){
+                                    __self.classList.add('text-black')
+                                    inp.classList.add('opacity-100')
+                                    inp.classList.add('w-['+size+'%]')
+                                    inp.classList.remove('select-none')
+                                    inp.classList.remove('cursor-default')
+                                    inp.classList.remove('w-[10%]')
+                                    inp.classList.remove('opacity-0')
+                                }else{
+                                    __self.classList.remove ('text-black')
+                                    inp.classList.remove('opacity-100')
+                                    inp.classList.remove('w-['+size+'%]')
+                                    inp.classList.add('w-[10%]')
+                                    inp.classList.add('cursor-default')
+                                    inp.classList.add('select-none')
+                                    inp.classList.add('opacity-0')
+                                }
+                            }
+                        </script>
+                        {{-- --- --}}
                     </div>
                 </div>
                 <!-- table -->
-                <div class="mt-5 h-[50vh] w-full relative overflow-auto border-bg-blue-dark border-solid border-t-2" >
-                    <table class="w-full " cellpadding="2">
+                <div class="mt-5 h-[50vh] w-full overflow-auto border-bg-blue-dark border-solid border-t-2 relative">
+                    <table class="w-full min-w-[717px]" cellpadding="2">
                         <!-- header table -->
                         <thead class="font-extrabold bg-white top-0 sticky z-10">
                             <tr class="text-sm text-placeholder">
@@ -68,23 +95,24 @@
                 </div>
             </div>
             <!-- tabel data mapel -->
-            <div class="w-[33%] shadow-box p-5 rounded-2xl border-solid border-[0.1px] border-opacity-5 border-black" id="data_mapel">
-                <div>
-                    <h1 class="font-bold text-2xl font-[Montserrat]">Mata Pelajaran</h1>
-                    <p>Kelola mata pelajaran untuk guru.</p>
-                </div>
-                <div class="flex">
-                    <form action="" class="mr-20">
-                        <input type="text" id="pelajaran" class="border-solid border-2  border-dark-data mr-2 mt-0.5 py-1 px-2 rounded-md"
-                            placeholder="Mapel baru">
-                    </form>
-                    <button
-                        class=" w-[34%] px-4  py-2 float-right bg-bg-blue-dark rounded-md text-white font-bold" onclick="mapel_simpan()">+
-                        Mapel</button>
+            <div class="lg:w-[33%] lg:my-0 my-5 w-full shadow-box p-5 rounded-2xl border-solid border-[0.1px] border-opacity-5 border-black">
+                <div class="flex items-center justify-between lg:flex-col lg:items-start sm:items-start sm:flex-row flex-col">
+                    <div class="w-full sm:w-1/2 lg:w-full">
+                        <h1 class="font-bold text-2xl font-[Montserrat]">Mata Pelajaran</h1>
+                        <p>Kelola mata pelajaran untuk Guru.</p>
+                    </div>
+                    <div class="flex sm:flex-row flex-col sm:w-fit w-full">
+                        <form action="">
+                            <input type="text" id="pelajaran" class="lg:mt-0.5 my-1 border-solid border-2 w-full sm:w-[95%] border-dark-data mr-2 p-1 rounded-md"
+                                placeholder="Mapel baru">
+                        </form>
+                        <button class="sm:w-[35%] sm:mt-0 mt-2 px-4 py-2 float-right bg-bg-blue-dark rounded-md text-white font-bold" onclick="mapel_simpan()">+
+                            Mapel</button>
+                    </div>
                 </div>
                 <!-- table -->
-                <div class="mt-5 h-[50vh] w-full overflow-auto border-bg-blue-dark border-solid border-t-2">
-                    <table class="w-full " cellpadding="2">
+                <div class="mt-5 h-[50vh] w-full overflow-auto border-bg-blue-dark border-solid border-t-2 relative">
+                        <table class="w-full " cellpadding="2">
                         <!-- header table -->
                         <thead class="font-extrabold bg-white top-0 sticky z-10">
                             <tr class="text-sm text-placeholder">
@@ -101,26 +129,28 @@
                 </div>
             </div>
         </div>
+        <div class="flex sm:mt-5 justify-between lg:flex-row flex-col">
         <!-- tabel data murid -->
-        <div class="flex justify-between mt-5">
-            <div class="shadow-box p-5 w-[66%] rounded-2xl border-solid border-[0.1px] border-opacity-5 border-black">
+            <div class="shadow-box p-5 lg:w-[66%] w-full rounded-2xl border-solid border-[0.1px] border-opacity-5 border-black">
                 <!-- top table -->
-                <div class="flex items-center justify-between">
-                    <div class="w-fit">
-                        <h1 class="font-bold text-2xl font-[Montserrat]">Data Siswa</h1>
-                        <p>Kelola data siswa.</p>
+                <div class="flex sm:items-center justify-between sm:flex-row flex-col">
+                    <div class="sm:w-fit">
+                        <h1 class="font-bold text-2xl font-[Montserrat]">Data Murid</h1>
+                        <p>Kelola data murid.</p>
                     </div>
-                    <div class="flex">
+                    <div class="flex sm:flex-row flex-col sm:w-fit w-full">
                         <form action="">
-                            <input id="search_siswa" type="text" class="border-solid border-2 border-dark-data mr-1 mt-0.5 py-1 px-2 rounded-md"
-                                placeholder="Cari nama siswa">
+                            <div class="relative w-full">
+                                <i class="hidden sm:block"><span onclick="opensrcadmin('search_siswa', this, 90)" class="z-40 cursor-pointer material-symbols-outlined absolute top-2 left-2 text-placeholder">search</span></i>
+                                <i class="sm:hidden"><span onclick="opensrcadmin('search_siswa', this, 100)" class="z-40 cursor-pointer material-symbols-outlined absolute top-2 left-2 text-placeholder">search</span></i>
+                                <input type="text" placeholder="cari" class="select-none cursor-default w-[10%] opacity-0 indent-10 placeholder:text-placeholder border-solid border-2 border-dark-data mr-1 mt-0.5 p-1 rounded-md" name="" id="search_siswa">
+                            </div>
                         </form>
-                        
                     </div>
                 </div>
                 <!-- table -->
-                <div class="mt-5 h-[50vh] relative w-full overflow-auto border-bg-blue-dark border-solid border-t-2">
-                    <table class="w-full" cellpadding="2">
+                <div class="mt-5 h-[50vh] w-full overflow-auto  border-bg-blue-dark border-solid border-t-2 relative">
+                    <table class="w-full min-w-[717px]" cellpadding="2">
                         <!-- header table -->
                         <thead class="font-extrabold bg-white top-0 sticky z-10">
                             <tr class="text-sm text-placeholder">
@@ -141,9 +171,9 @@
                     </table>
                 </div>
             </div>
-            <div class="w-[33%] shadow-box p-5 rounded-2xl border-solid border-[0.1px] border-opacity-5 border-black" id="data_mapel">
+            <div class="lg:w-[33%] lg:my-0 my-5 w-full shadow-box p-5 rounded-2xl border-solid border-[0.1px] border-opacity-5 border-black" id="data_mapel">
                 <div>
-                    <h1 class="font-bold text-2xl font-[Montserrat] mb-3">Jadwal Absen</h1>
+                    <h1 class="font-bold text-2xl font-[Montserrat]">Jadwal Absen</h1>
                 </div>
                 <div class="flex ">
                     {{-- <form action="" class="mr-20">
@@ -152,7 +182,7 @@
                     </form> --}}
                 </div>
                 <!-- table -->
-                <div class="mt-5 h-[50vh] w-full overflow-auto border-bg-blue-dark border-solid border-t-2">
+                <div class="mt-5 h-[50vh] w-full overflow-auto border-bg-blue-dark border-solid border-t-2 relative">
                     <form action="">
                         <div class="flex justify-between items-center mt-1">
                             <div class="flex my-2 align-middle">
@@ -180,33 +210,6 @@
                                 <div onclick="search()" class="relative ml-2">
                                     <span class="cursor-pointer material-symbols-outlined absolute top-1.5 left-1 text-placeholder">search</span>
                                 </div>
-                                {{-- search --}}
-                                {{-- <div class="relative ml-2">
-                                    <span onclick="opensrc('search_01', this)" class="cursor-pointer material-symbols-outlined absolute top-2.5 left-2 text-placeholder">search</span>
-                                    <input type="text" placeholder="cari jadwal mapel" class="select-none cursor-default w-0 opacity-0 indent-10 placeholder:text-placeholder border-solid border-2 border-placeholder mr-1 mt-0.5 p-1.5 rounded-md" name="" id="search_01">
-                                    <script>
-                                        function opensrc(where, __self){
-                                            let inp = document.getElementById(where)
-                                            if(inp.classList.contains('opacity-0')){
-                                                __self.classList.add('text-black')
-                                                inp.classList.add('opacity-100')
-                                                inp.classList.add('w-full')
-                                                inp.classList.remove('select-none')
-                                                inp.classList.remove('cursor-default')
-                                                inp.classList.remove('w-0')
-                                                inp.classList.remove('opacity-0')
-                                            }else{
-                                                __self.classList.remove ('text-black')
-                                                inp.classList.remove('opacity-100')
-                                                inp.classList.remove('w-full')
-                                                inp.classList.add('w-0')
-                                                inp.classList.add('cursor-default')
-                                                inp.classList.add('select-none')
-                                                inp.classList.add('opacity-0')
-                                            }
-                                        }
-                                    </script>
-                                </div> --}}
                             </div>
                         </div>
                     </form>

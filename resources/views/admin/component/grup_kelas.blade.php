@@ -1,4 +1,5 @@
 @foreach ($data_grup_kelas as $grup_kelas)
+<h1 class="text-9xl">MISSING FILE COMPONENT>GRUP_KELAS>BLADE>PHP +++> PLEASE DELETE THIS TEXT OR DELETE THIS FILE>>></h1>
 <div class="relative border-[#E3E3E5] border-2 border-solid rounded-xl h-[166px] shadow-box">
     <svg class="absolute -left-1" width="199" height="165" viewBox="0 0 199 165" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M0 10C0 4.47715 4.47715 0 10 0H163.671C167.927 0 171.716 2.69285 173.115 6.71141L197.67 77.2245C199.177 81.5538 199.152 86.2697 197.598 90.5826L173.16 158.39C171.731 162.356 167.968 165 163.752 165H10C4.47716 165 0 160.523 0 155V10Z" fill="#2C3E50"/>
@@ -22,4 +23,5 @@
         </div>
     </div>
 </div>
+
 @endforeach

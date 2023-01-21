@@ -80,7 +80,9 @@ Route::controller(AdminController::class)->group(function(){
     Route::get("/admin/pino_bot/", "pino_bot")->middleware("isLoginGuru");
     Route::get("/admin/grup_kelas", "grup_kelas")->middleware("isLoginGuru");
     Route::get("/admin/grup_kelas/{id}", "update_grup_kelas")->middleware("isLoginGuru");
-    Route::get("/admin/murid/{id}", "update_siswa")->middleware("isLoginGuru");
+
+    Route::get("/admin/murid/{id}/{previous_page}/{type?}", "update_siswa")->middleware("isLoginGuru");
+
     Route::get("/admin/data_kelas", "data_kelas")->middleware("isLoginGuru");
     Route::get("/admin/data_kelas/{id}", "data_siswa")->middleware("isLoginGuru");
     Route::get("/admin/data_kelas/tambah_murid/{id}", "tambah_murid")->middleware("isLoginGuru");
@@ -120,8 +122,7 @@ Route::controller(AdminController::class)->group(function(){
     Route::get("/admin/kelas/{id}", "delete_kelas")->middleware("isLoginGuru");
     Route::get("/admin/hapus_guru/{id}", "delete_guru")->middleware("isLoginGuru");
     Route::get("/admin/hapus_grup_kelas/{id}", "delete_grup_kelas")->middleware("isLoginGuru");
-    Route::get("/admin/hapus_siswa/{id}", "delete_siswa")->middleware("isLoginGuru");
-    Route::get("/admin/hapus_data_siswa/{id}", "delete_data_siswa")->middleware("isLoginGuru");
+    Route::get("/admin/hapus_siswa/{id}/{type?}", "delete_siswa")->middleware("isLoginGuru");
 });
 
 // Login
