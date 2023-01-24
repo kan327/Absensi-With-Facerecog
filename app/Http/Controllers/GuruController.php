@@ -385,6 +385,7 @@ class GuruController extends Controller
             "data_gurus"=>$data_gurus,
             "jum_kelas" => count($jumlah_kelas),
             "jum_mapel" => count($jumlah_mapel),
+            "sidebar" => 'no'
         ]);
     }
 
@@ -791,7 +792,8 @@ class GuruController extends Controller
             "data_kelas" => $data_kelas,
             "tanggals" =>$tanggal,
             "id_kelas" => $kelas,
-            "id_mapels" => $mapel
+            "id_mapels" => $mapel,
+            "sidebar" => 'no'
         ]);
     }
 

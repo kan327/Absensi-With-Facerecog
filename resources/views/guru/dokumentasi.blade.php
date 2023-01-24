@@ -5,7 +5,27 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="{{ asset('assets/img/title_logo.png') }}">
+    <script>
+        const runColorMode = (fn) => {
+            if (!window.matchMedia) {
+                return;
+            }
+
+            const query = window.matchMedia('(prefers-color-scheme: dark)');
+
+            fn(query.matches);
+
+            query.addEventListener('change', (event) => fn(event.matches));
+        }
+
+        runColorMode((isDarkMode) => {
+            if (isDarkMode) {
+                document.head.innerHTML = '<link rel="icon" href="{{ asset('assets/img/title_logo_light.png') }}">'
+            } else {
+                document.head.innerHTML = '<link rel="icon" href="{{ asset('assets/img/title_logo_dark.png') }}">'
+            }
+        })
+    </script>
     <title>Dokumentasi | Starbhak Absensi</title>
     <!-- style css -->
     <link rel="stylesheet" href="{{ asset('assets/CSS/output.css') }}">
@@ -48,10 +68,10 @@
 
 <body>
     @include('partials.navbar')
-    <div class="w-3/4 mx-auto mt-32">
-        <h1 class="text-3xl font-bold w-fit font-[Montserrat] mx-auto">Dokumentasi<div class="bg-bg-blue-dark w-3/4 h-1 rounded mx-auto"></div></h1>
+    <div class="sm:w-3/4 w-11/12 mx-auto mt-32">
+        <h1 class="xl:text-3xl lg:text-2xl text-lg md:text-xl text-lg font-bold w-fit font-[Montserrat] mx-auto">Dokumentasi<div class="bg-bg-blue-dark w-3/4 h-1 rounded mx-auto"></div></h1>
         <!-- nav -->
-        <div class="border-solid border-b-2 border-bg-blue-dark mt-5 p-5">
+        <div class="border-solid border-b-2 border-bg-blue-dark mt-5 sm:p-5">
             <div class="grid grid-cols-4 xl:gap-20 xl:w-2/3 md:text-base w-full text-sm md:gap-14 md:w-[65%] gap-5 mx-auto items-center font-medium">
                 <div class="cursor-pointer bg-bg-blue-dark text-white rounded text-center font-semibold menu activeMenu"><p class="p-1" onclick="navigate('profil', this)">Profil</p></div>
                 <div class="cursor-pointer text-center menu" ><p class="p-1" onclick="navigate('dashboard', this)">Dashboard</p></div>
@@ -59,64 +79,64 @@
                 <div class="cursor-pointer text-center menu" ><p class="p-1" onclick="navigate('dataKelas', this)">Data Kelas</p></div>
             </div>
         </div>
-        <div class="p-10 pt-5">
+        <div class="ms:p-10 p-1 pt-5">
             <!-- profil -->
             <div id="profil" style="opacity: 1;" class="activeMenuInfo">
                 <div class="mt-5">
-                    <h1 class="font-[Montserrat] text-xl"># Profil</h1>
+                    <h1 class="font-[Montserrat] text-lg md:text-xl"># Profil</h1>
                     <p>Di dalam halaman profil anda dapat mengatur kelas dan mata pelajaran sesuai dengan  kelas yang anda ajar </p>
                 </div>
                 <div class="mt-5">
-                    <h1 class="font-[Montserrat] text-xl"># Static Profile</h1>
+                    <h1 class="font-[Montserrat] text-lg md:text-xl"># Static Profile</h1>
                     <p>Anda tidak dapat mengatur profil anda secara manual di halaman <span class="px-2 py-1 mx-1.5 bg-[#ECECEC] rounded">Profil</span>, Beberapa atribut tidak dapat diatur secara manual, hal ini dikarenakan untuk kepentingan sekuritas keamanan data. Anda tetap dapat mengubah seluruh profil anda dengan menghubungi admin <span class="border-b-[1.5px] border-solid border-bg-blue-dark text-dark-data">Lihat Gambar</span></p>
                 </div>
                 <div class="mt-5">
-                    <h1 class="font-[Montserrat] text-xl"># Editable Profile</h1>
+                    <h1 class="font-[Montserrat] text-lg md:text-xl"># Editable Profile</h1>
                     <p>Atribut yang dapat diubah di dalam halaman profil adalah mata pelajaran dan kelas untuk mengubah profil yang sebelumnya sudah pernah diubah, tekan tombol <span class="px-2 py-1 mx-1.5 bg-[#ECECEC] rounded">Reset</span>, maka mata pelajaran dan kelas anda akan di reset seperti semula</p>
                 </div>
             </div>
             <!-- dashboard -->
             <div id="dashboard" style="display: none; opacity: 0;" class="off">
                 <div class="mt-5">
-                    <h1 class="font-[Montserrat] text-xl"># Dashboard</h1>
+                    <h1 class="font-[Montserrat] text-lg md:text-xl"># Dashboard</h1>
                     <p>Dalam halaman <span class="px-2 py-1 mx-1.5 bg-[#ECECEC] rounded">Dashboard</span> terdapat fitur quick preview, Hal ini dapat memudahkan anda dalam navigasi ke halaman lainnya . Anda juga dapat melihat data absen yang paling terbaru  <span class="border-b-[1.5px] border-solid border-bg-blue-dark text-dark-data"><i>(latest attendance)</i></span></p>
                 </div>
             </div>
             <!-- absensi -->
             <div id="absensi" style="display: none; opacity: 0;" class="off">
                 <div class="mt-5">
-                    <h1 class="font-[Montserrat] text-xl"># Absensi</h1>
+                    <h1 class="font-[Montserrat] text-lg md:text-xl"># Absensi</h1>
                     <p>Sebelum melakukan pengabsenan, anda dapat menentukan mata pelajaran dan kelas di halaman <span class="px-2 py-1 mx-1.5 bg-[#ECECEC] rounded">Tambahkan Jadwal</span> sesuai dengan kemauan anda, anda juga dapat menghapus jadwal apabila terjadi kesalahan dalam pemilihan mata pelajaran ataupun kelas. Anda tidak dapat membuat jadwal dengan kelas dan mata pelajaran yang sama lebih dari satu kali di <span class="font-semibold">hari yang sama</span></p>
                 </div>
                 <div class="mt-5">
-                    <h1 class="font-[Montserrat] text-xl"># Export Data Ke Excel</h1>
+                    <h1 class="font-[Montserrat] text-lg md:text-xl"># Export Data Ke Excel</h1>
                     <p>Di dalam halaman <span class="px-2 py-1 mx-1.5 bg-[#ECECEC] rounded">Absen</span>  terdapat ikon <span class="border-b-[1.5px] border-solid border-bg-blue-dark text-dark-data"><i>download</i></span> di setiap baris kelas, anda dapat mengeksport data absen ke bentuk excel. Eksport excel dapat dilakukan ketika sesi absen sudah berakhir</p>
                 </div>
                 <div class="mt-5">
-                    <h1 class="font-[Montserrat] text-xl"># Absensi Otomatis Dengan Face Recognition</h1>
+                    <h1 class="font-[Montserrat] text-lg md:text-xl"># Absensi Otomatis Dengan Face Recognition</h1>
                     <p>Sistem absen otomatis starbhak attendance menerapkan sistem <span class="font-semibold">Face Recognition</span>, hanya dengan berdiri di depan webcam, maka absen sudah berhasil dilakukan. Untuk memulai Face Recognition anda dapat mengakses halaman dengan tombol <span class="border-b-[1.5px] border-solid border-bg-blue-dark text-dark-data">berikut</span> di halaman<span class="px-2 py-1 mx-1.5 bg-[#ECECEC] rounded">Absensi</span> <span class="border-b-[1.5px] border-solid border-bg-blue-dark text-dark-data"><i>Face Drawing</i></span> dapat diakses ketika layar webcam sudah tampil, anda dapat mengklik layar untuk mengaktifkan Face Drawing</p>
                 </div>
                 <div class="mt-5">
-                    <h1 class="font-[Montserrat] text-xl"># Absensi Manual</h1>
+                    <h1 class="font-[Montserrat] text-lg md:text-xl"># Absensi Manual</h1>
                     <p>Selain absen otomatis menggunakan <i>Face Recognition</i>, anda juga dapat melakukan absensi dengan cara <span class="border-b-[1.5px] border-solid border-bg-blue-dark text-dark-data">Manual.</span> Hal ini memudahkan pengguna dalam menetapkan status dan keterangan siswa</p>
                 </div>
                 <div class="mt-5">
-                    <h1 class="font-[Montserrat] text-xl"># Kirim Laporan Ke Telegram</h1>
+                    <h1 class="font-[Montserrat] text-lg md:text-xl"># Kirim Laporan Ke Telegram</h1>
                     <p>Pada halaman ini anda dapat mengirim laporan kehadiran ke telegram, anda harus melengkapi form di dalam halaman ini, anda dapat mengakses halaman ini dengan menekan tombol <span class="px-2 py-1 mx-1.5 bg-[#ECECEC] rounded">Kirim Ke Telegram</span></p>
                 </div>
             </div>
             <!-- data kelas -->
             <div id="dataKelas" style="display: none; opacity: 0;" class="off">
                 <div class="mt-5">
-                    <h1 class="font-[Montserrat] text-xl"># Data Kelas</h1>
+                    <h1 class="font-[Montserrat] text-lg md:text-xl"># Data Kelas</h1>
                     <p>Di dalam halaman data kelas, anda dapat meninjau semua kelas yang anda pilih di halaman <span class="px-2 py-1 mx-1.5 bg-[#ECECEC] rounded">Profile</span>. Anda juga dapat melihat kelas secara lebih rinci dengan mengklik tombol <span class="border-b-[1.5px] border-solid border-bg-blue-dark text-dark-data">Detail</span></p>
                 </div>
                 <div class="mt-5">
-                    <h1 class="font-[Montserrat] text-xl"># Detail Siswa</h1>
+                    <h1 class="font-[Montserrat] text-lg md:text-xl"># Detail Siswa</h1>
                     <p>Halaman ini berisi data murid berdasarkan kelas yang dimiliki murid masing-masing</p>
                 </div>
                 <div class="mt-5">
-                    <h1 class="font-[Montserrat] text-xl"># Pendaftaran Data Siswa</h1>
+                    <h1 class="font-[Montserrat] text-lg md:text-xl"># Pendaftaran Data Siswa</h1>
                     <p>Berikut prosedur yang wajib diikuti dalam penambahan data siswa yang baru :<br>
                         <ul>
                             <li>Guru wajib melakukan pengecekan ulang dalam pengisian data siswa</li>
@@ -130,18 +150,18 @@
             <!-- admin -->
             <div id="admin" style="display: none; opacity: 0;" class="off">
                 <div class="mt-5">
-                    <h1 class="font-[Montserrat] text-xl"># Admin</h1>
+                    <h1 class="font-[Montserrat] text-lg md:text-xl"># Admin</h1>
                     <p>Admin dapat melakukan banyak hal, mengedit dan menghapus data siswa, menambahkan mata pelajaran baru, menambah grup telegram, menambahkan kelas, dan admin dapat mengubah, menghapus, atau menambahkan data guru.</p>
                 </div>
             </div>
             <!-- pinobot -->
             <div id="pinoBot" style="display: none; opacity: 0;" class="off">
                 <div class="mt-5">
-                    <h1 class="font-[Montserrat] text-xl"># Pino Bot</h1>
+                    <h1 class="font-[Montserrat] text-lg md:text-xl"># Pino Bot</h1>
                     <p>Pino Bot adalah bot telegram yang sudah terintegrasi dengan sistem database yang dapat membantu kegiatan layanan informasi pendidikan SMK Taruna Bhakti</p>
                 </div>
                 <div class="mt-5">
-                    <h1 class="font-[Montserrat] text-xl"># Kegunaan Pino Bot</h1>
+                    <h1 class="font-[Montserrat] text-lg md:text-xl"># Kegunaan Pino Bot</h1>
                     <ul>
                         <li>Mengambil laporan absensi murid</li>
                         <li>Mengupdate status kehadiran siswa</li>
@@ -149,7 +169,7 @@
                     </ul>
                 </div>
                 <div class="mt-5">
-                    <h1 class="font-[Montserrat] text-xl"># Admin Bot</h1>
+                    <h1 class="font-[Montserrat] text-lg md:text-xl"># Admin Bot</h1>
                     <p>Admin Bot adalah bot telegram yang menjadi administrator dan mengolah data admin dari Pino Bot yang akan membantu kegiatan layanan informasi pendidikan SMK Taruna Bhakti</p>
                 </div>
             </div>

@@ -8,7 +8,7 @@ class="relative shadow-box font-[Montserrat] w-full p-5 rounded-lg border-solid 
             Murid</h1>
         <p>Total murid yang terdaftar.</p>
     </div>
-    <int class="font-[Montserrat] text-3xl font-black">{{ count($data_siswas) }}</int>
+    <int class="font-[Montserrat] text-3xl font-black">@if(count($data_siswas) == 0) - @else {{ count($data_siswas) }} @endif</int>
 </div>
 </div>
 <!-- hadir -->
@@ -21,7 +21,7 @@ class="relative shadow-box font-[Montserrat] w-full my-3 p-5 rounded-lg border-s
             Hadir</h1>
         <p class="">Murid yang sudah berada di dalam kelas.</p>
     </div>
-    <int class="font-[Montserrat] text-3xl font-black" id="hadir">{{ count($hadirs) }}</int>
+    <int class="font-[Montserrat] text-3xl font-black" id="hadir">@if(count($hadirs) == 0) - @else {{ count($hadirs) }} @endif</int>
 </div>
 </div>
 <!-- belum hadir -->
@@ -34,12 +34,12 @@ class="relative shadow-box font-[Montserrat] w-full p-5 rounded-lg border-solid 
             Belum Hadir</h1>
         <p>Siswa yang belum berada di kelas.</p>
     </div>
-    <int class="font-[Montserrat] text-3xl font-black" id="belum_hadir">{{ count($belum_hadir) }}</int>
+    <int class="font-[Montserrat] text-3xl font-black" id="belum_hadir">@if(count($belum_hadir) == 0) - @else {{ count($belum_hadir) }} @endif</int>
 </div>
 </div>
 
 {{-- manipulasi text content belum hadir --}}
-<script>
+{{-- <script>
     var belum_hadir = document.getElementById("belum_hadir")
     var hadir = document.getElementById("hadir")
 
@@ -50,4 +50,4 @@ class="relative shadow-box font-[Montserrat] w-full p-5 rounded-lg border-solid 
     if(hadir.textContent == "0"){
         hadir.textContent = "-"
     }
-</script>
+</script> --}}

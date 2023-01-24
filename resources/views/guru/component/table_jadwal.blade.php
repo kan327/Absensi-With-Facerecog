@@ -18,10 +18,12 @@
 
             {{-- <a href="/absensi/edit"><span class="material-symbols-outlined">edit</span></a> --}}
             <a
-                onclick="return Noticme.any({text: 'Hapus!', message: 'Apakah Anda Yakin Ingin Menghapus Data Berikut?', confirm:true}).then(result => { if(result){ location.href='/absensi/hapus/{{ $jadwal_absen->id }}/{{ $jadwal_absen->tanggal }}/{{ $jadwal_absen->kelas_id }}/{{ $jadwal_absen->mapel_id }}' } })"><span
-                    class="material-symbols-outlined this-one">delete</span></a>
+                onclick="return Noticme.any({text: 'Hapus!', type: 'info', message: 'Apakah Anda Yakin Ingin Menghapus Data Berikut?', confirm:true}).then(result => { if(result){ location.href='/absensi/hapus/{{ $jadwal_absen->id }}/{{ $jadwal_absen->tanggal }}/{{ $jadwal_absen->kelas_id }}/{{ $jadwal_absen->mapel_id }}' } })"><span
+                    class="material-symbols-outlined this-one">delete</span>
+            </a>
             <a @if ($time_now >= $jadwal_absen->selesai && $jadwal_absen->tanggal <= $date_now) href="/absensi/excel/{{ $jadwal_absen->tanggal }}/{{ $jadwal_absen->kelas_id }}/{{ $jadwal_absen->mapel_id }}" @else onclick="validate('Sesi Absen Belum Berakhir!')" @endif
-                name="download_excel"><span class="material-symbols-outlined">file_download</span></a>
+                name="download_excel"><span class="material-symbols-outlined">file_download</span>
+            </a>
         </td>
     </tr>
 @endforeach

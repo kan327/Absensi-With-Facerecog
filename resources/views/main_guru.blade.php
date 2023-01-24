@@ -11,7 +11,7 @@
             if (!window.matchMedia) {
                 return;
             }
-            
+
             const query = window.matchMedia('(prefers-color-scheme: dark)');
 
             fn(query.matches);
@@ -27,7 +27,17 @@
             }
         })
     </script>
-    <title>@if($title == "dashboard_guru") Dashboard @endif @if($title == "profile_guru") Profile @endif @if($title == "absensi") Absensi @endif @if($title == "data_kelas") Data Kelas @endif| Starbhak Absensi</title>
+    <title>
+        @if ($title == 'dashboard_guru')
+            Dashboard
+            @endif @if ($title == 'profile_guru')
+                Profile
+                @endif @if ($title == 'absensi')
+                    Absensi
+                    @endif @if ($title == 'data_kelas')
+                        Data Kelas
+                    @endif| Starbhak Absensi
+    </title>
 
     <!-- style css -->
     <link rel="stylesheet" href="{{ asset('assets/CSS/output.css') }}">
@@ -35,12 +45,12 @@
 
     {{-- tailwind --}}
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     {{-- alert --}}
     <script src="{{ asset('assets/JS/noticme.min.js') }}"></script>
 
     <script src="{{ asset('assets/JS/guru.js') }}"></script>
-    
+
     {{-- jquery --}}
     <script src="{{ asset('assets/JS/jquery.js') }}"></script>
 
@@ -109,11 +119,11 @@
             opacity: 0;
         }
 
-        canvas{
+        canvas {
             position: absolute;
         }
 
-        video{
+        video {
             position: relative;
         }
     </style>
@@ -134,11 +144,16 @@
                         side: ' 0px 5px 10px rgba(0, 0, 0, 0.05);',
                         stable: ' 0px 3px 4px rgba(0, 0, 0, 0.25);',
                         box: ' 0px 4px 4px rgba(0, 0, 0, 0.25)',
-                    }
+                    },
+                    screens: {
+                        'lgs': '1150px',
+                        'mds': '833px',
+                        'vp-860': '860px'
+                    },
                 },
             }
         }
-    </script>   
+    </script>
 
     <!-- font material ++ -->
     <link rel="stylesheet"
@@ -147,21 +162,23 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;1,500&display=swap"
         rel="stylesheet">
-        
+
 </head>
 
-<body class="text-bg-blue-dark">
+<body class="text-bg-blue-dark h-[100vh] overflow-y-auto sm:mt-5 mt-6 bg-white pb-10 mb-10 text-sm md:text-base">
 
     <!-- navbar top -->
     @include('partials.navbar')
 
     <!-- Sidebar left -->
+    @if(empty($sidebar))
     @include('partials.sidebar')
+    @endif
 
     <!-- content -->
     @yield('content')
 
-    @if (Session::has("success"))
+    @if (Session::has('success'))
         <script>
             Noticme.any({
                 text: "{{ Session::get('success') }}",
@@ -181,9 +198,23 @@
                 timer: 5000,
                 button: true
             })
-        </script>  
+        </script>
     @endif
-    
+    <script>
+        function openfc(any='child', display = 'block') {
+            var close_state = document.getElementsByClassName(any)
+            for (let i = 0; i < close_state.length; i++) {
+                const element = close_state[i];
+                if (element.classList.contains('hidden')) {
+                    element.classList.remove('hidden')
+                    element.classList.add(display)
+                } else {
+                    element.classList.remove(display)
+                    element.classList.add('hidden')
+                }
+            }
+        }
+    </script>
 </body>
 
 </html>

@@ -1,5 +1,5 @@
  <!-- table_absen -->
- <table class="w-full" cellpadding="10" >
+ <table class="w-full min-w-[705px]" cellpadding="10" >
     <!-- header table -->
     <thead class="font-extrabold bg-white top-0 sticky z-10 bg-bg">
         <tr class="text-sm text-un-tet">
@@ -95,7 +95,7 @@
             var number = 1
             for(i = 0; i <= checkbox.length; i++){
                 checkbox[i].checked = true
-                document.getElementsByTagName('tr')[number].classList.add("active")
+                if(!document.getElementsByTagName('tr')[number].classList.contains("active")) document.getElementsByTagName('tr')[number].classList.add("active")
                 number++
             }
             
@@ -103,7 +103,7 @@
             var number = 1
             for(i = 0; i < checkbox.length; i++){
                 checkbox[i].checked = false
-                document.getElementsByTagName('tr')[number].classList.remove("active")
+                if(document.getElementsByTagName('tr')[number].classList.contains("active")) document.getElementsByTagName('tr')[number].classList.remove("active")
                 number++
             }
 
@@ -874,35 +874,36 @@
         // console.log(all)
         kirim_request_keterangan(all)
 
-        function kirim_request_keterangan(allData) {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')
-                }
-            });
+    }
+    function kirim_request_keterangan(allData) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')
+            }
+        });
 
-            $.ajax({
-                url: "/absen_siswa/{{ $tanggals }}/{{ $kelas }}/{{ $mapels }}",
-                type: "POST",
-                data: {
-                    datas: allData
-                },
-                success: function(ress) {
+        $.ajax({
+            url: "/absen_siswa/{{ $tanggals }}/{{ $kelas }}/{{ $mapels }}",
+            type: "POST",
+            data: {
+                datas: allData, 
+                _token: '{{ csrf_token() }}'
+            },
+            success: function(ress) {
 
-                    
-                    Noticme.any({
-                        text: ress,
-                        type: 'success',
-                        timer: 3000,
-                        button: false
-                    })
+                
+                Noticme.any({
+                    text: ress,
+                    type: 'success',
+                    timer: 3000,
+                    button: false
+                })
 
-                    table_absen()
-                    
-                    box_absen_ket()
-                }
-            });
-        }
+                table_absen()
+                
+                box_absen_ket()
+            }
+        });
     }
 
     

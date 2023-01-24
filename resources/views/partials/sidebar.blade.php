@@ -1,4 +1,4 @@
-<div class="px-14 py-20 shadow-side w-fit h-[100vh] top-16 fixed z-40">
+<div class="child bg-white px-14 py-20 shadow-side w-fit h-[100vh] top-16 fixed z-20 hidden vp-860:block">
     <a href="/profile">
         <div class=" {{ ($title === "profile_guru") ? 'font-black text-bg-blue-dark' : 'text-dark-data' }} hover:font-black hover:text-bg-blue-dark"><span class="material-symbols-outlined -mb-3 mr-5 {{ ($title === "profile_guru") ? 'p-1 rounded-md text-white bg-bg-blue-dark' : '' }} hover:p-1 hover:rounded-md hover:text-white hover:bg-bg-blue-dark">person</span>
             Profile
@@ -20,7 +20,7 @@
         </div>
     </a>
     <a href="/dokumentasi">
-        <div class="mt-10 text-dark-data hover:mt-10 hover:font-black hover:text-bg-blue-dark"><span class="material-symbols-outlined -mb-3 mr-5 hover:p-1 hover:rounded-md hover:text-white hover:bg-bg-blue-dark">sms_failed</span>
+        <div class="mt-10 text-dark-data hover:mt-10 hover:font-black hover:text-bg-blue-dark"><span class="material-symbols-outlined -mb-3 mr-5 hover:p-1 hover:rounded-md hover:text-white hover:bg-bg-blue-dark">book</span>
             Dokumentasi
         </div>
     </a>
