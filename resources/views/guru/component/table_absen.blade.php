@@ -243,6 +243,7 @@
                 success: function(ress) {
 
                     console.log(ress)
+                    closeAlert()
                     
                     table_absen()
 

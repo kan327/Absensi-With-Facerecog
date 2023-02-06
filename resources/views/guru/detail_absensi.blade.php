@@ -128,18 +128,8 @@
         var time_now = {{ Js::from($time_now) }}       
         
         var tutup = setInterval(() => {
-
             if(batas_hadir <= time_now){
-                let message = document.querySelector("#message")
-                let detailMessage = document.querySelector("#detailMessage")
-                let cardMessage = document.querySelector("#cardMessage")
-                
-                tutup_absen()
-                message.textContent = "Sesi Absen Sudah Tertutup"
-                detailMessage.textContent = "Tertutup"
-                cardMessage.classList.add("bg-green-200")
-                cardMessage.classList.remove("bg-green-500")
-                clearInterval(tutup)
+                closeAlert()
             }
         }, 100);
 
@@ -147,6 +137,19 @@
             box_absen_ket()
             table_absen()
         })
+        
+        function closeAlert(){
+            let message = document.querySelector("#message")
+            let detailMessage = document.querySelector("#detailMessage")
+            let cardMessage = document.querySelector("#cardMessage")
+            
+            tutup_absen()
+            message.textContent = "Sesi Absen Sudah Tertutup"
+            detailMessage.textContent = "Tertutup"
+            cardMessage.classList.add("bg-green-200")
+            cardMessage.classList.remove("bg-green-500")
+            clearInterval(tutup)
+        }
 
         // disabled camera
         var btn_masuk = document.getElementById("btn_masuk")
