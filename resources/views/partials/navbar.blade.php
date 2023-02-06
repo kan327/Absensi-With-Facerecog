@@ -3,7 +3,7 @@
         @if(empty($sidebar))
         <i onclick="openfc()" class="vp-860:hidden block cursor-pointer -mb-1"><span class="material-symbols-outlined  mr-2">menu</span></i>
         @endif
-        <h1 onclick="location.href='/'" class="font-semibold font-[Montserrat] bg-bg-blue-dark text-bg rounded-md px-2.5 mr-2 py-1">
+        <h1 onclick="location.href='/'" class="font-semibold font-[Montserrat] bg-bg-blue-dark text-bg rounded-md px-2.5 mr-2 cursor-pointer py-1">
             STARBHAK</h1>
     </div>
     <div class="flex">

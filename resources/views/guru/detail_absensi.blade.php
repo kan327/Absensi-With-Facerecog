@@ -4,10 +4,12 @@
     <!-- content -->
     <div class="absolute vp-860:left-72 sm:pl-10 vp-860:pr-20 vp-860:pl-10 pr-2 pl-2 sm:pr-10 vp-860:w-3/4 w-[100vw] //lgs:bg-black //bg-transparent mx-auto max-w-7xl">
         <!-- head -->
-        <div class="relative w-[100%] rounded-md top-20 sm:p-5 p-3 bg-green-300">
-            <h1 class="text-lg md:text-xl font-black font-[Montserrat]">Your message here</h1>
-            <p>and here some warning or something else</p>
+        
+        <div class="relative w-[100%] rounded-md top-20 sm:p-5 p-3 bg-green-500" id="cardMessage">
+            <h1 class="text-lg md:text-xl text-white font-medium font-[Montserrat]" id="message">Sesi Absen Sedang Aktif</h1>
+            <p id="detailMessage" class="text-white font-medium">Aktif</p>
         </div>
+        
         <div class="flex lg:flex-row flex-col mt-32 mb-20 mx-auto text-bg-blue-dark">
             <!-- left side -->
             <div
@@ -29,10 +31,11 @@
                             <int>{{ \Carbon\Carbon::createFromFormat('G:i:s', $data_jadwals->selesai)->format('g:i A') }}</int>
                         </div>
                     </div>
-                    <button @if($data_jadwals->batas_hadir > $time_now) onclick="location.href = '/absen_siswa/{{ $tanggals }}/{{ $kelas }}/{{ $mapels }}/cam_masuk'"@else onclick="validate('Kamera Masuk Sudah Ditutup!')" @endif class="py-1.5 px-3.5 bg-bg-blue-dark rounded-md text-white" id="btn_masuk">Masuk</button>
-                    <button onclick="location.href = '/absen_siswa/{{ $tanggals }}/{{ $kelas }}/{{ $mapels }}/cam_pulang'"
-                        class="py-1 px-3 border-bg-blue-dark border-solid border-2 box-border rounded-md" id="btn_pulang">Pulang</button>
-                    <p class="mt-4">Mohon ubah sesi sesuai pada waktunya.</p>
+                    <div class="mt-16">
+                        <button @if($data_jadwals->batas_hadir > $time_now) onclick="location.href = '/absen_siswa/{{ $tanggals }}/{{ $kelas }}/{{ $mapels }}/cam_masuk'"@else onclick="validate('Kamera Masuk Sudah Ditutup!')" @endif class="py-1.5 px-3.5 bg-bg-blue-dark rounded-md text-white" id="btn_masuk">Masuk</button>
+                        <button onclick="location.href = '/absen_siswa/{{ $tanggals }}/{{ $kelas }}/{{ $mapels }}/cam_pulang'"
+                            class="py-1 px-3 border-bg-blue-dark border-solid border-2 box-border rounded-md" id="btn_pulang">Pulang</button>
+                    </div>
                 </div>
             </div>
             <!-- right side -->
@@ -104,6 +107,7 @@
                 </div>
             </div>
         </div>
+        <br><br>
     </div>
 
     
@@ -126,7 +130,15 @@
         var tutup = setInterval(() => {
 
             if(batas_hadir <= time_now){
+                let message = document.querySelector("#message")
+                let detailMessage = document.querySelector("#detailMessage")
+                let cardMessage = document.querySelector("#cardMessage")
+                
                 tutup_absen()
+                message.textContent = "Sesi Absen Sudah Tertutup"
+                detailMessage.textContent = "Tertutup"
+                cardMessage.classList.add("bg-green-200")
+                cardMessage.classList.remove("bg-green-500")
                 clearInterval(tutup)
             }
         }, 100);

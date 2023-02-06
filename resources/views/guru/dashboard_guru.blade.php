@@ -58,7 +58,7 @@
         <!-- box 1 bio -->
         <div
             class="shadow-box lg:w-[28%] w-full border-solid border-[0.1px] border-opacity-5 p-5 text-center border-black rounded-md text-dark-data lg:mb-0 mb-10">
-            <h1 class="font-bold text-md md:text-lg lg:text-xl font-[Montserrat]">Kanny Indira Baihaqi</h1>
+            <h1 class="font-bold text-md md:text-lg lg:text-xl font-[Montserrat]">{{ auth()->user()->name }}</h1>
             <p>GURU</p>
             <h2 class="mt-5 font-semibold font-[Montserrat]">Mata Pelajaran</h2>
             <div class="h-20 overflow-auto">

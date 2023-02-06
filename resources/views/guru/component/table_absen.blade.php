@@ -237,21 +237,12 @@
                 url: "/absen_siswa/{{ $tanggals }}/{{ $kelas }}/{{ $mapels }}/tutup_absen",
                 type: "POST",
                 data: {
-                    datas: allData
+                    datas: allData,
+                    _token: '{{ csrf_token() }}'
                 },
                 success: function(ress) {
 
                     console.log(ress)
-
-                    
-                    
-                    Noticme.any({
-                        text: ress,
-                        type: 'success',
-                        timer: 3000,
-                        button: false
-                    })
-                      
                     
                     table_absen()
 
@@ -419,7 +410,8 @@
                 url: "/absen_siswa/{{ $tanggals }}/{{ $kelas }}/{{ $mapels }}/manual_pulang",
                 type: "POST",
                 data: {
-                    datas: allData
+                    datas: allData,
+                    _token: '{{ csrf_token() }}'
                 },
                 success: function(ress) {
 
