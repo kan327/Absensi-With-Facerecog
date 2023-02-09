@@ -65,6 +65,14 @@
                     <h1 class="font-[Montserrat] text-xl"># Admin</h1>
                     <p>Admin dapat melakukan banyak hal, mengedit dan menghapus data siswa, menambahkan mata pelajaran baru, menambah grup telegram, menambahkan kelas, dan admin dapat mengubah, menghapus, atau menambahkan data guru.</p>
                 </div>
+                <div class="mt-5">
+                    <h1 class="font-[Montserrat] text-xl"># Menambahkan Kelas Baru</h1>
+                    <p>Admin dapat menambahkan data kelas baru melalui halaman <span class="px-2 py-1 mx-1.5 bg-[#ECECEC] rounded">Telegram Bot</span> dengam menekan tombol <span class="border-b-[1.5px] border-solid border-bg-blue-dark text-dark-data"><a href="#" target="_blank"><i>Add Group</i></a></span></p>
+                </div>
+                <div class="mt-5">
+                    <h1 class="font-[Montserrat] text-xl"># Menambahkan Murid Baru</h1>
+                    <p>Setelah kelas baru terbuat, maka kelas akan tampil pada halaman  <span class="px-2 py-1 mx-1.5 bg-[#ECECEC] rounded">Daftar Kelas</span>, pada halaman ini anda dapat menambahkan, mengedit, dan menghapus data murid dari kelas yang dipilih</p>
+                </div>
             </div>
             <!-- pinobot -->
             <div id="pinoBot" style="display: none; opacity: 0;" class="off">

@@ -119,11 +119,11 @@
                 </div>
                 <div class="mt-5">
                     <h1 class="font-[Montserrat] text-lg md:text-xl"># Absensi Otomatis Dengan Face Recognition</h1>
-                    <p>Sistem absen otomatis starbhak attendance menerapkan sistem <span class="font-semibold">Face Recognition</span> atau pengenalan wajah, absen sudah berhasil dilakukan hanya dengan berdiri di depan kamera. Untuk memulai Face Recognition anda dapat mengakses halaman dengan tombol <span class="border-b-[1.5px] border-solid border-bg-blue-dark text-dark-data">berikut</span> di halaman<span class="px-2 py-1 mx-1.5 bg-[#ECECEC] rounded">Absensi</span> <span class="border-b-[1.5px] border-solid border-bg-blue-dark text-dark-data"><i>Face Drawing</i></span> dapat diakses ketika layar webcam sudah tampil, anda dapat mengklik layar untuk mengaktifkan Face Drawing</p>
+                    <p>Sistem absen otomatis starbhak attendance menerapkan sistem <span class="font-semibold">Face Recognition</span> atau pengenalan wajah, absen sudah berhasil dilakukan hanya dengan berdiri di depan kamera. Untuk memulai Face Recognition anda dapat mengakses halaman dengan tombol <span class="border-b-[1.5px] border-solid border-bg-blue-dark text-dark-data"><a href="https://ibb.co/QckJFQ8" target="_blank">berikut</a></span> di halaman<span class="px-2 py-1 mx-1.5 bg-[#ECECEC] rounded">Absensi</span> <i>Face drawing</i> dapat diakses ketika layar webcam sudah tampil, anda dapat mengklik layar untuk mengaktifkan Face Drawing, berikut ini adalah contoh <span class="border-b-[1.5px] border-solid border-bg-blue-dark text-dark-data"><a href="https://ibb.co/x6M7Gxm" target="_blank">halaman absen yang sudah aktif</a></span></p>
                 </div>
                 <div class="mt-5">
                     <h1 class="font-[Montserrat] text-lg md:text-xl"># Absensi Manual</h1>
-                    <p>Selain absen otomatis menggunakan <i>Face Recognition</i>, anda juga dapat melakukan absensi dengan cara <span class="border-b-[1.5px] border-solid border-bg-blue-dark text-dark-data">Manual.</span> Hal ini memudahkan pengguna dalam menetapkan status dan keterangan siswa</p>
+                    <p>Selain absen otomatis menggunakan <i>Face Recognition</i>, anda juga dapat melakukan absensi dengan cara <span class="border-b-[1.5px] border-solid border-bg-blue-dark text-dark-data"><a href="https://ibb.co/9qjnYBs" target="_blank">Manual.</a></span> Hal ini memudahkan pengguna dalam menetapkan status dan keterangan siswa</p>
                 </div>
                 <div class="mt-5">
                     <h1 class="font-[Montserrat] text-lg md:text-xl"># Kirim Laporan Ke Telegram</h1>

@@ -7,7 +7,7 @@
         <h1
             class="text-2xl font-black md:before:absolute md:before:w-20 md:before:h-10 md:before:border-solid md:before:border-bg-blue-dark md:before:border-b-2">
             Attendance STARBHAK</h1>
-        <h2 class="mt-3">Membuat Absensi sekolah menjadi Sistematis dan Efisien</h2>
+        <h2 class="mt-3">Membuat Absensi Sekolah Menjadi Sistematis dan Efisien</h2>
     </div>
     <div class="grid items-center">
         <button

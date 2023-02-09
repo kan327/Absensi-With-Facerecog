@@ -61,7 +61,7 @@
                 <!-- leftbar -->
                 <div class="font-[Montserrat] sm:w-1/3 w-full lg:min-w-[268px] min-w-[255px] mt-10 mx-5 sm:items-start items-center">
                     <h1 class="font-semibold text-blue-normal-19">Set Centang</h1>
-                    <p class="text-dark-data my-4">Atur keterangan Centang</p>
+                    <p class="text-dark-data my-4">Atur keterangan Siswa</p>
                     <!-- radio -->
                     <div class="flex lg:ml-5">
                         <div class="mr-3">
@@ -77,11 +77,11 @@
                         <div class="mr-3">
                             <div class="flex content-center">
                                 <input class="mr-2 option-input radio" value="Terlambat" type="radio" name="ket" id="t">
-                                <label for="t" class="label-radio">terlambat</label>
+                                <label for="t" class="label-radio">Terlambat</label>
                             </div>
                             <div class="flex content-center">
                                 <input class="mr-2 option-input radio" value="Sakit" type="radio" name="ket" id="s">
-                                <label for="s" class="label-radio">sakit</label>
+                                <label for="s" class="label-radio">Sakit</label>
                             </div>
                         </div>
                         <input class="mr-2 option-input radio" value="Izin" type="radio" name="ket" id="i">

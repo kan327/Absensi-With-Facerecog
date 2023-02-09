@@ -7,7 +7,7 @@
             <h1
                 class="text-2xl font-black md:before:absolute md:before:w-20 md:before:h-10 md:before:border-solid md:before:border-bg-blue-dark md:before:border-b-2">
                 Attendance STARBHAK</h1>
-            <h2 class="mt-3">Membuat Absensi sekolah menjadi Sistematis dan Efisien</h2>
+            <h2 class="mt-3">Membuat Absensi Sekolah Menjadi Sistematis dan Efisien</h2>
         </div>
         <div class="grid items-center">
             <button
@@ -106,7 +106,7 @@
                             <input type="text" id="pelajaran" class="lg:mt-0.5 my-1 border-solid border-2 w-full sm:w-[95%] border-dark-data mr-2 p-1 rounded-md"
                                 placeholder="Mapel baru">
                         </form>
-                        <button class="sm:w-[35%] sm:mt-0 mt-2 px-4 py-2 float-right bg-bg-blue-dark rounded-md text-white font-bold" onclick="mapel_simpan()">+
+                        <button class="sm:w-[35%] sm:mt-0 mt-2 px-4 py-2 float-right bg-bg-blue-dark rounded-md text-white font-bold" onclick="mapel_simpan('{{ csrf_token() }}')">+
                             Mapel</button>
                     </div>
                 </div>

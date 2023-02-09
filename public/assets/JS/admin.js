@@ -30,15 +30,23 @@ function table_mapel() {
 }
 
 // memberikan request ke controller 
-function mapel_simpan() {
+function mapel_simpan(token) {
     $.ajax({
         url: "/admin/mapel",
         type: "POST",
-        data: "pelajaran=" + $("#pelajaran").val(),
+        data: {
+            pelajaran:  $("#pelajaran").val(),
+            _token : token
+        },
         success: function () {
             box();
             table_mapel();
-            keiAlert("Mapel berhasil di tambahkan", "done", "bg-[#22c55e]");
+
+            Noticme.any({
+                text: "Mata Pelajaran Berhasil Ditambahkan",
+                timer:5000,
+                button: false
+            })
         }
     })
 }
