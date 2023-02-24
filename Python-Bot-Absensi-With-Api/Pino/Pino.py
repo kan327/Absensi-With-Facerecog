@@ -1,17 +1,7 @@
-import mysql
-import mysql.connector
-import telebot
+import requests
+import json
 from Api import Pinobot
 
-# Database Setup
-# Database Setup
-db = mysql.connector.connect(
-    host = 'localhost',
-    user = 'root',
-    password = '',
-    database = 'db_absensi'
-)
-sql = db.cursor()
 
 # Check If Admin Bot Command Work Successfully
 print("Pino Bot Running Successfully")
@@ -21,105 +11,168 @@ print("Pino Bot Running Successfully")
 def start(message):
     Pinobot.reply_to(message, "Halo👋!  Saya Pino Yang Akan Membantu Kegiatan Layanan Informasi Pendidikan SMK Taruna Bhakti")
 
-# List-Kelas
+# List Kelas
 @Pinobot.message_handler(commands=['list-kelas'])
-def list_kelas(message):
+def list_admin(message):
+    # Check Status Admin
+    # Tele ID
     user_id = message.chat.id
-    sql.execute("SELECT chat_id FROM bot_admins WHERE chat_id = {}".format(user_id))
-    result = sql.fetchone()
-    print(result)
-    if(result):
-        sql.execute("SELECT * FROM kelas")
-        result = sql.fetchall()
-        final = ''        
-        for data in range (len(result)):
-                final = final + str(data+1) + '.)' + 'Kelas : ' + str(result[data][1]) + '\n     ' + 'Nama Grup : ' + str(result[data][2]) + '\n     ' + 'Wali Kelas : ' + str(result[data][3]) + '\n     ' + 'ID Telegram  : ' + str(result[data][4]) + '\n' + '\n'
-        # print(final)
+    # API URL
+    url = "http://127.0.0.1:8000/api/list_admin"
+    # Melakukan request GET untuk mengambil data dari APi
+    response = requests.get(url)
+    # Mengubah Data menjadi format JSON
+    data = json.loads(response.text)
+    # Packing
+    data = data['data']
+    # Lakukan perulangan untuk cek variabel user_id
+    found = False
+    for item in data:
+        if user_id in item.values():
+            found = True
+            break
+
+    if found:
+        # API URL
+        url = "http://127.0.0.1:8000/api/list_kelas"
+        # Melakukan request GET untuk mengambil data dari APi
+        response = requests.get(url)
+        # Mengubah Data menjadi format JSON
+        data = json.loads(response.text)
+        # Membuat variable untuk hasil final pesan balasan
+        final = ""
+        for index, kelas in enumerate(data['data'], start=1):
+            # Setup Pesan Balasan
+            final = final + str(index) + '.)' + 'Kelas : ' + str(kelas['kelas']) + '\n     ' + 'Nama Group : ' + str(kelas['nama_grup']) + '\n     ' + 'Wali Kelas : ' + str(kelas['nama_walas']) + '\n     ' + 'ID Telegram : ' + str(kelas['chat_id']) + '\n' + '\n'
         Pinobot.reply_to(message, "Berikut Adalah List Kelas Yang Terdaftar Di Pino Bot :\n\n" + final)
     else :
-        Pinobot.reply_to(message, "Anda Belum Terdaftar Sebagai Admin\nHubungi @lumi_novry")
+        Pinobot.reply_to(message, "Command Ini Hanya Tersedia Untuk Admin")
 
 # List-Guru
 @Pinobot.message_handler(commands=['list-guru'])
 def list_kelas(message):
+    # Check Status Admin
+    # Tele ID
     user_id = message.chat.id
-    sql.execute("SELECT chat_id FROM bot_admins WHERE chat_id = {}".format(user_id))
-    result = sql.fetchone()
-    print(result)
-    if(result):
-        sql.execute("SELECT * FROM gurus")
-        result = sql.fetchall()
-        final = ''        
-        for data in range (len(result)):
-                final = final + str(data+1) + '.)' + 'NIP : ' + str(result[data][1]) + '\n     ' + 'Nama : ' + str(result[data][2]) + '\n     ' + 'E-Mail : ' + str(result[data][4]) + '\n     ' + 'No.Telp  : ' + str(result[data][5]) + '\n     ' + 'Jenis-Kelamin : '+ str(result[data][6]) + '\n' + '\n'
-        # print(final)
+    # API URL
+    url = "http://127.0.0.1:8000/api/list_admin"
+    # Melakukan request GET untuk mengambil data dari APi
+    response = requests.get(url)
+    # Mengubah Data menjadi format JSON
+    data = json.loads(response.text)
+    # Packing
+    data = data['data']
+    # Lakukan perulangan untuk cek variabel user_id
+    found = False
+    for item in data:
+        if user_id in item.values():
+            found = True
+            break
+
+    if found:
+        # API URL
+        url = "https://starabsen.onesolver.net/api/list_guru"
+        # Melakukan request GET untuk mengambil data dari APi
+        response = requests.get(url)
+        # Mengubah Data menjadi format JSON
+        data = json.loads(response.text)
+        # Membuat variable untuk hasil final pesan balasan
+        final = ""
+        for index, guru in enumerate(data['data'], start=1):
+            # Setup Pesan Balasan
+            final = final + str(index) + '.)' + 'Nama : ' + str(guru['name']) + '\n     ' + 'NIP : ' + str(guru['nip']) + '\n     ' + 'Jenis Kelamin : ' + str(guru['jenis_kelamin']) + '\n     ' + 'E-Mail : ' + str(guru['email']) + '\n     ' + 'No HP : ' + str(guru['no_hp']) +'\n' + '\n'
         Pinobot.reply_to(message, "Berikut Adalah List Guru Yang Terdaftar Di Pino Bot :\n\n" + final)
     else :
-        Pinobot.reply_to(message, "Anda Belum Terdaftar Sebagai Admin\nHubungi @lumi_novry")
+        Pinobot.reply_to(message, "Command Ini Hanya Tersedia Untuk Admin")
 
-# Absensi 
-@Pinobot.message_handler(commands=['check-absensi'])
-def check_absensi(message):
+
+# Absensi By Hadir
+@Pinobot.message_handler(commands=['check-absensi-hadir'])
+def check_absensi_hadir(message):
+    # Check Status Admin
+    # Tele ID
     user_id = message.chat.id
-    sql.execute("SELECT chat_id FROM bot_admins WHERE chat_id = {}".format(user_id))
-    result = sql.fetchone()
-    print(result)
-    if(result):
+    # API URL
+    url = "http://127.0.0.1:8000/api/list_admin"
+    # Melakukan request GET untuk mengambil data dari APi
+    response = requests.get(url)
+    # Mengubah Data menjadi format JSON
+    data = json.loads(response.text)
+    # Packing
+    data = data['data']
+    # Lakukan perulangan untuk cek variabel user_id
+    found = False
+    for item in data:
+        if user_id in item.values():
+            found = True
+            break
+
+    if found:
         texts = message.text.split(' ')
         kelas = str(texts[1])
-        kelas = kelas.replace('-',' ')
+        kelas_for_final = kelas.replace('-',' ')
         mapel = str(texts[2])
-        mapel = mapel.replace('-',' ')
+        mapel_for_final = mapel.replace('-',' ')
         tanggal = str(texts[3])
-        sql.execute("SELECT absen_siswas.tanggal, absen_siswas.keterangan, gurus.name, siswas.nama_siswa, kelas.kelas, mapels.pelajaran FROM absen_siswas INNER JOIN gurus ON absen_siswas.guru_id=gurus.id INNER JOIN siswas ON absen_siswas.siswa_id=siswas.id INNER JOIN kelas ON absen_siswas.kelas_id=kelas.id INNER JOIN mapels ON absen_siswas.mapel_id=mapels.id WHERE tanggal LIKE '%{}%' AND kelas.kelas LIKE '%{}%' AND mapels.pelajaran LIKE '%{}%'".format(tanggal, kelas, mapel))
-        result = sql.fetchall()
-        if(result):
-            detail = result[0]
-            tanggal_absen = detail[0]
-            nama_guru = detail[2]
-            mapel = detail[5]
-            final = ''        
-            for data in range (len(result)):
-                final = final + str(data+1) + '.)' + str(result[data][3]) + ' : ' + str(result[data][1]) + '\n'
-            print(final)
-            pesan_balasan = "Detail Absensi :\nTanggal : {}\nGuru : {}\nMata Pelajaran : {}\n==================\nDaftar Absensi Siswa:\n{}".format(tanggal_absen, nama_guru, mapel, final)
-            Pinobot.reply_to(message, pesan_balasan)
-        else: 
-            Pinobot.reply_to(message, "Data Tidak Ditemukan")
-    else :
-        Pinobot.reply_to(message, "Anda Belum Terdaftar Sebagai Admin\nHubungi @lumi_novry")
+        # API URL
+        url = "http://127.0.0.1:8000/api/absen_siswa_hadir/{}/{}/{}"
+        formated_url = url.format(kelas, mapel, tanggal)
+        # Melakukan request GET untuk mengambil data dari APi
+        response = requests.get(formated_url)
+        # Mengubah Data menjadi format JSON
+        data = json.loads(response.text)
+        print(data)
+        # Membuat variable untuk hasil final pesan balasan
+        final = ""
+        for index, absen in enumerate(data['data'], start=1):
+            # Setup Pesan Balasan
+            final = final + str(index) + '.)' + 'Nama : ' + str(absen['nama']) + '\n     ' + 'Jam Masuk : ' + str(absen['jam_masuk']) + '\n     ' + 'Jam Pulang : ' + str(absen['jam_pulang']) + '\n     ' + 'Keterangan : ' + str(absen['kehadiran']) +'\n' + '\n'
+        pesan_balasan = "Detail Absensi :\nTanggal : {}\nKelas : {}\nMata Pelajaran : {}\n==================\nDaftar Absensi Siswa:\n{}".format(tanggal, kelas_for_final, mapel_for_final, final)
+        Pinobot.reply_to(message, pesan_balasan)
 
-# Absensi 
-@Pinobot.message_handler(commands=['check-absensi-alpha'])
-def check_absensi(message):
+# Absensi By Tidak Hadir
+@Pinobot.message_handler(commands=['check-absensi-not-hadir'])
+def check_absensi_hadir(message):
+    # Check Status Admin
+    # Tele ID
     user_id = message.chat.id
-    sql.execute("SELECT chat_id FROM bot_admins WHERE chat_id = {}".format(user_id))
-    result = sql.fetchone()
-    print(result)
-    if(result):
+    # API URL
+    url = "http://127.0.0.1:8000/api/list_admin"
+    # Melakukan request GET untuk mengambil data dari APi
+    response = requests.get(url)
+    # Mengubah Data menjadi format JSON
+    data = json.loads(response.text)
+    # Packing
+    data = data['data']
+    # Lakukan perulangan untuk cek variabel user_id
+    found = False
+    for item in data:
+        if user_id in item.values():
+            found = True
+            break
+
+    if found:
         texts = message.text.split(' ')
         kelas = str(texts[1])
-        kelas = kelas.replace('-',' ')
+        kelas_for_final = kelas.replace('-',' ')
         mapel = str(texts[2])
-        mapel = mapel.replace('-',' ')
+        mapel_for_final = mapel.replace('-',' ')
         tanggal = str(texts[3])
-        sql.execute("SELECT absen_siswas.tanggal, absen_siswas.keterangan, gurus.name, siswas.nama_siswa, kelas.kelas, mapels.pelajaran FROM absen_siswas INNER JOIN gurus ON absen_siswas.guru_id=gurus.id INNER JOIN siswas ON absen_siswas.siswa_id=siswas.id INNER JOIN kelas ON absen_siswas.kelas_id=kelas.id INNER JOIN mapels ON absen_siswas.mapel_id=mapels.id WHERE tanggal LIKE '%{}%' AND kelas.kelas LIKE '%{}%' AND mapels.pelajaran LIKE '%{}%' AND absen_siswas.keterangan NOT IN ('Hadir')".format(tanggal, kelas, mapel))
-        result = sql.fetchall()
-        if(result):
-            detail = result[0]
-            tanggal_absen = detail[0]
-            nama_guru = detail[2]
-            mapel = detail[5]
-            final = ''        
-            for data in range (len(result)):
-                final = final + str(data+1) + '.)' + str(result[data][3]) + ' : ' + str(result[data][1]) + '\n'
-            print(final)
-            pesan_balasan = "Detail Absensi :\nTanggal : {}\nGuru : {}\nMata Pelajaran : {}\n==================\nDaftar Absensi Siswa:\n{}".format(tanggal_absen, nama_guru, mapel, final)
-            Pinobot.reply_to(message, pesan_balasan)
-        else: 
-            Pinobot.reply_to(message, "Data Tidak Ditemukan")
-    else :
-        Pinobot.reply_to(message, "Anda Belum Terdaftar Sebagai Admin\nHubungi @lumi_novry")
+        # API URL
+        url = "http://127.0.0.1:8000/api/absen_siswa_not_hadir/{}/{}/{}"
+        formated_url = url.format(kelas, mapel, tanggal)
+        # Melakukan request GET untuk mengambil data dari APi
+        response = requests.get(formated_url)
+        # Mengubah Data menjadi format JSON
+        data = json.loads(response.text)
+        print(data)
+        # Membuat variable untuk hasil final pesan balasan
+        final = ""
+        for index, absen in enumerate(data['data'], start=1):
+            # Setup Pesan Balasan
+            final = final + str(index) + '.)' + 'Nama : ' + str(absen['nama']) + '\n     ' + 'Jam Masuk : ' + str(absen['jam_masuk']) + '\n     ' + 'Jam Pulang : ' + str(absen['jam_pulang']) + '\n     ' + 'Keterangan : ' + str(absen['kehadiran']) +'\n' + '\n'
+        pesan_balasan = "Detail Absensi :\nTanggal : {}\nKelas : {}\nMata Pelajaran : {}\n==================\nDaftar Absensi Siswa:\n{}".format(tanggal, kelas_for_final, mapel_for_final, final)
+        Pinobot.reply_to(message, pesan_balasan)
 
 # Keep Update
 Pinobot.polling(none_stop=True)
