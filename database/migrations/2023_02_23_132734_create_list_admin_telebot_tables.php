@@ -1,22 +1,24 @@
 <?php
 
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    use SoftDeletes;
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
     public function up()
     {
-        Schema::create('kelas', function (Blueprint $table) {
+        Schema::create('list_admin_telebot_tables', function (Blueprint $table) {
             $table->id();
-            $table->string('kelas');
-            $table->string('nama_grup');
-            $table->string('nama_walas');
-            $table->bigInteger('chat_id');
-            $table->softDeletes();
+            $table->string('nama');
+            $table->string('email');
+            $table->string('status');
+            $table->bigInteger('id_telegram');
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kelas');
+        Schema::dropIfExists('list_admin_telebot_tables');
     }
 };

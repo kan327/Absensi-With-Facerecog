@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AbsenSiswa;
+use App\Models\AdminPinoBot;
 use App\Models\Guru;
 use App\Models\JadwalAbsen;
 use App\Models\kelas;
@@ -13,6 +14,34 @@ use Illuminate\Http\Request;
 
 class ApiAbsensiController extends Controller
 {
+    # Api Admin Pino Bot
+    # List Admin
+    public function list_admin()
+    {
+        $data_admin = AdminPinoBot::all();
+
+        return response()->json([
+            "status" => true,
+            "message" => "Daftar Admin Pino Bot",
+            "data" => $data_admin
+        ], 200);   
+    }
+
+    # Daftar Admin
+    public function daftar_admin(Request $request)
+    {
+        $adminPinoBot = AdminPinoBot::create([
+            'nama' => $request->nama,
+            'email' => $request->email,
+            'status' => $request->status,
+            'id_telegram' => $request->id_telegram
+        ]);
+
+        return response()->json([
+            'data' => $adminPinoBot
+        ]);
+    }
+
     public function index($kelas, $mapel, $tanggal)
     {
         $data_kelas = kelas::all()->where("kelas", $kelas)->first()->id;
