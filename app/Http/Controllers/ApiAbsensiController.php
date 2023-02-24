@@ -107,14 +107,17 @@ class ApiAbsensiController extends Controller
     # Absen Kehadiran Not Hadir
     public function absen_siswa_tidak_hadir($kelas_api, $mapel_api, $tanggal_api)
     {
+        
         # Configure Kelas
         $replaced_kelas = Str::replace('-', ' ', $kelas_api);
         $kelas = DB::table('kelas')->where('kelas', '=', $replaced_kelas)->get()->value('id');
         # Configure Mapel
         $replaced_mapel = Str::replace('-', ' ', $mapel_api);
         $mapel = DB::table('mapels')->where('pelajaran', 'like', '%'.$replaced_mapel.'%')->get()->value('id');
+        # Setup Variabel Not In For Get Absen Not Hadir
+        $notInHadir = ["Hadir", "Izin"];
         # Searching For Data Absensi Kehadiran
-        $absen_siswas = AbsenSiswa::with(["siswa", "kelas", "mapel", "guru"])->where("kelas_id", $kelas)->where("mapel_id", $mapel)->where("kehadiran", "=", "Hadir")->get();
+        $absen_siswas = AbsenSiswa::with(["siswa", "kelas", "mapel", "guru"])->where("kelas_id", $kelas)->where("mapel_id", $mapel)->whereNotIn('keterangan', $notInHadir)->get();
 
         # Setup Data Final
         $data_absen = [];
@@ -134,7 +137,7 @@ class ApiAbsensiController extends Controller
         return response()->json([
             "status" => true,
             "message" => "Absen",
-            "data" => $absen_siswas
+            "data" => $data_absen
         ], 200);  
     }
     // public function absen_siswa_tidak_hadir($kelas, $mapel, $tanggal, $kehadiran)
