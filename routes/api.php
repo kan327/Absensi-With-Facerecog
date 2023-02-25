@@ -22,6 +22,7 @@ Route::controller(ApiAbsensiController::class)->group(function (){
     # List Kelas
     Route::get("/list_kelas", "list_kelas");
     # List Guru
+    Route::get("/list_guru", "list_guru");
 
     Route::get("/absen_siswa_hadir/{kelas_api}/{mapel_api}/{tanggal_api}", "absen_hadir");
     # Check Absensi Where Status = Tidak Hadir

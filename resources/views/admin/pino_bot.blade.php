@@ -14,7 +14,7 @@
                 <div class="relative w-full">
                     <i class="hidden sm:block"><span class="z-40 cursor-pointer material-symbols-outlined absolute top-2 left-2 text-placeholder">search</span></i>
                     <i class="sm:hidden"><span class="z-40 cursor-pointer material-symbols-outlined absolute top-2 left-2 text-placeholder">search</span></i>
-                    <input type="text" id="search" placeholder="cari nama, kelas" class=" w-[100%] indent-10 placeholder:text-placeholder border-solid border-2 border-dark-data mr-1 mt-0.5 p-1 rounded-md" name="">
+                    <input type="text" id="search" placeholder="Cari nama, kelas" class=" w-[100%] indent-10 placeholder:text-placeholder border-solid border-2 border-dark-data mr-1 mt-0.5 p-1 rounded-md" name="">
                 </div>
             </form>
         </div>

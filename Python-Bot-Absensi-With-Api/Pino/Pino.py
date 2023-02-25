@@ -71,17 +71,20 @@ def list_kelas(message):
 
     if found:
         # API URL
-        url = "https://starabsen.onesolver.net/api/list_guru"
+        url = "http://127.0.0.1:8000/api/list_guru"
         # Melakukan request GET untuk mengambil data dari APi
         response = requests.get(url)
         # Mengubah Data menjadi format JSON
         data = json.loads(response.text)
-        # Membuat variable untuk hasil final pesan balasan
-        final = ""
-        for index, guru in enumerate(data['data'], start=1):
-            # Setup Pesan Balasan
-            final = final + str(index) + '.)' + 'Nama : ' + str(guru['name']) + '\n     ' + 'NIP : ' + str(guru['nip']) + '\n     ' + 'Jenis Kelamin : ' + str(guru['jenis_kelamin']) + '\n     ' + 'E-Mail : ' + str(guru['email']) + '\n     ' + 'No HP : ' + str(guru['no_hp']) +'\n' + '\n'
-        Pinobot.reply_to(message, "Berikut Adalah List Guru Yang Terdaftar Di Pino Bot :\n\n" + final)
+        if not(data):
+            Pinobot.reply_to(message, "Data Tidak Ditemukan")
+        else:
+            # Membuat variable untuk hasil final pesan balasan
+            final = ""
+            for index, guru in enumerate(data['data'], start=1):
+                # Setup Pesan Balasan
+                final = final + str(index) + '.)' + 'Nama : ' + str(guru['name']) + '\n     ' + 'NIP : ' + str(guru['nip']) + '\n     ' + 'Jenis Kelamin : ' + str(guru['jenis_kelamin']) + '\n     ' + 'E-Mail : ' + str(guru['email']) + '\n     ' + 'No HP : ' + str(guru['no_hp']) +'\n' + '\n'
+            Pinobot.reply_to(message, "Berikut Adalah List Guru Yang Terdaftar Di Pino Bot :\n\n" + final)
     else :
         Pinobot.reply_to(message, "Command Ini Hanya Tersedia Untuk Admin")
 
@@ -121,14 +124,17 @@ def check_absensi_hadir(message):
         response = requests.get(formated_url)
         # Mengubah Data menjadi format JSON
         data = json.loads(response.text)
-        print(data)
-        # Membuat variable untuk hasil final pesan balasan
-        final = ""
-        for index, absen in enumerate(data['data'], start=1):
-            # Setup Pesan Balasan
-            final = final + str(index) + '.)' + 'Nama : ' + str(absen['nama']) + '\n     ' + 'Jam Masuk : ' + str(absen['jam_masuk']) + '\n     ' + 'Jam Pulang : ' + str(absen['jam_pulang']) + '\n     ' + 'Keterangan : ' + str(absen['kehadiran']) +'\n' + '\n'
-        pesan_balasan = "Detail Absensi :\nTanggal : {}\nKelas : {}\nMata Pelajaran : {}\n==================\nDaftar Absensi Siswa:\n{}".format(tanggal, kelas_for_final, mapel_for_final, final)
-        Pinobot.reply_to(message, pesan_balasan)
+        if data['data'] is not None:
+            Pinobot.reply_to(message, "Data Tidak Ditemukan")
+        else :
+            Pinobot.reply_to(message, "Data Ditemukan")
+            # Membuat variable untuk hasil final pesan balasan
+            final = ""
+            for index, absen in enumerate(data['data'], start=1):
+                # Setup Pesan Balasan
+                final = final + str(index) + '.)' + 'Nama : ' + str(absen['nama']) + '\n     ' + 'Jam Masuk : ' + str(absen['jam_masuk']) + '\n     ' + 'Jam Pulang : ' + str(absen['jam_pulang']) + '\n     ' + 'Keterangan : ' + str(absen['kehadiran']) +'\n' + '\n'
+            pesan_balasan = "Detail Absensi :\nTanggal : {}\nKelas : {}\nMata Pelajaran : {}\n==================\nDaftar Absensi Siswa:\n{}".format(tanggal, kelas_for_final, mapel_for_final, final)
+            Pinobot.reply_to(message, pesan_balasan)
 
 # Absensi By Tidak Hadir
 @Pinobot.message_handler(commands=['check-absensi-not-hadir'])
@@ -165,14 +171,17 @@ def check_absensi_hadir(message):
         response = requests.get(formated_url)
         # Mengubah Data menjadi format JSON
         data = json.loads(response.text)
-        print(data)
-        # Membuat variable untuk hasil final pesan balasan
-        final = ""
-        for index, absen in enumerate(data['data'], start=1):
-            # Setup Pesan Balasan
-            final = final + str(index) + '.)' + 'Nama : ' + str(absen['nama']) + '\n     ' + 'Jam Masuk : ' + str(absen['jam_masuk']) + '\n     ' + 'Jam Pulang : ' + str(absen['jam_pulang']) + '\n     ' + 'Keterangan : ' + str(absen['kehadiran']) +'\n' + '\n'
-        pesan_balasan = "Detail Absensi :\nTanggal : {}\nKelas : {}\nMata Pelajaran : {}\n==================\nDaftar Absensi Siswa:\n{}".format(tanggal, kelas_for_final, mapel_for_final, final)
-        Pinobot.reply_to(message, pesan_balasan)
+        if data['data'] is not None:
+            Pinobot.reply_to(message, "Data Tidak Ditemukan")
+        else :
+            Pinobot.reply_to(message, "Data Ditemukan")
+            # Membuat variable untuk hasil final pesan balasan
+            final = ""
+            for index, absen in enumerate(data['data'], start=1):
+                # Setup Pesan Balasan
+                final = final + str(index) + '.)' + 'Nama : ' + str(absen['nama']) + '\n     ' + 'Jam Masuk : ' + str(absen['jam_masuk']) + '\n     ' + 'Jam Pulang : ' + str(absen['jam_pulang']) + '\n     ' + 'Keterangan : ' + str(absen['kehadiran']) +'\n' + '\n'
+            pesan_balasan = "Detail Absensi :\nTanggal : {}\nKelas : {}\nMata Pelajaran : {}\n==================\nDaftar Absensi Siswa:\n{}".format(tanggal, kelas_for_final, mapel_for_final, final)
+            Pinobot.reply_to(message, pesan_balasan)
 
 # Keep Update
 Pinobot.polling(none_stop=True)
