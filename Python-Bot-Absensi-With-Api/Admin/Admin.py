@@ -10,7 +10,7 @@ from datetime import date, datetime
 @Adminbot.message_handler(commands=['start'])
 def start(message):
     Adminbot.send_chat_action(message.chat.id, 'typing')
-    if(message.chat.id == 1789786125):
+    if(message.chat.id == 6222136051):
         Adminbot.reply_to(message, "Selamat Datang Kembali Admin")
     else :
         Adminbot.reply_to(message, "Command Ini Hanya Untuk Developer\nDeveloper Saya Adalah @lumi_novry")
@@ -19,7 +19,7 @@ def start(message):
 @Adminbot.message_handler(commands=['stop'])
 def stop(message):
     Adminbot.send_chat_action(message.chat.id, 'typing')
-    if(message.chat.id == 1789786125):
+    if(message.chat.id == 6222136051):
         Adminbot.reply_to(message, "Terima Kasih Sudah Menggunakan Admin Pino Bot🤖")
     else :
         Adminbot.reply_to(message, "Command Ini Hanya Untuk Developer\nDeveloper Saya Adalah @lumi_novry")
@@ -34,7 +34,7 @@ def profile(message):
 # List Admin
 @Adminbot.message_handler(commands=['list-admin'])
 def list_admin(message):
-    if(message.chat.id == 1789786125):
+    if(message.chat.id == 6222136051):
         # API URL
         url = "http://127.0.0.1:8000/api/list_admin"
         # Melakukan request GET untuk mengambil data dari APi
@@ -42,11 +42,14 @@ def list_admin(message):
         # Mengubah Data menjadi format JSON
         data = json.loads(response.text)
         # Membuat variable untuk hasil final pesan balasan
-        final = ""
-        for index, admin in enumerate(data['data'], start=1):
-            # Setup Pesan Balasan
-            final = final + str(index) + '.)' + 'Nama : ' + str(admin['nama']) + '\n     ' + 'E-Mail : ' + str(admin['email']) + '\n     ' + 'Status : ' + str(admin['status']) + '\n     ' + 'ID Telegram : ' + str(admin['id_telegram']) + '\n' + '\n'
-        Adminbot.reply_to(message, "Berikut Adalah List Admin Yang Terdaftar Di Pino Bot :\n\n" + final)
+        if data is not None and len(data['data']) > 0:
+            final = ""
+            for index, admin in enumerate(data['data'], start=1):
+                # Setup Pesan Balasan
+                final = final + str(index) + '.)' + 'Nama : ' + str(admin['nama']) + '\n     ' + 'E-Mail : ' + str(admin['email']) + '\n     ' + 'Status : ' + str(admin['status']) + '\n     ' + 'ID Telegram : ' + str(admin['id_telegram']) + '\n' + '\n'
+            Adminbot.reply_to(message, "Berikut Adalah List Admin Yang Terdaftar Di Pino Bot :\n\n" + final)
+        else:
+            Adminbot.reply_to(message, "Belum ada admin yang terdaftar")
     else :
         Adminbot.reply_to(message, "Command Ini Hanya Untuk Developer\nDeveloper Saya Adalah @lumi_novry")
 
