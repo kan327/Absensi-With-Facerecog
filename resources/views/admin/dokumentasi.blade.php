@@ -52,9 +52,10 @@
         <h1 class="text-3xl font-bold w-fit font-[Montserrat] mx-auto">Dokumentasi<div class="bg-bg-blue-dark w-3/4 h-1 rounded mx-auto"></div></h1>
         <!-- nav -->
         <div class="border-solid border-b-2 border-bg-blue-dark mt-5 p-5">
-            <div class="grid grid-cols-2 xl:gap-10 xl:w-2/5 md:text-base w-full text-sm md:gap-14 md:w-[50%] gap-5 mx-auto items-center font-medium">
+            <div class="grid grid-cols-3 xl:gap-10 xl:w-2/5 md:text-base w-full text-sm md:gap-14 md:w-[50%] gap-5 mx-auto items-center font-medium">
                 <div class="cursor-pointer bg-bg-blue-dark text-white rounded text-center font-semibold menu activeMenu"><p class="p-1" onclick="navigate('admin', this)">Admin</p></div>
                 <div class="cursor-pointer text-center menu" ><p class="p-1" onclick="navigate('pinoBot', this)">Pino Bot</p></div>
+                <div class="cursor-pointer text-center menu" ><p class="p-1" onclick="navigate('aboutUs', this)">About Us</p></div>
             </div>
         </div>
         <div class="p-10 pt-5">
@@ -93,6 +94,28 @@
                     <p>Admin Bot adalah bot telegram yang menjadi administrator dan mengolah data admin dari Pino Bot yang akan membantu kegiatan layanan informasi pendidikan SMK Taruna Bhakti</p>
                 </div>
             </div>
+
+            <!--- About Us --->
+            <div id="aboutUs" style="display: none; opacity: 0;" class="off">
+                <div class="mt-5">
+                    <h1 class="font-[Montserrat] text-xl"># Pino Bot</h1>
+                    <p>Pino Bot adalah bot telegram yang sudah terintegrasi dengan sistem database yang dapat membantu kegiatan layanan informasi pendidikan SMK Taruna Bhakti</p>
+                </div>
+                <div class="mt-5">
+                    <h1 class="font-[Montserrat] text-xl"># Kegunaan Pino Bot</h1>
+                    <ul>
+                        <li>Mengambil laporan absensi murid</li>
+                        <li>Mengupdate status kehadiran siswa</li>
+                        <li>DLL</li>
+                    </ul>
+                </div>
+                <div class="mt-5">
+                    <h1 class="font-[Montserrat] text-xl"># Admin Bot</h1>
+                    <p>Admin Bot adalah bot telegram yang menjadi administrator dan mengolah data admin dari Pino Bot yang akan membantu kegiatan layanan informasi pendidikan SMK Taruna Bhakti</p>
+                </div>
+            </div>
+
+
         </div>
     </div>
     <script>
