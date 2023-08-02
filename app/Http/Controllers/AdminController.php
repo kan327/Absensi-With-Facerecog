@@ -698,7 +698,7 @@ class AdminController extends Controller
         $image_type = $image_type_aux[1];
         
         $image_base64 = base64_decode($image_parts[1]);
-        while($i < 16) {
+        while($i < 5) {
             $fileName = $request->nama_siswa . '.' . $i . '.jpg';
             $i++;
             $file = $folderPath . $fileName;
