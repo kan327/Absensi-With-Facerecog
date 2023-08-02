@@ -13,7 +13,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     {{-- tailwind --}}
-    <script src="https://cdn.tailwindcss.com"></script>
+    @vite('resources/css/app.css')
+
     {{-- jquery --}}
     <script src="{{ asset('assets/JS/jquery.js') }}"></script>
     <!-- font montserrat -->

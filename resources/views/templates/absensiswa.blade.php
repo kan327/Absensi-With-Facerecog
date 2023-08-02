@@ -9,7 +9,8 @@
     <!-- style css -->
     <link rel="stylesheet" href="{{ asset('assets/CSS/output.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/CSS/suport.css') }}">
-    <script src="https://cdn.tailwindcss.com"></script>
+    @vite('resources/css/app.css')
+
     {{-- <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script> --}}
     <!-- config -->
     <script>

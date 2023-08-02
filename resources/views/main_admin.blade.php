@@ -31,8 +31,7 @@
     <title>@if($title == "dashboard_admin") Dashboard @endif @if($title == "pino_bot") Pino Bot @endif @if($title === "data_kelas_admin") Data Kelas @endif| Admin </title>
       
     {{-- tailwind --}}
-
-    <script src="https://cdn.tailwindcss.com"></script>
+    @vite('resources/css/app.css')
             
     <script src="{{ asset('assets/JS/jquery.js') }}"></script>
 

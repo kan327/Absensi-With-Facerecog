@@ -12,7 +12,7 @@
         <!-- style css -->
         <link rel="stylesheet" href="../static/assets/CSS/output.css">
         <link rel="stylesheet" href="../static/assets/CSS/suport.css">
-        <script src="https://cdn.tailwindcss.com"></script>
+        @vite('resources/css/app.css')
         <!-- config -->
         <script>
             tailwind.config = {

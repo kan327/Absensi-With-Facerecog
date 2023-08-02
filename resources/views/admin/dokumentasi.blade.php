@@ -16,7 +16,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Quicksand:wght@600;700&display=swap"
         rel="stylesheet">
     <!-- config -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    @vite('resources/css/app.css')
+
     <script>
         tailwind.config = {
             theme: {
