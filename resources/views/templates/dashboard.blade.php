@@ -7,9 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard | Starbhak Absensi</title>
     <!-- style css -->
-    <link rel="stylesheet" href="../static/assets/CSS/output.css">
-    <link rel="stylesheet" href="../static/assets/CSS/suport.css">
     @vite('resources/css/app.css')
+    <link rel="stylesheet" href="../static/assets/CSS/suport.css">
 
     <!-- config -->
     <script>

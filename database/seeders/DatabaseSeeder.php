@@ -163,6 +163,15 @@ class DatabaseSeeder extends Seeder
             "jenis_kelamin"=> "L",
             "password"=>Hash::make('123456')
         ]);
+        Guru::create([
+            "nip"=>'678672376',
+            "name"=>"Kanny Indira",
+            "username"=>"kanny",
+            "email"=>"kan@gmail.com",
+            "no_hp"=> "12312312312",
+            "jenis_kelamin"=> "L",
+            "password"=>Hash::make('123456')
+        ]);
 
         Guru::create([
             "nip"=>'678678678',

@@ -48,7 +48,8 @@
                                     @endforeach
                                 </select>
                                 <div onclick="search()" class="relative ml-2">
-                                    <span class="cursor-pointer material-symbols-outlined absolute top-1.5 left-1 text-placeholder">search</span>
+                                    <i class="fa-solid fa-magnifying-glass absolute top-1.5 left-1 text-placeholder cursor-pointer p-1"></i>
+                                    {{-- <span class=" material-symbols-outlined ">search</span> --}}
                                 </div>
                             </div>
                         </div>
@@ -63,7 +64,10 @@
                         <th class="p-3">Matapel</th>
                         <th class="p-3">Mulai</th>
                         <th class="p-3">Selesai</th>
-                        <th class="p-3"><span class="material-symbols-outlined">tune</span></th>
+                        <th class="p-3">
+                            <i class="fa-solid fa-sliders text-lg"></i>
+                            {{-- <span class="material-symbols-outlined">tune</span> --}}
+                        </th>
                     </tr>
                 </thead>
                 <!-- body -->

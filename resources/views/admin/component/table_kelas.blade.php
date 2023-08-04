@@ -5,7 +5,10 @@ class="border-tet-x text-tet-x border-t-0 border-l-0 border-r-0 border-[1px] tex
     <td>{{ $no_kelas++ }}</td>
     <td>{{ $kels['kelas'] }}</td>
     <td>
-        <a href="admin/kelas/{{ $kels->id }}"><span class="material-symbols-outlined text-red-600">delete</span></a>
+        <a href="admin/kelas/{{ $kels->id }}">
+            <i class="fa-regular fa-trash-can p-1 text-red-600"></i>
+            {{-- <span class="material-symbols-outlined text-red-600">delete</span> --}}
+        </a>
     </td>
 </tr>
 

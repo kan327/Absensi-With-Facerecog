@@ -55,21 +55,29 @@
         <!-- Sidebar left -->
         <div class="px-14 py-20 shadow-side w-fit h-[100vh] top-16 fixed">
             <a href="/">
-                <div class="text-unselect"><span class="material-symbols-outlined -mb-3 mr-5">home</span>
+                <div class="text-unselect">
+                    <i class="text-lg fa-regular fa-user -mb-3 mr-5 p-2 rounded-md hover:text-white hover:bg-bg-blue-dark"></i>
+                    {{-- <span class="material-symbols-outlined -mb-3 mr-5">home</span> --}}
                     Dashboard
                 </div>
             </a>
             <a href="/absensiswa">
-                <div class="font-semibold mt-10"><span class="material-symbols-outlined -mb-3 mr-5">library_books</span>
+                <div class="font-semibold mt-10">
+                    <i class="text-lg fa-regular fa-file -mb-3 mr-5 p-2 rounded-md hover:text-white hover:bg-bg-blue-dark"></i>
+                    {{-- <span class="material-symbols-outlined -mb-3 mr-5">library_books</span> --}}
                     Absen
                 </div>
             </a>
             <a href="/datasiswa">
-                <div class="mt-10 text-unselect"><span class="material-symbols-outlined -mb-3 mr-5">assignment_ind</span>
+                <div class="mt-10 text-unselect">
+                    <i class="text-lg fa-regular fa-folder -mb-3 mr-5 p-2 rounded-md hover:text-white hover:bg-bg-blue-dark"></i>
+                    {{-- <span class="material-symbols-outlined -mb-3 mr-5">assignment_ind</span> --}}
                     Data Siswa
                 </div>
             </a>
-            <div class="mt-10 text-unselect"><span class="material-symbols-outlined -mb-3 mr-5">sms_failed</span>
+            <div class="mt-10 text-unselect">
+                <i class="text-lg fa-regular fa-address-card -mb-3 mr-5 p-2 rounded-md hover:text-white hover:bg-bg-blue-dark"></i>
+                {{-- <span class="material-symbols-outlined -mb-3 mr-5">sms_failed</span> --}}
                 Laporan
             </div>
         </div>
