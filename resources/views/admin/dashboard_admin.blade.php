@@ -37,8 +37,14 @@
                         {{-- search --}}
                         <form action="">
                             <div class="relative w-full">
-                                <i class="hidden sm:block"><span onclick="opensrcadmin('search_guru', this, 90)" class="z-40 cursor-pointer material-symbols-outlined absolute top-2 left-2 text-placeholder">search</span></i>
-                                <i class="sm:hidden"><span onclick="opensrcadmin('search_guru', this, 100)" class="z-40 cursor-pointer material-symbols-outlined absolute top-2 left-2 text-placeholder">search</span></i>
+                                <i class="hidden sm:block">
+                                    <i onclick="opensrcadmin('search_guru', this, 90)" class="fa-solid fa-magnifying-glass z-40 cursor-pointer absolute top-3 left-2 text-placeholder"></i>
+                                    {{-- <span  class="">search</span></i> --}}
+                                </i>
+                                <i class="sm:hidden">
+                                    <i onclick="opensrcadmin('search_guru', this, 100)" class="fa-solid fa-magnifying-glass z-40 cursor-pointer absolute top-3 left-2 text-placeholder"></i>
+                                    {{-- <span  class="">search</span></i> --}}
+                                </i>
                                 <input placeholder="cari" class="select-none cursor-default w-[10%] opacity-0 indent-10 placeholder:text-placeholder border-solid border-2 border-dark-data mr-1 mt-0.5 p-1 rounded-md" name="" id="search_guru" type="text">
                             </div>
                         </form>
@@ -141,8 +147,14 @@
                     <div class="flex sm:flex-row flex-col sm:w-fit w-full">
                         <form action="">
                             <div class="relative w-full">
-                                <i class="hidden sm:block"><span onclick="opensrcadmin('search_siswa', this, 90)" class="z-40 cursor-pointer material-symbols-outlined absolute top-2 left-2 text-placeholder">search</span></i>
-                                <i class="sm:hidden"><span onclick="opensrcadmin('search_siswa', this, 100)" class="z-40 cursor-pointer material-symbols-outlined absolute top-2 left-2 text-placeholder">search</span></i>
+                                <i class="hidden sm:block">
+                                    <i onclick="opensrcadmin('search_siswa', this, 90)" class="fa-solid fa-magnifying-glass z-40 cursor-pointer absolute top-3 left-2 text-placeholder"></i>
+                                    {{-- <span  class="">search</span></i> --}}
+                                </i>
+                                <i class="sm:hidden">
+                                    <i onclick="opensrcadmin('search_siswa', this, 100)" class="fa-solid fa-magnifying-glass z-40 cursor-pointer absolute top-3 left-2 text-placeholder"></i>
+                                    {{-- <span  class="">search</span></i> --}}
+                                </i>
                                 <input type="text" placeholder="cari" class="select-none cursor-default w-[10%] opacity-0 indent-10 placeholder:text-placeholder border-solid border-2 border-dark-data mr-1 mt-0.5 p-1 rounded-md" name="" id="search_siswa">
                             </div>
                         </form>
@@ -208,7 +220,7 @@
                                 </select>
         
                                 <div onclick="search()" class="relative ml-2">
-                                    <span class="cursor-pointer material-symbols-outlined absolute top-1.5 left-1 text-placeholder">search</span>
+                                    <i class="fa-solid fa-magnifying-glass cursor-pointer absolute top-3 left-1 text-placeholder"></i>
                                 </div>
                             </div>
                         </div>

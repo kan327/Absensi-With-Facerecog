@@ -10,9 +10,8 @@
 
 <body>
         <!-- style css -->
-        <link rel="stylesheet" href="../static/assets/CSS/output.css">
-        <link rel="stylesheet" href="../static/assets/CSS/suport.css">
         @vite('resources/css/app.css')
+        <link rel="stylesheet" href="../static/assets/CSS/suport.css">
         <!-- config -->
         <script>
             tailwind.config = {

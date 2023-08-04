@@ -34,7 +34,9 @@
                 <h3 class="font-semibold text-sm">Jadwal</h3>
                 <h2 class="text-md md:text-lg lg:text-xl font-extrabold">Mata Pelajaran</h2>
             </div>
-            <int class="font-bold"><span class="material-symbols-outlined" style="font-size: 40px;">add_box</span>
+            <int class="font-bold">
+                <i class="fa-solid fa-plus" style="font-size: 40px;"></i>
+                {{-- <span class="material-symbols-outlined" style="font-size: 40px;">add_box</span> --}}
             </int>
         </div>
         <!-- box 3 -->
