@@ -47,13 +47,11 @@
 
         function start() {
 
-
-            navigator.getUserMedia({
+            navigator.mediaDevices.getUserMedia({
                     video: {}
-                },
-                stream => video.srcObject = stream,
-                err => console.error(err)
-            )
+                })
+                .then(stream => video.srcObject = stream)
+                .catch(err => console.error(err))
 
 
             recognizeFaces()
@@ -117,26 +115,19 @@
                             }
                         })
                     })
-
-
                 }, 100)
-
-
-
             })
         }
         // 
 
         function loadLabeledImages() {
             var data_siswa = document.getElementById("data_siswa")
-
-
             // console.log(labels.replace("&quot;", '"'))
             console.log(labels)
             return Promise.all(
                 labels.map(async (label) => {
                     const descriptions = []
-                    for (let i = 1; i <= 15; i++) {
+                    for (let i = 1; i <= 4; i++) {
                         const img = await faceapi.fetchImage("{{ asset('storage/cam_js/images') }}" +
                             `/${label}.${i}.jpg`)
                         const detections = await faceapi.detectSingleFace(img).withFaceLandmarks()
