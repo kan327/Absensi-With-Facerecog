@@ -9,8 +9,8 @@ from datetime import date, datetime
 # Start Bot
 @Adminbot.message_handler(commands=['start'])
 def start(message):
-    Adminbot.send_chat_action(message.chat.id, 'typing')
-    if(message.chat.id == 6222136051):
+    Adminbot.send_chat_action(message.from_user.id, 'typing')
+    if(message.from_user.id == 6222136051):
         Adminbot.reply_to(message, "Selamat Datang Kembali Admin")
     else :
         Adminbot.reply_to(message, "Command Ini Hanya Untuk Developer\nDeveloper Saya Adalah @lumi_novry")
@@ -18,8 +18,8 @@ def start(message):
 # Stop Server & Databse 
 @Adminbot.message_handler(commands=['stop'])
 def stop(message):
-    Adminbot.send_chat_action(message.chat.id, 'typing')
-    if(message.chat.id == 6222136051):
+    Adminbot.send_chat_action(message.from_user.id, 'typing')
+    if(message.from_user.id == 6222136051):
         Adminbot.reply_to(message, "Terima Kasih Sudah Menggunakan Admin Pino Bot🤖")
     else :
         Adminbot.reply_to(message, "Command Ini Hanya Untuk Developer\nDeveloper Saya Adalah @lumi_novry")
@@ -34,7 +34,7 @@ def profile(message):
 # List Admin
 @Adminbot.message_handler(commands=['list-admin'])
 def list_admin(message):
-    if(message.chat.id == 6222136051):
+    if(message.from_user.id == 6222136051):
         # API URL
         url = "http://127.0.0.1:8000/api/list_admin"
         # Melakukan request GET untuk mengambil data dari APi
@@ -57,7 +57,7 @@ def list_admin(message):
 @Adminbot.message_handler(commands=['daftar'])
 def daftar(message):
     # Tele ID
-    user_id = message.chat.id
+    user_id = message.from_user.id
     # API URL
     url = "http://127.0.0.1:8000/api/list_admin"
     # Melakukan request GET untuk mengambil data dari APi

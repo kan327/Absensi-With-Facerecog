@@ -129,7 +129,7 @@ def check_absensi_hadir(message):
 
 # Absensi By Tidak Hadir
 @Pinobot.message_handler(commands=['check-absensi-not-hadir'])
-def check_absensi_hadir(message):
+def check_absensi_not_hadir(message):
     # Check Status Admin
     # Tele ID
     user_id = message.from_user.id
