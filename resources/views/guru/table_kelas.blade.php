@@ -1,6 +1,13 @@
 @extends('main_guru')
 
 @section('content')
+    <!-- Modal -->
+    <dialog class="w-[500px] h-[300px] p-5 rounded-lg" id="tes">
+        <form action="">
+
+        </form>
+    </dialog>
+
     <!-- content -->
     <div class="absolute vp-860:left-72 sm:pl-10 vp-860:pr-20 vp-860:pl-10 pr-2 pl-2 sm:pr-10 vp-860:w-3/4 w-[100vw] //lgs:bg-black //bg-transparent mx-auto">
         <!-- card -->
@@ -10,6 +17,8 @@
                 <div class="//sm:w-1/2//">
                     <h1 class="font-bold  text-lg sm:text-xl md:text-2xl font-[Montserrat]">Daftar Siswa | XI-PPLG 2</h1>
                     <p>Lihat dan Periksa kembali murid anda</p>
+                    <button class="px-4 font-[quicksands] py-2 bg-green-600 rounded-xl text-white font-bold" onclick="tes()">
+                        Export Excel</button>
                 </div>
                 {{-- <div class="mt-1 sm:mt-0">
                     <button class="px-4 py-2 bg-bg-blue-dark rounded-xl text-white font-bold">+ Tambahkan
@@ -46,3 +55,11 @@
         </div>
     </div>
 @endsection
+
+<script>
+    function tes(){
+        document.getElementById('tes').showModal()
+    }
+
+    
+</script>

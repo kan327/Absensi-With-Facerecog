@@ -167,7 +167,7 @@ class DatabaseSeeder extends Seeder
             "nip"=>'678672376',
             "name"=>"Kanny Indira",
             "username"=>"kanny",
-            "email"=>"kan@gmail.com",
+            "email"=>" ",
             "no_hp"=> "12312312312",
             "jenis_kelamin"=> "L",
             "password"=>Hash::make('123456')
