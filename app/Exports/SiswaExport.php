@@ -51,7 +51,8 @@ class SiswaExport implements FromView
 
     public function __construct($id_absen, $tanggal, $kelas, $mapel)
     {
-        $absen = AbsenSiswa::whereIn("id", $id_absen)->where("tanggal", $tanggal)->where("kelas_id", $kelas)->get();
+        $absen = AbsenSiswa::whereIn("id", $id_absen)->whereMonth("tanggal", 8)->where("kelas_id", $kelas)->get();
+        dd($absen);
         $data_kelas = kelas::with(['siswas'])->find($kelas);
         $data_mapel = mapel::find($mapel);
 

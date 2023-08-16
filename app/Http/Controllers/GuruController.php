@@ -1,18 +1,22 @@
 <?php
 namespace App\Http\Controllers;
+use DateTime;
+
+// use AbsenExport;
 use Carbon\Carbon;
 use App\Models\Guru;
 use App\Models\User;
 use App\Models\image;
 use App\Models\kelas;
 use App\Models\mapel;
+// use Maatwebsite\Excel\Excel;
 use App\Models\Siswa;
 use App\Models\GuruKelas;
 use App\Models\GuruMapel;
 use App\Models\UserKelas;
 use App\Models\AbsenSiswa;
-// use Maatwebsite\Excel\Excel;
 use App\Models\JadwalAbsen;
+use App\Exports\AbsenExport;
 use App\Exports\SiswaExport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -855,14 +859,24 @@ class GuruController extends Controller
         $guru = Guru::all()->where('id', $id_guru);
 
         $data_mapel = mapel::all()->where("id", $mapel);
-        // dd($guru);
         // absen siswa
         $absen_siswa = AbsenSiswa::with(['kelas', 'guru', 'siswa'])->where('tanggal', $tanggal)->where("guru_id", $id_guru)->where("kelas_id", $kelas)->where("mapel_id", $mapel)->get();
+        // dd($absen_siswa);
     
         $date = Carbon::parse($tanggal)->translatedFormat('d F Y');
 
         // return (new SiswaExport($absen_siswa->pluck("id"), $tanggal, $kelas, $mapel))->download("Absensi $tanggal Kelas {$data_kelas->first()->kelas} Mata Pelajaran {$data_mapel->first()->pelajaran}.xlsx");
         return Excel::download(new SiswaExport($absen_siswa->pluck("id"), $tanggal, $kelas, $mapel), "Absensi $date Kelas {$data_kelas->first()->kelas} Mata Pelajaran {$data_mapel->first()->pelajaran}.xlsx");
+    }
+
+    public function excels(){
+        $year = 2024;
+        $monthNumber = 2;
+        $absen_siswa = AbsenSiswa::whereMonth('tanggal', $monthNumber)->whereYear('tanggal', $year )->get();
+
+
+        $monthName = date('F', mktime(0, 0, 0, $monthNumber, 1));
+        return Excel::download(new AbsenExport($year,$monthName), "Absen siswa $monthName.xlsx");
     }
     
 }
