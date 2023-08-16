@@ -870,13 +870,13 @@ class GuruController extends Controller
     }
 
     public function excels(){
-        $year = 2024;
-        $monthNumber = 2;
+        $year = 2023;
+        $monthNumber = 8;
         $absen_siswa = AbsenSiswa::whereMonth('tanggal', $monthNumber)->whereYear('tanggal', $year )->get();
 
-
+        
         $monthName = date('F', mktime(0, 0, 0, $monthNumber, 1));
-        return Excel::download(new AbsenExport($year,$monthName), "Absen siswa $monthName.xlsx");
+        return Excel::download(new AbsenExport($year, $monthNumber, $absen_siswa), "Absen siswa $monthName.xlsx");
     }
     
 }
