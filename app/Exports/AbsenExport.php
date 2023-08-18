@@ -3,6 +3,7 @@
 namespace App\Exports;
 
 use App\Models\Siswa;
+use App\Models\AbsenSiswa;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
@@ -16,32 +17,56 @@ class AbsenExport implements FromCollection, ShouldAutoSize, WithStyles
 {
     protected $year;
     protected $monthNumber;
+    protected $mapel;
+    protected $kelas;
 
-    public function __construct($year, $monthNumber, $absen_siswa)
+    public function __construct($year, $monthNumber, $mapel, $kelas)
     {
         $this->year = $year;
         $this->monthNumber = $monthNumber;
-        $this->absen_siswa = $absen_siswa;
+        $this->mapel = $mapel;
+        $this->kelas = $kelas;
     }
 
     public function collection()
     {
-        // dd($this->absen_siswa);
+        $absen_siswa = AbsenSiswa::with("siswa")->whereMonth('tanggal', $this->monthNumber)->whereYear('tanggal', $this->year )->where("kelas_id", $this->kelas)->get();
+
+
         $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $this->monthNumber, $this->year);
 
-        $dataArray = [];
-        for ($day = 1; $day <= $daysInMonth; $day++) {
-            $dataArray[] = $day;
-        }
+            $dataArray = [];
+            for ($day = 1; $day <= $daysInMonth; $day++) {
 
-        $names = Siswa::pluck('nama_siswa'); // Replace with your list of names
+                $absen_siswa_day = AbsenSiswa::whereMonth('tanggal', $this->monthNumber)->whereYear('tanggal', $this->year )->where("kelas_id", $this->kelas)->whereDay("tanggal", $day)->get();
+
+                $dataArray[] = [
+                    "day" => $day,
+                    "siswas" => []
+                ];
+
+                foreach($absen_siswa_day as $absen){
+                    $dataArray[$day - 1]['siswas'][] = [
+                        "nama" => $absen->siswa->nama_siswa,
+                        "kehadiran" => $absen->keterangan_absensi
+                    ];
+                }
+
+            }
+
+        // dd($dataArray);
+
+        $names = [];
+        foreach ($absen_siswa as $i => $absen) {
+            $names[] = $absen_siswa[$i]->siswa->nama_siswa; // Replace with your list of names
+        }
 
         $tableData = new Collection();
 
         // Create the header row
-        $headerRow = ['No', 'Name'];
-        foreach ($dataArray as $value) {
-            $headerRow[] = $value;
+        $headerRow = ['No', 'Nama Lengkap'];
+        foreach ($dataArray as $i => $value) {
+            $headerRow[] = $value['day'];
         }
         $tableData->push($headerRow);
 
@@ -51,14 +76,14 @@ foreach ($names as $name) {
     $rowData = [$rowNumber, $name];
     foreach ($dataArray as $day) {
         $cellValue = '';
-
+        
         // Get the student's ID
-        $student = Siswa::where('nama_siswa', $name)->get();
+        $student = Siswa::where('nama_siswa', $name)->first();
         $studentId = $student ? $student->id : null;
-        dd($studentId);
+        // dd($studentId);
 
         // Check if the student was absent
-        $absentRecord = $this->absen_siswa
+        $absentRecord = $absen_siswa
             ->where('id_siswa', $studentId) // Assuming the field is id_siswa
             ->filter(function ($record) use ($day) {
                 return $record->tanggal->day === $day && $record->keterangan === 'Belum Hadir';
