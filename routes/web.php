@@ -53,7 +53,7 @@ Route::controller(GuruController::class)->group(function(){
     
     // MaatWebsite
     Route::get("/absensi/excel/{tanggal}/{kelas}/{mapel}", "excel")->middleware("isLoginGuru");
-    Route::get("/absensi/excels", "excels")->middleware("isLoginGuru");
+    Route::get("/absensi/excels/{tanggal}/{kelas}/{mapel}", "excels")->middleware("isLoginGuru");
 
     // Camera
     // Route::get("/data_siswa/tambah_murid/cam_daftar/{id}", "cam_daftar")->middleware("isLoginGuru");

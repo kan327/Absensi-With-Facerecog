@@ -70,37 +70,33 @@ class AbsenExport implements FromCollection, ShouldAutoSize, WithStyles
         }
         $tableData->push($headerRow);
 
-// Populate the table with data
-$rowNumber = 1;
-foreach ($names as $name) {
-    $rowData = [$rowNumber, $name];
-    foreach ($dataArray as $day) {
-        $cellValue = '';
-        
-        // Get the student's ID
-        $student = Siswa::where('nama_siswa', $name)->first();
-        $studentId = $student ? $student->id : null;
-        // dd($studentId);
+        // Populate the table with data
+        $rowNumber = 1;
+        foreach ($names as $i => $name) {
+            $rowData = [$rowNumber, $name];
+            foreach ($dataArray as $ii => $day) {
 
-        // Check if the student was absent
-        $absentRecord = $absen_siswa
-            ->where('id_siswa', $studentId) // Assuming the field is id_siswa
-            ->filter(function ($record) use ($day) {
-                return $record->tanggal->day === $day && $record->keterangan === 'Belum Hadir';
-            })
-            ->first();
-
-        if ($absentRecord) {
-            $cellValue = '.';
+                $nama_from_absensi = [];
+                foreach($day['siswas'] as $iiii=> $absensi) {
+                    $nama_from_absensi[] = $absensi['nama'] ? $absensi['nama'] : [];
+                }
+                if(count($day['siswas']) > 0){
+                    // pluck nama siswa dari absen perhari
+                    if(in_array($name, $nama_from_absensi)){
+                        $absensi['kehadiran'] == "Hadir" ? $rowData[] = "." : $rowData[] = "";
+                    }else{
+                        $rowData[] = "";
+                    }
+                    
+                }else{
+                    $rowData[] = "";
+                }
+            }
+            $tableData->push($rowData);
+            $rowNumber++;
         }
 
-        $rowData[] = $cellValue;
-    }
-    $tableData->push($rowData);
-    $rowNumber++;
-}
-
-return $tableData;
+        return $tableData;
     }
 
     public function headings(): array
@@ -109,7 +105,7 @@ return $tableData;
         return [
             ['Absence Report for ' . $monthName . ' ' . $this->year],
             [], // Empty row for spacing
-            ['No', 'Name', ...$this->getDaysArray()],
+            ['No', 'Name'],
         ];
     }
 
@@ -128,7 +124,7 @@ return $tableData;
         $sheet->getStyle('A1:' . $lastColumn . '1')
             ->getBorders()
             ->getAllBorders()
-            ->setBorderStyle(Border::BORDER_MEDIUM);
+            ->setBorderStyle(Border::BORDER_THIN);
 
         // Apply alignment and padding to header cells
         $sheet->getStyle('A1:' . $lastColumn . '1')
@@ -139,6 +135,8 @@ return $tableData;
         $headerFont->setBold(true);
         $sheet->getStyle('A1:' . $lastColumn . '1')
             ->getAlignment()
+            ->setHorizontal(Alignment::HORIZONTAL_CENTER)
+            ->setVertical(Alignment::VERTICAL_CENTER)
             ->setWrapText(true);
 
         // Add additional styles as needed
@@ -147,4 +145,5 @@ return $tableData;
             // Return any additional styles here
         ];
     }
+    
 }

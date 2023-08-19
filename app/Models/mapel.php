@@ -12,6 +12,15 @@ class mapel extends Model
 
     protected $guarded = ['id'];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($post) {
+            $post->jadwal_absens()->delete();
+        });
+    }
+
     public function jadwal_absens()
     {
         return $this->hasMany(JadwalAbsen::class);

@@ -869,9 +869,9 @@ class GuruController extends Controller
         return Excel::download(new SiswaExport($absen_siswa->pluck("id"), $tanggal, $kelas, $mapel), "Absensi $date Kelas {$data_kelas->first()->kelas} Mata Pelajaran {$data_mapel->first()->pelajaran}.xlsx");
     }
 
-    public function excels(){
-        $kelas = 1;
-        $mapel = 3;
+    public function excels($tanggal, $kelas, $mapel){
+        // $kelas = 1;
+        // $mapel = 3;
         $year = 2023;
         $monthNumber = 8;
 
